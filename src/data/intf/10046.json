@@ -1,0 +1,29 @@
+{
+  "ga": "P46",
+  "docID": 10046,
+  "orig": "III (A)",
+  "early": 200,
+  "late": 225,
+  "lang": "g",
+  "shelves": [
+    {
+      "shelfmark": "CBL BP II",
+      "institution": "Chester Beatty Library",
+      "place": "Dublin",
+      "country": "Ireland",
+      "content": "p",
+      "leaves": "56, f 1-10"
+    },
+    {
+      "shelfmark": "Inv. Nr. 6238",
+      "institution": "University of Michigan Library",
+      "place": "Ann Arbor, MI",
+      "country": "USA",
+      "content": "p",
+      "leaves": "30"
+    }
+  ],
+  "supplemental": "",
+  "url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/?docID=10046&detail=shelfInstance",
+  "retrieved": "2026-11-19"
+}

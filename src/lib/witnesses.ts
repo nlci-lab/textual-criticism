@@ -17,5 +17,5 @@ export async function allWitnesses() {
 /** Alias key -> profile, checked for collisions at build time. */
 export async function aliasIndex() {
   const all = await allWitnesses();
-  return buildIndex(all.map((w) => ({ id: w.id, siglum: w.siglum, names: w.names, aliases: w.aliases, ga: w.greek_ms?.ga })));
+  return buildIndex(all.map((w) => ({ id: w.id, siglum: w.siglum, names: w.names, aliases: w.aliases, ga: w.greek_ms?.ga, scope: w.siglum_scope })));
 }

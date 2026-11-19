@@ -50,11 +50,15 @@ export function splitRun(raw: string): string[] {
   return raw.replace(/[\[\]();,/]+/g, ' ').split(/\s+/).filter(Boolean);
 }
 
-export interface IndexEntry { id: string; siglum: string; name: string; anchor?: string }
+export interface IndexEntry { id: string; siglum: string; name: string; scope?: string }
+type W = { id: string; siglum: string; names: string[]; aliases: string[]; ga?: string; scope?: string };
 
-/** Build alias -> witness map; throws on an unresolved collision so the build fails. */
-export function buildIndex(witnesses: { id: string; siglum: string; names: string[]; aliases: string[]; ga?: string }[]) {
-  const map = new Map<string, IndexEntry>();
+/**
+ * Build alias -> witnesses. A key may point to several witnesses only when every one of them
+ * declares a siglum scope (D = 05 in Gospels and Acts, 06 in Paul); otherwise the build fails (ADR 0003).
+ */
+export function buildIndex(witnesses: W[]) {
+  const map = new Map<string, IndexEntry[]>();
   const clashes: string[] = [];
   for (const w of witnesses) {
     const forms = new Set<string>([w.siglum, ...w.aliases, ...w.names, w.id]);
@@ -63,18 +67,14 @@ export function buildIndex(witnesses: { id: string; siglum: string; names: strin
     for (const f of forms) {
       const k = toKey(f);
       if (!k) continue;
-      const prev = map.get(k);
-      if (prev && prev.id !== w.id) clashes.push(`"${f}" -> ${prev.id} and ${w.id}`);
-      else map.set(k, { id: w.id, siglum: w.siglum, name: w.names[0] });
+      const list = map.get(k) ?? [];
+      if (list.some((e) => e.id === w.id)) continue;
+      if (list.length && (!w.scope || list.some((e) => !e.scope))) clashes.push(`"${f}" -> ${list.map((e) => e.id).join(', ')} and ${w.id}`);
+      list.push({ id: w.id, siglum: w.siglum, name: w.names[0], scope: w.scope });
+      map.set(k, list);
     }
   }
-  if (clashes.length) throw new Error(`Alias collisions need a disambiguation entry:\n${clashes.join('\n')}`);
+  if (clashes.length) throw new Error(`Alias collisions need a siglum_scope on each witness:\n${clashes.join('\n')}`);
   return map;
 }
 
-/** Aliases that become short URLs (/p66/, /aleph/). Keeps path-safe forms only. */
-export function shortPaths(key: string): string | null {
-  if (/^[a-z0-9-]+$/i.test(key)) return key;
-  if (key === 'א') return 'א';
-  return null;
-}

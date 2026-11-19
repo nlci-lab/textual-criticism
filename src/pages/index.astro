@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 import { aliasIndex, allWitnesses } from '../lib/witnesses';
 import { url } from '../lib/url';
 const index = await aliasIndex();
-const keys = Object.fromEntries([...index].map(([k, v]) => [k, v.id]));
-const ws = (await allWitnesses()).map((w) => ({ id: w.id, s: w.siglum, n: w.names[0], l: w.siglum_lang ?? '' }));
+const keys = Object.fromEntries([...index].map(([k, v]) => [k, v.map((e) => e.id)]));
+const ws = (await allWitnesses()).map((w) => ({ id: w.id, s: w.siglum, n: w.names[0] + (w.siglum_scope ? ` (${w.siglum_scope})` : ''), l: w.siglum_lang ?? '' }));
 ---
 <Base title="UBS Witnesses" nav="">
   <div class="home prose">
@@ -33,18 +33,18 @@ const ws = (await allWitnesses()).map((w) => ({ id: w.id, s: w.siglum, n: w.name
 <script>
   import { candidateKeys, splitRun, toKey } from '../lib/sigla';
   type W = { id: string; s: string; n: string; l: string };
-  const { keys, ws } = JSON.parse(document.getElementById('alias-data')!.textContent!) as { keys: Record<string, string>; ws: W[] };
+  const { keys, ws } = JSON.parse(document.getElementById('alias-data')!.textContent!) as { keys: Record<string, string[]>; ws: W[] };
   const byId = new Map(ws.map((w) => [w.id, w]));
   const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   const q = document.getElementById('q') as HTMLInputElement;
   const out = document.getElementById('results')!;
 
-  const resolve = (term: string) => candidateKeys(term).map((k) => keys[k]).find(Boolean) ?? null;
+  const resolve = (term: string): string[] => candidateKeys(term).map((k) => keys[k]).find(Boolean) ?? [];
 
   function search(text: string): W[] {
     const seen = new Set<string>();
     const hits: W[] = [];
-    const add = (id: string | null) => { if (id && !seen.has(id)) { seen.add(id); hits.push(byId.get(id)!); } };
+    const add = (ids: string[]) => { for (const id of ids) if (!seen.has(id)) { seen.add(id); hits.push(byId.get(id)!); } };
     add(resolve(text));                                   // exact siglum or name first
     const parts = splitRun(text);
     if (parts.length > 1) parts.forEach((p) => add(resolve(p)));

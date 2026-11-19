@@ -2,6 +2,7 @@
 id: bezae
 kind: greek_ms
 siglum: "D"
+siglum_scope: "the Gospels and Acts"
 names: ["Codex Bezae", "Codex Bezae Cantabrigiensis"]
 aliases: ["05", "D05", "Bezae", "Codex Bezae", "Cantabrigiensis"]
 lead: "A Greek and Latin book of the Gospels and Acts from about 400. Its text often differs sharply from other early manuscripts, especially in Acts."

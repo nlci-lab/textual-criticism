@@ -27,7 +27,7 @@ const sl = w.siglum_lang;
 <Base title={`${w.siglum} ${w.names[0]}`} description={w.lead}>
   <article class="profile">
     <header class="p-head">
-      <p class="label">{ms ? `${CAT[ms.category]} · GA ${ms.ga}` : KIND[w.kind]}</p>
+      <p class="label">{ms ? `${CAT[ms.category]} · GA ${ms.ga}` : KIND[w.kind]}{w.siglum_scope && ` · siglum ${w.siglum} in ${w.siglum_scope}`}</p>
       <h1><span class="siglum" lang={sl} dir="ltr">{w.siglum}</span> <span class="p-name">{w.names[0]}</span></h1>
       {w.names.length > 1 && <p class="muted small">Also called {w.names.slice(1).join(', ')}.</p>}
       <p class="lead prose" set:html={heSigla(w.lead)} />
@@ -38,13 +38,13 @@ const sl = w.siglum_lang;
     )}
 
     {w.date && <SpecCard siglum={w.siglum} siglumLang={sl} from={w.date.from} to={w.date.to} dateLabel={w.date.label}
-      material={ms?.material.value} leaves={ms?.leaves?.value} contents={ms?.contents} />}
+      material={ms?.material?.value} leaves={ms?.leaves?.value} contents={ms?.contents} />}
 
     <h2>At a glance</h2>
     <table class="facts">
       <tbody>
         {w.date && <tr><th scope="row">Date</th><td>{w.date.label}. <span class="muted">{w.date.basis}</span><Cite {...cites(w.date.src)} /></td></tr>}
-        {ms && <tr><th scope="row">Material</th><td>{ms.material.value}{ms.format && `, ${ms.format.value}`}<Cite {...cites(ms.material.src)} /></td></tr>}
+        {ms?.material && <tr><th scope="row">Material</th><td>{ms.material.value}{ms.format && `, ${ms.format.value}`}<Cite {...cites(ms.material.src)} /></td></tr>}
         {ms?.leaves && <tr><th scope="row">Leaves</th><td>{ms.leaves.value}<Cite {...cites(ms.leaves.src)} /></td></tr>}
         {ms && <tr><th scope="row">Contents</th><td>
           {ms.content_letters && <span>INTF content code <code>{ms.content_letters.value}</code>. </span>}
@@ -69,7 +69,7 @@ const sl = w.siglum_lang;
       </section>
     )}
 
-    {w.narrative_checked
+    {!entry.body?.trim() ? null : w.narrative_checked
       ? <section class="prose narrative"><Content /></section>
       : <section class="prose narrative unchecked-box" aria-labelledby="bg">
           <h2 id="bg">Background <span class="tag">not yet checked</span></h2>

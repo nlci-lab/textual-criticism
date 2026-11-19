@@ -17,7 +17,7 @@ const greekMs = z.object({
   ga: z.string(), // INTF form: P66, 01, 1739, L2211
   ntvmr_doc_id: z.number().int(),
   category: z.enum(['papyrus', 'majuscule', 'minuscule', 'lectionary']),
-  material: z.object({ value: z.enum(['papyrus', 'parchment', 'paper']), ...sourced }),
+  material: z.object({ value: z.enum(['papyrus', 'parchment', 'paper']), ...sourced }).optional(),
   format: z.object({ value: z.enum(['codex', 'roll', 'single leaf']), ...sourced }).optional(),
   leaves: z.object({ value: z.string(), ...sourced }).optional(),
   /** INTF content letters: e a p c r (see glossary). */
@@ -48,6 +48,8 @@ const witnesses = defineCollection({
     kind: z.enum(['greek_ms', 'group', 'version', 'father', 'ot_ms']),
     siglum: z.string(),                 // as printed in UBS5, Unicode superscripts allowed
     siglum_lang: z.string().optional(), // e.g. 'he' for א
+    /** Where this siglum means this witness, when the same letter means another one elsewhere (D = 05 in Gospels/Acts, 06 in Paul). */
+    siglum_scope: z.string().optional(),
     names: z.array(z.string()).min(1),
     aliases: z.array(z.string()).default([]),
     lead: z.string(),                   // one-sentence answer to "what is this?"

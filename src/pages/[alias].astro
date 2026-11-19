@@ -1,13 +1,14 @@
 ---
 // Static short URLs: /p66/, /aleph/, /01/, /B/ -> canonical profile. Works on GitHub Pages without a server.
+// A siglum shared by witnesses with different scopes (/D/ = 05 or 06) gets a small "which one?" page.
+import Base from '../layouts/Base.astro';
 import { aliasIndex, allWitnesses } from '../lib/witnesses';
 import { url } from '../lib/url';
 
 export async function getStaticPaths() {
   const RESERVED = new Set(['w', 'witnesses', 'guide', 'glossary']);
-  await aliasIndex(); // fails the build on alias collisions
-  const seen = new Map<string, string>();
-  const paths = [];
+  await aliasIndex(); // fails the build on unscoped alias collisions
+  const byPath = new Map<string, { p: string; ws: { id: string; siglum: string; name: string; scope?: string; lang?: string }[] }>();
   for (const w of await allWitnesses()) {
     const forms = [w.id, w.siglum, ...w.aliases, ...(w.greek_ms ? [w.greek_ms.ga] : [])];
     for (const f of forms) {
@@ -16,29 +17,39 @@ export async function getStaticPaths() {
       if (t === 'א') p = 'א';
       else if (/^[A-Za-z0-9-]+$/.test(t)) p = t.length === 1 ? t : t.toLowerCase();
       if (!p || RESERVED.has(p)) continue;
-      // Case-insensitive file systems cannot hold both /B/ and /b/: fail loudly rather than overwrite.
+      // Case-insensitive file systems cannot hold both /B/ and /b/; fold so a clash fails loudly.
       const fold = p.toLowerCase();
-      if (seen.has(fold)) {
-        if (seen.get(fold) !== w.id) throw new Error(`Short URL /${p}/ clashes with another witness`);
-        continue;
-      }
-      seen.set(fold, w.id);
-      paths.push({ params: { alias: p }, props: { id: w.id, siglum: w.siglum } });
+      const slot = byPath.get(fold) ?? { p, ws: [] };
+      if (slot.p !== p) throw new Error(`Short URL /${p}/ clashes with /${slot.p}/ on case-insensitive file systems`);
+      if (!slot.ws.some((x) => x.id === w.id)) slot.ws.push({ id: w.id, siglum: w.siglum, name: w.names[0], scope: w.siglum_scope, lang: w.siglum_lang });
+      byPath.set(fold, slot);
     }
   }
-  return paths;
+  return [...byPath.values()].map(({ p, ws }) => ({ params: { alias: p }, props: { ws } }));
 }
-const { id, siglum } = Astro.props;
-const target = url(`w/${id}/`);
+const { ws } = Astro.props;
+const one = ws.length === 1 ? url(`w/${ws[0].id}/`) : null;
 ---
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>{siglum}</title>
-  <meta http-equiv="refresh" content={`0; url=${target}`} />
-  <link rel="canonical" href={target} />
-  <meta name="robots" content="noindex" />
-</head>
-<body><p>Going to <a href={target}>{siglum}</a>.</p></body>
-</html>
+{one ? (
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <title>{ws[0].siglum}</title>
+      <meta http-equiv="refresh" content={`0; url=${one}`} />
+      <link rel="canonical" href={one} />
+      <meta name="robots" content="noindex" />
+    </head>
+    <body><p>Going to <a href={one}>{ws[0].siglum}</a>.</p></body>
+  </html>
+) : (
+  <Base title={`${ws[0].siglum}: which manuscript?`}>
+    <div class="prose which">
+      <h1>Which <span class="siglum" lang={ws[0].lang}>{ws[0].siglum}</span>?</h1>
+      <p>The UBS apparatus uses this siglum for more than one manuscript. Which one depends on the part of the New Testament.</p>
+      <ul class="results">
+        {ws.map((w) => <li><a href={url(`w/${w.id}/`)}><span class="siglum" lang={w.lang}>{w.siglum}</span><span class="r-name">{w.name} <span class="muted small">· in {w.scope}</span></span></a></li>)}
+      </ul>
+    </div>
+  </Base>
+)}
+<style>.which { margin-top: 1.5rem; }</style>

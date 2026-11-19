@@ -1,0 +1,44 @@
+---
+// Static short URLs: /p66/, /aleph/, /01/, /B/ -> canonical profile. Works on GitHub Pages without a server.
+import { aliasIndex, allWitnesses } from '../lib/witnesses';
+import { url } from '../lib/url';
+
+export async function getStaticPaths() {
+  const RESERVED = new Set(['w', 'witnesses', 'guide', 'glossary']);
+  await aliasIndex(); // fails the build on alias collisions
+  const seen = new Map<string, string>();
+  const paths = [];
+  for (const w of await allWitnesses()) {
+    const forms = [w.id, w.siglum, ...w.aliases, ...(w.greek_ms ? [w.greek_ms.ga] : [])];
+    for (const f of forms) {
+      const t = f.normalize('NFKC').replace(/\s+/g, '-');
+      let p: string | null = null;
+      if (t === 'א') p = 'א';
+      else if (/^[A-Za-z0-9-]+$/.test(t)) p = t.length === 1 ? t : t.toLowerCase();
+      if (!p || RESERVED.has(p)) continue;
+      // Case-insensitive file systems cannot hold both /B/ and /b/: fail loudly rather than overwrite.
+      const fold = p.toLowerCase();
+      if (seen.has(fold)) {
+        if (seen.get(fold) !== w.id) throw new Error(`Short URL /${p}/ clashes with another witness`);
+        continue;
+      }
+      seen.set(fold, w.id);
+      paths.push({ params: { alias: p }, props: { id: w.id, siglum: w.siglum } });
+    }
+  }
+  return paths;
+}
+const { id, siglum } = Astro.props;
+const target = url(`w/${id}/`);
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{siglum}</title>
+  <meta http-equiv="refresh" content={`0; url=${target}`} />
+  <link rel="canonical" href={target} />
+  <meta name="robots" content="noindex" />
+</head>
+<body><p>Going to <a href={target}>{siglum}</a>.</p></body>
+</html>

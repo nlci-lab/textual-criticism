@@ -1,0 +1,141 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import SpecCard from '../../components/SpecCard.astro';
+import CntrViewer from '../../components/CntrViewer.astro';
+import Cite from '../../components/Cite.astro';
+import { url } from '../../lib/url';
+import { heSigla, ltrHe } from '../../lib/he';
+
+export async function getStaticPaths() {
+  const all = await getCollection('witnesses');
+  return all.map((entry) => ({ params: { id: entry.data.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const w = entry.data;
+const ms = w.greek_ms;
+const { Content } = await render(entry);
+
+const n = new Map(w.sources.map((s, i) => [s.id, i + 1]));
+const checked = new Map(w.sources.map((s) => [s.id, s.checked]));
+/** Source numbers for a claim; `unchecked` when no cited source has been checked yet (ADR 0004). */
+const cites = (src: string[]) => ({ ns: src.map((s) => n.get(s)!).sort((a, b) => a - b), unchecked: !src.some((s) => checked.get(s)) });
+const CAT: Record<string, string> = { papyrus: 'Papyrus', majuscule: 'Majuscule', minuscule: 'Minuscule', lectionary: 'Lectionary' };
+const KIND: Record<string, string> = { greek_ms: 'Greek manuscript', group: 'Group reading', version: 'Ancient version', father: 'Church father', ot_ms: 'OT manuscript' };
+const sl = w.siglum_lang;
+---
+<Base title={`${w.siglum} ${w.names[0]}`} description={w.lead}>
+  <article class="profile">
+    <header class="p-head">
+      <p class="label">{ms ? `${CAT[ms.category]} · GA ${ms.ga}` : KIND[w.kind]}</p>
+      <h1><span class="siglum" lang={sl} dir="ltr">{w.siglum}</span> <span class="p-name">{w.names[0]}</span></h1>
+      {w.names.length > 1 && <p class="muted small">Also called {w.names.slice(1).join(', ')}.</p>}
+      <p class="lead prose" set:html={heSigla(w.lead)} />
+    </header>
+
+    {!w.ubs5_list_checked && (
+      <p class="small muted listcheck">Not yet checked against the printed UBS5 list of witnesses.</p>
+    )}
+
+    {w.date && <SpecCard siglum={w.siglum} siglumLang={sl} from={w.date.from} to={w.date.to} dateLabel={w.date.label}
+      material={ms?.material.value} leaves={ms?.leaves?.value} contents={ms?.contents} />}
+
+    <h2>At a glance</h2>
+    <table class="facts">
+      <tbody>
+        {w.date && <tr><th scope="row">Date</th><td>{w.date.label}. <span class="muted">{w.date.basis}</span><Cite {...cites(w.date.src)} /></td></tr>}
+        {ms && <tr><th scope="row">Material</th><td>{ms.material.value}{ms.format && `, ${ms.format.value}`}<Cite {...cites(ms.material.src)} /></td></tr>}
+        {ms?.leaves && <tr><th scope="row">Leaves</th><td>{ms.leaves.value}<Cite {...cites(ms.leaves.src)} /></td></tr>}
+        {ms && <tr><th scope="row">Contents</th><td>
+          {ms.content_letters && <span>INTF content code <code>{ms.content_letters.value}</code>. </span>}
+          {ms.contents.filter((c) => c.note).map((c) => <span>{c.book}: {c.note}. </span>)}
+          <Cite {...cites(ms.contents_src)} />
+        </td></tr>}
+        {ms && <tr><th scope="row">Held at</th><td>
+          {ms.holdings.map((h) => <div>{h.institution}, {h.place}: <span class="shelf">{h.shelfmark}</span>{h.note && <span class="muted"> ({h.note})</span>}<Cite {...cites(h.src)} /></div>)}
+        </td></tr>}
+        {w.group && <tr><th scope="row">Stands for</th><td>{w.group.members_note}<Cite {...cites(w.group.src)} /></td></tr>}
+        {w.text_character && <tr><th scope="row">Text character</th><td><Fragment set:html={heSigla(w.text_character.label)} />. <span class="muted" set:html={heSigla(w.text_character.contested_note)} /><Cite {...cites(w.text_character.src)} /></td></tr>}
+        {ms?.aland_category && <tr><th scope="row">Aland category</th><td>{ms.aland_category.value}<Cite {...cites(ms.aland_category.src)} /> <a class="small" href={url('glossary/#aland-category')}>what is this?</a></td></tr>}
+      </tbody>
+    </table>
+
+    {ms && ms.correctors.length > 0 && (
+      <section id="correctors">
+        <h2>Correctors</h2>
+        <dl class="correctors">
+          {ms.correctors.map((c) => <div><dt><span class="siglum" lang={sl} dir="ltr">{ltrHe(c.siglum)}</span></dt><dd><Fragment set:html={heSigla(c.note)} /><Cite {...cites(c.src)} /></dd></div>)}
+        </dl>
+      </section>
+    )}
+
+    {w.narrative_checked
+      ? <section class="prose narrative"><Content /></section>
+      : <section class="prose narrative unchecked-box" aria-labelledby="bg">
+          <h2 id="bg">Background <span class="tag">not yet checked</span></h2>
+          <p class="small muted">Written from the standard handbooks but not yet checked line by line against them. Treat it as a guide, not a source.</p>
+          <Content />
+        </section>}
+
+    {w.key_units.length > 0 && (
+      <section>
+        <h2>Where it matters</h2>
+        <ul class="units">
+          {w.key_units.map((u) => <li><strong>{u.ref}</strong> <Fragment set:html={heSigla(u.note)} /><Cite {...cites(u.src)} /></li>)}
+        </ul>
+      </section>
+    )}
+
+    <section>
+      <h2>See the manuscript</h2>
+      {ms?.cntr && <CntrViewer w={ms.cntr.w} v={ms.cntr.v} label={`${w.siglum} ${w.names[0]}`} />}
+      <ul class="links">
+        {w.links.map((l) => <li><a href={l.url} target="_blank" rel="noopener">{l.label} ↗</a> <span class="small muted">{l.licence === 'unconfirmed' ? 'Licence not yet confirmed; link only.' : l.licence}</span></li>)}
+      </ul>
+    </section>
+
+    {w.course_links.length > 0 && (
+      <section>
+        <h2>In the course</h2>
+        <ul>{w.course_links.map((c) => <li><strong>{c.module}</strong>: {c.label}</li>)}</ul>
+      </section>
+    )}
+
+    {w.unverified.length > 0 && (
+      <aside class="unverified" aria-labelledby="unv">
+        <h2 id="unv">Not yet verified</h2>
+        <p>These statements are kept apart because no source we can name has confirmed them yet. Do not rely on them.</p>
+        <ul>{w.unverified.map((u) => <li><Fragment set:html={heSigla(u.claim)} /> <em>(from: {u.from})</em></li>)}</ul>
+      </aside>
+    )}
+
+    <section class="sources">
+      <h2>Sources</h2>
+      <ol>
+        {w.sources.map((s) => <li id={`src-n${n.get(s.id)}`}>{s.url ? <a href={s.url}>{s.cite}</a> : s.cite}{!s.checked && <span class="tag">not yet checked</span>}</li>)}
+      </ol>
+      <p class="small muted">Last checked {w.last_checked}.</p>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .p-head { margin-top: 1.5rem; }
+  .p-head h1 { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; align-items: baseline; }
+  .p-head h1 .siglum { font-size: 1.15em; }
+  .lead { font-size: var(--step-1); line-height: 1.45; margin-top: 0.75rem; }
+  .listcheck { font-family: var(--sans); border-left: 3px solid var(--rule); padding-left: 0.6rem; }
+  .shelf { font-variant-caps: normal; }
+  .correctors { margin: 0; }
+  .correctors div { display: grid; grid-template-columns: 3.5rem 1fr; gap: 0.75rem; padding: 0.4rem 0; border-top: 1px solid var(--rule); }
+  .correctors dd { margin: 0; }
+  .units { padding-left: 1.1rem; }
+  .units li { margin-bottom: 0.6rem; }
+  .links { padding-left: 1.1rem; font-family: var(--sans); font-size: 0.9375rem; }
+  .links li { margin-bottom: 0.4rem; }
+  .unchecked-box { border: 1px dashed var(--rule); border-radius: 6px; padding: 0 1rem 0.25rem; margin-top: 2rem; }
+  .unchecked-box h2 { margin-top: 1rem; }
+  .sources ol { font-size: var(--step--1); padding-left: 1.4rem; }
+  .narrative :global(h2) { margin-top: 2rem; }
+  @media (max-width: 30rem) { .facts th { width: 6.5rem; } }
+</style>

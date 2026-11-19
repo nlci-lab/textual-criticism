@@ -1,0 +1,96 @@
+---
+// The profile's visual signature: date on a century axis, material, and which NT books survive.
+import { BOOKS } from '../content.config';
+interface Props {
+  siglum: string; siglumLang?: string; from: number; to: number; dateLabel: string;
+  material?: string; leaves?: string;
+  contents?: { book: string; status: string; note?: string }[];
+}
+const { siglum, siglumLang, from, to, dateLabel, material, leaves, contents } = Astro.props;
+
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI'];
+const W = 320, PAD = 8, x0 = PAD, x1 = W - PAD;
+const yr = (y: number) => x0 + ((Math.min(Math.max(y, 0), 1600)) / 1600) * (x1 - x0);
+
+const status = new Map((contents ?? []).map((c) => [c.book, c]));
+const groups: [string, string[]][] = [
+  ['Gospels', ['Mt', 'Mk', 'Lk', 'Jn']],
+  ['Acts & Catholic letters', ['Ac', 'Jas', '1Pe', '2Pe', '1Jn', '2Jn', '3Jn', 'Jd']],
+  ['Paul & Hebrews', ['Ro', '1Cor', '2Cor', 'Ga', 'Eph', 'Php', 'Col', '1Th', '2Th', 'He', '1Tm', '2Tm', 'Tt', 'Phm']],
+  ['Rev', ['Re']],
+];
+const cell = 9.4, gap = 1.2, groupGap = 5;
+let cx = x0;
+const cells: { x: number; book: string; st: string; title: string }[] = [];
+const groupLabels: { x: number; w: number; label: string }[] = [];
+for (const [label, books] of groups) {
+  const start = cx;
+  for (const b of books) {
+    const c = status.get(b);
+    const st = c?.status ?? 'absent';
+    cells.push({ x: cx, book: b, st, title: `${b}: ${st}${c?.note ? ` (${c.note})` : ''}` });
+    cx += cell + gap;
+  }
+  groupLabels.push({ x: start, w: cx - gap - start, label });
+  cx += groupGap;
+}
+const hasContents = !!contents?.length;
+const summary = hasContents
+  ? `Books: ${BOOKS.filter((b) => status.get(b) && status.get(b)!.status !== 'absent').map((b) => `${b} ${status.get(b)!.status}`).join(', ')}.`
+  : '';
+---
+<figure class="spec">
+  <div class="spec-head">
+    <span class="spec-siglum siglum" lang={siglumLang} dir="ltr">{siglum}</span>
+    <dl class="spec-meta">
+      <div><dt class="label">Date</dt><dd>{dateLabel}</dd></div>
+      {material && <div><dt class="label">Material</dt><dd>{material}</dd></div>}
+      {leaves && <div><dt class="label">Leaves</dt><dd>{leaves}</dd></div>}
+    </dl>
+  </div>
+  <svg viewBox={`0 0 ${W} ${hasContents ? 74 : 30}`} role="img" aria-label={`Made ${dateLabel}. ${summary}`}>
+    <line class="axis" x1={x0} x2={x1} y1="12" y2="12" />
+    {ROMAN.map((r, i) => (
+      <g>
+        <line class="tick" x1={yr(i * 100)} x2={yr(i * 100)} y1="9" y2="15" />
+        {(i % 2 === 0 || i === 15) && <text class="tick-label" x={yr(i * 100 + 50)} y="26" text-anchor="middle">{r}</text>}
+      </g>
+    ))}
+    <rect class="span" x={yr(from)} y="7" width={Math.max(3, yr(to + 1) - yr(from))} height="10" rx="2" />
+    {hasContents && cells.map((c) => (
+      <rect class={`book ${c.st}`} x={c.x} y="38" width={cell} height="16" rx="1.5"><title>{c.title}</title></rect>
+    ))}
+    {hasContents && groupLabels.map((g) => (
+      <text class="group-label" x={g.x} y="66">{g.label.length * 3.9 > g.w + 20 ? g.label.split(' ')[0] : g.label}</text>
+    ))}
+  </svg>
+  {hasContents && (
+    <figcaption class="small muted">
+      <span class="key"><i class="sw complete"></i>whole book</span>
+      <span class="key"><i class="sw partial"></i>part</span>
+      <span class="key"><i class="sw absent"></i>not extant</span>
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .spec { margin: 1.25rem 0; padding: 1rem; background: var(--paper-2); border-radius: 6px; max-width: 30rem; }
+  .spec-head { display: flex; gap: 1rem; align-items: center; margin-bottom: 0.5rem; }
+  .spec-siglum { font-size: 2.75rem; line-height: 1; min-width: 3.5rem; }
+  .spec-meta { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin: 0; font-family: var(--sans); }
+  .spec-meta dd { margin: 0; font-size: 0.9375rem; font-variant-numeric: lining-nums tabular-nums; }
+  svg { width: 100%; height: auto; display: block; font-family: var(--sans); }
+  .axis, .tick { stroke: var(--ink-2); stroke-width: 1; }
+  .tick-label { fill: var(--ink-2); font-size: 8px; }
+  .span { fill: var(--rubric); }
+  .book.complete { fill: var(--bar-full); }
+  .book.partial, .book.fragment { fill: var(--bar-part); }
+  .book.absent { fill: var(--bar-none); }
+  .group-label { fill: var(--ink-2); font-size: 7px; }
+  figcaption { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.25rem; font-family: var(--sans); }
+  .key { display: inline-flex; gap: 0.35rem; align-items: center; }
+  .sw { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 2px; }
+  .sw.complete { background: var(--bar-full); }
+  .sw.partial { background: var(--bar-part); }
+  .sw.absent { background: var(--bar-none); border: 1px solid var(--rule); }
+</style>

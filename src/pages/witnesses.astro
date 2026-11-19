@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import { allWitnesses } from '../lib/witnesses';
+import { url } from '../lib/url';
+const ws = await allWitnesses();
+type Wit = (typeof ws)[number];
+const GROUPS: [string, (w: Wit) => boolean][] = [
+  ['Papyri', (w) => w.greek_ms?.category === 'papyrus'],
+  ['Majuscules', (w) => w.greek_ms?.category === 'majuscule'],
+  ['Minuscules', (w) => w.greek_ms?.category === 'minuscule'],
+  ['Lectionaries', (w) => w.greek_ms?.category === 'lectionary'],
+  ['Group readings', (w) => w.kind === 'group'],
+];
+---
+<Base title="All witnesses" nav="witnesses/">
+  <h1 class="page-h1">All witnesses</h1>
+  <p class="muted prose">In the order the UBS apparatus cites them. Five sample profiles so far; the rest follow after review.</p>
+  {GROUPS.map(([label, f]) => {
+    const list = ws.filter(f);
+    return list.length > 0 && (
+      <section class="prose">
+        <h2>{label}</h2>
+        <ul class="results">
+          {list.map((w) => (
+            <li><a href={url(`w/${w.id}/`)}><span class="siglum" lang={w.siglum_lang}>{w.siglum}</span><span class="r-name">{w.names[0]} {w.date && <span class="muted small">· {w.date.label}</span>}</span></a></li>
+          ))}
+        </ul>
+      </section>
+    );
+  })}
+</Base>
+<style>.page-h1 { margin-top: 1.5rem; }</style>

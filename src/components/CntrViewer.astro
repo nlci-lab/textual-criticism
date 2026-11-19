@@ -1,0 +1,51 @@
+---
+// CNTR page view in a modal (ADR 0005). Without JS it is a plain link to greekcntr.org.
+interface Props { w: string; v: string; label: string }
+const { w, v, label } = Astro.props;
+const href = `https://greekcntr.org/manuscripts/?w=${encodeURIComponent(w)}&v=${encodeURIComponent(v)}`;
+---
+<div class="cntr">
+  <a class="cntr-open" href={href} data-cntr={href} target="_blank" rel="noopener">View pages at CNTR ↗</a>
+  <span class="small muted"> Transcribed page layout, {label}. © Center for New Testament Restoration; shown on their site.</span>
+  <dialog class="cntr-dialog" aria-label={`CNTR page view: ${label}`}>
+    <div class="cntr-bar">
+      <strong class="small">CNTR · {label}</strong>
+      <a class="small" href={href} target="_blank" rel="noopener">Open in new tab ↗</a>
+      <button type="button" class="cntr-close">Close</button>
+    </div>
+    <iframe title={`CNTR page view: ${label}`} loading="lazy"></iframe>
+  </dialog>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.cntr-open').forEach((a) => {
+    const dlg = a.parentElement!.querySelector('dialog')!;
+    const frame = dlg.querySelector('iframe')!;
+    a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || !('showModal' in dlg)) return;
+      e.preventDefault();
+      if (!frame.src) frame.src = a.dataset.cntr!;
+      dlg.showModal();
+    });
+    dlg.querySelector('.cntr-close')!.addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  });
+</script>
+
+<style>
+  .cntr { margin: 0.5rem 0 1rem; font-family: var(--sans); }
+  .cntr-open {
+    display: inline-block; padding: 0.5rem 0.9rem; border: 1px solid var(--rubric); border-radius: 6px;
+    text-decoration: none; font-weight: 600; font-size: 0.9375rem;
+  }
+  .cntr-dialog {
+    width: min(100vw, 64rem); height: min(100dvh, 52rem); max-width: 100vw; max-height: 100dvh;
+    padding: 0; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); color: var(--ink);
+  }
+  .cntr-dialog::backdrop { background: rgb(0 0 0 / 0.55); }
+  .cntr-dialog[open] { display: flex; flex-direction: column; }
+  .cntr-bar { display: flex; gap: 1rem; align-items: center; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--rule); }
+  .cntr-bar strong { margin-right: auto; }
+  .cntr-close { font: inherit; padding: 0.4rem 0.9rem; min-height: 2.5rem; border-radius: 6px; border: 1px solid var(--rule); background: var(--paper-2); color: var(--ink); cursor: pointer; }
+  iframe { flex: 1; width: 100%; border: 0; background: #fff; }
+</style>

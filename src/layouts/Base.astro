@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import { url } from '../lib/url';
+interface Props { title: string; description?: string; nav?: string }
+const { title, description = 'What each witness in the UBS Greek New Testament apparatus is, and why it matters.', nav } = Astro.props;
+const links = [
+  ['', 'Look up'],
+  ['witnesses/', 'All witnesses'],
+  ['guide/apparatus/', 'Reading the apparatus'],
+  ['glossary/', 'Glossary'],
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- display=optional: no font swap flash; slow connections keep the system serif. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew&text=%D7%90&display=optional" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=optional" />
+  <script is:inline>
+    try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <header class="site-head">
+    <div class="wrap">
+      <a class="brand" href={url()}>UBS Witnesses</a>
+      <nav aria-label="Main">
+        {links.map(([p, l]) => <a href={url(p)} aria-current={nav === p ? 'page' : undefined}>{l}</a>)}
+      </nav>
+      <button class="theme-toggle" type="button" id="theme-toggle" hidden>Dark</button>
+    </div>
+  </header>
+  <main class="wrap"><slot /></main>
+  <footer class="site-foot">
+    <div class="wrap">
+      <p>An NLCI field guide for Bible translators. Text CC BY-SA 4.0; code MIT. Images stay under their holders' terms and are linked, not copied.</p>
+    </div>
+  </footer>
+  <script is:inline>
+    (function () {
+      var b = document.getElementById('theme-toggle'); if (!b) return; b.hidden = false;
+      var root = document.documentElement;
+      function cur() { return root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
+      function label() { b.textContent = cur() === 'dark' ? 'Light' : 'Dark'; b.setAttribute('aria-label', 'Switch to ' + b.textContent.toLowerCase() + ' theme'); }
+      label();
+      b.addEventListener('click', function () { var t = cur() === 'dark' ? 'light' : 'dark'; root.dataset.theme = t; try { localStorage.setItem('theme', t); } catch (e) {} label(); });
+    })();
+  </script>
+</body>
+</html>

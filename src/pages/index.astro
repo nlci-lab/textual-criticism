@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import { aliasIndex, allWitnesses } from '../lib/witnesses';
+import { url } from '../lib/url';
+const index = await aliasIndex();
+const keys = Object.fromEntries([...index].map(([k, v]) => [k, v.id]));
+const ws = (await allWitnesses()).map((w) => ({ id: w.id, s: w.siglum, n: w.names[0], l: w.siglum_lang ?? '' }));
+---
+<Base title="UBS Witnesses" nav="">
+  <div class="home prose">
+    <h1>Look up a witness</h1>
+    <p class="muted">Type a siglum as you see it in the Paratext UBS apparatus, or paste a run of them.</p>
+    <form class="search" id="lookup" action={url('witnesses/')} role="search">
+      <label class="label" for="q">Siglum, GA number or name</label>
+      <input id="q" name="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false"
+        placeholder="𝔓66, א, B, 05, Byz" aria-describedby="q-help" aria-controls="results" />
+      <div class="keys" role="group" aria-label="Insert a special character">
+        <button type="button" data-ch="א" lang="he" aria-label="Insert aleph">א</button>
+        <button type="button" data-ch="𝔓" aria-label="Insert papyrus P">𝔓</button>
+        <button type="button" data-ch="ƒ" aria-label="Insert family f">ƒ</button>
+        <button type="button" data-ch="ℓ" aria-label="Insert lectionary l">ℓ</button>
+      </div>
+      <p id="q-help" class="small muted">Press Enter to open the first match. Marks like <span class="siglum">*</span>, <span class="siglum">²</span> or <span class="siglum">vid</span> lead to the same witness.</p>
+      <ul class="results" id="results" aria-live="polite"></ul>
+    </form>
+    <noscript><p>Search needs JavaScript. Use the <a href={url('witnesses/')}>list of all witnesses</a>, or go straight to an address like <code>{url('p66/')}</code>.</p></noscript>
+    <h2>Start here</h2>
+    <p><a href={url('guide/apparatus/')}>How to read a UBS apparatus entry</a>: John 1:18, taken apart piece by piece.</p>
+  </div>
+  <script type="application/json" id="alias-data" set:html={JSON.stringify({ keys, ws })}></script>
+</Base>
+
+<script>
+  import { candidateKeys, splitRun, toKey } from '../lib/sigla';
+  type W = { id: string; s: string; n: string; l: string };
+  const { keys, ws } = JSON.parse(document.getElementById('alias-data')!.textContent!) as { keys: Record<string, string>; ws: W[] };
+  const byId = new Map(ws.map((w) => [w.id, w]));
+  const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+  const q = document.getElementById('q') as HTMLInputElement;
+  const out = document.getElementById('results')!;
+
+  const resolve = (term: string) => candidateKeys(term).map((k) => keys[k]).find(Boolean) ?? null;
+
+  function search(text: string): W[] {
+    const seen = new Set<string>();
+    const hits: W[] = [];
+    const add = (id: string | null) => { if (id && !seen.has(id)) { seen.add(id); hits.push(byId.get(id)!); } };
+    add(resolve(text));                                   // exact siglum or name first
+    const parts = splitRun(text);
+    if (parts.length > 1) parts.forEach((p) => add(resolve(p)));
+    const k = toKey(text).toLowerCase();                  // then prefix matches on any alias
+    // Single-letter sigla are case-sensitive (B is not b), so they only match exactly, never by prefix.
+    if (k) for (const [alias, id] of Object.entries(keys)) if ([...alias].length > 1 && alias.toLowerCase().startsWith(k)) add(id);
+    return hits.slice(0, 12);
+  }
+
+  function show() {
+    const text = q.value.trim();
+    const hits = text ? search(text) : [];
+    out.replaceChildren(...hits.map((w) => {
+      const li = document.createElement('li'), a = document.createElement('a');
+      const s = document.createElement('span'), n = document.createElement('span');
+      a.href = `${base}w/${w.id}/`;
+      s.className = 'siglum'; s.textContent = w.s; if (w.l) s.lang = w.l;
+      n.className = 'r-name'; n.textContent = w.n;
+      a.append(s, n); li.append(a); return li;
+    }));
+    if (text && !hits.length) {
+      const li = document.createElement('li');
+      li.className = 'small muted';
+      li.textContent = 'No witness found. Only five sample profiles exist so far.';
+      out.append(li);
+    }
+  }
+
+  q.addEventListener('input', show);
+  document.getElementById('lookup')!.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const first = out.querySelector('a');
+    if (first) location.href = first.href;
+  });
+  document.querySelectorAll<HTMLButtonElement>('.keys button').forEach((b) => b.addEventListener('click', () => {
+    const ch = b.dataset.ch!, s = q.selectionStart ?? q.value.length, e = q.selectionEnd ?? s;
+    q.value = q.value.slice(0, s) + ch + q.value.slice(e);
+    q.focus(); q.setSelectionRange(s + ch.length, s + ch.length); show();
+  }));
+  const pre = new URLSearchParams(location.search).get('q');
+  if (pre) { q.value = pre; show(); }
+</script>

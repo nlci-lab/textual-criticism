@@ -1,0 +1,47 @@
+name: Build and deploy
+
+on:
+  push: { branches: [main] }
+  pull_request:
+  workflow_dispatch:
+
+permissions: { contents: read, pages: write, id-token: write }
+concurrency: { group: pages, cancel-in-progress: false }
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SITE_BASE: /textual-criticism/
+      SITE_URL: https://nlci-lab.github.io
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      # The build validates every witness file against the schema and fails on alias collisions.
+      - run: npm run build
+      # A root-based copy for checks, so local paths resolve without the Pages sub-path.
+      - name: Build check copy
+        run: SITE_BASE=/ npx astro build --outDir dist-check
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --root-dir ${{ github.workspace }}/dist-check 'dist-check/**/*.html'
+          fail: true
+      - name: Lighthouse (mobile, advisory)
+        continue-on-error: true
+        run: |
+          npx --yes @lhci/cli@0.14.0 autorun             --collect.staticDistDir=./dist-check             --collect.url=http://localhost/w/vaticanus/             --collect.url=http://localhost/             --upload.target=temporary-public-storage
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: dist }
+
+  deploy:
+    # Turned on after the sample profiles are reviewed: set repository variable PAGES_ENABLED=true.
+    if: github.ref == 'refs/heads/main' && vars.PAGES_ENABLED == 'true'
+    needs: build
+    runs-on: ubuntu-latest
+    environment: { name: github-pages, url: "${{ steps.deployment.outputs.page_url }}" }
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

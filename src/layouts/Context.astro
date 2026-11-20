@@ -31,7 +31,7 @@ let body = await Astro.slots.render('default');
 const used = new Set<string>();
 const toc: { id: string; text: string }[] = [];
 const strip = (h: string) => h.replace(/<span class="tag"[\s\S]*?<\/span>/g, '').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&#39;/g, '’').trim();
-body = body.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/g, (m, attrs: string, inner: string) => {
+body = body.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/g, (_m, attrs: string, inner: string) => {
   const text = strip(inner);
   let id = /\bid="([^"]+)"/.exec(attrs)?.[1];
   if (!id) {

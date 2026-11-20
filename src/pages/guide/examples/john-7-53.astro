@@ -12,7 +12,8 @@ const sources = [
   { cite: 'Our notes from a public paper presentation arguing that John wrote the passage (November 2026), with our own follow-up checks. The speaker is not named here.', checked: true },
   { cite: 'SBL Greek New Testament and the Robinson–Pierpont Byzantine text, searched for every word and phrase discussed in step 4.', checked: true },
   { cite: 'NET Bible, textual note on John 7:53–8:11 (for the witnesses that omit the passage, including 565 and 1424*).', checked: true },
-  { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005), on the passage.', checked: false },
+  { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005), pp. 70–1 (Codex Bezae) and pp. 319–20 (the passage: witnesses without it, earliest Greek witness, other places).', checked: true },
+  { cite: 'D. C. Parker, An Introduction to the New Testament Manuscripts and their Texts (Cambridge University Press, 2008), p. 283 (Codex Bezae, around 400) and p. 342 (the passage: count of witnesses without it, family 1 and family 13).', checked: true },
   { cite: 'Rayan J. Lobo, A Johannine Reading of the Pericope Adulterae (Mohr Siebeck, WUNT II, 2026); Onyekachi Ugwu, The Woman Caught in Adultery and the Gospel of John (Mohr Siebeck, WUNT II, 2026). Publisher descriptions only.', checked: true },
 ];
 ---
@@ -50,7 +51,7 @@ const sources = [
       <li class="reading">
         <p class="form">With the story</p>
         <p class="meaning">after John 7:52</p>
-        <p class="wits">Codex Bezae (<a href={w('bezae')}>D</a>, about 400) <span class="tag">not yet checked</span>, most later Greek manuscripts, the <a href={w('byz')}>Byzantine</a> text, Latin manuscripts. The Textus Receptus and the KJV have it.</p>
+        <p class="wits">Codex Bezae (<a href={w('bezae')}>D</a>, about 400 or the 5th century), most later Greek manuscripts, the <a href={w('byz')}>Byzantine</a> text, Latin manuscripts. The Textus Receptus and the KJV have it.</p>
       </li>
       <li class="reading printed">
         <span class="tag">UBS5: in ⟦ ⟧</span>
@@ -61,7 +62,7 @@ const sources = [
       <li class="reading">
         <p class="form">In another place</p>
         <p class="meaning">after Luke 21:38</p>
-        <p class="wits">The minuscules of family 13 (11th to 15th century). Other manuscripts place it elsewhere in John <span class="tag">not yet checked</span>.</p>
+        <p class="wits">The minuscules of family 13 (11th to 15th century). Other manuscripts place it elsewhere in John: one after 7:36, and family 1 at the end of the Gospel. A later Georgian translation has it after 7:44.</p>
       </li>
     </ul>
     <p>Two late manuscripts carry notes from their scribes. 565 says the story "is not in current copies" and was left out. 1424 says the verses are missing in some copies but "fully present" in the ancient ones <span class="tag">not yet checked</span>. So scribes already knew copies of both kinds.</p>
@@ -74,12 +75,12 @@ const sources = [
     <table class="qtable">
       <thead><tr><th scope="col">Question</th><th scope="col">With the story</th><th scope="col">Without the story</th><th scope="col">Leans</th></tr></thead>
       <tbody>
-        <tr><th scope="row">How old?</th><td data-h="With">Earliest Greek copy: Codex Bezae, about 400 <span class="tag">not yet checked</span>.</td><td data-h="Without">𝔓⁶⁶ and 𝔓⁷⁵, about 200, about a hundred years after John wrote.</td><td data-h="Leans"><span class="lean b">without</span></td></tr>
+        <tr><th scope="row">How old?</th><td data-h="With">Earliest Greek copy: Codex Bezae, about 400 or the 5th century.</td><td data-h="Without">𝔓⁶⁶ and 𝔓⁷⁵, about 200, about a hundred years after John wrote.</td><td data-h="Leans"><span class="lean b">without</span></td></tr>
         <tr><th scope="row">From where?</th><td data-h="With">Later Greek copies everywhere; Latin in the West.</td><td data-h="Without">The early papyri are from Egypt, but the Syriac versions and Θ are not. The omission is not only Egyptian.</td><td data-h="Leans"><span class="lean b">without</span></td></tr>
         <tr><th scope="row">How careful?</th><td data-h="With">Bezae often adds and rewords.</td><td data-h="Without"><span class="siglum" lang="he" dir="ltr">א</span> and B are carefully copied.</td><td data-h="Leans"><span class="lean b">without</span></td></tr>
         <tr><th scope="row">How widespread?</th><td data-h="With">Very widespread from about the 9th century.</td><td data-h="Without">Widespread early: Egypt, Syria, Caucasus.</td><td data-h="Leans"><span class="lean even">even</span></td></tr>
         <tr><th scope="row">Independent?</th><td data-h="With">The family 13 copies in Luke count as one witness, not many.</td><td data-h="Without">Several separate lines of copying.</td><td data-h="Leans"><span class="lean b">without</span></td></tr>
-        <tr><th scope="row">How many?</th><td data-h="With">About 1,600 Greek manuscripts <span class="tag">not yet checked</span>.</td><td data-h="Without">About 270 <span class="tag">not yet checked</span>.</td><td data-h="Leans"><span class="lean a">with</span></td></tr>
+        <tr><th scope="row">How many?</th><td data-h="With">About 1,600 Greek manuscripts <span class="tag">not yet checked</span>.</td><td data-h="Without">Nearly 300: 𝔓⁶⁶, 𝔓⁷⁵, <span class="siglum" lang="he" dir="ltr">א</span>, B, W, Ψ and 288 others.</td><td data-h="Leans"><span class="lean a">with</span></td></tr>
       </tbody>
     </table>
     <div class="caution">
@@ -156,7 +157,7 @@ const sources = [
       lwc={`Check how it prints the story. Most Bibles keep it in its usual place, in brackets or with a note.`}
       decides={`This is the kind of passage the policy names: one with a long tradition. Follow the regional-language Bible, and let the Review Committee decide whether and how to mark it.`}
       recommendation={`<p>Keep the story in its usual place: readers know it and churches preach from it. Mark it as your regional-language Bible does, or with brackets as the UBS text does, and add a fair note.</p><p>Word the note carefully. “The earliest manuscripts do not include this section” is true, but readers may take it to mean the story is false.</p>`}
-      actions={[{ kind: 'brackets', text: `Put 7:53–8:11 in brackets, if your regional-language Bible or Review Committee chooses to mark it that way.` }, { kind: 'footnote', text: `“Many early manuscripts do not have 7:53–8:11. Some place it after John 7:36, after John 21:25, or after Luke 21:38.” <span class="tag">not yet checked</span> Check the places against your own sources first.` }, { kind: 'committee', text: `The Review Committee decides inclusion and marking.` }, { kind: 'record', text: `Note the decision and the wording of the note in your project records.` }]} />
+      actions={[{ kind: 'brackets', text: `Put 7:53–8:11 in brackets, if your regional-language Bible or Review Committee chooses to mark it that way.` }, { kind: 'footnote', text: `“Many early manuscripts do not have 7:53–8:11. Some place it after John 7:36, at the end of John, or after Luke 21:38.”` }, { kind: 'committee', text: `The Review Committee decides inclusion and marking.` }, { kind: 'record', text: `Note the decision and the wording of the note in your project records.` }]} />
   </section>
   </div>
   <ExampleStyles />

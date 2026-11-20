@@ -6,10 +6,9 @@ import type { Witness } from '../lib/collate';
 import { url } from '../lib/url';
 interface Props { w: Witness; text: string; verseId: string; verseRef: string }
 const { w, text, verseId, verseRef } = Astro.props;
-const x = w as Witness & { ga?: string; material?: string; holding?: string; ntvmr?: string | number };
+const x = w;
 const page = `https://greekcntr.org/manuscripts/?w=${encodeURIComponent(w.cntr)}&v=${encodeURIComponent(verseId)}`;
-const ntvmr = x.ntvmr == null || x.ntvmr === '' ? undefined
-  : String(x.ntvmr).startsWith('http') ? String(x.ntvmr) : `https://ntvmr.uni-muenster.de/manuscript-workspace?docID=${encodeURIComponent(String(x.ntvmr))}`;
+const ntvmr = x.ntvmr ? `https://ntvmr.uni-muenster.de/manuscript-workspace?docID=${x.ntvmr}` : undefined;
 const id = `sgc-${w.id}-${Math.random().toString(36).slice(2, 8)}`;
 const lang = w.siglumLang, dir = w.siglumLang ? 'ltr' : undefined;
 const facts = [

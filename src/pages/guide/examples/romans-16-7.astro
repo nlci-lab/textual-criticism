@@ -3,6 +3,7 @@
 import Context from '../../../layouts/Context.astro';
 import { url } from '../../../lib/url';
 import ExampleStyles from '../../../components/ExampleStyles.astro';
+import DecideStep from '../../../components/DecideStep.astro';
 import Thumb from '../../../components/Thumb.astro';
 import Lightbox from '../../../components/Lightbox.astro';
 const w = (id: string) => url(`w/${id}/`);
@@ -150,16 +151,12 @@ const A = '<span class="siglum" lang="he" dir="ltr">א</span>';
   <section class="step">
     <span class="n">Step 6</span>
     <h2 id="step-6-decide-for-your-translation">Decide for your translation</h2>
-    <p class="ask">What will you print, and what will you tell your readers?</p>
-    <aside class="translator">
-      <h3>For the translator</h3>
-      <ul>
-        <li>If your language can give the name without marking gender, that stays closest to what the early manuscripts show.</li>
-        <li>If you must choose, the textual evidence, as far as it goes, leans to Junia. A footnote can give the other form.</li>
-        <li>Think about how readers and churches in your context will receive the choice.</li>
-        <li>If you hold a strong view on the wider question, ask a team member with a different view to review your decision.</li>
-      </ul>
-    </aside>
+    <DecideStep
+      ubs={`<span lang="grc">Ἰουνίαν</span> with the feminine accent: Junia. The letters are rated {A}; the accent is not rated.`}
+      lwc={`Check it. Translations differ: “Junia” in the NIV 2011, ESV, NRSV and NET; “Junias” in the NIV 1984, NASB and NJB.`}
+      decides={`The text policy says: never change the text to fit a theological position. If the team and the consultant cannot agree, consult at least two other senior consultants. The Review Committee decides where the regional-language Bible differs.`}
+      recommendation={`<p>If your language can give the name without marking gender, do that: it stays closest to what the early manuscripts show.</p><p>If you must choose, translate “Junia”, the form the evidence favours, and give the other form in a footnote. Think about how readers and churches in your context will receive the choice.</p>`}
+      actions={[{ kind: 'footnote', text: `“Some translations read ‘Junias’, a man’s name.”` }, { kind: 'consult', text: `If you hold a strong view on the wider question, ask someone with a different view to review the decision; if the team and consultant disagree, consult two other senior consultants.` }, { kind: 'committee', text: `Bring it to the Review Committee if your regional-language Bible has the other form.` }, { kind: 'record', text: `Note the decision and the reason in your project records.` }]} />
   </section>
   </div>
   <Lightbox />

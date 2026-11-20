@@ -4,6 +4,7 @@
 import Context from '../../../layouts/Context.astro';
 import { url } from '../../../lib/url';
 import ExampleStyles from '../../../components/ExampleStyles.astro';
+import DecideStep from '../../../components/DecideStep.astro';
 import Collation from '../../../components/Collation.astro';
 import * as J118 from '../../../data/collations/john-1-18';
 const w = (id: string) => url(`w/${id}/`);
@@ -148,13 +149,12 @@ const sources = [
   <section class="step">
     <span class="n">Step 6</span>
     <h2 id="step-6-decide-for-your-translation">Decide for your translation</h2>
-    <p class="ask">What will you print, and what will you tell your readers?</p>
-    <aside class="translator">
-      <h3>For the translator</h3>
-      <p><strong>If you follow the UBS text,</strong> say "God". Bibles do this in different ways: "It is God the only Son" (NRSV), "God the One and Only" (NIV 1984). Choose wording that does not sound like a second God. A footnote can say that many manuscripts read "the only Son".</p>
-      <p><strong>If your church's text policy or main reference Bible follows "Son",</strong> as RSV, NJB, REB and BJ do, a footnote can say that some of the oldest manuscripts read "God".</p>
-      <p>Either way, the verse still teaches that Jesus is close to the Father and makes him known. Many readers know this verse well, so a footnote is helpful here.</p>
-    </aside>
+    <DecideStep
+      ubs={`<span lang="grc">μονογενὴς θεός</span>, “only God”, rated {B}.`}
+      lwc={`Check it. Bibles that follow the Textus Receptus, such as the KJV, have “only begotten Son”; the RSV, NJB and REB also have “Son”. Many newer Bibles have “God”.`}
+      decides={`If your regional-language Bible has “Son”, the two differ: take it to your Review Committee.`}
+      recommendation={`<p>Follow the UBS text and translate “God”, worded so that it does not sound like a second God (for example “God the only Son”, NRSV, or “God the One and Only”, NIV 1984), and give “the only Son” in a footnote.</p><p>If your Review Committee chooses “Son” to match the regional-language Bible, that is a sound choice too: then give “God” in the footnote. Either way, the verse still teaches that Jesus is close to the Father and makes him known.</p>`}
+      actions={[{ kind: 'footnote', text: `“Other manuscripts read ‘the only Son’.” (or, if you print “Son”: “Some of the oldest manuscripts read ‘God’.”)` }, { kind: 'wording', text: `Check with your consultant that “God” is not heard as a second God.` }, { kind: 'committee', text: `Bring it to the Review Committee if your regional-language Bible reads “Son”.` }, { kind: 'none', text: `Brackets: not used for a one-word difference.` }, { kind: 'record', text: `Note the decision and the reason in your project records.` }]} />
   </section>
   </div>
   <ExampleStyles />

@@ -42,7 +42,7 @@ export const GET: APIRoute = async () => {
       const label = formatRef(ref);
       if (seen.has(label)) continue;
       seen.add(label);
-      out.push({ k: 'v', ref, label, title: g.cover, ctx: `Discussed in “${g.cover}”`, href: g.path });
+      out.push({ k: 'v', ref, label, title: g.cover, ctx: `Discussed in “${g.cover}”`, href: g.path, ...(g.section === 'example' ? { ex: true } : {}) });
     }
     out.push({ k: 'p', title: g.cover, kicker: KICKER[g.section], ctx: g.summary, href: g.path,
       text: [g.cover, g.summary, ...g.learn, ...(g.verses ?? [])].join(' ').toLowerCase() });

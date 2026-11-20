@@ -48,7 +48,7 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
     <div class="scroll-x">
       <svg viewBox={`0 0 ${W} ${chartH}`} role="img"
         aria-label="Chart: papyrus mostly 2nd to 4th century; parchment from the 4th century; paper for some manuscripts from about the 13th; majuscule script until about the 9th century; minuscule from the 9th.">
-        {ROMAN.map((r, i) => <line class="grid" x1={x(i + 1)} x2={x(i + 1)} y1={top - 4} y2={chartH - 22} />)}
+        {ROMAN.map((_r, i) => <line class="grid" x1={x(i + 1)} x2={x(i + 1)} y1={top - 4} y2={chartH - 22} />)}
         <line class="grid" x1={x(17)} x2={x(17)} y1={top - 4} y2={chartH - 22} />
         {rows.map((r, i) => (
           <g>

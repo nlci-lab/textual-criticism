@@ -1,0 +1,29 @@
+{
+  "ga": "P72",
+  "docID": 10072,
+  "orig": "III/IV",
+  "early": 200,
+  "late": 399,
+  "lang": "g",
+  "shelves": [
+    {
+      "shelfmark": "P. Bodmer VIII",
+      "institution": "Biblioteca Apostolica Vaticana",
+      "place": "Città del Vaticano",
+      "country": "Vatican City",
+      "content": "1P 1,1-5,14; 2P 1,1-3,18",
+      "leaves": "18"
+    },
+    {
+      "shelfmark": "P. Bodmer VII",
+      "institution": "Bibliotheca Bodmeriana",
+      "place": "Cologny/Genf",
+      "country": "Switzerland",
+      "content": "Jd",
+      "leaves": "?"
+    }
+  ],
+  "supplemental": "",
+  "url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/?docID=10072&detail=shelfInstance",
+  "retrieved": "2026-11-20"
+}

@@ -1,0 +1,21 @@
+{
+  "ga": "P74",
+  "docID": 10074,
+  "orig": "VII",
+  "early": 600,
+  "late": 699,
+  "lang": "g",
+  "shelves": [
+    {
+      "shelfmark": "P. Bodmer XVII",
+      "institution": "Bibliotheca Bodmeriana",
+      "place": "Cologny/Genf",
+      "country": "Switzerland",
+      "content": "Act 1,2-28,31+; Jc 1,1-5,20+; 1P 1,1-2.7-8.13.19-20.25; 2,6-7.11-12.18.24; 3,4-5; 2P 2,21; 3,4.11. 16; 1J 1,1.6; 2,1-2.7.13-14.18-19. 25-26; 3,1-2.8. 14.19-20; 4,1.6-7.12.16-17; 5,3-4.9-10.17; 2J 1.6-7.13; 3J 6.12; Jd 3.7.12. 18.24",
+      "leaves": "(124)"
+    }
+  ],
+  "supplemental": "",
+  "url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/?docID=10074&detail=shelfInstance",
+  "retrieved": "2026-11-20"
+}

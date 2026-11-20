@@ -1,0 +1,21 @@
+{
+  "ga": "P115",
+  "docID": 10115,
+  "orig": "III/IV",
+  "early": 200,
+  "late": 399,
+  "lang": "g",
+  "shelves": [
+    {
+      "shelfmark": "P. Oxy. 4499",
+      "institution": "Bodleian Art, Archaeology and Ancient World Library",
+      "place": "Oxford",
+      "country": "United Kingdom",
+      "content": "Ap 2,1-3.13-15.27-29; 3,10-12; 5,8-9; 6,4-6; 8,3-8.11-9,5.7-16.18-10,4. 8; 11,5.8-15.18-12,6.9-10.12-17; 13,1-3.6-12.13-16.17-14,3.5-7.10-11.14-16.18-15,1.5-7",
+      "leaves": "26 Frg"
+    }
+  ],
+  "supplemental": "",
+  "url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/?docID=10115&detail=shelfInstance",
+  "retrieved": "2026-11-20"
+}

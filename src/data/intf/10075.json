@@ -1,0 +1,21 @@
+{
+  "ga": "P75",
+  "docID": 10075,
+  "orig": "III (A)",
+  "early": 200,
+  "late": 225,
+  "lang": "g",
+  "shelves": [
+    {
+      "shelfmark": "Pap. Hanna.1 (Mater.Verbi)",
+      "institution": "Biblioteca Apostolica Vaticana",
+      "place": "Città del Vaticano",
+      "country": "Vatican City",
+      "content": "L 3,18-4,2+; 4,34-5,10; 5,37-18,18+; 22,4-24, 53; J 1,1-11,45. 48-57; 12,3-13, 10; 14,8-15,10",
+      "leaves": "50 (64)"
+    }
+  ],
+  "supplemental": "",
+  "url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/?docID=10075&detail=shelfInstance",
+  "retrieved": "2026-11-20"
+}

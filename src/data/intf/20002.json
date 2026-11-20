@@ -1,0 +1,21 @@
+{
+  "ga": "02",
+  "docID": 20002,
+  "orig": "V",
+  "early": 400,
+  "late": 499,
+  "lang": "g",
+  "shelves": [
+    {
+      "shelfmark": "Royal 1 D.VIII",
+      "institution": "British Library",
+      "place": "London",
+      "country": "United Kingdom",
+      "content": "eapr †",
+      "leaves": "144"
+    }
+  ],
+  "supplemental": "",
+  "url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/?docID=20002&detail=shelfInstance",
+  "retrieved": "2026-11-20"
+}

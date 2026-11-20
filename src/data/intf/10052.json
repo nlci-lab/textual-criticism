@@ -1,0 +1,21 @@
+{
+  "ga": "P52",
+  "docID": 10052,
+  "orig": "II (M)",
+  "early": 125,
+  "late": 175,
+  "lang": "g",
+  "shelves": [
+    {
+      "shelfmark": "Gr. P. 457",
+      "institution": "John Rylands University Library of Manchester",
+      "place": "Manchester",
+      "country": "United Kingdom",
+      "content": "J 18,31-33.37-38",
+      "leaves": "1 Frg"
+    }
+  ],
+  "supplemental": "",
+  "url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/?docID=10052&detail=shelfInstance",
+  "retrieved": "2026-11-20"
+}

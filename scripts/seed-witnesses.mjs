@@ -36,24 +36,55 @@ const ORD = (n) => n + (n % 10 === 1 && n !== 11 ? 'st' : n % 10 === 2 && n !== 
 const ROMAN = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8, IX: 9, X: 10, XI: 11, XII: 12, XIII: 13, XIV: 14, XV: 15, XVI: 16 };
 const PART = { A: 'early ', M: 'mid-', E: 'late ' };
 
-/** INTF date notation -> plain English: "III (A)" -> "early 3rd century", "III/IV" -> "3rd or 4th century". */
+/** INTF date notation -> plain English: "III (A)" or "A III" -> "early 3rd century", "III/IV" -> "3rd or 4th century". */
 function dateLabel(orig) {
-  const m = orig.match(/^([IVX]+)(?:\/([IVX]+))?(?:\s*\(([AME])\))?$/);
+  const m = orig.match(/^(?:([AME])\s+)?([IVX]+)(?:\/([IVX]+))?(?:\s*\(([AME])\))?$/);
   if (!m) return orig;
-  if (m[2]) return `${ORD(ROMAN[m[1]])} or ${ORD(ROMAN[m[2]])} century`;
-  return `${m[3] ? PART[m[3]] : ''}${ORD(ROMAN[m[1]])} century`;
+  if (m[3]) return `${ORD(ROMAN[m[2]])} or ${ORD(ROMAN[m[3]])} century`;
+  const part = m[1] ?? m[4];
+  return `${part ? PART[part] : ''}${ORD(ROMAN[m[2]])} century`;
 }
 
 const PARTS = { e: 'the Gospels', a: 'Acts and the Catholic letters', p: "Paul's letters", r: 'Revelation' };
-/** INTF content code ("eapr", "eP", "ea †") -> words. Capital letter = only part of that section survives. */
-function contentWords(code) {
-  const out = [];
-  for (const ch of code.replace(/[:†K].*$/, '').replace(/\s/g, '')) {
-    const k = ch.toLowerCase();
-    if (!PARTS[k]) continue;
-    out.push(ch === k ? PARTS[k] : `part of ${PARTS[k]}`);
+// INTF book abbreviations in verse lists -> our book ids and English names.
+const INTF_BOOK = {
+  Mt: ['Mt', 'Matthew'], Mk: ['Mk', 'Mark'], L: ['Lk', 'Luke'], J: ['Jn', 'John'], Act: ['Ac', 'Acts'], Jc: ['Jas', 'James'],
+  '1P': ['1Pe', '1 Peter'], '2P': ['2Pe', '2 Peter'], '1J': ['1Jn', '1 John'], '2J': ['2Jn', '2 John'], '3J': ['3Jn', '3 John'], Jd: ['Jd', 'Jude'],
+  R: ['Ro', 'Romans'], '1K': ['1Cor', '1 Corinthians'], '2K': ['2Cor', '2 Corinthians'], G: ['Ga', 'Galatians'], E: ['Eph', 'Ephesians'],
+  Ph: ['Php', 'Philippians'], Kol: ['Col', 'Colossians'], '1Th': ['1Th', '1 Thessalonians'], '2Th': ['2Th', '2 Thessalonians'],
+  H: ['He', 'Hebrews'], '1T': ['1Tm', '1 Timothy'], '2T': ['2Tm', '2 Timothy'], Tt: ['Tt', 'Titus'], Phm: ['Phm', 'Philemon'], Ap: ['Re', 'Revelation'],
+};
+const list = (xs) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs.at(-1)}` : xs[0] ?? '');
+
+/**
+ * INTF contents -> { words, books }. Two forms occur:
+ * a section code ("eapr †", "p", "eP: Mt": lower-case e/a/p/r = sections, capital P = only part survives,
+ * text after ":" names the books), or a verse list ("J 18,31-33; Ap 9,10-11,3").
+ */
+function parseContents(all) {
+  const books = new Map();
+  const names = [];
+  let gaps = false;
+  for (const code of all) {
+    const m = code.match(/^([eapr]+)(P?)\s*†?\s*(?::\s*(.*))?$/);
+    if (m) {
+      const partial = m[2] === 'P'; // † means some leaves are lost, handled below
+      if (/†/.test(code)) gaps = true;
+      const named = (m[3] ?? '').split(/[;,\s]+/).map((x) => INTF_BOOK[x]).filter(Boolean);
+      if (named.length) named.forEach(([id, n]) => { books.set(id, 'partial'); names.push(n); });
+      // A bare section code says which parts of the NT are present, not that every book in them is: no per-book bars.
+      else for (const ch of m[1]) names.push(`${partial ? 'parts of ' : ''}${PARTS[ch]}`);
+      continue;
+    }
+    if (INTF_BOOK[code.trim()]) { const b = INTF_BOOK[code.trim()]; if (!books.has(b[0])) { books.set(b[0], 'partial'); names.push(b[1]); } continue; }
+    for (const [, abbr] of code.matchAll(/(?:^|;\s*)(\d?[A-Z][a-z]*)\s+\d/g)) {
+      const b = INTF_BOOK[abbr];
+      if (b && !books.has(b[0])) { books.set(b[0], 'partial'); names.push(b[1]); }
+    }
   }
-  return out.length > 1 ? `${out.slice(0, -1).join(', ')} and ${out.at(-1)}` : out[0] ?? '';
+  const uniq = [...new Set(names)];
+  const words = uniq.length && !uniq.some((n) => n.includes(' letters') || n.includes('Gospels')) ? `parts of ${list(uniq)}` : list(uniq);
+  return { words: words && gaps ? `${words}, with some leaves lost` : words, books };
 }
 
 const PLACE = { 'Wien': 'Vienna', 'Cologny/Genf': 'Cologny, Geneva', 'Genf': 'Geneva', 'Köln': 'Cologne', 'München': 'Munich', 'Città del Vaticano': 'Vatican City', 'Firenze': 'Florence', 'Venezia': 'Venice', 'Roma': 'Rome', 'Moskva': 'Moscow', 'Sankt-Peterburg': 'St Petersburg', 'Athen': 'Athens', 'Kairo': 'Cairo' };
@@ -83,7 +114,7 @@ for (const f of (await readdir('src/data/intf')).filter((x) => x.endsWith('.json
   const date = dateLabel(r.orig);
   const main = [...r.shelves].sort((a, b) => nLeaves(b) - nLeaves(a))[0];
   const content = main?.content ?? '';
-  const words = contentWords(content);
+  const { words, books } = parseContents(r.shelves.map((s) => s.content).filter(Boolean));
   const catWord = { papyrus: 'papyrus', majuscule: 'majuscule', minuscule: 'minuscule', lectionary: 'lectionary' }[cat];
   const lead = `A Greek ${catWord} manuscript${words ? ` of ${words}` : ''}, from the ${date}${main ? `, now ${r.shelves.length > 1 ? 'mostly ' : ''}in ${place(main.place)}` : ''}.`;
   const leaves = r.shelves.map((s) => s.leaves).filter((x) => x && x !== '?' && x !== '0');
@@ -106,8 +137,8 @@ for (const f of (await readdir('src/data/intf')).filter((x) => x.endsWith('.json
       ga, ntvmr_doc_id: r.docID, category: cat,
       ...(cat === 'papyrus' ? { material: { value: 'papyrus', src: ['intf'] } } : {}),
       ...(leaves.length === 1 ? { leaves: { value: leaves[0], src: ['intf'] } } : leaves.length > 1 ? { leaves: { value: `${leaves.reduce((a, b) => a + (Number(b) || 0), 0)} in ${leaves.length} places`, src: ['intf'] } } : {}),
-      ...(content ? { content_letters: { value: `${content}${words ? ` (${words})` : ''}`, src: ['intf'] } } : {}),
-      contents: [],
+      ...(content ? { content_letters: { value: r.shelves.length > 1 ? r.shelves.map((s) => s.content).join('; ') : content, src: ['intf'] } } : {}),
+      contents: [...books].map(([book, status]) => ({ book, status })),
       contents_src: ['intf'],
       holdings: r.shelves.map((s) => ({
         institution: s.institution, place: place(s.place), shelfmark: s.shelfmark,

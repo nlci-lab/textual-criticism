@@ -1,0 +1,29 @@
+{
+  "ga": "P64",
+  "docID": 10064,
+  "orig": "III (A)",
+  "early": 200,
+  "late": 225,
+  "lang": "g",
+  "shelves": [
+    {
+      "shelfmark": "Ms. Gr. 17",
+      "institution": "Magdalen College",
+      "place": "Oxford",
+      "country": "United Kingdom",
+      "content": "eP: Mt",
+      "leaves": "3 Frg"
+    },
+    {
+      "shelfmark": "P. Monts.Roca inv. 1",
+      "institution": "Abadia de Montserrat",
+      "place": "Montserrat",
+      "country": "Spain",
+      "content": "eP: Mt",
+      "leaves": "2 Frg "
+    }
+  ],
+  "supplemental": "",
+  "url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/?docID=10064&detail=shelfInstance",
+  "retrieved": "2026-11-20"
+}

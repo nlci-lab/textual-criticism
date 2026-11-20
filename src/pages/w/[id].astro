@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import SpecCard from '../../components/SpecCard.astro';
 import CntrViewer from '../../components/CntrViewer.astro';
 import Cite from '../../components/Cite.astro';
+import PageImage from '../../components/PageImage.astro';
 import { url } from '../../lib/url';
 import { heSigla, ltrHe } from '../../lib/he';
 
@@ -88,6 +89,7 @@ const sl = w.siglum_lang;
 
     <section>
       <h2>See the manuscript</h2>
+      {w.page_image && <PageImage img={w.page_image} siglum={w.siglum} name={w.names[0]} siglumLang={sl} />}
       {ms?.cntr && <CntrViewer w={ms.cntr.w} v={ms.cntr.v} label={`${w.siglum} ${w.names[0]}`} />}
       <ul class="links">
         {w.links.map((l) => <li><a href={l.url} target="_blank" rel="noopener">{l.label} ↗</a> <span class="small muted">{l.licence === 'unconfirmed' ? 'Licence not yet confirmed; link only.' : l.licence}</span></li>)}

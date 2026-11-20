@@ -68,6 +68,12 @@ greek_ms:
   holdings:
     - { institution: "Cambridge University Library", place: "Cambridge", shelfmark: "MS Nn. 2.41", src: [intf] }
   cntr: { w: "m20005", v: "42001001" }
+page_image:
+  file: "img/ms/m20005-179v.webp"
+  width: 900
+  height: 1102
+  label: "Luke 5:38–6:9 (Greek page)"
+  source_url: "https://greekcntr.org/manuscripts/?w=m20005&v=42006004"
 ---
 
 Codex Bezae has Greek on the left-hand page and Latin on the right, line by line. It is named after Theodore Beza, the Reformer, who owned it before it went to Cambridge.

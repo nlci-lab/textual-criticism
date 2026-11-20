@@ -80,6 +80,10 @@ greek_ms:
   holdings:
     - { institution: "Biblioteca Apostolica Vaticana", place: "Vatican City", shelfmark: "Vat. gr. 1209", src: [intf, vat] }
   cntr: { w: "m20003", v: "43001001" }
+page_image:
+  label: "full images at the Vatican Library"
+  source_url: "https://digi.vatlib.it/view/MSS_Vat.gr.1209"
+  withheld: "The Vatican Library asks permission for online use of its manuscript photos. Out of courtesy we do not show a copy here; follow the link to see the page."
 ---
 
 Vaticanus is a parchment book written in capital letters, three columns to a page. It once held the whole Greek Bible. The New Testament part breaks off in Hebrews 9:14, so the rest of Hebrews, the letters to Timothy, Titus and Philemon, and Revelation are lost.

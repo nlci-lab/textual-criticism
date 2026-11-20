@@ -1,0 +1,33 @@
+---
+// One page of the manuscript: a self-hosted, resized copy of a CNTR photo, loaded only when scrolled to.
+// Where a copy is withheld (Vatican-held manuscripts, out of courtesy) it shows the reason and a link.
+import { url } from '../lib/url';
+interface Props {
+  img: { file?: string; width?: number; height?: number; label: string; source_url: string; withheld?: string };
+  siglum: string; name: string; siglumLang?: string;
+}
+const { img, siglum, name, siglumLang } = Astro.props;
+---
+{img.file && !img.withheld ? (
+  <figure class="page-img">
+    <a href={img.source_url} target="_blank" rel="noopener">
+      <img src={url(img.file)} width={img.width} height={img.height} loading="lazy" decoding="async"
+        alt={`Photograph of a page of ${name}, showing ${img.label}.`} />
+    </a>
+    <figcaption class="small">
+      <span class="siglum" lang={siglumLang} dir="ltr">{siglum}</span>, {img.label}. Image: <a href={img.source_url} target="_blank" rel="noopener">CNTR (greekcntr.org) ↗</a>.
+      <span class="muted">A faithful photograph of a public-domain document is public domain in the United States (<a href="https://scholar.google.com/scholar_case?case=5068002142390131270" target="_blank" rel="noopener">Bridgeman v. Corel, 1999</a>); use may be restricted in other countries.</span>
+    </figcaption>
+  </figure>
+) : (
+  <p class="page-img-withheld small">
+    {img.withheld}{' '}<a href={img.source_url} target="_blank" rel="noopener">See {img.label} ↗</a>
+  </p>
+)}
+
+<style>
+  .page-img { margin: 0.5rem 0 1.25rem; max-width: 26rem; }
+  .page-img img { display: block; width: 100%; height: auto; border-radius: 4px; background: var(--paper-2); }
+  .page-img figcaption { margin-top: 0.4rem; font-family: var(--sans); line-height: 1.45; }
+  .page-img-withheld { font-family: var(--sans); border-left: 3px solid var(--rule); padding-left: 0.6rem; color: var(--ink-2); }
+</style>

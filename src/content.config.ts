@@ -68,6 +68,15 @@ const witnesses = defineCollection({
     narrative_checked: z.boolean().default(false),
     unverified: z.array(z.object({ claim: z.string(), from: z.string() })).default([]),
     ubs5_list_checked: z.boolean(),
+    /** One page photo (ADR 0005): a self-hosted copy of a CNTR image, or, where withheld, a link to it. */
+    page_image: z.object({
+      file: z.string().optional(),            // under public/, e.g. img/ms/m10066-001v.webp
+      width: z.number().int().optional(),
+      height: z.number().int().optional(),
+      label: z.string(),                      // what the page shows, e.g. "John 1:14–21"
+      source_url: z.string().url(),           // the original image or viewer
+      withheld: z.string().optional(),        // why no copy is shown (shows a link instead)
+    }).optional(),
     course_links: z.array(z.object({ module: z.string(), label: z.string() })).default([]),
     last_checked: isoDate,
     greek_ms: greekMs.optional(),

@@ -1,0 +1,92 @@
+---
+import Context from '../../layouts/Context.astro';
+import { url } from '../../lib/url';
+const w = (id: string) => url(`w/${id}/`);
+const sources = [
+  { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism for Bible translators" (slides and talk "Textual criticism 1 - NT background, theory & principles"), EMDC, November 2021: the lists of external and internal evidence. Used with permission.', checked: true },
+  { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism Examples" (workbook prepared for EMDC, 9 November 2021), James 2:20. Used with permission.', checked: true },
+  { cite: 'Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed., on James 2:20 (read as quoted in the Hemphill workbook above).', checked: true },
+  { cite: 'Roger L. Omanson, A Textual Guide to the Greek New Testament, on James 2:20 (read as quoted in the Hemphill workbook above).', checked: true },
+  { cite: 'Tommy Wasserman and Peter J. Gurry, A New Approach to Textual Criticism: An Introduction to the Coherence-Based Genealogical Method (SBL Press, 2017).', checked: false },
+];
+---
+<Context title="Weighing the evidence" label="Guide" lastChecked="2026-11-20" sources={sources}
+  description="After you have read an apparatus entry: how to judge between the readings using external and internal evidence.">
+  <p class="lead">An apparatus entry tells you which manuscripts support which reading. It does not tell you which reading is right. To judge that, you weigh two kinds of evidence: the witnesses themselves (<em>external evidence</em>) and the wording (<em>internal evidence</em>).</p>
+  <p>If you are not yet sure how to read an entry, start with the <a href={url('guide/apparatus/')}>apparatus guide and its John 1:18 example</a>. For what the manuscripts look like and what they are made of, see <a href={url('background/materials/')}>materials</a>.</p>
+
+  <h2>External evidence: the witnesses</h2>
+  <p>A <em>witness</em> is any source for the text: a Greek manuscript, an early translation (a <em>version</em>), or a quotation in a church writer (a <em>father</em>). External evidence looks at these sources before looking at the words. Editors ask these things:</p>
+  <ul>
+    <li>Age. How old is the <em>earliest</em> witness for each reading? An older copy is likely to stand fewer copying steps from the original.</li>
+    <li>Source. Where does the witness come from, and which group of manuscripts does it belong to? Some groups have known habits. Codex Bezae (<a href={w('bezae')}>D 05</a>), for example, often adds words that explain.</li>
+    <li>Quality. Was the copy made with care? <a href={w('vaticanus')}>Codex Vaticanus</a> and <a href={w('sinaiticus')}>Codex Sinaiticus</a> were copied very carefully. A hurried copy is more likely to contain slips.</li>
+    <li>Spread. Do witnesses from different regions agree? Agreement between Egypt, Syria and Italy is hard to explain as one local mistake.</li>
+    <li>Relationship. Are the witnesses independent, or were they copied from each other?</li>
+    <li>Number. How many manuscripts have the reading? This comes last.</li>
+  </ul>
+
+  <h3>Why we do not simply count</h3>
+  <p>Most Greek manuscripts are late. A large share come from the tenth century or later, and many belong to the Byzantine group (cited in UBS as <a href={w('byz')}>Byz</a>). If five hundred late copies all go back to one ancestor, they are really one witness repeated five hundred times. Two early, independent copies can outweigh them. Number matters only when the other questions give no answer.</p>
+
+  <h2>Internal evidence: the words</h2>
+  <p>Internal evidence looks at the readings themselves. It asks two different questions.</p>
+  <p><em>Transcriptional</em> evidence asks: what was a scribe likely to do? Scribes made slips of the eye and hand. They also made changes on purpose: they explained hard wording, smoothed grammar, and made one passage match another.</p>
+  <p><em>Intrinsic</em> evidence asks: what was the author likely to write? Does the reading fit this writer's words, style and thought?</p>
+
+  <h3>Rules of thumb</h3>
+  <p>Textual critics use a few rules. Each one is a guide, not a law.</p>
+  <dl class="terms">
+    <dt>The reading that best explains the others</dt>
+    <dd>If reading A easily explains how B arose, but B does not explain A, prefer A. The other rules are ways of applying this one.</dd>
+    <dt>The harder reading</dt>
+    <dd>Scribes removed difficulties more often than they created them. A rough or surprising reading is often older. Limit: a reading can be hard because it is a plain mistake.</dd>
+    <dt>The shorter reading</dt>
+    <dd>Scribes added explaining words more often than they removed words. Limit: scribes also dropped words by accident, for example when their eye jumped between two similar lines. Never use this rule alone.</dd>
+    <dt>Harmonization</dt>
+    <dd>A reading that makes a verse match a nearby verse, or one Gospel match another, is often the later one.</dd>
+    <dt>The author's style</dt>
+    <dd>Prefer the reading that fits the author's usual words and ideas. Limit: a scribe can also "correct" a text toward the author's usual style.</dd>
+  </dl>
+  <p>Every rule can be argued both ways by someone who has already chosen an answer. Before you state a conclusion, say which rule you are using and why.</p>
+
+  <h2>A worked example: James 2:20</h2>
+  <p>Some Bibles say faith without works is "useless". Others, including the King James Version, say it is "dead". The UBS text reads <span lang="grc">ἀργή</span> ("useless") and gives it a {'{B}'} rating. The entry, shortened:</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Reading</th><th>Some witnesses</th><th>Earliest</th></tr></thead>
+      <tbody>
+        <tr><td><span lang="grc">ἀργή</span> "useless"</td><td><a href={w('vaticanus')}>B</a>, C* (first hand of Codex C), 1739, some Latin, Sahidic Coptic</td><td>4th c.</td></tr>
+        <tr><td><span lang="grc">νεκρά</span> "dead"</td><td><a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span></a>, <a href={w('alexandrinus')}>A</a>, C² (a later corrector of C), <a href={w('byz')}>Byz</a>, Syriac</td><td>4th c.</td></tr>
+        <tr><td><span lang="grc">κενή</span> "empty"</td><td><a href={w('p74')}>𝔓⁷⁴</a>, one Latin manuscript</td><td>7th c.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The external evidence is close. Both main readings have a fourth-century codex and good early support. "Dead" has many more manuscripts, but as we saw, number counts for little. So internal evidence must decide.</p>
+  <ul>
+    <li>Verses 17 and 26 both say faith without works is "dead". A scribe who had just copied "dead" could easily write it again in verse 20. That is harmonization. It is hard to see why a scribe would change "dead" to "useless" in verse 20 only.</li>
+    <li><span lang="grc">ἀργή</span> is built from "not" + <span lang="grc">ἔργον</span> ("work"), and it stands next to <span lang="grc">ἔργων</span> ("works"). This play on words, roughly "faith without works is workless", is the kind of thing an author writes and a scribe flattens.</li>
+    <li>Codex C was first written with "useless" and later corrected to "dead". Inside that one manuscript, the change ran in that direction.</li>
+    <li>The rare <span lang="grc">κενή</span> ("empty") is probably an echo of <span lang="grc">κενέ</span> ("empty", "foolish") earlier in the same verse.</li>
+  </ul>
+  <p>The UBS committee, as Metzger reports, chose "useless" for the first two reasons. Omanson adds that the two words mean much the same here. For a translator, this means the choice changes little in meaning. If your readers know "dead", you can follow the UBS text and still respect their Bible.</p>
+
+  <h2>How the CBGM changes the picture</h2>
+  <p>In some books (the Catholic letters, James to Jude, in UBS5) the editors used the <em>Coherence-Based Genealogical Method</em> (CBGM). A computer compares the full text of many manuscripts and shows how closely each one agrees with each other one. The editors then judge, place by place, which reading gave rise to which, and check whether those judgments fit together across the whole book. The method looks at how texts relate, not at the age of the parchment or at old group names like "Alexandrian". Where the editors found two readings equally strong, the edition marks the place with a <a href={url('glossary/#diamond')}>♦</a>.</p>
+  <p>The CBGM still depends on the same judgments described above. It does not replace them; it tests them against one another.</p>
+
+  <aside class="unverified" aria-labelledby="unv">
+    <h2 id="unv">Not yet verified</h2>
+    <p>These statements are kept apart because no source we can name has confirmed them yet. Do not rely on them.</p>
+    <ul>
+      <li>Scholars disagree about how much the CBGM changes. Its supporters say it gives a more objective, testable picture of how manuscripts relate. Critics say its results depend heavily on the editors' own decisions at each variant, so it can appear more objective than it is. Who holds which view needs checking against Wasserman and Gurry (2017) and published reviews.</li>
+      <li>Whether the CBGM gives the oldest manuscripts less weight than older methods did is debated and needs a source.</li>
+    </ul>
+  </aside>
+</Context>
+
+<style>
+  .scroll { overflow-x: auto; max-width: 100%; }
+  .scroll table { border-collapse: collapse; min-width: 32rem; }
+  .scroll th, .scroll td { text-align: left; padding: 0.35rem 0.6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+</style>

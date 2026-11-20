@@ -1,0 +1,84 @@
+---
+import Context from '../../layouts/Context.astro';
+import { url } from '../../lib/url';
+const g = (id: string) => url(`glossary/#${id}`);
+const sources = [
+  { cite: 'Adapted from Thomas Hemphill, "Textual Criticism of the NT: background, theory and principles", EMDC (Nov. 2021), slides and recorded talk: the UBS5 ratings of certainty, when a translator needs to make a textual decision, footnoting significant variation, and John 1:19. Used with permission.', checked: true },
+  { cite: 'Adapted from Thomas Hemphill, "Textual Criticism of the NT: practical examples", EMDC (Nov. 2021), recorded talk: Romans 16:7 and what the {A} rating covers. Used with permission.', checked: true },
+  { cite: 'The Greek New Testament, 5th rev. ed. (United Bible Societies / Deutsche Bibelgesellschaft, 2014), introduction pp. 8–9 on the ratings, as quoted in the Hemphill slides above.', checked: true },
+  { cite: 'Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed., on Romans 16:7 (read aloud in the Hemphill practical talk above; the book itself not checked).', checked: false },
+];
+---
+<Context title="Which variants deserve your attention" label="Guide" lastChecked="2026-11-20" sources={sources}
+  description="Not all variants weigh the same. How to sort them by meaning and by the UBS rating, and when to add a footnote.">
+  <p class="lead">Greek manuscripts differ in many thousands of places. Most of these differences do not change what a verse means. A translator needs to stop and study only a small number of them.</p>
+
+  <h2>Kinds of variants</h2>
+  <p>A <em>variant</em> is a place where manuscripts do not have the same wording. Variants differ a lot in how much they matter. Here they are, from least to most weight for a translator.</p>
+  <dl class="terms">
+    <dt>Spelling</dt>
+    <dd>The same word written in a different way, often a copying slip. The UBS apparatus leaves out most of these, because they do not affect translation.</dd>
+    <dt>Small words</dt>
+    <dd>A pronoun or a short phrase is present in some manuscripts and absent in others. In John 1:19 some manuscripts have <span lang="grc">πρὸς αὐτόν</span> ("to him") after "sent", some have it later in the sentence, and some do not have it. The meaning is the same either way.</dd>
+    <dt>Changes of meaning</dt>
+    <dd>The wording changes what the verse says. In Romans 16:7 the letters <span lang="grc">ΙΟΥΝΙΑΝ</span> can be read, with different accents, as a woman's name (Junia) or a man's name (Junias). The choice decides whether a woman is named among the apostles.</dd>
+    <dt>Long passages</dt>
+    <dd>Whole verses or stories that some manuscripts have and others do not. UBS prints John 7:53–8:11 inside <a href={g('double-brackets')}>⟦ ⟧</a>: the editors think it was added later, but it is very old and important.</dd>
+  </dl>
+
+  <h2>Sorting a variant</h2>
+  <p>Ask two separate things about each variant.</p>
+  <p>First, does it change the meaning in your language? Test this in your own language, not in Greek. In John 1:19, "to him" is redundant in English: if the leaders sent people to ask John a question, they sent them to John. Most English versions (NIV, ESV, NLT) leave it out. A few (NASB, NJB) keep it. For a translator into English this variant needs no further study. A language that likes to repeat such words may decide differently.</p>
+  <p>Second, how sure were the UBS editors? The UBS text gives each variant in its apparatus a <a href={g('rating')}>rating</a>:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Rating</th><th>What the UBS editors say it means</th></tr></thead>
+      <tbody>
+        <tr><td>{'{A}'}</td><td>The text is certain.</td></tr>
+        <tr><td>{'{B}'}</td><td>The text is almost certain.</td></tr>
+        <tr><td>{'{C}'}</td><td>The committee had difficulty deciding which reading to put in the text.</td></tr>
+        <tr><td>{'{D}'}</td><td>The committee had great difficulty deciding. This is rare.</td></tr>
+        <tr><td><a href={g('diamond')}>♦</a></td><td>No decision was possible. Only in the Catholic letters, in UBS5.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Words in square brackets in the UBS Greek text usually have a {'{C}'} rating or lower. <span lang="grc">πρὸς αὐτόν</span> in John 1:19 is one example.</p>
+
+  <h2>What a rating does not tell you</h2>
+  <p>A rating answers only the question the committee asked. In Romans 16:7 the rating is {'{A}'}, but Metzger's <i>Textual Commentary</i> says it applies only to the spelling of the name, not to the accent. The oldest manuscripts had no accents, so the letters are certain but the question "man or woman?" is not settled by the {'{A}'}. You can only learn this by reading the commentary. The commentary also notes that the woman's name Junia is common in inscriptions from Rome, while the man's name Junias has not been found there. Other scholars point to some evidence for the man's name, so the question is still discussed.</p>
+  <p>The ratings are a committee's opinion, and scholars have criticised them. See <a href={url('guide/apparatus/#ratings')}>what the ratings do and do not tell you</a>.</p>
+
+  <h2>When you need to decide</h2>
+  <p>The UBS text is an eclectic text: the editors chose the best reading at each place from many manuscripts. So for the New Testament, most of the time you can simply follow the UBS text. You need to make your own textual decision only when one of these is true:</p>
+  <ul>
+    <li>A Bible in a language of wider communication (LWC), one that your readers know, differs from the UBS text.</li>
+    <li>The variant has a {'{C}'} rating or lower and it changes the meaning.</li>
+    <li>The variant is part of a larger problem of interpreting the verse.</li>
+  </ul>
+  <p>The UBS apparatus does not always list the reading of the Textus Receptus (the Greek text behind the King James Version and many older Bibles). If your readers use a Bible based on it, compare that Bible directly.</p>
+  <p>Some translation teams write a policy into their project brief, for example: "We follow the UBS text, unless it has a {'{C}'} rating or lower; then we consider the base text of the LWC Bible."</p>
+
+  <h2>When to add a footnote</h2>
+  <p>A footnote can show readers a significant variant: one that changes the meaning, or one where your text differs from a Bible they know. Do not footnote spelling or small words that do not change the meaning. Whether you use footnotes at all depends on your project's policy. Some translations, for example oral translations, cannot use them.</p>
+
+  <h2>Decision guide</h2>
+  <p>Take these steps in order. Stop as soon as one tells you to.</p>
+  <ol>
+    <li>Does the variant change the meaning in your language? If not, follow the UBS text.</li>
+    <li>Does a Bible your readers use follow a different reading? If so, study the variant.</li>
+    <li>Is the rating {'{C}'}, {'{D}'} or ♦? If so, study the variant. If it is {'{A}'} or {'{B}'}, follow the UBS text, but check what the rating covers (as in Romans 16:7).</li>
+    <li>To study it: read the Translator's Notes and the Translator's Handbook, look at the apparatus, read the commentaries if needed, and compare other translations, especially ones your readers use.</li>
+    <li>Decide, and if the variant is significant, consider a footnote.</li>
+  </ol>
+
+  <section class="unchecked-box" aria-labelledby="unverified">
+    <h2 id="unverified">Not yet verified <span class="tag">not yet checked</span></h2>
+    <p class="small muted">Not checked against a source in our files yet.</p>
+    <p>Word order is often named as one of the commonest kinds of variant. Greek word order is flexible, so most of these do not change the meaning.</p>
+  </section>
+</Context>
+<style>
+  .table-wrap { overflow-x: auto; }
+  .unchecked-box { border: 1px dashed var(--rule); border-radius: 6px; padding: 0 1rem 0.25rem; margin-top: 2rem; }
+  .unchecked-box h2 { margin-top: 1rem; }
+</style>

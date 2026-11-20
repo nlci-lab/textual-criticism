@@ -1,0 +1,70 @@
+---
+import Context from '../../../layouts/Context.astro';
+import { url } from '../../../lib/url';
+const w = (id: string) => url(`w/${id}/`);
+const sources = [
+  { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism Examples", example 3: Romans 16:7 (EMDC, 9 November 2021). Used with permission.', checked: true },
+  { cite: 'United Bible Societies, The Greek New Testament, 5th ed., apparatus at Romans 16:7 (as reproduced in the Hemphill material above).', checked: true },
+  { cite: 'Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed., on Romans 16:7 (as quoted in the Hemphill material).', checked: true },
+  { cite: 'Roger L. Omanson, A Textual Guide to the Greek New Testament, on Romans 16:7 (as quoted in the Hemphill material).', checked: true },
+  { cite: 'NET Bible, study note on Romans 16:7, citing D. Moo, Romans (NICNT) (as quoted in the Hemphill material).', checked: true },
+];
+---
+<Context title="Romans 16:7: Junia or Junias?" label="Guide" lastChecked="2026-11-20" sources={sources}
+  description="A worked example where the letters are certain but the accent, and so the person's gender, is debated.">
+  <p class="lead">Paul greets "Andronicus and Junia" (or "Junias"), who are "outstanding among the apostles". Junia is a woman's name; Junias would be a man's. In many languages a translator must choose, because names are marked for gender.</p>
+
+  <h2>The verse</h2>
+  <p>UBS5 prints: <span lang="grc">ἀσπάσασθε Ἀνδρόνικον καὶ Ἰουνίαν τοὺς συγγενεῖς μου καὶ συναιχμαλώτους μου, οἵτινές εἰσιν ἐπίσημοι ἐν τοῖς ἀποστόλοις …</span></p>
+  <p>The form <span lang="grc">Ιουνιαν</span> is accusative (the object form). It can come from two names. The only difference is the accent:</p>
+  <ul>
+    <li><span lang="grc">Ἰουνίαν</span>, from the woman's name <span lang="grc">Ἰουνία</span> (Junia)</li>
+    <li><span lang="grc">Ἰουνιᾶν</span>, from the man's name <span lang="grc">Ἰουνιᾶς</span> (Junias)</li>
+  </ul>
+  <p>Accents are small marks above Greek letters. Early manuscripts, written in capital letters, usually had none. Accents were added later.</p>
+
+  <h2>The readings</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Reading</th><th>Main witnesses</th></tr></thead>
+    <tbody>
+      <tr><td><span lang="grc">Ἰουνίαν</span> with the feminine accent</td><td>Later correctors of <a href={w('vaticanus')}>B</a> and <a href={w('bezae')}>D</a>, Ψ (probably), many minuscules, <a href={w('byz')}>Byz</a>, Lect, Chrysostom</td></tr>
+      <tr><td><span lang="grc">ΙΟΥΝΙΑΝ</span> without accents</td><td><a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span></a>, <a href={w('alexandrinus')}>A</a>, the first hand of B, C, the first hand of D, F, G, P</td></tr>
+      <tr><td><span lang="grc">Ἰουλίαν</span> "Julia" (a woman's name)</td><td><a href={w('p46')}>𝔓⁴⁶</a>, minuscule 6, some Latin, Bohairic Coptic, Ethiopic, Jerome</td></tr>
+    </tbody>
+  </table></div>
+  <p>No manuscript in the UBS5 apparatus has the masculine accent. The apparatus lists "Junias" only for some modern translations.</p>
+
+  <h2>The spelling is settled</h2>
+  <p>UBS5 gives <span lang="grc">Ἰουνιαν</span> an <a href={url('glossary/#rating')}>{'{A}'}</a> rating. Metzger and Omanson both say the committee agreed on the letters (Junia/Junias, not Julia), but the {'{A}'} does not decide the accent. "Julia" has one early papyrus but little other support, and may be a slip influenced by the Julia in verse 15.</p>
+
+  <h2>The accent is debated</h2>
+  <p>Metzger reports that the committee itself was divided on the accent.</p>
+  <p>Arguments given for the man's name, Junias:</p>
+  <ul>
+    <li>Some committee members thought it unlikely that a woman would be called one of the "apostles". They took Junias as a short form of the man's name Junianus.</li>
+    <li>The New Testament names no other woman apostle. Hemphill notes that this can be seen either as a fair argument from Paul's other writings, or as a circular one.</li>
+  </ul>
+  <p>Arguments given for the woman's name, Junia:</p>
+  <ul>
+    <li>The Latin woman's name Junia appears more than 250 times in inscriptions from Rome alone. Metzger and Omanson say the man's name Junias is not found anywhere; the NET note, following Moo, knows of one instance, in Epiphanius.</li>
+    <li>When scribes began to add accents, they wrote the feminine form.</li>
+    <li>Several other pairs in this chapter are husband and wife, such as Prisca and Aquila (verse 3). But verse 12 pairs two women, so this does not prove much.</li>
+  </ul>
+  <p>The words "relatives" and "fellow prisoners" that follow are masculine plural in Greek. Omanson notes that they can describe two men or a man and a woman.</p>
+
+  <h2>Printed editions and translations</h2>
+  <p>Before the third printing of the fourth edition, the UBS text accented the name as Junias; it now has Junia. Most printed Textus Receptus editions have no accents; Scrivener's 1881 edition has the masculine. The KJV has "Junia". English translations differ: for example NIV 1984, NASB and NJB have "Junias", while NIV 2011, ESV, NRSV and NET have "Junia".</p>
+  <p>Hemphill observes that the choice in translations has shifted over time, and that a reader's views about women in ministry can shape how the evidence is weighed. His own view is that we cannot be sure, but that "Junia" is somewhat more likely, because the earliest accented manuscripts have it and the woman's name was more common.</p>
+
+  <h2>For the translator</h2>
+  <ul>
+    <li>If your language can give the name without marking gender, that keeps closest to what the early manuscripts show.</li>
+    <li>If you must choose, the textual evidence, as far as it goes, leans to Junia. A footnote can give the other form.</li>
+    <li>Consider how readers and churches in your context will receive the choice.</li>
+    <li>If you hold a strong view on the wider question, ask a team member with a different view to review your decision.</li>
+  </ul>
+</Context>
+<style>
+  .tw { overflow-x: auto; }
+  .tw table { min-width: 28rem; }
+</style>

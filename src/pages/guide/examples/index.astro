@@ -1,0 +1,20 @@
+---
+import Context from '../../../layouts/Context.astro';
+import { url } from '../../../lib/url';
+const sources = [
+  { cite: 'Thomas Hemphill, "New Testament Textual Criticism Examples" (EMDC, 9 November 2021). Adapted and used with permission.', checked: true },
+];
+---
+<Context title="Worked examples" label="Guide" lastChecked="2026-11-20" sources={sources}
+  description="Real places where Greek manuscripts differ, worked through step by step for translators.">
+  <p class="lead">Each example takes one verse where manuscripts differ. It shows the readings, who supports them, the arguments, what the UBS Greek New Testament prints, and what a translator can do.</p>
+  <ul class="examples">
+    <li><a href={url('guide/apparatus/')}>John 1:18</a>: "only God" or "only Son"? A step-by-step reading of one apparatus entry.</li>
+    <li><a href={url('guide/examples/james-2-20/')}>James 2:20</a>: is faith without works "useless" or "dead"? Early witnesses split, and the context decides.</li>
+    <li><a href={url('guide/examples/romans-16-7/')}>Romans 16:7</a>: Junia or Junias? The letters are certain; the accent, and so the gender, is debated.</li>
+  </ul>
+  <p>The James and Romans examples are adapted from material by Thomas Hemphill (EMDC 2021), used with permission.</p>
+</Context>
+<style>
+  .examples li { margin-bottom: .6rem; }
+</style>

@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import { url } from '../../lib/url';
+// Guides in the order a translator usually needs them.
+const guides = [
+  ['guide/apparatus/', 'How to read a UBS apparatus entry', 'John 1:18, taken apart piece by piece.'],
+  ['guide/which-variants-matter/', 'Which variants deserve your attention', 'Not all variants weigh the same: sorting them by meaning and by rating, and when to footnote.'],
+  ['guide/weighing-evidence/', 'Weighing the evidence', 'From reading an entry to judging between readings: external and internal evidence.'],
+  ['guide/examples/', 'Worked examples', 'Real places where manuscripts differ, worked through step by step.'],
+  ['guide/base-texts/', 'Two Greek texts behind our Bibles', 'Why the Bible your church reads may differ from the UBS text, and which text Indian-language Bibles follow.'],
+  ['guide/paratext/', 'Using the UBS apparatus in Paratext', 'Setting up the resources beside your translation and decoding the sigla.'],
+];
+---
+<Base title="Guides" nav="guide/">
+  <div class="prose gd">
+    <h1>Guides</h1>
+    <p class="muted">Practical help for translators and consultants working with the UBS Greek New Testament apparatus.</p>
+    <ul class="results">
+      {guides.map(([p, t, d]) => <li><a href={url(p)}><span class="r-name"><strong>{t}</strong><br /><span class="muted small">{d}</span></span></a></li>)}
+    </ul>
+  </div>
+</Base>
+<style>.gd { margin-top: 1.5rem; }</style>

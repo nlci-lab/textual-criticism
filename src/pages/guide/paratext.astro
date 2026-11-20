@@ -1,0 +1,77 @@
+---
+import Context from '../../layouts/Context.astro';
+import { url } from '../../lib/url';
+const sources = [
+  { cite: 'Paratext 9 Help, "What is the meaning of the abbreviations used in the apparatuses?" (gives the UBS5 Master List of Symbols and Abbreviations, Introduction pp. 58*–63*).', checked: true },
+  { cite: 'Paratext 9 Help, "Guide: Paratext > Download/Install resources".', checked: true },
+  { cite: 'Paratext 9 Help, "What is a Text Collection?", "How do I open a Text Collection?", "How do I change the view in a Text Collection?" and "How do I see footnotes in a Text Collection?".', checked: true },
+  { cite: 'UBS5 apparatus at 2 Peter 1:1, as displayed in Paratext (entry recorded in NLCI setup notes).', checked: true },
+  { cite: 'NLCI notes on resource availability in Paratext (resource codes NET08, TNN, TND and HBKENG seen in the Download/Install resources dialog, September 2026).', checked: true },
+];
+---
+<Context title="Using the UBS apparatus in Paratext" label="Guide" lastChecked="2026-11-20" sources={sources}
+  description="Which Paratext resources show the UBS apparatus, how to set them up beside your translation, and how to decode the sigla.">
+  <p class="lead">Paratext can show the Greek New Testament with the UBS apparatus next to your draft. You click a small raised mark in the Greek text and the apparatus entry for that place opens. This page explains how to get the resources, how to arrange them, and how to read what you see.</p>
+
+  <h2>Getting the resources</h2>
+  <p>Resources are installed from the Paratext menu item <em>Download/Install resources</em>. Choose <em>Internet (DBL and Paratext servers)</em>, type a search word in the filter box, tick the resource and install it. You can also install resources from a folder (for example a USB drive) if someone gives you the files.</p>
+  <p>Resources come from the Digital Bible Library (DBL). Each one is licensed to a person or an organisation. So a resource that a colleague can install may not appear for you. If a resource is missing, first untick the option that shows only resources in languages you already use; it hides many resources. If it is still missing, ask your organisation's Paratext administrator about the licence.</p>
+  <p>Resources that help with text-critical questions:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Resource</th><th>Search for</th><th>What it gives you</th></tr></thead>
+      <tbody>
+        <tr><td>A Greek New Testament with the UBS apparatus</td><td>your Greek NT</td><td>The Greek text with the variant marks and apparatus entries.</td></tr>
+        <tr><td>NET08</td><td><code>net</code></td><td>The NET Bible notes. Text-critical notes have their own note type, separate from translators' notes.</td></tr>
+        <tr><td>TNN (and TND, if offered)</td><td><code>notes</code></td><td>Translator's Notes.</td></tr>
+        <tr><td>HBKENG</td><td><code>handbook</code></td><td>The UBS Handbook Series in English.</td></tr>
+        <tr><td>Textus Receptus (Elzevir 1624, Scrivener 1881)</td><td>—</td><td>The Greek text behind the King James Version and many older Bibles. Both editions are old enough to be in the public domain.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Some resources stop part way through a book. When a resource has nothing for your verse, that is normal. It does not mean you set it up wrongly.</p>
+
+  <h2>Arranging the windows</h2>
+  <p>Open the Greek resource in its own window beside your project. To compare several texts at one verse, use a <em>Text Collection</em>. A Text Collection shows the same verse from several projects and resources at once, and it scrolls with your other windows. Open one from the main menu with <em>Open text collection</em>. Add the Greek text, the Textus Receptus and the major-language Bibles your readers know (for example Hindi or Tamil).</p>
+  <p>The simple one-pane view of a Text Collection does not show footnotes or their marks. From the collection's tab menu choose <em>View &gt; Two panes</em>, then click the name of a text. The right pane then shows that text with more context.</p>
+
+  <h2>What the apparatus looks like</h2>
+  <p>In the Greek text, a small raised number marks a place where the apparatus has an entry. Click it and a popup opens. Here is the entry for 2 Peter 1:1, where the manuscripts differ on the spelling of Peter's other name:</p>
+  <pre class="app"><span lang="grc">1.1 {'{B}'} Συμεών</span> <span class="siglum" lang="he" dir="ltr">א</span> A 33 307 436 442 642 1175 1448 1735 1739 1852 2344 Byz<sup>pt</sup> [K L P] Lect arm geo // <span lang="grc">Σίμων</span> 𝔓<sup>72</sup> B Ψ 5 81 1243 1611 2492 Byz<sup>pt</sup> ℓ 147 ℓ 590 … it<sup>ar,z</sup> vg cop<sup>sa,bo</sup> eth slav BTI DHH?</pre>
+  <p>The sigla (the short names for witnesses) are printed as in the UBS edition. Paratext does not expand them when you point at them. Read the entry like this:</p>
+  <ul>
+    <li><a href={url('glossary/#rating')}>{'{B}'}</a> is the committee's rating for the reading printed in the text.</li>
+    <li>The first reading, <span lang="grc">Συμεών</span>, is followed by the witnesses that support it.</li>
+    <li><a href={url('glossary/#double-slash')}>//</a> starts the next reading, <span lang="grc">Σίμων</span>, and its witnesses.</li>
+    <li><a href={url('glossary/#byz')}>Byz</a><sup>pt</sup> appears on both sides. Part of the Byzantine manuscripts supports each reading; they do not speak with one voice.</li>
+    <li>"DHH?" is a modern translation cited with a question mark: it probably supports the reading, but its wording leaves some doubt.</li>
+  </ul>
+  <p>For a full walk through one entry, see <a href={url('guide/apparatus/')}>How to read a UBS apparatus entry</a>.</p>
+
+  <h2>Decoding the sigla</h2>
+  <p>Paratext Help contains the full UBS5 list of symbols and abbreviations. Search Help for the item "What is the meaning of the abbreviations used in the apparatuses?". It tells you what a symbol means, for example what <code>{'{ }'}</code> or <code>[ ]</code> do. It does not tell you what a manuscript is or how old it is.</p>
+  <p>For that, use this site. The <a href={url('')}>lookup page</a> takes a siglum and opens the witness. Short addresses also work: <a href={url('p66/')}>{url('p66/')}</a> opens 𝔓⁶⁶, and <a href={url('aleph/')}>{url('aleph/')}</a> opens Codex Sinaiticus (<span class="siglum" lang="he" dir="ltr">א</span>). Each witness page gives the date, contents and where the manuscript is kept.</p>
+
+  <h2>If you cannot get the resources</h2>
+  <ul>
+    <li>The NET Bible notes, including the text-critical notes, are free at <a href="https://netbible.org">netbible.org</a>.</li>
+    <li>The INTF in Münster lists the Greek manuscripts, with dates and many images, in the New Testament Virtual Manuscript Room: <a href="https://ntvmr.uni-muenster.de">ntvmr.uni-muenster.de</a>.</li>
+    <li>Codex Sinaiticus can be read page by page at <a href="https://codexsinaiticus.org">codexsinaiticus.org</a>, and Codex Vaticanus at <a href="https://digi.vatlib.it">digi.vatlib.it</a>.</li>
+    <li>The Textus Receptus editions are in the public domain, so free copies can be found and loaded.</li>
+  </ul>
+
+  <aside class="unverified" aria-labelledby="unv">
+    <h2 id="unv">Not yet verified</h2>
+    <p>These points come from notes, not from Paratext Help. Check them in your own copy of Paratext.</p>
+    <ul>
+      <li>The exact name of the Greek NT resource that carries the UBS5 apparatus, and whether it needs a separate licence.</li>
+      <li>A "More help…" link inside the apparatus popup that opens the abbreviations list.</li>
+      <li>Whether the UBS apparatus popup works inside a Text Collection, or only in the resource's own window.</li>
+    </ul>
+  </aside>
+</Context>
+
+<style>
+  .table-wrap { overflow-x: auto; }
+  pre.app { white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--step--1); }
+</style>

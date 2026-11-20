@@ -1,0 +1,48 @@
+---
+import Context from '../../../layouts/Context.astro';
+import { url } from '../../../lib/url';
+const w = (id: string) => url(`w/${id}/`);
+const sources = [
+  { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism Examples", example 2: James 2:20 (EMDC, 9 November 2021). Used with permission.', checked: true },
+  { cite: 'United Bible Societies, The Greek New Testament, 5th ed., apparatus at James 2:20 (as reproduced in the Hemphill material above).', checked: true },
+  { cite: 'Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed., on James 2:20 (as quoted in the Hemphill material).', checked: true },
+  { cite: 'Roger L. Omanson, A Textual Guide to the Greek New Testament, on James 2:20 (as quoted in the Hemphill material).', checked: true },
+  { cite: 'NET Bible, textual note on James 2:20 (as quoted in the Hemphill material).', checked: true },
+];
+---
+<Context title="James 2:20: useless or dead?" label="Guide" lastChecked="2026-11-20" sources={sources}
+  description="A worked example where good early manuscripts disagree and the context decides.">
+  <p class="lead">Some Bibles say faith without works is "useless". Others, including the King James Version, say it is "dead". The difference comes from the Greek manuscripts.</p>
+
+  <h2>The verse</h2>
+  <p>UBS5 prints: <span lang="grc">θέλεις δὲ γνῶναι, ὦ ἄνθρωπε κενέ, ὅτι ἡ πίστις χωρὶς τῶν ἔργων ἀργή ἐστιν;</span> ("Do you want to know, you empty person, that faith without works is useless?")</p>
+  <p>The question is the last adjective. Is it <span lang="grc">ἀργή</span> (useless, idle) or <span lang="grc">νεκρά</span> (dead)?</p>
+
+  <h2>The readings</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Reading</th><th>Main witnesses</th></tr></thead>
+    <tbody>
+      <tr><td><span lang="grc">ἀργή</span> "useless"</td><td><a href={w('vaticanus')}>B</a>, C* (the first hand of Codex Ephraemi), 1739 and some other minuscules, some Latin, Sahidic Coptic, Augustine</td></tr>
+      <tr><td><span lang="grc">νεκρά</span> "dead"</td><td><a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span></a>, <a href={w('alexandrinus')}>A</a>, C² (a later corrector of C), Ψ, many minuscules, <a href={w('byz')}>Byz</a>, Lect, Syriac, Bohairic Coptic</td></tr>
+      <tr><td><span lang="grc">κενή</span> "empty"</td><td><a href={w('p74')}>𝔓⁷⁴</a> and one Old Latin manuscript</td></tr>
+    </tbody>
+  </table></div>
+  <p>The <a href={url('glossary/#star')}>*</a> and the raised numbers mark the first hand of a manuscript and its <a href={url('glossary/#correctors')}>correctors</a>. The Textus Receptus, and so the KJV, reads "dead".</p>
+
+  <h2>Weighing the evidence</h2>
+  <p>The external evidence (the manuscripts themselves) is strong on both sides. Each side has two of the great fourth- and fifth-century codices. So the decision rests on internal evidence: which reading best explains how the others arose.</p>
+  <p>For "useless": the same chapter says faith without works is "dead" in verse 17 and verse 26. A copyist who remembered those verses could easily write "dead" here too. It is harder to explain why a copyist would change "dead" to "useless" here but not in the other two verses. Also, <span lang="grc">ἔργων ἀργή</span> (works … useless) is a play on words: <span lang="grc">ἀργή</span> can be read as "without work". Metzger, Omanson, the NET notes and several commentaries give these reasons.</p>
+  <p>The reading <span lang="grc">κενή</span> has weak support. It was probably suggested by <span lang="grc">κενέ</span> ("empty person") earlier in the same verse.</p>
+  <p>Not everyone finds the internal arguments decisive. Hemphill points out that they can be turned around: "dead" would make verse 20 match verses 17 and 26, and if James liked the word play, it is not clear why he did not use it in those verses too.</p>
+
+  <h2>What UBS5 prints</h2>
+  <p>UBS5 prints <span lang="grc">ἀργή</span> with a <a href={url('glossary/#rating')}>{'{B}'}</a> rating: the committee was fairly confident. Omanson adds that there is little difference in meaning between the two words here.</p>
+
+  <h2>For the translator</h2>
+  <p>Follow the UBS text: "useless" or a similar word. If your church knows the "dead" wording from an older Bible, a short footnote can say that many manuscripts read "dead". The teaching of the passage does not change, because verses 17 and 26 say "dead" in all the main witnesses.</p>
+  <p>Translator's helps do not always mark this variant. Check the apparatus yourself when Bibles in a language of wider communication disagree.</p>
+</Context>
+<style>
+  .tw { overflow-x: auto; }
+  .tw table { min-width: 28rem; }
+</style>

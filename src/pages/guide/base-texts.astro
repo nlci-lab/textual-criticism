@@ -1,0 +1,80 @@
+---
+import Context from '../../layouts/Context.astro';
+import { url } from '../../lib/url';
+const sources = [
+  { cite: 'Adapted from Thomas Hemphill, "Textual Criticism 1 – NT background, theory and principles", EMDC 2021 (slides: the age of printing; Erasmus 1516; Textus Receptus). Used with permission.', checked: true },
+  { cite: 'NLCI base-text survey of Indian-language Bibles: a structural check of 15 test verses in each version\'s Paratext text, calibrated against the KJV and the Berean Study Bible (2026).', checked: true },
+  { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005), on Erasmus and the Textus Receptus.', checked: false },
+];
+const tests = ['Matt 17:21', 'Matt 18:11', 'Matt 23:14', 'Mark 7:16', 'Mark 9:44', 'Mark 9:46', 'Mark 11:26', 'Mark 15:28', 'Luke 17:36', 'Luke 23:17', 'John 5:4', 'Acts 8:37', 'Acts 15:34', 'Acts 28:29', 'Rom 16:24'];
+---
+<Context title="Two Greek texts behind our Bibles" label="Guide" lastChecked="2026-11-20" sources={sources}
+  description="Why the Bible your church already reads often differs from the UBS Greek New Testament, and which Greek text each Indian-language Bible follows.">
+  <p class="lead">A pastor opens his Bible at Acts 8:37 and reads the verse. Your new draft, made from the UBS Greek New Testament, has no verse 37. Neither side has made a mistake. The two Bibles were translated from two different Greek texts.</p>
+
+  <h2>Two printed Greek texts</h2>
+  <p>A <em>base text</em> is the Greek text a translation is made from. Most Bibles in use today come from one of two kinds of base text.</p>
+  <p>The first is the <em>Textus Receptus</em> (Latin for "received text", often shortened to TR). In 1516, in Basel, Erasmus printed the first published Greek New Testament. He used a small number of late Greek manuscripts, from about the 10th to the 15th century. Later printers corrected and reprinted his text. This line of printed editions is the TR. So there is not one single TR, but a family of close editions. The TR is near to the <a href={url('w/byz/')}>Byzantine text</a>, the form of the text found in most late manuscripts, but it is not exactly the same. The King James Version, Luther's German Bible and the Russian Synodal Bible were translated from it.</p>
+  <p>The second is the <em>critical text</em>: an edition made by comparing many manuscripts, including the oldest ones found since the 19th century. The UBS Greek New Testament and the Nestle–Aland edition print the same critical text. The <a href={url('background/nt-text/')}>history of the New Testament text</a> tells this story in more detail.</p>
+
+  <h2>Where they differ</h2>
+  <p>In most verses the two texts say the same thing. But in a known set of places the TR has words, or whole verses, that the critical text leaves out of the main text. The UBS editors judged that those words were added by copyists after the first centuries. In a UBS Greek New Testament these verses are missing from the text and are given in the apparatus (the notes at the foot of the page). That is why some verse numbers seem to "jump" in a modern translation: Matthew 18:10 is followed by 18:12.</p>
+
+  <h2>Which text each Indian-language Bible follows</h2>
+  <p>To find out, we checked fifteen test verses in each version. Each of these verses is printed in the TR but left out of the critical text. A version that has the verse follows the TR at that point. The check looks only at whether the verse is there, and whether the version itself puts it in brackets or a footnote. It does not judge wording, so it works the same way in any script.</p>
+  <p class="small">The fifteen test verses: {tests.join(' · ')}.</p>
+  <p>To test the method, it was first run on two English Bibles whose base text is known. The King James Version had all 15 verses. The Berean Study Bible, made from the critical text, had none.</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th scope="col">Version</th><th scope="col">Language</th><th scope="col">Test verses present</th><th scope="col">Follows</th><th scope="col">1 John 5:7 longer form</th><th scope="col">Doubtful verses marked by the version</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Bailey New Testament, 1829</td><td>Malayalam</td><td>15 of 15</td><td>TR</td><td>present</td><td>no</td></tr>
+        <tr><td>Sathyavedapusthakam, 1910</td><td>Malayalam</td><td>15 of 15</td><td>TR</td><td>absent</td><td>6, in brackets with footnotes</td></tr>
+        <tr><td>Malayalam 2010</td><td>Malayalam</td><td>15 of 15</td><td>TR</td><td>absent</td><td>6, in brackets with footnotes</td></tr>
+        <tr><td>POC Bible (Catholic)</td><td>Malayalam</td><td>15 of 15</td><td>TR</td><td>absent</td><td>no</td></tr>
+        <tr><td>Thiruvachanam</td><td>Malayalam</td><td>15 of 15</td><td>TR</td><td>not yet settled</td><td>10, in brackets with footnotes</td></tr>
+        <tr><td>Hindi Old Version, re-edited (BSI)</td><td>Hindi</td><td>14 of 15</td><td>TR</td><td>absent</td><td>12, in brackets with footnotes</td></tr>
+        <tr><td>Tamil Old Version, 1957</td><td>Tamil</td><td>15 of 15</td><td>TR</td><td>present</td><td>no</td></tr>
+        <tr><td>Kannada Revised, 1951</td><td>Kannada</td><td>10 of 15</td><td>mixed</td><td>absent</td><td>no</td></tr>
+        <tr class="muted"><td>King James Version (check)</td><td>English</td><td>15 of 15</td><td>TR</td><td>present</td><td>no</td></tr>
+        <tr class="muted"><td>Berean Study Bible (check)</td><td>English</td><td>0 of 15</td><td>critical</td><td>absent</td><td>footnotes</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted">"Follows" is inferred from these 15 verses only. It is a strong sign, not a full study of each version. Telugu, Odia and other languages have not been checked yet.</p>
+
+  <h2>What the table shows</h2>
+  <p>Every Indian-language version checked so far stands mainly on the TR side. Kannada 1951 is the exception: five test verses are missing, so it cannot be given one label. If your project works beside it, check the verse in front of you.</p>
+  <p>"Follows the TR" does not mean every version is the same. 1 John 5:7–8 has a longer form in the TR, which speaks of "the Father, the Word, and the Holy Spirit" in heaven. Almost no Greek manuscript has it. The Tamil Old Version prints it; the Malayalam 1910 version does not. Within Malayalam, Bailey's New Testament of 1829, the first in the language, has it, and the 1910 revision dropped it. A base text can change between one edition and the next.</p>
+  <p>Several versions already mark the doubtful verses themselves. The Hindi Old Version puts twelve in brackets with a footnote. When you discuss one of these verses with a review committee, you can begin with the note their own Bible already prints.</p>
+
+  <h2>Four passages the table does not score</h2>
+  <p>Mark 16:9–20, Luke 22:43–44, John 7:53–8:11 and 1 John 5:7–8 were noted but not counted. The UBS text prints the first three in double brackets, and versions on both sides may print or footnote them, so finding them in a Bible does not show which Greek text it follows.</p>
+
+  <h2>The case for the TR and the Byzantine text</h2>
+  <p>Most textual critics today hold that the oldest manuscripts usually keep the earliest wording, and the UBS committee works this way. A minority of scholars disagree. Some hold that the text found in the great majority of manuscripts, the Byzantine or "Majority" text, is closest to the original, because God preserved it in the copies the church used for centuries. Others defend the TR itself, often for the same reason. People in your churches who hold these views are not ignorant. They are taking one side of a real debate, and they deserve a careful answer, not a dismissal.</p>
+  <p>Note also that the TR and the Majority text are not the same. In some places, 1 John 5:7–8 among them, the TR has a reading that most Byzantine manuscripts do not have.</p>
+
+  <h2>What this means for your work</h2>
+  <p>If you translate from the UBS text in a language whose older Bible follows the TR, your draft and your readers' Bible will disagree at these verses. This will happen many times, not once. It helps to agree with the project's sponsors before drafting how you will handle such verses: leave them out, put them in brackets, or keep them with a footnote. Then the decision is not made again, under pressure, verse by verse.</p>
+
+  <aside class="unverified" aria-labelledby="unv">
+    <h2 id="unv">Not yet verified</h2>
+    <p>These statements are kept apart because no source we can name has confirmed them yet. Do not rely on them.</p>
+    <ul>
+      <li>Scholars who defend the Byzantine or Majority text include Maurice Robinson and William Pierpont, and Zane Hodges and Arthur Farstad, who each published editions of it. <em>(from: general knowledge; not yet checked in a source)</em></li>
+      <li>Which verse is missing from the Hindi Old Version, and why. <em>(from: survey notes, open question)</em></li>
+      <li>Whether Thiruvachanam has the longer form of 1 John 5:7. It needs someone who reads Malayalam. <em>(from: survey notes)</em></li>
+      <li>Wording differences at Matt 6:13, Luke 23:34, Acts 18:17, Jas 2:20 and 1 Tim 3:16 have not yet been checked by readers of each language. <em>(from: survey notes)</em></li>
+    </ul>
+  </aside>
+</Context>
+
+<style>
+  .tablewrap { overflow-x: auto; margin: 1rem 0; }
+  .tablewrap table { border-collapse: collapse; min-width: 36rem; font-size: 0.875rem; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--rule); }
+</style>

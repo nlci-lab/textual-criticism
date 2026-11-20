@@ -1,0 +1,91 @@
+{
+  "source": "https://github.com/Center-for-New-Testament-Restoration/transcriptions/tree/4e743a41a4b2ca010ece53229cd272aa59b1efe6",
+  "commit": "4e743a41a4b2ca010ece53229cd272aa59b1efe6",
+  "licence": "CC BY-SA 4.0",
+  "credit": "Alan Bunning, Center for New Testament Restoration",
+  "verse": "62005008",
+  "witnesses": {
+    "01": "το =πνα και το υ/δωρ και το αιμα /και οι τρεισ εισ το /εν εισιν",
+    "02": "το =πνα και το υδωρ /και το αιμα και οι τρεισ εισ το /εν εισιν",
+    "03": "το πνευμα και /το% υδωρ και το αιμα /κ%αι οι τρεισ εισ το% εν εισι¯",
+    "RP": "τὸ πνεῦμα καὶ τὸ ὕδωρ καὶ τὸ αἷμα καὶ οἱ τρεῖς εἰς τὸ ἕν εἰσιν",
+    "ST": "καὶ τρεῖς εἰσιν οἱ μαρτυροῦντες ενʼ τῇ γῇ τὸ πνεῦμα καὶ τὸ ὕδωρ καὶ τὸ αἷμα καὶ οἱ τρεῖς εἰς τὸ ἕν εἰσι",
+    "KJTR": "Καὶ τρεῖς εἰσὶν οἱ μαρτυροῦντες ἐν τῇ γῇ τὸ πνεῦμα καὶ τὸ ὕδωρ καὶ τὸ αἷμα καὶ οἱ τρεῖς εἰς τὸ ἕν εἰσιν",
+    "WH": "τὸ πνεῦμα καὶ τὸ ὕδωρ καὶ τὸ αἷμα καὶ οἱ τρεῖς εἰς τὸ ἕν εἰσιν",
+    "SR": "τὸ Πνεῦμα καὶ τὸ ὕδωρ καὶ τὸ αἷμα καὶ οἱ τρεῖς εἰς τὸ ἕν εἰσιν"
+  },
+  "meta": {
+    "01": {
+      "kind": "manuscript",
+      "ga": "01",
+      "siglum": "א",
+      "siglumLang": "he",
+      "name": "Codex Sinaiticus",
+      "ntvmr": 20001,
+      "cntr": "m20001",
+      "from": 300,
+      "to": 399,
+      "date": "4th c.",
+      "holding": "London, British Library, Add. 43725"
+    },
+    "02": {
+      "kind": "manuscript",
+      "ga": "02",
+      "siglum": "A",
+      "name": "Codex Alexandrinus",
+      "ntvmr": 20002,
+      "cntr": "m20002",
+      "from": 400,
+      "to": 499,
+      "date": "5th c.",
+      "holding": "London, British Library, Royal 1 D.VIII"
+    },
+    "03": {
+      "kind": "manuscript",
+      "ga": "03",
+      "siglum": "B",
+      "name": "Codex Vaticanus",
+      "ntvmr": 20003,
+      "cntr": "m20003",
+      "from": 300,
+      "to": 399,
+      "date": "4th c.",
+      "holding": "Città del Vaticano, Biblioteca Apostolica Vaticana, Vat. gr. 1209, p. 1235-1518"
+    },
+    "RP": {
+      "kind": "edition",
+      "siglum": "Byz (RP)",
+      "name": "Robinson–Pierpont Byzantine Textform",
+      "date": "2025",
+      "cntr": ""
+    },
+    "ST": {
+      "kind": "edition",
+      "siglum": "TR (Stephanus)",
+      "name": "Stephanus Textus Receptus",
+      "date": "1550",
+      "cntr": ""
+    },
+    "KJTR": {
+      "kind": "edition",
+      "siglum": "TR (KJV)",
+      "name": "King James Textus Receptus (CNTR; text underlying the 1769 KJV)",
+      "date": "2020",
+      "cntr": ""
+    },
+    "WH": {
+      "kind": "edition",
+      "siglum": "WH",
+      "name": "Westcott and Hort",
+      "date": "1885",
+      "cntr": ""
+    },
+    "SR": {
+      "kind": "edition",
+      "siglum": "SR",
+      "name": "Statistical Restoration (CNTR)",
+      "date": "2022",
+      "cntr": ""
+    }
+  }
+}

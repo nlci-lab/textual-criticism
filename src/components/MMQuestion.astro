@@ -1,0 +1,52 @@
+---
+// One multiple-choice question in a micro module. Every option carries its own feedback.
+// With JS: choose, then "Check my answer" shows the feedback for the choice and marks the right one.
+// Without JS: a <details> lists every option's feedback.
+interface Option { text: string; correct?: boolean; why: string }
+interface Props { q: string; options: Option[] }
+const { q, options } = Astro.props;
+const name = 'mmq-' + Math.random().toString(36).slice(2, 8);
+---
+<fieldset class="mmq" data-mmq>
+  <legend class="mmq-q">{q}</legend>
+  <div class="mmq-opts">
+    {options.map((o, i) => (
+      <label class="mmq-opt" data-correct={o.correct ? '1' : undefined}>
+        <input type="radio" name={name} value={String(i)} />
+        <span class="mmq-text" set:html={o.text} />
+        <span class="mmq-why" hidden set:html={o.why} />
+      </label>
+    ))}
+  </div>
+  <div class="mmq-act" hidden>
+    <button type="button" class="mmq-check" disabled>Check my answer</button>
+    <p class="mmq-result" role="status" aria-live="polite"></p>
+  </div>
+  <details class="mmq-all">
+    <summary>Show the answers</summary>
+    <ul>
+      {options.map((o) => <li><strong>{o.correct ? 'Yes' : 'No'}:</strong> <span set:html={o.text} /> <span class="muted" set:html={o.why} /></li>)}
+    </ul>
+  </details>
+</fieldset>
+
+<style>
+  .mmq { border: 1.5px solid var(--ink); border-radius: 10px; padding: 1rem 1.1rem; margin: 1rem 0; background: var(--paper); }
+  .mmq-q { font: 600 1.05rem/1.4 var(--serif); padding: 0 .3rem; }
+  .mmq-opts { display: grid; gap: .5rem; margin: .5rem 0 .75rem; }
+  .mmq-opt { display: grid; grid-template-columns: auto 1fr; gap: .25rem .6rem; align-items: baseline; padding: .6rem .8rem; border: 1px solid var(--rule); border-radius: 8px; cursor: pointer; }
+  .mmq-opt input { accent-color: var(--rubric); }
+  .mmq-opt:has(input:checked) { border-color: var(--ink); background: var(--paper-2); }
+  .mmq-why { grid-column: 2; font: .9rem/1.45 var(--sans); }
+  .mmq-opt.right { border-color: var(--verdigris); box-shadow: inset 4px 0 0 var(--verdigris); }
+  .mmq-opt.wrong { border-color: var(--rubric); box-shadow: inset 4px 0 0 var(--rubric); }
+  .mmq-act { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; }
+  .mmq-act[hidden] { display: none; }
+  .mmq-check { font: 600 .95rem var(--sans); padding: .5rem 1.1rem; border-radius: 8px; border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; min-height: 2.5rem; }
+  .mmq-check:disabled { opacity: .5; cursor: default; }
+  .mmq-result { margin: 0; font: 600 .9rem var(--sans); }
+  .mmq-all { margin-top: .5rem; font: .9rem/1.5 var(--sans); }
+  .mmq-all summary { cursor: pointer; }
+  .mmq-all ul { padding-left: 1.1rem; }
+  :global(.mm.js) .mmq-all { display: none; }
+</style>

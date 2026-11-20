@@ -1,0 +1,117 @@
+{
+  "source": "https://github.com/Center-for-New-Testament-Restoration/transcriptions/tree/4e743a41a4b2ca010ece53229cd272aa59b1efe6",
+  "commit": "4e743a41a4b2ca010ece53229cd272aa59b1efe6",
+  "licence": "CC BY-SA 4.0",
+  "credit": "Alan Bunning, Center for New Testament Restoration",
+  "verse": "41001002",
+  "witnesses": {
+    "01": "καθωσ γε/γραπται εν τω ησα/ια τω προφητη /ιδου εγω αποστε/λω τον αγγελον μου /προ προσωπου σου /οσ κατασκευασει /την οδον σου",
+    "02": "/ωσ γεγραπται εν τοισ προφηταισ /ιδου εγω αποστελλω τον αγγελο¯ /μου προ προσωπου σου οσ κατα/σκευασει την οδον σου εμπρο/σθεν σου",
+    "03": "καθωσ γε/γραπται εν τω ησαια τω /προφητη ιδου αποστελ/λω τον αγγελον μου /προ προσωπου σου οσ /κατασκευασει την οδο¯ /σου",
+    "05": "/ωσ γεγραπται εν ησαια τω προφητη /ιδου αποστελλω τον αγγελον μου /προ προσωπου σου οσ κατασκευασει /την οδον σου",
+    "032": "ωσ γε/γραπται εν τοισ προφηταισ ιδου εγω α/ποστελλω τον αγγελον μου προ προσω/που σου οσ κατασκευασει την οδον σου",
+    "RP": "Ὡς γέγραπται ἐν τοῖς προφήταις Ἰδού ἐγὼ ἀποστέλλω τὸν ἄγγελόν μου πρὸ προσώπου σου ὃς κατασκευάσει τὴν ὁδόν σου ἔμπροσθέν σου",
+    "ST": "Ὡς γέγραπται ἐν τοῖς προφήταις Ἰδοὺ ἐγὼ ἀποστέλλω τὸν ἄγγελόν μου πρὸ προσώπου σου ὃς κατασκευάσει τὴν ὁδόν σου ἔμπροσθέν σου",
+    "KJTR": "Ὡς γέγραπται ἐν τοῖς προφήταις Ἰδού ἐγὼ ἀποστέλλω τὸν ἄγγελόν μου πρὸ προσώπου σου ὃς κατασκευάσει τὴν ὁδόν σου ἔμπροσθέν σου",
+    "WH": "Καθὼς γέγραπται ἐν τῷ Ἠσαίᾳ τῷ προφήτῃ Ἰδοὺ ἀποστέλλω τὸν ἄγγελόν μου πρὸ προσώπου σου ὃς κατασκευάσει τὴν ὁδόν σου",
+    "SR": "Καθὼς γέγραπται ἐν τῷ Ἠσαΐᾳ τῷ προφήτῃ Ἰδοὺ ἀποστέλλω τὸν ἄγγελόν μου πρὸ προσώπου σου ὃς κατασκευάσει τὴν ὁδόν σου"
+  },
+  "meta": {
+    "01": {
+      "kind": "manuscript",
+      "ga": "01",
+      "siglum": "א",
+      "siglumLang": "he",
+      "name": "Codex Sinaiticus",
+      "ntvmr": 20001,
+      "cntr": "m20001",
+      "from": 300,
+      "to": 399,
+      "date": "4th c.",
+      "holding": "London, British Library, Add. 43725"
+    },
+    "02": {
+      "kind": "manuscript",
+      "ga": "02",
+      "siglum": "A",
+      "name": "Codex Alexandrinus",
+      "ntvmr": 20002,
+      "cntr": "m20002",
+      "from": 400,
+      "to": 499,
+      "date": "5th c.",
+      "holding": "London, British Library, Royal 1 D.VIII"
+    },
+    "03": {
+      "kind": "manuscript",
+      "ga": "03",
+      "siglum": "B",
+      "name": "Codex Vaticanus",
+      "ntvmr": 20003,
+      "cntr": "m20003",
+      "from": 300,
+      "to": 399,
+      "date": "4th c.",
+      "holding": "Città del Vaticano, Biblioteca Apostolica Vaticana, Vat. gr. 1209, p. 1235-1518"
+    },
+    "05": {
+      "kind": "manuscript",
+      "ga": "05",
+      "siglum": "D",
+      "name": "Codex Bezae",
+      "ntvmr": 20005,
+      "cntr": "m20005",
+      "from": 400,
+      "to": 499,
+      "date": "5th c.",
+      "holding": "Cambridge, Cambridge University Library, Ms. Nn. 2.41"
+    },
+    "032": {
+      "kind": "manuscript",
+      "ga": "032",
+      "siglum": "W",
+      "name": "Codex Washingtonianus",
+      "ntvmr": 20032,
+      "cntr": "m20032",
+      "from": 400,
+      "to": 499,
+      "date": "5th c.",
+      "holding": "Washington D.C., Smithsonian Institution, Freer Gallery of Art, 06.274 / F1906.274"
+    },
+    "RP": {
+      "kind": "edition",
+      "siglum": "Byz (RP)",
+      "name": "Robinson–Pierpont Byzantine Textform",
+      "date": "2025",
+      "cntr": ""
+    },
+    "ST": {
+      "kind": "edition",
+      "siglum": "TR (Stephanus)",
+      "name": "Stephanus Textus Receptus",
+      "date": "1550",
+      "cntr": ""
+    },
+    "KJTR": {
+      "kind": "edition",
+      "siglum": "TR (KJV)",
+      "name": "King James Textus Receptus (CNTR; text underlying the 1769 KJV)",
+      "date": "2020",
+      "cntr": ""
+    },
+    "WH": {
+      "kind": "edition",
+      "siglum": "WH",
+      "name": "Westcott and Hort",
+      "date": "1885",
+      "cntr": ""
+    },
+    "SR": {
+      "kind": "edition",
+      "siglum": "SR",
+      "name": "Statistical Restoration (CNTR)",
+      "date": "2022",
+      "cntr": ""
+    }
+  }
+}

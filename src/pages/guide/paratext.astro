@@ -4,26 +4,28 @@ import { url } from '../../lib/url';
 const sources = [
   { cite: 'Paratext 9 Help, "What is the meaning of the abbreviations used in the apparatuses?" (gives the UBS5 Master List of Symbols and Abbreviations, Introduction pp. 58*–63*).', checked: true },
   { cite: 'Paratext 9 Help, "Guide: Paratext > Download/Install resources".', checked: true },
+  { cite: 'Paratext 9 Help, "What is a Source Language Text?", "How do I view a Source Language Text?", "How do I open a Source Language Text?", "How do I display interlinear lines in a Source Language Text?" and "What do the superscript characters in a Source Text mean?".', checked: true },
+  { cite: 'Paratext 9.5 screens seen on 20 Nov 2026: the Source Language Text list (HEB/GRK, LXX/GRK, OHEB/OGRK), the Source Language Texts tab of Download/Install resources, and the apparatus popup at John 1:3-4.', checked: true },
   { cite: 'Paratext 9 Help, "What is a Text Collection?", "How do I open a Text Collection?", "How do I change the view in a Text Collection?" and "How do I see footnotes in a Text Collection?".', checked: true },
   { cite: 'UBS5 apparatus at 2 Peter 1:1, as displayed in Paratext (entry recorded in NLCI setup notes).', checked: true },
   { cite: 'NLCI notes on resource availability in Paratext (resource codes NET08, TNN, TND and HBKENG seen in the Download/Install resources dialog, September 2026).', checked: true },
 ];
 ---
 <Context title="Using the UBS apparatus in Paratext" label="Guide" lastChecked="2026-11-20" sources={sources}
-  description="Which Paratext resources show the UBS apparatus, how to set them up beside your translation, and how to decode the sigla.">
-  <p class="lead">Paratext can show the Greek New Testament, with the UBS apparatus, right next to your draft. Click a small raised mark in the Greek and the apparatus entry for that place pops up.</p>
+  description="The UBS apparatus lives in the Paratext Source Language Text window. How to open it beside your translation, read its marks and decode the sigla.">
+  <p class="lead">In Paratext the UBS apparatus lives in the <em>Source Language Text</em> window, which shows the Hebrew or Greek text beside your draft. A small red number after a Greek word marks an apparatus entry. Click it and the entry pops up.</p>
 
   <figure class="ptx-fig">
     <div class="ptx-scroll">
       <svg class="ptx-layout" viewBox="0 0 640 300" role="img" aria-labelledby="ptx-lt">
-        <title id="ptx-lt">Sketch of a Paratext screen: your project on the left, the Greek resource in the middle with a popup opening from a raised mark, and a Text Collection on the right.</title>
+        <title id="ptx-lt">Sketch of a Paratext screen: your project on the left, the Source Language Text in the middle with a popup opening from a red number, and a Text Collection on the right.</title>
         <rect x="1" y="1" width="638" height="298" rx="10" class="frame"/>
         <text x="16" y="20" class="lbl">Paratext</text>
         <rect x="14" y="32" width="190" height="254" rx="6" class="pane"/>
         <text x="26" y="52" class="h">Your project</text>
         <rect x="26" y="68" width="160" height="6" class="ln"/><rect x="26" y="82" width="140" height="6" class="ln"/><rect x="26" y="96" width="155" height="6" class="ln"/><rect x="26" y="110" width="120" height="6" class="ln"/>
         <rect x="220" y="32" width="200" height="254" rx="6" class="pane"/>
-        <text x="232" y="52" class="h">Greek NT + UBS apparatus</text>
+        <text x="232" y="52" class="h">Source Language Text</text>
         <rect x="232" y="68" width="170" height="6" class="ln"/><rect x="232" y="82" width="80" height="6" class="ln"/>
         <circle cx="320" cy="80" r="5" class="mark"/>
         <rect x="232" y="96" width="160" height="6" class="ln"/>
@@ -31,7 +33,7 @@ const sources = [
         <rect x="232" y="136" width="178" height="80" rx="5" class="pop"/>
         <text x="242" y="156" class="sm">1.1 {'{B}'} Συμεών א A …</text>
         <text x="242" y="176" class="sm">// Σίμων 𝔓72 B Ψ …</text>
-        <text x="242" y="204" class="lbl">popup</text>
+        <text x="242" y="204" class="lbl">apparatus popup</text>
         <rect x="436" y="32" width="190" height="254" rx="6" class="pane"/>
         <text x="448" y="52" class="h">Text Collection</text>
         <text x="448" y="78" class="sm">Greek</text><rect x="500" y="72" width="110" height="6" class="ln"/>
@@ -43,45 +45,96 @@ const sources = [
     <figcaption>A schematic, not a screenshot: one way to arrange the windows.</figcaption>
   </figure>
 
-  <h2>Getting the resources</h2>
-  <ol class="ptx-steps">
-    <li>In Paratext, open <em>Download/Install resources</em>.</li>
-    <li>Choose <em>Internet (DBL and Paratext servers)</em>.</li>
-    <li>Type a search word in the filter box.</li>
-    <li>Tick the resource and install it.</li>
-  </ol>
-  <p>If someone gives you the files, on a USB drive for example, you can install from that folder instead.</p>
-  <p>Resources come from the Digital Bible Library (DBL), and each one is licensed to a person or an organisation. That is why a colleague may be able to install a resource you cannot see.</p>
-  <div class="ptx-callout">
-    <p class="ptx-k">Resource missing?</p>
-    <p>First untick the option that shows only resources in languages you already use. It hides many resources. Still missing? Ask your organisation's Paratext administrator about the licence.</p>
+  <h2>The Source Language Text</h2>
+  <p>A Source Language Text shows the Hebrew or Greek text with help for each word: point at a word and the status bar gives its dictionary form (<em>lemma</em>), its grammatical form and an English gloss. Paratext offers three pairings, each with one Old Testament text and one New Testament text:</p>
+  <div class="table-wrap">
+    <table class="ptx-table">
+      <thead><tr><th>Choose</th><th>Old Testament</th><th>New Testament</th></tr></thead>
+      <tbody>
+        <tr><td><strong>HEB/GRK</strong></td><td>Biblia Hebraica Stuttgartensia (Hebrew)</td><td>UBS Greek New Testament, 5th edition</td></tr>
+        <tr><td><strong>LXX/GRK</strong></td><td>Septuaginta 2006 (Greek)</td><td>UBS Greek New Testament, 5th edition</td></tr>
+        <tr><td><strong>OHEB/OGRK</strong></td><td>Open Scriptures Hebrew Bible 2.1</td><td>UBS Greek New Testament, 4th edition</td></tr>
+      </tbody>
+    </table>
   </div>
-  <p>These resources help with text-critical questions:</p>
+  <p>For the UBS5 apparatus, choose <strong>HEB/GRK</strong> or <strong>LXX/GRK</strong>. You can switch between the three in the window's toolbar.</p>
+
+  <h2>Opening it</h2>
+  <ol class="ptx-steps">
+    <li>Click the main menu icon and choose <em>Paratext &gt; Open</em>.</li>
+    <li>Click the <em>Source Language Texts</em> button.</li>
+    <li>Choose HEB/GRK, LXX/GRK or OHEB/OGRK.</li>
+    <li>Under <em>Open As</em>, choose Floating, Tab, Panel or Autohide, and click <em>OK</em>.</li>
+  </ol>
+  <div class="ptx-callout">
+    <p class="ptx-k">Cannot open it?</p>
+    <p>Access comes through your organisation. If you did not name your organisation when you registered with Paratext, add it to your account at registry.paratext.org, or ask your Paratext support person.</p>
+  </div>
+
+  <h2>Installing or updating the texts</h2>
+  <ol class="ptx-steps">
+    <li>Open <em>Download/Install resources</em> and choose <em>Internet (DBL and Paratext servers)</em>.</li>
+    <li>Click the <em>Source Language Texts</em> button.</li>
+    <li>Tick the texts you need and click <em>Download/Install</em>. An <em>Update</em> label shows that a newer version is waiting.</li>
+  </ol>
+  <p>The Source Language Texts tab lists these:</p>
+  <div class="table-wrap">
+    <table class="ptx-table">
+      <thead><tr><th>Name</th><th>Text</th></tr></thead>
+      <tbody>
+        <tr><td><code>GRK</code></td><td>UBS Greek New Testament, 5th edition</td></tr>
+        <tr><td><code>OGRK</code></td><td>UBS Greek New Testament, 4th edition</td></tr>
+        <tr><td><code>BYZ</code></td><td>Robinson-Pierpont Byzantine New Testament: the Byzantine (Majority) text. It is close to the <a href={url('glossary/#tr')}>Textus Receptus</a> but not the same.</td></tr>
+        <tr><td><code>HEB</code></td><td>Biblia Hebraica Stuttgartensia</td></tr>
+        <tr><td><code>OHEB</code></td><td>Open Scriptures Hebrew Bible 2.1</td></tr>
+        <tr><td><code>LXX</code>, <code>LXA</code></td><td>Septuaginta 2006, and an alternative Septuagint text for some books</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Each text is licensed to you or your organisation through the Digital Bible Library (DBL), so a colleague may see a text that you cannot.</p>
+
+  <h2>Interlinear lines</h2>
+  <p>Under each Hebrew or Greek word the window can show a transliteration, the lemma, the form and a gloss. Turn these on from the window's tab menu, under <em>View</em>. The glosses that come with Paratext are in English.</p>
+
+  <h2>Other helpful resources</h2>
+  <p>These are ordinary resources, installed from the <em>Resources</em> button of the same dialog:</p>
   <div class="table-wrap">
     <table class="ptx-table">
       <thead><tr><th>Resource</th><th>Search for</th><th>What it gives you</th></tr></thead>
       <tbody>
-        <tr><td>A Greek New Testament with the UBS apparatus</td><td>your Greek NT</td><td>The Greek text with the variant marks and apparatus entries.</td></tr>
         <tr><td>NET08</td><td><code>net</code></td><td>The NET Bible notes. Text-critical notes are their own note type, separate from translators' notes.</td></tr>
         <tr><td>TNN (and TND, if offered)</td><td><code>notes</code></td><td>Translator's Notes.</td></tr>
         <tr><td>HBKENG</td><td><code>handbook</code></td><td>The UBS Handbook Series in English.</td></tr>
-        <tr><td>Textus Receptus (Elzevir 1624, Scrivener 1881)</td><td>—</td><td>The Greek text behind the King James Version and many older Bibles. Both editions are old enough to be in the public domain.</td></tr>
       </tbody>
     </table>
   </div>
   <p>Some resources stop part way through a book. If one has nothing for your verse, that is normal. You did not set it up wrongly.</p>
 
   <h2>Arranging the windows</h2>
-  <p>Put the Greek resource in its own window beside your project. To compare several texts at one verse, use a <em>Text Collection</em>: it shows the same verse from several projects and resources at once, and scrolls along with your other windows.</p>
+  <p>Put the Source Language Text in its own window beside your project. To compare several texts at one verse, use a <em>Text Collection</em>: it shows the same verse from several projects and resources at once, and scrolls along with your other windows.</p>
   <ol class="ptx-steps">
     <li>From the main menu choose <em>Open text collection</em>.</li>
-    <li>Add the Greek text, the Textus Receptus and the major-language Bibles your readers know (Hindi or Tamil, for example).</li>
+    <li>Add the texts you want to compare, for example the major-language Bibles your readers know (Hindi or Tamil).</li>
     <li>The simple one-pane view hides footnotes and their marks. From the collection's tab menu choose <em>View &gt; Two panes</em>.</li>
     <li>Click the name of a text. The right pane shows it with more context.</li>
   </ol>
 
   <h2>What the apparatus looks like</h2>
-  <p>A small raised number in the Greek marks a place where the apparatus has an entry. Click it and a popup opens. At 2 Peter 1:1 the manuscripts differ on the spelling of Peter's other name:</p>
+  <p>The Source Language Text marks apparatus entries with small red characters. Click one and a popup shows the entry.</p>
+  <div class="table-wrap">
+    <table class="ptx-table marks">
+      <thead><tr><th>Mark</th><th>Where</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="red">1–9</td><td>after a Greek word</td><td>an entry in the UBS textual apparatus</td></tr>
+        <tr><td class="red">a–z</td><td>after a Greek verse</td><td>an entry in the discourse segmentation apparatus</td></tr>
+        <tr><td class="red">♦</td><td>after a Greek word</td><td>two readings are equally good; see <a href={url('glossary/#diamond')}>♦</a></td></tr>
+        <tr><td class="red">*</td><td>start of a Greek verse</td><td>a cross-reference entry</td></tr>
+        <tr><td class="red">t</td><td>after a Hebrew word</td><td>a textual issue in the Hebrew Old Testament Text Project (HOTTP) report</td></tr>
+        <tr><td>* / **</td><td>before a Hebrew word</td><td><em>ketiv</em> (the written form) / <em>qere</em> (the form to be read)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The popup ends with a <em>More help…</em> link. At 2 Peter 1:1 the manuscripts differ on the spelling of Peter's other name:</p>
   <figure class="ptx-specimen">
     <pre class="app"><span lang="grc">1.1 {'{B}'} Συμεών</span> <span class="siglum" lang="he" dir="ltr">א</span> A 33 307 436 442 642 1175 1448 1735 1739 1852 2344 Byz<sup>pt</sup> [K L P] Lect arm geo // <span lang="grc">Σίμων</span> 𝔓<sup>72</sup> B Ψ 5 81 1243 1611 2492 Byz<sup>pt</sup> ℓ 147 ℓ 590 … it<sup>ar,z</sup> vg cop<sup>sa,bo</sup> eth slav BTI DHH?</pre>
     <figcaption>UBS5 apparatus at 2 Peter 1:1, as Paratext shows it</figcaption>
@@ -110,10 +163,10 @@ const sources = [
 
   <aside class="unverified" aria-labelledby="unv">
     <h2 id="unv">Not yet verified</h2>
-    <p>These points come from notes, not from Paratext Help. Check them in your own copy of Paratext.</p>
+    <p>These points are not confirmed by Paratext Help or by a screen we have seen. Check them in your own copy of Paratext.</p>
     <ul>
-      <li>The exact name of the Greek NT resource that carries the UBS5 apparatus, and whether it needs a separate licence.</li>
-      <li>A "More help…" link inside the apparatus popup that opens the abbreviations list.</li>
+      
+      <li>Where the <em>More help…</em> link in the apparatus popup leads.</li>
       <li>Whether the UBS apparatus popup works inside a Text Collection, or only in the resource's own window.</li>
     </ul>
   </aside>
@@ -122,6 +175,7 @@ const sources = [
 
 <style>
   .table-wrap { overflow-x: auto; }
+  .marks .red { color: var(--rubric); font-weight: 700; font-family: var(--sigla); white-space: nowrap; }
   pre.app { white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--step--1); margin: 0; }
   .ptx-fig { margin: 1.5rem 0; }
   .ptx-scroll { overflow-x: auto; }

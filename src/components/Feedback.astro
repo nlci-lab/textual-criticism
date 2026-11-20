@@ -2,7 +2,7 @@
 // "Was this page helpful?" box. Answers go to the site team's Google Form, without leaving the page.
 // With JavaScript: posted in the background (no Google script is loaded on our page).
 // Without JavaScript: the same form posts to Google Forms in a new tab.
-// Spam guard: a hidden honeypot field and a minimum time on the page; no reCAPTCHA (Google Forms can't verify one).
+// Spam guard: a hidden honeypot field, and early answers are held until 3 s after load; no reCAPTCHA (Google Forms can't verify one).
 interface Props { title: string }
 const { title } = Astro.props;
 const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLScpYSI4caU6nIqjtIHRco82kP3zA9MxJLTibfwkpjesGLnkcQ';
@@ -48,11 +48,15 @@ const id = 'fb-' + Math.random().toString(36).slice(2, 8);
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const data = new FormData(form);
-      // Quietly drop bot-like submissions: honeypot filled, or sent within 3 seconds of loading the page.
-      if (String(data.get('website') ?? '') !== '' || Date.now() - started < 3000) { status.textContent = 'Thank you.'; return; }
+      // Bots fill the hidden field: drop those quietly.
+      if (String(data.get('website') ?? '') !== '') { status.textContent = 'Thank you.'; return; }
       data.delete('website');
       btn.disabled = true;
       status.textContent = 'Sending…';
+      // A real reader who answers very soon after the page opens (e.g. scroll restored at the box)
+      // is not dropped: we just wait until 3 seconds have passed, then send.
+      const wait = 3000 - (Date.now() - started);
+      if (wait > 0) await new Promise((r) => setTimeout(r, wait));
       try {
         // Google Forms does not allow reading the reply from another site, so this is a "no-cors" post:
         // it reaches the form, but we cannot confirm it. The link below the box is the fallback.

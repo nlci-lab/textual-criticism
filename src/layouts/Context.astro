@@ -1,37 +1,165 @@
 ---
-// Context pages: one reading column, a "not yet checked" notice until the page is checked
-// against its listed sources (ADR 0004), and the sources at the end.
+// Guide, worked-example and background pages. When the page is listed in src/data/guides.ts it gets a
+// book-page header (cover, details, what you will learn), a sticky contents list built from its h2s,
+// and a Related shelf. A "not yet checked" notice shows until the page is checked against its
+// listed sources (ADR 0004); the sources come at the end.
 import Base from './Base.astro';
+import Cover from '../components/Cover.astro';
+import { byPath, PIGMENT, KICKER, type GuideMeta } from '../data/guides';
+import { url } from '../lib/url';
 interface Props {
   title: string; description: string; label: string;
-  sources: { cite: string; checked: boolean }[];
-  checked?: boolean; lastChecked: string;
+  sources?: { cite: string; checked: boolean }[];
+  checked?: boolean; lastChecked?: string;
   /** Wide pages (e.g. with image plates) drop the reading-column limit; text blocks keep it. */
   wide?: boolean;
   /** Wording of the banner tag; defaults to 'not yet checked'. */
   statusTag?: string;
+  /** false: no "not yet checked" banner (the page marks its own unchecked parts). */
+  notice?: boolean;
 }
-const { title, description, label, sources, checked = false, lastChecked, wide = false, statusTag = 'not yet checked' } = Astro.props;
+const { title, description, label, sources = [], checked = false, lastChecked, wide = false, statusTag = 'not yet checked', notice = true } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const path = Astro.url.pathname.startsWith(base) ? Astro.url.pathname.slice(base.length) : Astro.url.pathname.replace(/^\//, '');
+const meta = byPath(path);
+const nav = path.startsWith('background/') ? 'background/' : 'guide/';
+
+// Render the body once: give every h2 an id, list them for the contents, and count words for reading time.
+let body = await Astro.slots.render('default');
+const used = new Set<string>();
+const toc: { id: string; text: string }[] = [];
+const strip = (h: string) => h.replace(/<span class="tag"[\s\S]*?<\/span>/g, '').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&#39;/g, '’').trim();
+body = body.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/g, (m, attrs: string, inner: string) => {
+  const text = strip(inner);
+  let id = /\bid="([^"]+)"/.exec(attrs)?.[1];
+  if (!id) {
+    id = text.toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-').slice(0, 48) || 'section';
+    while (used.has(id)) id += '-2';
+    attrs += ` id="${id}"`;
+  }
+  used.add(id);
+  toc.push({ id, text });
+  return `<h2${attrs}>${inner}</h2>`;
+});
+if (sources.length) toc.push({ id: 'sources', text: 'Sources' });
+const words = body.replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(3, Math.round(words / 150)); // about 150 words a minute for second-language readers
+
+const before = meta?.before ? byPath(meta.before) : undefined;
+const related = (meta?.related ?? []).map((p) => byPath(p) ?? (p === 'witnesses/' ? 'witnesses' : undefined)).filter(Boolean) as (GuideMeta | 'witnesses')[];
 ---
-<Base title={title} description={description} nav="background/">
-  <article class:list={["ctx", wide ? "wide" : "prose"]}>
-    <p class="label">{label}</p>
-    <h1>{title}</h1>
-    {!checked && (
-      <p class="notice">
-        <span class="tag">{statusTag}</span> Written from the handbooks listed at the end, but not yet checked line by line against them. Use it as a guide, not as a source.
-      </p>
-    )}
-    <slot />
-    <section class="sources">
-      <h2>Sources</h2>
-      <ol>{sources.map((s) => <li>{s.cite}{!s.checked && <span class="tag">not yet checked</span>}</li>)}</ol>
-      <p class="small muted">Last revised {lastChecked}.</p>
-    </section>
-  </article>
+<Base title={title} description={description} nav={nav}>
+  {meta ? (
+    <>
+      <section class="book">
+        <Cover title={meta.cover} kicker={KICKER[meta.section]} pigment={PIGMENT[meta.section]} href="#read" />
+        <div class="book-main">
+          <p class="label">{label} · {meta.level}</p>
+          <h1>{title}</h1>
+          <p class="book-lead">{meta.summary}</p>
+          <dl class="book-spec">
+            <dt>Reading time</dt><dd>About {minutes} minutes</dd>
+            {before && <><dt>Read first</dt><dd><a href={url(before.path)}>{before.cover}</a></dd></>}
+            {meta.verses?.length ? <><dt>Passages</dt><dd>{meta.verses.join(', ')}</dd></> : null}
+            {sources.length > 0 && <><dt>Sources</dt><dd>{sources.length}{sources.some((s) => !s.checked) && ' (some not yet checked)'}</dd></>}
+            {lastChecked && <><dt>Last revised</dt><dd>{lastChecked}</dd></>}
+          </dl>
+          <div class="book-act">
+            <a class="btn primary" href="#read">Read the {KICKER[meta.section].toLowerCase()}</a>
+            {related.length > 0 && <a class="btn" href="#related">Related pages</a>}
+          </div>
+        </div>
+        <aside class="book-learn">
+          <h2>What you will learn</h2>
+          <ul>{meta.learn.map((l) => <li>{l}</li>)}</ul>
+        </aside>
+      </section>
+      <div class="read" id="read">
+        <nav class="toc" aria-label="On this page">
+          <details open>
+            <summary class="label">On this page</summary>
+            <ol>{toc.map((t) => <li><a href={`#${t.id}`}>{t.text}</a></li>)}</ol>
+          </details>
+        </nav>
+        <article class:list={['ctx', wide ? 'wide' : 'prose']}>
+          {notice && !checked && (
+            <p class="notice"><span class="tag">{statusTag}</span> Written from the handbooks listed at the end, but not yet checked line by line against them. Use it as a guide, not as a source.</p>
+          )}
+          <Fragment set:html={body} />
+          {sources.length > 0 && (
+            <section class="sources">
+              <h2 id="sources">Sources</h2>
+              <ol>{sources.map((s) => <li>{s.cite}{!s.checked && <span class="tag">not yet checked</span>}</li>)}</ol>
+              {lastChecked && <p class="small muted">Last revised {lastChecked}.</p>}
+            </section>
+          )}
+        </article>
+      </div>
+      {related.length > 0 && (
+        <section class="sec" id="related">
+          <header><h2>Related</h2></header>
+          <div class="shelf">
+            {related.map((r) => r === 'witnesses'
+              ? <figure><Cover title="Witness gallery" kicker="Witnesses" pigment="gall" ornament="𝔓" href={url('witnesses/')} /><figcaption>Every manuscript profile</figcaption></figure>
+              : <figure><Cover title={r.cover} kicker={KICKER[r.section]} pigment={PIGMENT[r.section]} href={url(r.path)} /><figcaption>{r.level}</figcaption></figure>)}
+          </div>
+        </section>
+      )}
+    </>
+  ) : (
+    <article class:list={['ctx', 'plain', wide ? 'wide' : 'prose']}>
+      <p class="label">{label}</p>
+      <h1>{title}</h1>
+      {notice && !checked && (
+        <p class="notice"><span class="tag">{statusTag}</span> Written from the handbooks listed at the end, but not yet checked line by line against them. Use it as a guide, not as a source.</p>
+      )}
+      <Fragment set:html={body} />
+      {sources.length > 0 && (
+        <section class="sources">
+          <h2 id="sources">Sources</h2>
+          <ol>{sources.map((s) => <li>{s.cite}{!s.checked && <span class="tag">not yet checked</span>}</li>)}</ol>
+          {lastChecked && <p class="small muted">Last revised {lastChecked}.</p>}
+        </section>
+      )}
+    </article>
+  )}
 </Base>
 <style>
-  .ctx { margin-top: 1.5rem; }
+  .plain { margin-top: 1.5rem; }
+  /* Book page header */
+  .book { display: grid; gap: 1.5rem; padding: 1.75rem 0 2rem; border-bottom: 1px solid var(--rule); }
+  .book > :global(.cover) { width: 11rem; }
+  .book h1 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); margin: 0.2rem 0 0.6rem; }
+  .book-lead { font-size: var(--step-1); line-height: 1.45; max-width: 40rem; }
+  .book-spec { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; margin: 1rem 0; padding: 0.9rem 0; border-block: 1px solid var(--rule); font: 0.875rem/1.45 var(--sans); max-width: 40rem; }
+  .book-spec dt { color: var(--ink-2); }
+  .book-spec dd { margin: 0; }
+  .book-act { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .btn { font: 600 0.95rem var(--sans); padding: 0.6rem 1.1rem; border-radius: 8px; text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink); }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn:hover { text-decoration: underline; }
+  .book-learn { border: 1px solid var(--rule); border-radius: 8px; padding: 1rem 1.1rem; align-self: start; }
+  .book-learn h2 { font: 600 1rem var(--sans); margin: 0 0 0.5rem; }
+  .book-learn ul { margin: 0; padding-left: 1.1rem; }
+  .book-learn li { margin: 0.3rem 0; }
+  @media (min-width: 760px) { .book { grid-template-columns: 13rem minmax(0, 1fr); } .book > :global(.cover) { width: 100%; } .book-learn { grid-column: 2; } }
+  @media (min-width: 1150px) { .book { grid-template-columns: 15rem minmax(0, 1fr) 17rem; gap: 2.5rem; } .book-learn { grid-column: auto; } }
+  /* Reading view */
+  .read { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; padding-top: 1.5rem; }
+  .read > * { min-width: 0; }
+  .toc { font: 0.9rem/1.45 var(--sans); }
+  .toc summary { cursor: pointer; margin: 0; }
+  .toc ol { padding-left: 1.2rem; margin: 0.5rem 0 0; }
+  .toc li { margin: 0.25rem 0; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--rubric); text-decoration: underline; }
+  @media (max-width: 999px) { .toc { border: 1px solid var(--rule); border-radius: 8px; padding: 0.6rem 0.9rem; } }
+  @media (min-width: 1000px) {
+    .read { grid-template-columns: 15rem minmax(0, 1fr); gap: 3rem; }
+    .toc { position: sticky; top: 1rem; align-self: start; max-height: calc(100vh - 2rem); overflow: auto; }
+  }
+  .ctx :global(h2[id]) { scroll-margin-top: 1rem; }
   :global(.ctx.wide > :is(p, h1, h2, dl, ol, ul, section)) { max-width: var(--measure); }
   .notice { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-2); border-left: 3px solid var(--rule); padding-left: 0.6rem; }
   .ctx :global(.lead) { font-size: var(--step-1); line-height: 1.45; }

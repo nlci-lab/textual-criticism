@@ -1,0 +1,17 @@
+---
+// Typographic book cover for guides, background pages and the course. No images.
+interface Props {
+  title: string;
+  kicker: string;                 // e.g. 'Guide', 'Background', 'Online course'
+  pigment: 'ochre' | 'verdigris' | 'lapis' | 'gall';
+  href?: string;
+  ornament?: string;              // defaults to §
+}
+const { title, kicker, pigment, href, ornament = '§' } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+<Tag class={`cover pig-${pigment}`} href={href}>
+  <span class="k">{kicker}</span>
+  <span class="t">{title}</span>
+  <span class="orn" aria-hidden="true">{ornament}</span>
+</Tag>

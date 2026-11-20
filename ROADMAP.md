@@ -17,6 +17,10 @@
 - [ ] Background: expand "How we got the Old Testament text"; Masoretes and the Masorah.
 - [ ] Sources: Tov, Würthwein, BHS/BHQ introductions; Hemphill's OT material (credit, used with permission).
 
+## At launch
+
+- [ ] Remove the `noindex, nofollow` robots meta tag and the under-construction banner from `src/layouts/Base.astro`.
+
 ## Next content
 
 1. Remaining Greek witnesses (papyri, majuscules, minuscules, lectionaries), using `scripts/` to pull INTF Liste data.

@@ -1,0 +1,104 @@
+/* Catalogue components (design direction 6): witness tiles, coverage bar, covers, shelves, chips.
+   Pigments are used flat, only on covers. Rubric stays the accent for sigla and links. */
+
+/* Shelf / rail: one horizontal row that scrolls on narrow screens. No JS. */
+:is(div, ul).shelf {
+  display: grid; grid-auto-flow: column; grid-auto-columns: var(--shelf-col, minmax(10rem, 11.5rem));
+  gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0.25rem 0 0.75rem;
+  margin: 0; list-style: none;
+}
+:is(div, ul).shelf > * { scroll-snap-align: start; }
+
+/* Chip buttons (filters, "try" suggestions). */
+.chip {
+  border: 1px solid var(--rule); background: var(--chip); color: var(--ink); border-radius: 999px;
+  padding: 0.3rem 0.8rem; font: 0.875rem/1.3 var(--sans); cursor: pointer; white-space: nowrap; min-height: 2.25rem;
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* Witness tile */
+.tile {
+  display: flex; flex-direction: column; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden;
+  background: var(--paper); color: var(--ink); text-decoration: none; transition: border-color 0.15s, translate 0.15s;
+}
+a.tile:hover { border-color: var(--ink-2); translate: 0 -2px; }
+a.tile:hover b { text-decoration: underline; text-decoration-thickness: 1px; }
+.tile-spec { position: relative; height: 9.5rem; display: grid; place-items: center; overflow: hidden; border-bottom: 1px solid var(--rule); }
+.tile-spec img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tile-spec .sg {
+  position: relative; z-index: 1; font: 400 3.4rem/1 var(--sigla); color: var(--rubric);
+  font-variant-numeric: lining-nums; white-space: nowrap;
+}
+.tile-spec .sg[lang="he"] { font-family: var(--hebrew); }
+/* Over a photo the siglum sits on a paper label so it stays legible (AA) on any image. */
+.tile-spec.photo .sg {
+  position: absolute; left: 0.5rem; bottom: 0.5rem; font-size: 1.5rem; padding: 0.15rem 0.5rem;
+  background: var(--paper); border-radius: 4px;
+}
+.tile-spec .scr {
+  position: absolute; left: -0.25rem; right: -0.25rem; bottom: 0.55rem; font: 600 0.82rem/1 var(--serif);
+  letter-spacing: 0.32em; color: #2a2218; opacity: 0.38; white-space: nowrap; overflow: hidden;
+}
+.tile-spec .scr + .scr { bottom: 1.6rem; opacity: 0.22; }
+.tile-spec.papyrus {
+  background-color: #e8d9b5;
+  background-image: repeating-linear-gradient(90deg, rgb(110 80 30 / 0.10) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(0deg, rgb(110 80 30 / 0.08) 0 1px, transparent 1px 7px);
+}
+.tile-spec.parchment { background-color: #efe7da; background-image: radial-gradient(rgb(90 70 40 / 0.07) 1px, transparent 1.2px); background-size: 6px 6px; }
+.tile-spec.plain { background: var(--paper-2); }
+.tile-spec.plain .scr { color: var(--ink); }
+/* Textures keep their light ground in dark mode but are dimmed; rubric #9d2a1f on them stays AA. */
+.tile-spec.papyrus .sg, .tile-spec.parchment .sg { color: #9d2a1f; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tile-spec.papyrus { background-color: #3a3222; }
+  :root:not([data-theme="light"]) .tile-spec.parchment { background-color: #2e2b27; }
+  :root:not([data-theme="light"]) :is(.tile-spec.papyrus, .tile-spec.parchment) .scr { color: #e8dcc4; }
+  :root:not([data-theme="light"]) :is(.tile-spec.papyrus, .tile-spec.parchment) .sg { color: var(--rubric); }
+}
+:root[data-theme="dark"] .tile-spec.papyrus { background-color: #3a3222; }
+:root[data-theme="dark"] .tile-spec.parchment { background-color: #2e2b27; }
+:root[data-theme="dark"] :is(.tile-spec.papyrus, .tile-spec.parchment) .scr { color: #e8dcc4; }
+:root[data-theme="dark"] :is(.tile-spec.papyrus, .tile-spec.parchment) .sg { color: var(--rubric); }
+.tile-meta { padding: 0.65rem 0.8rem 0.8rem; display: grid; gap: 0.3rem; }
+.tile-meta b { font-size: 1.02rem; line-height: 1.25; font-weight: 600; }
+.tile-meta .ln { display: flex; justify-content: space-between; gap: 0.5rem; font: 0.8rem var(--sans); color: var(--ink-2); }
+@media (max-width: 400px) {
+  .tile-spec { height: 7rem; }
+  .tile-spec .sg { font-size: 2.6rem; }
+  .tile-meta b { font-size: 0.92rem; }
+}
+
+/* Coverage bar: Gospels / Acts / Paul / Catholic letters / Revelation */
+.cov { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin: 0.15rem 0 0; padding: 0; list-style: none; }
+.cov li { height: 5px; border-radius: 1px; background: var(--bar-none); }
+.cov li.on { background: var(--bar-full); }
+.cov li.part { background: var(--bar-part); }
+.cov.labelled li { height: auto; padding: 0.15rem 0; text-align: center; font: 600 0.65rem/1.3 var(--sans); color: var(--ink-2); }
+.cov.labelled li.on { color: var(--paper); }
+.cov.labelled li.part { color: var(--ink); }
+
+/* Book cover: typographic, flat pigment, inner rule frame. */
+.cover {
+  aspect-ratio: 3 / 4; border-radius: 3px 8px 8px 3px; padding: 1.1rem 1rem 1rem 1.5rem; position: relative;
+  display: flex; flex-direction: column; justify-content: space-between; color: var(--on-pig); text-decoration: none;
+  box-shadow: inset 6px 0 0 rgb(0 0 0 / 0.18), 0 1px 2px rgb(0 0 0 / 0.15);
+}
+.cover::after { content: ""; position: absolute; inset: 0.45rem 0.45rem 0.45rem 0.85rem; border: 1px solid rgb(251 246 236 / 0.45); border-radius: 2px; pointer-events: none; }
+.cover .k { font: 600 0.65rem var(--sans); letter-spacing: 0.12em; text-transform: uppercase; }
+.cover .t { font: 600 1.3rem/1.15 var(--serif); text-wrap: balance; }
+.cover .orn { font: 1.4rem var(--sigla); }
+a.cover:hover .t { text-decoration: underline; text-decoration-thickness: 1px; }
+.cover:focus-visible { outline-offset: 3px; }
+.pig-ochre { background: var(--ochre); }
+.pig-verdigris { background: var(--verdigris); }
+.pig-lapis { background: var(--lapis); }
+.pig-gall { background: var(--gall); }
+.shelf figure { margin: 0; }
+.shelf figcaption { font: 0.8rem var(--sans); color: var(--ink-2); margin-top: 0.4rem; }
+
+/* Section with a header rule and an "all" link. */
+.sec { padding: 2rem 0; }
+.sec > header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.5rem; }
+.sec > header h2 { margin: 0; font-size: 1.45rem; }
+.sec > header a { font: 0.9rem var(--sans); }

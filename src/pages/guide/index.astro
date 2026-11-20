@@ -1,24 +1,32 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Cover from '../../components/Cover.astro';
+import { GUIDES, PIGMENT, KICKER } from '../../data/guides';
 import { url } from '../../lib/url';
-// Guides in the order a translator usually needs them.
-const guides = [
-  ['guide/apparatus/', 'How to read a UBS apparatus entry', 'John 1:18, taken apart piece by piece.'],
-  ['guide/which-variants-matter/', 'Which variants deserve your attention', 'Not all variants weigh the same: sorting them by meaning and by rating, and when to footnote.'],
-  ['guide/weighing-evidence/', 'Weighing the evidence', 'From reading an entry to judging between readings: external and internal evidence.'],
-  ['guide/examples/', 'Worked examples', 'Real places where manuscripts differ, worked through step by step.'],
-  ['guide/base-texts/', 'Two Greek texts behind our Bibles', 'Why the Bible your church reads may differ from the UBS text, and which text Indian-language Bibles follow.'],
-  ['guide/text-policy/', 'Which text should a translation follow?', "NLCI's guidance on base texts: the standard text, footnotes, and the Textus Receptus."],
-  ['guide/paratext/', 'Using the UBS apparatus in Paratext', 'Setting up the resources beside your translation and decoding the sigla.'],
-];
+// Order follows src/data/guides.ts.
+const pages = GUIDES.filter((g) => g.section !== 'background');
 ---
 <Base title="Guides" nav="guide/">
-  <div class="prose gd">
+  <div class="ix-head">
     <h1>Guides</h1>
-    <p class="muted">Practical help for translators and consultants. These guides cover the UBS Greek New Testament; guides for the Hebrew Bible (BHS and BHQ) are being added.</p>
-    <ul class="results">
-      {guides.map(([p, t, d]) => <li><a href={url(p)}><span class="r-name"><strong>{t}</strong><br /><span class="muted small">{d}</span></span></a></li>)}
-    </ul>
+    <p class="muted">Practical help for translators and consultants, with worked examples. These cover the UBS Greek New Testament; guides for the Hebrew Bible (BHS and BHQ) are being added.</p>
   </div>
+  <ul class="ix">
+    {pages.map((g) => (
+      <li>
+        <Cover title={g.cover} kicker={KICKER[g.section]} pigment={PIGMENT[g.section]} href={url(g.path)} />
+        <div><p class="label">{g.level}</p><p class="ix-sum">{g.summary}</p></div>
+      </li>
+    ))}
+  </ul>
 </Base>
-<style>.gd { margin-top: 1.5rem; }</style>
+<style>
+  .ix-head { padding: 1.75rem 0 1rem; }
+  .ix-head p { max-width: var(--measure); }
+  .ix { list-style: none; padding: 0; margin: 0 0 2rem; display: grid; gap: 1.5rem 1.25rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ix li { display: grid; gap: 0.6rem; align-content: start; }
+  .ix .label { margin: 0; }
+  .ix-sum { margin: 0.2rem 0 0; font-size: 0.95rem; line-height: 1.45; }
+  @media (min-width: 700px) { .ix { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .ix { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2rem 1.5rem; } }
+</style>

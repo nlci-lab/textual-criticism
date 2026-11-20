@@ -1,0 +1,63 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Codex Vaticanus · Textual Criticism (Index desk)</title>
+<style>
+:root{--paper:#fbfaf8;--paper-2:#f1efeb;--ink:#1f1c19;--ink-2:#57504a;--rule:#d9d4cc;--rubric:#9d2a1f;
+--warn-bg:#fbf1d9;--warn-ink:#5c4300;--bar-full:#3b3530;--bar-part:#a39a90;--bar-none:#e6e1da;
+--serif:"Gentium Book Plus","Gentium Plus","Noto Serif",Cambria,"Times New Roman",serif;
+--sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif;
+--sigla:"Gentium Book Plus","Cambria Math","STIX Two Math","Noto Sans Math","Segoe UI Symbol",serif;
+--hebrew:"Noto Serif Hebrew","SBL Hebrew","Times New Roman",serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--paper:#17191b;--paper-2:#212427;--ink:#e8e3db;--ink-2:#ada69c;--rule:#3a3d41;
+--rubric:#f08b7c;--warn-bg:#3a3014;--warn-ink:#f3dc9b;--bar-full:#e8e3db;--bar-part:#8c857c;--bar-none:#33373b;color-scheme:dark}}
+*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:1.0625rem/1.6 var(--serif)}
+a{color:var(--rubric);text-underline-offset:.15em;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--rubric);outline-offset:2px}
+h1,h2,h3,h4{line-height:1.2;font-weight:600;text-wrap:balance}h1{font-size:2.2rem;margin:0 0 .5rem}
+h2{font-size:1.3rem;margin:2rem 0 .5rem}h3{font-size:1.0625rem;margin:1.5rem 0 .25rem}h4{margin:0 0 .25rem;font-size:1rem}
+p,ul,ol{margin:0 0 1rem}
+.siglum{font-family:var(--sigla);color:var(--rubric);white-space:nowrap}[lang=he]{font-family:var(--hebrew);unicode-bidi:isolate}
+[lang=grc]{font-family:var(--serif)}
+.label,.kicker{font:600 .75rem/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin:0 0 .25rem}
+.muted{color:var(--ink-2)}.small{font-size:.875rem}.lead{font-size:1.2rem;line-height:1.5}
+.uc{background:var(--warn-bg);color:var(--warn-ink);font:.8125rem/1.4 var(--sans);padding:.35rem 16px;text-align:center}
+.brand{font:600 1rem var(--serif);color:var(--ink);text-decoration:none}
+.card{border:1px solid var(--rule);background:var(--paper-2);padding:.75rem 1rem;border-radius:4px}
+.card .big,.master .big{font-size:1.15rem;font-weight:600;margin:0 0 .25rem}
+.twin{display:grid;gap:.75rem;margin:1rem 0}@media(min-width:560px){.twin{grid-template-columns:1fr 1fr}}
+.checks{padding-left:1.5rem}.checks .q{font-weight:600}
+.master{border-left:3px solid var(--rubric);padding:.5rem 1rem;margin:1rem 0;background:var(--paper-2)}
+.rules{display:grid;gap:.75rem}.rule{border-top:1px solid var(--rule);padding-top:.5rem}
+.limit{font-size:.9375rem;color:var(--ink-2)}.limit span{font:600 .7rem var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--rubric);margin-right:.4rem}
+.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.9375rem}
+th,td{text-align:left;vertical-align:top;padding:.4rem .6rem;border-bottom:1px solid var(--rule)}th{font:600 .75rem var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+tr.chosen td{background:var(--paper-2)}.tag{font:600 .7rem var(--sans);border:1px solid var(--rubric);color:var(--rubric);padding:0 .3rem;border-radius:3px;margin-left:.3rem}
+.gl{color:var(--ink-2)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;margin:0 0 1rem;font-size:.9375rem}.facts dt{font:600 .75rem/1.9 var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}.facts dd{margin:0}
+.books{display:flex;flex-wrap:wrap;gap:2px;margin:.25rem 0 .5rem;padding:0;list-style:none;font:600 .7rem var(--sans)}
+.books li{padding:.2rem .3rem;min-width:2.4rem;text-align:center;border-radius:2px}
+.books .complete{background:var(--bar-full);color:var(--paper)}.books .partial{background:var(--bar-part);color:var(--ink)}.books .absent{background:var(--bar-none);color:var(--ink-2)}
+.units{list-style:none;padding:0}.units li{border-top:1px solid var(--rule);padding:.5rem 0}.units b{font-family:var(--sans);font-size:.875rem}
+.sources{font-size:.875rem;color:var(--ink-2);padding-left:1.25rem}
+.note{border-left:3px solid var(--rule);padding-left:.75rem;color:var(--ink-2)}
+.withheld{border:1px dashed var(--rule);padding:.75rem 1rem;font-size:.9375rem;color:var(--ink-2)}
+.wlist{list-style:none;padding:0;margin:0}.wlist li{display:grid;grid-template-columns:4.5rem 1fr auto;gap:.5rem;padding:.4rem 0;border-top:1px solid var(--rule);align-items:baseline}
+.wlist .siglum{font-size:1.1rem}.wlist .d{font:.8125rem var(--sans);color:var(--ink-2)}
+.glist{list-style:none;padding:0;margin:0}.glist li{padding:.45rem 0;border-top:1px solid var(--rule)}.glist p{margin:0;font-size:.9375rem;color:var(--ink-2)}
+.diagram svg{width:100%;max-width:520px;height:auto}.diagram line{stroke:var(--bar-part)}.diagram .anc{fill:var(--rubric)}.diagram .late{fill:var(--bar-part)}.diagram .early{fill:var(--bar-full)}.diagram text{fill:var(--ink-2);font:13px var(--sans);text-anchor:middle}
+
+.top{border-bottom:2px solid var(--ink);max-width:90rem;margin:0 auto;padding:.75rem 16px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;align-items:baseline;font-family:var(--sans)}
+.top nav a{margin-left:1rem;font-size:.9rem}.find{font:1rem var(--sans);padding:.45rem .6rem;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink);width:100%;max-width:26rem;border-radius:3px}
+.page{max-width:90rem;margin:0 auto;padding:1.25rem 16px 3rem}
+.desk{display:grid;gap:1.5rem}.panel{border-top:3px solid var(--ink);padding-top:.4rem}.panel h2{margin-top:0;font-size:1.05rem;font-family:var(--sans)}
+@media(min-width:760px){.desk{grid-template-columns:1fr 1fr}}@media(min-width:1150px){.desk{grid-template-columns:2fr 1fr 1fr}}
+.wt td:first-child{white-space:nowrap}.wt .siglum{font-size:1.1rem}
+.read{max-width:44rem}.wide{max-width:none}
+.gl2{display:grid;gap:1.5rem}@media(min-width:1100px){.gl2{grid-template-columns:minmax(0,44rem) minmax(0,1fr);gap:3rem}.gl2 .rules{grid-template-columns:1fr 1fr}}
+</style></head><body><div class="uc">Under construction: content is being checked.</div><header class="top"><a class="brand" href="home.html">Textual Criticism</a><nav><a href="witness.html">Witnesses</a><a href="guide.html">Guides</a><a href="#">Background</a></nav></header><main class="page"><p class="label">Greek manuscript · majuscule</p><h1><span class="siglum">B</span> 03 · Codex Vaticanus</h1><div class="desk"><section class="panel" style="grid-column:1/-1"><h2>At a glance</h2><div class="gl2"><div><dl class="facts"><dt>Siglum</dt><dd><span class="siglum">B</span> · GA 03</dd><dt>Date</dt><dd>4th century</dd>
+<dt>Material</dt><dd>Parchment codex</dd><dt>Leaves</dt><dd>142 (NT part, pp. 1235–1518)</dd>
+<dt>Held at</dt><dd>Biblioteca Apostolica Vaticana, Vat. gr. 1209</dd><dt>Text</dt><dd>Usually grouped with the early Egyptian (“Alexandrian”) witnesses</dd></dl></div><div><p class="label">Contents</p><ul class="books"><li class="complete" title="Mt">Mt</li><li class="complete" title="Mk">Mk</li><li class="complete" title="Lk">Lk</li><li class="complete" title="Jn">Jn</li><li class="complete" title="Ac">Ac</li><li class="complete" title="Jas">Jas</li><li class="complete" title="1Pe">1Pe</li><li class="complete" title="2Pe">2Pe</li><li class="complete" title="1Jn">1Jn</li><li class="complete" title="2Jn">2Jn</li><li class="complete" title="3Jn">3Jn</li><li class="complete" title="Jd">Jd</li><li class="complete" title="Ro">Ro</li><li class="complete" title="1Cor">1Cor</li><li class="complete" title="2Cor">2Cor</li><li class="complete" title="Ga">Ga</li><li class="complete" title="Eph">Eph</li><li class="complete" title="Php">Php</li><li class="complete" title="Col">Col</li><li class="complete" title="1Th">1Th</li><li class="complete" title="2Th">2Th</li><li class="partial" title="He">He</li><li class="absent" title="1Tm">1Tm</li><li class="absent" title="2Tm">2Tm</li><li class="absent" title="Tt">Tt</li><li class="absent" title="Phm">Phm</li><li class="absent" title="Re">Re</li></ul><p class="small muted">Hebrews breaks off at 9:14. ■ complete ■ partial □ lost</p></div></div></section><section class="panel"><h2>About</h2><p class="lead">A fourth-century parchment Bible in the Vatican Library. For most of the New Testament the UBS committee weighs it more than any other single manuscript.</p><p>Vaticanus is a parchment book written in capital letters, three columns to a page. It once held the whole Greek Bible. The New Testament part breaks off in Hebrews 9:14, so the rest of Hebrews, the letters to Timothy, Titus and Philemon, and Revelation are lost.</p>
+<p>It has been in the Vatican Library for at least five hundred years, which is why it is known by the library's shelfmark, Vat. gr. 1209.</p>
+<p>Where B and <span class="siglum">𝔓⁷⁵</span> agree in Luke and John, the agreement shows that B's text was already in existence around 200. This is one reason the UBS committee gives B so much weight. Still, read the committee's reasoning in each case: the letter B on its own does not settle a reading.</p><p class="small muted">Text-type labels are disputed. Westcott and Hort (1881) treated B as the purest witness; later scholars accept its quality but reject the idea of a “neutral” text.</p></section><section class="panel"><h2>Key places</h2><ul class="units"><li><b>John 1:18</b> — Reads <span lang="grc">μονογενὴς θεός</span> with <span class="siglum">𝔓⁶⁶</span> and <span class="siglum" lang="he" dir="ltr">א</span>*.</li>
+<li><b>Mark 16:9–20</b> — Ends Mark at 16:8, but the scribe left a blank column after it.</li>
+<li><b>Luke 23:34a</b> — Does not have “Father, forgive them, for they do not know what they are doing”.</li></ul><h2>Images</h2><div class="withheld">The Vatican Library asks permission for online use of its manuscript photos. Out of courtesy we do not show a copy here. <a href="#">See the full images at the Vatican Library ↗</a></div></section><section class="panel"><h2>Links</h2><ul class="glist"><li><a href="#">INTF NT.VMR record (GA 03) ↗</a></li><li><a href="#">Vatican Library, DigiVatLib: Vat. gr. 1209 ↗</a><p>Images © BAV; link only.</p></li><li><a href="#">CSNTM record (GA 03) ↗</a></li></ul><h2>Sources</h2><ol class="sources"><li>INTF, Kurzgefasste Liste, NT.VMR record for 03, retrieved 19 Nov 2026.</li><li>Biblioteca Apostolica Vaticana, DigiVatLib record for Vat. gr. 1209.</li><li>UBS Greek New Testament, 5th ed., apparatus at John 1:18.</li><li>Metzger and Ehrman, <i>The Text of the New Testament</i>, 4th ed. (2005).</li></ol></section></div></main></body></html>

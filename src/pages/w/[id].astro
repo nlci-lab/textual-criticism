@@ -5,6 +5,7 @@ import SpecCard from '../../components/SpecCard.astro';
 import CntrViewer from '../../components/CntrViewer.astro';
 import Cite from '../../components/Cite.astro';
 import PageImage from '../../components/PageImage.astro';
+import WitnessTile from '../../components/WitnessTile.astro';
 import { url } from '../../lib/url';
 import { heSigla, ltrHe } from '../../lib/he';
 
@@ -38,8 +39,13 @@ const sl = w.siglum_lang;
       <p class="small muted listcheck">Not yet checked against the printed UBS5 list of witnesses.</p>
     )}
 
+    <div class="p-grid">
+    <aside class="p-side">
+      {w.page_image?.file && !w.page_image.withheld && <WitnessTile w={w} link={false} />}
     {w.date && <SpecCard siglum={w.siglum} siglumLang={sl} from={w.date.from} to={w.date.to} dateLabel={w.date.label}
-      material={ms?.material?.value} leaves={ms?.leaves?.value} contents={ms?.contents} />}
+        material={ms?.material?.value} leaves={ms?.leaves?.value} contents={ms?.contents} />}
+    </aside>
+    <div class="p-main">
 
     <h2>At a glance</h2>
     <table class="facts">
@@ -96,10 +102,6 @@ const sl = w.siglum_lang;
       </ul>
     </section>
 
-/ul>
-      </section>
-    )}
-
     {w.unverified.length > 0 && (
       <aside class="unverified" aria-labelledby="unv">
         <h2 id="unv">Not yet verified</h2>
@@ -115,11 +117,25 @@ const sl = w.siglum_lang;
       </ol>
       <p class="small muted">Last checked {w.last_checked}.</p>
     </section>
+    </div>
+    </div>
   </article>
 </Base>
 
 <style>
   .p-head { margin-top: 1.5rem; }
+  .p-grid { display: grid; gap: 1.5rem; }
+  .p-side { display: grid; gap: 1rem; align-content: start; }
+  .p-side :global(.tile) { display: none; }
+  .p-main { min-width: 0; max-width: 46rem; }
+  .p-main > h2:first-child { margin-top: 0.5rem; }
+  @media (min-width: 900px) {
+    .p-grid { grid-template-columns: 20rem minmax(0, 1fr); gap: 2.5rem; align-items: start; }
+    .p-side { position: sticky; top: 1rem; }
+    .p-side :global(.tile) { display: flex; }
+    .p-side :global(.tile-spec) { height: 12rem; }
+    .p-side :global(.tile-spec:not(.photo) .sg) { font-size: 4.5rem; }
+  }
   .p-head h1 { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; align-items: baseline; }
   .p-head h1 .siglum { font-size: 1.15em; }
   .lead { font-size: var(--step-1); line-height: 1.45; margin-top: 0.75rem; }

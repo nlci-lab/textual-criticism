@@ -23,13 +23,18 @@
   --step-1: 1.3rem;
   --step-2: 1.65rem;
   --step-3: 2.2rem;
-  --measure: 38rem;
+  --measure: 42rem;
+  --page: 84rem;
+  /* Pigments: flat colours for covers and tiles only (design direction 6). */
+  --ochre: #7a4f0e; --verdigris: #24594e; --lapis: #26406b; --gall: #2a2622; --on-pig: #fbf6ec;
+  --chip: #e9e5de;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #17191b; --paper-2: #212427; --ink: #e8e3db; --ink-2: #ada69c; --rule: #3a3d41;
     --rubric: #f08b7c; --warn-bg: #3a3014; --warn-ink: #f3dc9b;
     --bar-full: #e8e3db; --bar-part: #8c857c; --bar-none: #33373b;
+    --ochre: #8f6526; --verdigris: #2f6e60; --lapis: #3a5788; --gall: #3a3530; --chip: #2a2d31;
     color-scheme: dark;
   }
 }
@@ -37,6 +42,7 @@
   --paper: #17191b; --paper-2: #212427; --ink: #e8e3db; --ink-2: #ada69c; --rule: #3a3d41;
   --rubric: #f08b7c; --warn-bg: #3a3014; --warn-ink: #f3dc9b;
   --bar-full: #e8e3db; --bar-part: #8c857c; --bar-none: #33373b;
+    --ochre: #8f6526; --verdigris: #2f6e60; --lapis: #3a5788; --gall: #3a3530; --chip: #2a2d31;
   color-scheme: dark;
 }
 
@@ -58,7 +64,7 @@ p, ul, ol { margin: 0 0 1rem; }
 img { max-width: 100%; }
 
 .wrap {
-  max-width: 64rem; margin: 0 auto;
+  max-width: var(--page); margin: 0 auto;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
@@ -76,15 +82,22 @@ img { max-width: 100%; }
 
 /* Site header */
 .site-head { border-bottom: 1px solid var(--rule); font-family: var(--sans); }
-.site-head .wrap { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; align-items: baseline; padding-block: 0.75rem; }
-.site-head .brand { font: 600 1rem var(--serif); color: var(--ink); text-decoration: none; }
-.site-head nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; font-size: var(--step--1); }
-.site-head nav a { color: var(--ink-2); text-decoration: none; }
-.site-head nav a:hover, .site-head nav a[aria-current="page"] { color: var(--ink); text-decoration: underline; }
-.theme-toggle { margin-left: auto; font: inherit; font-size: var(--step--1); background: none; border: 1px solid var(--rule); color: var(--ink-2); border-radius: 4px; padding: 0.15rem 0.5rem; cursor: pointer; }
+.site-head .wrap { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; align-items: center; padding-block: 0.7rem; }
+.site-head .brand { display: inline-flex; gap: 0.45rem; align-items: center; font: 600 1.05rem var(--serif); color: var(--ink); text-decoration: none; }
+.site-head .brand i { font: normal 1.3rem/1 var(--sigla); color: var(--rubric); }
+.site-head nav { display: flex; gap: 0.25rem 1.1rem; margin-left: auto; font-size: 0.9375rem; overflow-x: auto; }
+.site-head nav a { color: var(--ink); text-decoration: none; padding: 0.35rem 0; white-space: nowrap; }
+.site-head nav a:hover { color: var(--rubric); }
+.site-head nav a[aria-current="page"] { color: var(--rubric); box-shadow: inset 0 -2px var(--rubric); }
+.theme-toggle { font: inherit; font-size: var(--step--1); background: none; border: 1px solid var(--rule); color: var(--ink-2); border-radius: 999px; padding: 0.2rem 0.65rem; cursor: pointer; }
+@media (max-width: 560px) {
+  .site-head nav { order: 3; margin-left: 0; width: 100%; }
+  .theme-toggle { margin-left: auto; }
+}
 
 .site-foot { border-top: 1px solid var(--rule); margin-top: 3rem; font: var(--step--1)/1.5 var(--sans); color: var(--ink-2); }
 .site-foot .wrap { padding-block: 1.25rem 2rem; }
+.site-foot p { max-width: var(--measure); }
 
 /* Fact table: tabular figures, label column narrow */
 .facts { width: 100%; border-collapse: collapse; font-variant-numeric: lining-nums tabular-nums; }
@@ -132,3 +145,8 @@ img { max-width: 100%; }
 .home { margin-top: 1.5rem; }
 .home h1 { margin-bottom: 0.25rem; }
 .facts code { font-family: var(--sans); font-size: 0.875em; }
+
+/* Site-wide "under construction" strip: warning colours, same in both themes via tokens. */
+.construction { background: var(--warn-bg); color: var(--warn-ink); font: 0.8125rem/1.45 var(--sans); border-bottom: 1px solid var(--rule); }
+.construction .wrap { padding-block: 0.45rem; }
+.construction strong { font-weight: 700; }

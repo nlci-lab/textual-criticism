@@ -132,3 +132,8 @@ img { max-width: 100%; }
 .home { margin-top: 1.5rem; }
 .home h1 { margin-bottom: 0.25rem; }
 .facts code { font-family: var(--sans); font-size: 0.875em; }
+
+/* Site-wide "under construction" strip: warning colours, same in both themes via tokens. */
+.construction { background: var(--warn-bg); color: var(--warn-ink); font: 0.8125rem/1.45 var(--sans); border-bottom: 1px solid var(--rule); }
+.construction .wrap { padding-block: 0.45rem; }
+.construction strong { font-weight: 700; }

@@ -1,0 +1,156 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Weighing the evidence · Textual Criticism (Catalogue)</title><style>
+:root{--paper:#fbfaf8;--paper-2:#f1efeb;--ink:#1f1c19;--ink-2:#57504a;--rule:#d9d4cc;--rubric:#9d2a1f;
+--warn-bg:#fbf1d9;--warn-ink:#5c4300;--bar-full:#3b3530;--bar-part:#a39a90;--bar-none:#e6e1da;
+--serif:"Gentium Book Plus","Gentium Plus","Noto Serif",Cambria,"Times New Roman",serif;
+--sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif;
+--sigla:"Gentium Book Plus","Cambria Math","STIX Two Math","Noto Sans Math","Segoe UI Symbol",serif;
+--hebrew:"Noto Serif Hebrew","SBL Hebrew","Times New Roman",serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--paper:#17191b;--paper-2:#212427;--ink:#e8e3db;--ink-2:#ada69c;--rule:#3a3d41;
+--rubric:#f08b7c;--warn-bg:#3a3014;--warn-ink:#f3dc9b;--bar-full:#e8e3db;--bar-part:#8c857c;--bar-none:#33373b;color-scheme:dark}}
+*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:1.0625rem/1.6 var(--serif)}
+a{color:var(--rubric);text-underline-offset:.15em;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--rubric);outline-offset:2px}
+h1,h2,h3,h4{line-height:1.2;font-weight:600;text-wrap:balance}h1{font-size:2.2rem;margin:0 0 .5rem}
+h2{font-size:1.3rem;margin:2rem 0 .5rem}h3{font-size:1.0625rem;margin:1.5rem 0 .25rem}h4{margin:0 0 .25rem;font-size:1rem}
+p,ul,ol{margin:0 0 1rem}
+.siglum{font-family:var(--sigla);color:var(--rubric);white-space:nowrap}[lang=he]{font-family:var(--hebrew);unicode-bidi:isolate}
+[lang=grc]{font-family:var(--serif)}
+.label,.kicker{font:600 .75rem/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin:0 0 .25rem}
+.muted{color:var(--ink-2)}.small{font-size:.875rem}.lead{font-size:1.2rem;line-height:1.5}
+.uc{background:var(--warn-bg);color:var(--warn-ink);font:.8125rem/1.4 var(--sans);padding:.35rem 16px;text-align:center}
+.brand{font:600 1rem var(--serif);color:var(--ink);text-decoration:none}
+.card{border:1px solid var(--rule);background:var(--paper-2);padding:.75rem 1rem;border-radius:4px}
+.card .big,.master .big{font-size:1.15rem;font-weight:600;margin:0 0 .25rem}
+.twin{display:grid;gap:.75rem;margin:1rem 0}@media(min-width:560px){.twin{grid-template-columns:1fr 1fr}}
+.checks{padding-left:1.5rem}.checks .q{font-weight:600}
+.master{border-left:3px solid var(--rubric);padding:.5rem 1rem;margin:1rem 0;background:var(--paper-2)}
+.rules{display:grid;gap:.75rem}.rule{border-top:1px solid var(--rule);padding-top:.5rem}
+.limit{font-size:.9375rem;color:var(--ink-2)}.limit span{font:600 .7rem var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--rubric);margin-right:.4rem}
+.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.9375rem}
+th,td{text-align:left;vertical-align:top;padding:.4rem .6rem;border-bottom:1px solid var(--rule)}th{font:600 .75rem var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+tr.chosen td{background:var(--paper-2)}.tag{font:600 .7rem var(--sans);border:1px solid var(--rubric);color:var(--rubric);padding:0 .3rem;border-radius:3px;margin-left:.3rem}
+.gl{color:var(--ink-2)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;margin:0 0 1rem;font-size:.9375rem}.facts dt{font:600 .75rem/1.9 var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}.facts dd{margin:0}
+.books{display:flex;flex-wrap:wrap;gap:2px;margin:.25rem 0 .5rem;padding:0;list-style:none;font:600 .7rem var(--sans)}
+.books li{padding:.2rem .3rem;min-width:2.4rem;text-align:center;border-radius:2px}
+.books .complete{background:var(--bar-full);color:var(--paper)}.books .partial{background:var(--bar-part);color:var(--ink)}.books .absent{background:var(--bar-none);color:var(--ink-2)}
+.units{list-style:none;padding:0}.units li{border-top:1px solid var(--rule);padding:.5rem 0}.units b{font-family:var(--sans);font-size:.875rem}
+.sources{font-size:.875rem;color:var(--ink-2);padding-left:1.25rem}
+.note{border-left:3px solid var(--rule);padding-left:.75rem;color:var(--ink-2)}
+.withheld{border:1px dashed var(--rule);padding:.75rem 1rem;font-size:.9375rem;color:var(--ink-2)}
+.wlist{list-style:none;padding:0;margin:0}.wlist li{display:grid;grid-template-columns:4.5rem 1fr auto;gap:.5rem;padding:.4rem 0;border-top:1px solid var(--rule);align-items:baseline}
+.wlist .siglum{font-size:1.1rem}.wlist .d{font:.8125rem var(--sans);color:var(--ink-2)}
+.glist{list-style:none;padding:0;margin:0}.glist li{padding:.45rem 0;border-top:1px solid var(--rule)}.glist p{margin:0;font-size:.9375rem;color:var(--ink-2)}
+.diagram svg{width:100%;max-width:520px;height:auto}.diagram line{stroke:var(--bar-part)}.diagram .anc{fill:var(--rubric)}.diagram .late{fill:var(--bar-part)}.diagram .early{fill:var(--bar-full)}.diagram text{fill:var(--ink-2);font:13px var(--sans);text-anchor:middle}
+
+:root{--ochre:#7a4f0e;--verdigris:#24594e;--lapis:#26406b;--gall:#2a2622;--on-pig:#fbf6ec;--chip:#e9e5de;--shadow:0 1px 0 var(--rule)}
+@media(prefers-color-scheme:dark){:root{--ochre:#8f6526;--verdigris:#2f6e60;--lapis:#3a5788;--gall:#3a3530;--on-pig:#fbf6ec;--chip:#2a2d31}}
+.top{display:flex;align-items:center;gap:1rem;padding:.7rem max(16px,3vw);border-bottom:1px solid var(--rule);font-family:var(--sans)}
+.top nav{display:flex;gap:1.1rem;margin-left:auto;font-size:.9rem}.top nav a{color:var(--ink);text-decoration:none}.top nav a[aria-current]{color:var(--rubric);box-shadow:inset 0 -2px var(--rubric)}
+.mark{font:600 1.05rem var(--serif);color:var(--ink);text-decoration:none;display:flex;gap:.5rem;align-items:center}
+.mark i{font:normal 1.25rem var(--sigla);color:var(--rubric)}
+.wrap{max-width:84rem;margin:0 auto;padding:0 max(16px,3vw)}
+/* search */
+.q{position:relative}.q input{width:100%;font:1.15rem var(--serif);padding:.95rem 1rem .95rem 3rem;border:1.5px solid var(--ink);border-radius:10px;background:var(--paper);color:var(--ink)}
+.q input:focus{outline:3px solid color-mix(in srgb,var(--rubric) 35%,transparent);outline-offset:1px;border-color:var(--rubric)}
+.q svg{position:absolute;left:1rem;top:50%;translate:0 -50%;width:1.2rem;stroke:var(--ink-2);fill:none;stroke-width:2}
+.try{display:flex;flex-wrap:wrap;gap:.4rem;margin:.75rem 0 0;font:.875rem var(--sans);align-items:center}
+.chipb{border:1px solid var(--rule);background:var(--chip);color:var(--ink);border-radius:999px;padding:.3rem .75rem;font:inherit;cursor:pointer}
+.chipb[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.hero{padding:3.5rem 0 2rem;display:grid;gap:2rem}
+.hero h1{font-size:clamp(1.9rem,4.5vw,3.1rem);letter-spacing:-.01em;max-width:18ch;margin:0}
+.hero p.sub{color:var(--ink-2);max-width:40rem;font-size:1.1rem;margin:.75rem 0 1.5rem}
+@media(min-width:1000px){.hero{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:end}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);font-family:var(--sans)}
+.stats div{padding:.75rem .5rem 0 0}.stats b{display:block;font:600 2rem/1 var(--serif)}.stats span{font-size:.8rem;color:var(--ink-2)}
+/* concordance results */
+.res{margin-top:1rem;border:1px solid var(--rule);border-radius:10px;background:var(--paper);overflow:hidden}
+.res:empty{display:none}.res h3{font:600 .72rem var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);margin:0;padding:.6rem 1rem;background:var(--paper-2)}
+.res a.r{display:grid;grid-template-columns:7.5rem 1fr;gap:.75rem;padding:.6rem 1rem;border-top:1px solid var(--rule);color:var(--ink);text-decoration:none}
+.res a.r:hover{background:var(--paper-2)}.res .k{font:600 .9rem var(--sans);color:var(--rubric)}.res .ctx{font-size:.95rem}.res .ctx small{display:block;color:var(--ink-2);font:.8rem var(--sans)}
+.res mark{background:color-mix(in srgb,var(--rubric) 18%,transparent);color:inherit;padding:0 .1em}
+/* sections */
+.sec{padding:2.5rem 0}.sec>header{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1rem;border-bottom:1px solid var(--rule);padding-bottom:.5rem}
+.sec h2{margin:0;font-size:1.45rem}.sec header a{font:.9rem var(--sans)}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(11.5rem,1fr);gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.5rem}
+.rail>*{scroll-snap-align:start}
+/* specimen tile */
+.tile{display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--paper);color:var(--ink);text-decoration:none;transition:translate .15s}
+.tile:hover{translate:0 -2px;border-color:var(--ink-2)}
+.spec{position:relative;height:9.5rem;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid var(--rule)}
+.spec .sg{font:400 3.6rem/1 var(--sigla);color:var(--rubric);position:relative;z-index:1}
+.spec .scr{position:absolute;left:-.25rem;right:-.25rem;bottom:.55rem;font:600 .82rem/1 var(--serif);letter-spacing:.32em;color:var(--ink);opacity:.38;white-space:nowrap;overflow:hidden}
+.spec .scr+.scr{bottom:1.6rem;opacity:.22}
+.papyrus .spec{background-color:#e8d9b5;background-image:repeating-linear-gradient(90deg,rgba(110,80,30,.10) 0 1px,transparent 1px 5px),repeating-linear-gradient(0deg,rgba(110,80,30,.08) 0 1px,transparent 1px 7px)}
+.majuscule .spec{background-color:#efe7da;background-image:radial-gradient(rgba(90,70,40,.07) 1px,transparent 1.2px);background-size:6px 6px}
+.group .spec{background:var(--paper-2)}
+.papyrus .spec .scr,.majuscule .spec .scr{color:#2a2218}
+@media(prefers-color-scheme:dark){.papyrus .spec{background-color:#3a3222}.majuscule .spec{background-color:#2e2b27}.papyrus .spec .scr,.majuscule .spec .scr{color:#e8dcc4}}
+.meta{padding:.65rem .8rem .8rem;display:grid;gap:.3rem}.meta b{font-size:1.02rem;line-height:1.25}
+.meta .ln{display:flex;justify-content:space-between;font:.8rem var(--sans);color:var(--ink-2)}
+.cov{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:.15rem}.cov i{height:5px;border-radius:1px;background:var(--bar-none)}.cov i.on{background:var(--bar-full)}
+.covk{display:grid;grid-template-columns:repeat(5,1fr);font:.62rem var(--sans);color:var(--ink-2);gap:2px}
+/* gallery */
+.gal-head{padding:2rem 0 1rem;display:grid;gap:1rem}
+.filters{display:grid;gap:.6rem;font:.875rem var(--sans);position:sticky;top:0;background:var(--paper);z-index:2;padding:.6rem 0;border-bottom:1px solid var(--rule)}
+.frow{display:flex;gap:.4rem;overflow-x:auto;align-items:center;white-space:nowrap;padding-bottom:2px}.frow .label{min-width:5.5rem;margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;padding:1.25rem 0 3rem}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}.gal{display:grid;grid-template-columns:14rem minmax(0,1fr);gap:2rem}
+.filters{position:sticky;top:1rem;align-self:start;border:0;padding:1rem 0}.frow{flex-wrap:wrap;overflow:visible}.frow .label{min-width:100%}}
+@media(max-width:400px){.spec{height:7rem}.spec .sg{font-size:2.6rem}.meta b{font-size:.92rem}}
+.count{font:.875rem var(--sans);color:var(--ink-2)}
+/* covers */
+.cover{aspect-ratio:3/4;border-radius:3px 8px 8px 3px;padding:1.1rem 1rem 1rem 1.5rem;display:flex;flex-direction:column;justify-content:space-between;color:var(--on-pig);text-decoration:none;position:relative;box-shadow:inset 6px 0 0 rgba(0,0,0,.18),0 1px 2px rgba(0,0,0,.15)}
+.cover::after{content:"";position:absolute;inset:.45rem .45rem .45rem .85rem;border:1px solid rgba(251,246,236,.45);border-radius:2px;pointer-events:none}
+.cover .k{font:600 .65rem var(--sans);letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.cover .t{font:600 1.3rem/1.15 var(--serif);text-wrap:balance}.cover .orn{font:1.4rem var(--sigla);opacity:.8}
+.ochre{background:var(--ochre)}.verdigris{background:var(--verdigris)}.lapis{background:var(--lapis)}.gall{background:var(--gall)}
+.shelf{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(9.5rem,11rem);gap:1.25rem;overflow-x:auto;padding:.25rem 0 1rem}
+.shelf figure{margin:0}.shelf figcaption{font:.8rem var(--sans);color:var(--ink-2);margin-top:.4rem}
+/* book page */
+.book{display:grid;gap:1.75rem;padding:2rem 0}.book .cover{max-width:15rem;width:62%}.book .cover .t{font-size:1.75rem}
+@media(min-width:900px){.book{grid-template-columns:17rem minmax(0,1fr) 17rem;gap:2.5rem;align-items:start}.book .cover{width:100%;max-width:none}}
+.book h1{font-size:clamp(1.8rem,3.4vw,2.6rem);margin:.2rem 0 .6rem}
+.spec-t{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font:.875rem var(--sans);margin:1rem 0;padding:1rem 0;border-block:1px solid var(--rule)}.spec-t dt{color:var(--ink-2)}.spec-t dd{margin:0}
+.act{display:flex;gap:.6rem;flex-wrap:wrap}.btn{font:600 .95rem var(--sans);padding:.65rem 1.1rem;border-radius:8px;text-decoration:none;border:1.5px solid var(--ink)}
+.btn.p{background:var(--ink);color:var(--paper)}.btn.s{color:var(--ink)}
+.box{border:1px solid var(--rule);border-radius:8px;padding:1rem}.box h2{font-size:1rem;margin:0 0 .5rem;font-family:var(--sans)}
+.learn{padding-left:1.1rem;margin:0}.learn li{margin:.3rem 0}
+.read{display:grid;gap:2rem;border-top:1px solid var(--rule);padding:2rem 0 3rem}@media(min-width:1000px){.read{grid-template-columns:15rem minmax(0,44rem);gap:3.5rem}.read nav{position:sticky;top:1rem;align-self:start}}
+.read nav .toc{font:.875rem/1.5 var(--sans);padding-left:1.1rem}
+/* witness profile */
+.prof{display:grid;gap:1.75rem;padding:2rem 0 3rem}.prof .tile{pointer-events:none}.prof .spec{height:13rem}.prof .spec .sg{font-size:5.5rem}
+@media(min-width:900px){.prof{grid-template-columns:19rem minmax(0,42rem) minmax(0,1fr);gap:2.5rem}.prof>aside{position:sticky;top:1rem;align-self:start}}
+.crumbs{font:.85rem var(--sans);color:var(--ink-2);padding-top:1.25rem}
+.foot{border-top:1px solid var(--rule);padding:1.5rem max(16px,3vw);font:.85rem var(--sans);color:var(--ink-2)}
+</style></head><body>
+<div class="uc">Under construction: content is being checked.</div>
+<header class="top"><a class="mark" href="home.html"><i>𝔓</i>Textual Criticism</a><nav><a href="witnesses.html">Witnesses</a><a href="guide.html" aria-current=page>Guides</a><a href="guide.html">Background</a></nav></header><main class="wrap"><p class="crumbs"><a href="guide.html">Guides</a> › Weighing the evidence</p>
+<section class="book"><a class="cover verdigris" href="#read"><span class="k">Guide</span><span class="t">Weighing the evidence</span><span class="orn">§</span></a>
+<div><p class="label">Guide · Start here</p><h1>Weighing the evidence</h1><p class="lead">How to judge between readings using external and internal evidence. After you have read an apparatus entry, this is how you decide.</p>
+<dl class="spec-t"><dt>Reading time</dt><dd>15 min</dd><dt>Level</dt><dd>Start here; read <a href="#">Reading the apparatus</a> first</dd><dt>Worked example</dt><dd>James 2:20, <span lang="grc">ἀργή</span> or <span lang="grc">νεκρά</span></dd><dt>Sources</dt><dd>6, incl. Metzger and Omanson</dd><dt>Last checked</dt><dd>20 November 2026</dd></dl>
+<div class="act"><a class="btn p" href="#read">Read the guide</a><a class="btn s" href="#example">Jump to the example</a></div></div>
+<div class="box"><h2>What you will learn</h2><ul class="learn"><li>The six questions editors ask about witnesses</li><li>Why counting manuscripts misleads</li><li>Scribal habits vs the author's style</li><li>Four rules of thumb, and their limits</li><li>How the CBGM changes the picture</li></ul></div></section>
+<section class="sec" style="padding-top:0"><header><h2>Related</h2></header><div class="shelf"><figure><a class="cover lapis" href="guide.html"><span class="k">Guide</span><span class="t">Reading the apparatus</span><span class="orn">§</span></a><figcaption>12 min · Start here</figcaption></figure><figure><a class="cover lapis" href="guide.html"><span class="k">Guide</span><span class="t">Which variants matter</span><span class="orn">§</span></a><figcaption>8 min · Going further</figcaption></figure><figure><a class="cover verdigris" href="guide.html"><span class="k">Guide</span><span class="t">Base texts</span><span class="orn">§</span></a><figcaption>10 min · Going further</figcaption></figure><figure><a class="cover lapis" href="guide.html"><span class="k">Guide</span><span class="t">Text policy</span><span class="orn">§</span></a><figcaption>6 min · Going further</figcaption></figure><figure><a class="cover ochre" href="guide.html"><span class="k">Background</span><span class="t">Materials</span><span class="orn">§</span></a><figcaption>9 min · Start here</figcaption></figure><figure><a class="cover ochre" href="guide.html"><span class="k">Background</span><span class="t">The New Testament text</span><span class="orn">§</span></a><figcaption>14 min · Going further</figcaption></figure></div></section>
+<section class="read" id="read"><nav><p class="label">Contents</p><ol class="toc"><li><a href="#external">External evidence</a></li><li><a href="#count">Why we do not simply count</a></li><li><a href="#internal">Internal evidence</a></li><li><a href="#rules">Rules of thumb</a></li><li><a href="#example">Worked example: James 2:20</a></li><li><a href="#sources">Sources</a></li></ol></nav><article><p class="lead">An apparatus entry tells you which manuscripts support which reading. It does not tell you which reading is right. For that, you weigh two kinds of evidence: the witnesses themselves, and the wording.</p><div class="twin"><section class="card"><p class="kicker">External evidence</p><p class="big">Who says it?</p><p>The witnesses: manuscripts, early translations, quotations.</p></section><section class="card"><p class="kicker">Internal evidence</p><p class="big">What does it say?</p><p>The wording: what a scribe would do, and what the author would write.</p></section></div><h2 id="external">External evidence: the witnesses</h2><p>A <em>witness</em> is any source for the text. It may be a Greek manuscript, an early translation (a <em>version</em>), or a quotation in a church writer (a <em>father</em>). Before looking at the words, editors ask these questions about the sources.</p>
+<ol class="checks"><li><span class="q">How old?</span> Look at the <em>earliest</em> witness for each reading. An older copy probably stands fewer copying steps from the original.</li>
+<li><span class="q">From where?</span> Which group of manuscripts does the witness belong to? Codex Bezae (<a href="#">D 05</a>), for example, often adds words that explain.</li>
+<li><span class="q">How careful?</span> <a href="witness.html">Codex Vaticanus</a> and <a href="#">Codex Sinaiticus</a> were copied very carefully.</li>
+<li><span class="q">How widespread?</span> When witnesses from Egypt, Syria and Italy agree, one local mistake can hardly explain it.</li>
+<li><span class="q">Independent?</span> Or was one copied from another?</li><li><span class="q">How many?</span> This comes last.</li></ol><h3 id="count">Why we do not simply count</h3><p>Most Greek manuscripts are late, and many belong to the Byzantine group (cited in UBS as <a href="#">Byz</a>). If five hundred late copies all go back to one ancestor, they are really one witness repeated five hundred times. Two early, independent copies can outweigh them.</p><div class="diagram"><svg viewBox="0 0 520 195" role="img" aria-label="Many late copies from one ancestor count as one witness; two independent early copies count as two."><g><line x1="130" y1="96" x2="30" y2="140"/><line x1="130" y1="96" x2="50" y2="140"/><line x1="130" y1="96" x2="70" y2="140"/><line x1="130" y1="96" x2="90" y2="140"/><line x1="130" y1="96" x2="110" y2="140"/><line x1="130" y1="96" x2="130" y2="140"/><line x1="130" y1="96" x2="150" y2="140"/><line x1="130" y1="96" x2="170" y2="140"/><line x1="130" y1="96" x2="190" y2="140"/><line x1="130" y1="96" x2="210" y2="140"/><line x1="130" y1="96" x2="230" y2="140"/></g><circle cx="130" cy="90" r="9" class="anc"/><circle cx="30" cy="146" r="6" class="late"/><circle cx="50" cy="146" r="6" class="late"/><circle cx="70" cy="146" r="6" class="late"/><circle cx="90" cy="146" r="6" class="late"/><circle cx="110" cy="146" r="6" class="late"/><circle cx="130" cy="146" r="6" class="late"/><circle cx="150" cy="146" r="6" class="late"/><circle cx="170" cy="146" r="6" class="late"/><circle cx="190" cy="146" r="6" class="late"/><circle cx="210" cy="146" r="6" class="late"/><circle cx="230" cy="146" r="6" class="late"/><circle cx="340" cy="146" r="11" class="early"/><circle cx="440" cy="146" r="11" class="early"/><text x="130" y="72">one ancestor</text><text x="130" y="178">many late copies = one witness</text><text x="390" y="178">two independent copies = two witnesses</text></svg></div><h2 id="internal">Internal evidence: the words</h2><p>Here you look at the readings themselves, and ask two different questions.</p><div class="twin"><section class="card"><p class="kicker">Transcriptional</p><p class="big">What was a scribe likely to do?</p><p>Scribes slipped with eye and hand. They also explained hard wording, smoothed grammar, and made passages match.</p></section><section class="card"><p class="kicker">Intrinsic</p><p class="big">What was the author likely to write?</p><p>Does the reading fit this writer's words, style and thought?</p></section></div><h3 id="rules">Rules of thumb</h3><div class="master"><p class="kicker">The rule behind the rules</p><p class="big">Prefer the reading that best explains the others.</p><p>If reading A easily explains how B arose, but B does not explain A, prefer A.</p></div>
+<div class="rules"><section class="rule"><h4>The harder reading</h4><p>Scribes removed difficulties more often than they created them.</p><p class="limit"><span>Limit</span> A reading can be hard because it is a plain mistake.</p></section>
+<section class="rule"><h4>The shorter reading</h4><p>Scribes added explaining words more often than they removed words.</p><p class="limit"><span>Limit</span> Scribes also dropped words by accident. Never use this rule alone.</p></section>
+<section class="rule"><h4>Harmonization</h4><p>When a reading makes one passage match another, it is often the later one.</p></section>
+<section class="rule"><h4>The author's style</h4><p>Prefer the reading that fits the author's usual words and ideas.</p><p class="limit"><span>Limit</span> A scribe can also “correct” toward the author's style.</p></section></div><h2 id="example">A worked example: James 2:20</h2><p>Some Bibles say faith without works is “useless”. Others say “dead”. The UBS text reads <span lang="grc">ἀργή</span> and rates it {B}.</p>
+<div class="scroll"><table><thead><tr><th>Reading</th><th>Some witnesses</th><th>Earliest</th></tr></thead><tbody>
+<tr class="chosen"><td><span lang="grc">ἀργή</span> <span class="gl">“useless”</span><span class="tag">UBS text</span></td><td><a href="witness.html">B</a>, C*, 1739, some Latin, Sahidic Coptic</td><td>4th c.</td></tr>
+<tr><td><span lang="grc">νεκρά</span> <span class="gl">“dead”</span></td><td><span class="siglum" lang="he" dir="ltr">א</span>, A, C², Byz, Syriac</td><td>4th c.</td></tr>
+<tr><td><span lang="grc">κενή</span> <span class="gl">“empty”</span></td><td><span class="siglum">𝔓⁷⁴</span>, one Latin manuscript</td><td>7th c.</td></tr></tbody></table></div>
+<ul><li>Verses 17 and 26 both say “dead”. A scribe could easily write it again in verse 20; that is harmonization.</li>
+<li><span lang="grc">ἀργή</span> is built from “not” + <span lang="grc">ἔργον</span> (“work”) and stands next to <span lang="grc">ἔργων</span>: an author's play on words that a scribe flattens.</li>
+<li>Codex C was first written with “useless” and later corrected to “dead”.</li></ul>
+<p>So for a translator the choice changes little in meaning. If your readers know “dead”, you can follow the UBS text and still respect their Bible.</p><h2 id="sources">Sources</h2><ol class="sources"><li>Adapted from Thomas Hemphill, “New Testament Textual Criticism for Bible translators”. Used with permission.</li><li>Metzger, <i>A Textual Commentary</i>, 2nd ed., on James 2:20.</li><li>Omanson, <i>A Textual Guide to the Greek New Testament</i>, on James 2:20.</li></ol></article></section></main>
+<footer class="foot">An introduction for Bible translators and consultants. Sources are given on every page.</footer></body></html>

@@ -8,8 +8,10 @@ def shot(url, out, w, h, scheme):
     subprocess.run([E, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--force-device-scale-factor=1",
         f"--blink-settings=preferredColorScheme={scheme}", f"--window-size={w},{h}", f"--screenshot={out}", url],
         capture_output=True, timeout=60)
-for d in sorted(R.glob("[1-5]-*")):
-    for k in ["home", "witness", "guide"]:
+only = sys.argv[1:]
+for d in sorted(R.glob("[1-9]-*")):
+    if only and d.name not in only: continue
+    for k in [f.stem for f in sorted(d.glob("*.html")) if not f.stem.startswith("_")]:
         f = (d / f"{k}.html").as_uri()
         shot(f, d / f"{k}-1280.png", 1280, 1600, 1)
         frame = d / f"_{k}-frame.html"

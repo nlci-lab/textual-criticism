@@ -1,0 +1,160 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Home · Textual Criticism (Catalogue)</title><style>
+:root{--paper:#fbfaf8;--paper-2:#f1efeb;--ink:#1f1c19;--ink-2:#57504a;--rule:#d9d4cc;--rubric:#9d2a1f;
+--warn-bg:#fbf1d9;--warn-ink:#5c4300;--bar-full:#3b3530;--bar-part:#a39a90;--bar-none:#e6e1da;
+--serif:"Gentium Book Plus","Gentium Plus","Noto Serif",Cambria,"Times New Roman",serif;
+--sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif;
+--sigla:"Gentium Book Plus","Cambria Math","STIX Two Math","Noto Sans Math","Segoe UI Symbol",serif;
+--hebrew:"Noto Serif Hebrew","SBL Hebrew","Times New Roman",serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--paper:#17191b;--paper-2:#212427;--ink:#e8e3db;--ink-2:#ada69c;--rule:#3a3d41;
+--rubric:#f08b7c;--warn-bg:#3a3014;--warn-ink:#f3dc9b;--bar-full:#e8e3db;--bar-part:#8c857c;--bar-none:#33373b;color-scheme:dark}}
+*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:1.0625rem/1.6 var(--serif)}
+a{color:var(--rubric);text-underline-offset:.15em;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--rubric);outline-offset:2px}
+h1,h2,h3,h4{line-height:1.2;font-weight:600;text-wrap:balance}h1{font-size:2.2rem;margin:0 0 .5rem}
+h2{font-size:1.3rem;margin:2rem 0 .5rem}h3{font-size:1.0625rem;margin:1.5rem 0 .25rem}h4{margin:0 0 .25rem;font-size:1rem}
+p,ul,ol{margin:0 0 1rem}
+.siglum{font-family:var(--sigla);color:var(--rubric);white-space:nowrap}[lang=he]{font-family:var(--hebrew);unicode-bidi:isolate}
+[lang=grc]{font-family:var(--serif)}
+.label,.kicker{font:600 .75rem/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin:0 0 .25rem}
+.muted{color:var(--ink-2)}.small{font-size:.875rem}.lead{font-size:1.2rem;line-height:1.5}
+.uc{background:var(--warn-bg);color:var(--warn-ink);font:.8125rem/1.4 var(--sans);padding:.35rem 16px;text-align:center}
+.brand{font:600 1rem var(--serif);color:var(--ink);text-decoration:none}
+.card{border:1px solid var(--rule);background:var(--paper-2);padding:.75rem 1rem;border-radius:4px}
+.card .big,.master .big{font-size:1.15rem;font-weight:600;margin:0 0 .25rem}
+.twin{display:grid;gap:.75rem;margin:1rem 0}@media(min-width:560px){.twin{grid-template-columns:1fr 1fr}}
+.checks{padding-left:1.5rem}.checks .q{font-weight:600}
+.master{border-left:3px solid var(--rubric);padding:.5rem 1rem;margin:1rem 0;background:var(--paper-2)}
+.rules{display:grid;gap:.75rem}.rule{border-top:1px solid var(--rule);padding-top:.5rem}
+.limit{font-size:.9375rem;color:var(--ink-2)}.limit span{font:600 .7rem var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--rubric);margin-right:.4rem}
+.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.9375rem}
+th,td{text-align:left;vertical-align:top;padding:.4rem .6rem;border-bottom:1px solid var(--rule)}th{font:600 .75rem var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+tr.chosen td{background:var(--paper-2)}.tag{font:600 .7rem var(--sans);border:1px solid var(--rubric);color:var(--rubric);padding:0 .3rem;border-radius:3px;margin-left:.3rem}
+.gl{color:var(--ink-2)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;margin:0 0 1rem;font-size:.9375rem}.facts dt{font:600 .75rem/1.9 var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}.facts dd{margin:0}
+.books{display:flex;flex-wrap:wrap;gap:2px;margin:.25rem 0 .5rem;padding:0;list-style:none;font:600 .7rem var(--sans)}
+.books li{padding:.2rem .3rem;min-width:2.4rem;text-align:center;border-radius:2px}
+.books .complete{background:var(--bar-full);color:var(--paper)}.books .partial{background:var(--bar-part);color:var(--ink)}.books .absent{background:var(--bar-none);color:var(--ink-2)}
+.units{list-style:none;padding:0}.units li{border-top:1px solid var(--rule);padding:.5rem 0}.units b{font-family:var(--sans);font-size:.875rem}
+.sources{font-size:.875rem;color:var(--ink-2);padding-left:1.25rem}
+.note{border-left:3px solid var(--rule);padding-left:.75rem;color:var(--ink-2)}
+.withheld{border:1px dashed var(--rule);padding:.75rem 1rem;font-size:.9375rem;color:var(--ink-2)}
+.wlist{list-style:none;padding:0;margin:0}.wlist li{display:grid;grid-template-columns:4.5rem 1fr auto;gap:.5rem;padding:.4rem 0;border-top:1px solid var(--rule);align-items:baseline}
+.wlist .siglum{font-size:1.1rem}.wlist .d{font:.8125rem var(--sans);color:var(--ink-2)}
+.glist{list-style:none;padding:0;margin:0}.glist li{padding:.45rem 0;border-top:1px solid var(--rule)}.glist p{margin:0;font-size:.9375rem;color:var(--ink-2)}
+.diagram svg{width:100%;max-width:520px;height:auto}.diagram line{stroke:var(--bar-part)}.diagram .anc{fill:var(--rubric)}.diagram .late{fill:var(--bar-part)}.diagram .early{fill:var(--bar-full)}.diagram text{fill:var(--ink-2);font:13px var(--sans);text-anchor:middle}
+
+:root{--ochre:#7a4f0e;--verdigris:#24594e;--lapis:#26406b;--gall:#2a2622;--on-pig:#fbf6ec;--chip:#e9e5de;--shadow:0 1px 0 var(--rule)}
+@media(prefers-color-scheme:dark){:root{--ochre:#8f6526;--verdigris:#2f6e60;--lapis:#3a5788;--gall:#3a3530;--on-pig:#fbf6ec;--chip:#2a2d31}}
+.top{display:flex;align-items:center;gap:1rem;padding:.7rem max(16px,3vw);border-bottom:1px solid var(--rule);font-family:var(--sans)}
+.top nav{display:flex;gap:1.1rem;margin-left:auto;font-size:.9rem}.top nav a{color:var(--ink);text-decoration:none}.top nav a[aria-current]{color:var(--rubric);box-shadow:inset 0 -2px var(--rubric)}
+.mark{font:600 1.05rem var(--serif);color:var(--ink);text-decoration:none;display:flex;gap:.5rem;align-items:center}
+.mark i{font:normal 1.25rem var(--sigla);color:var(--rubric)}
+.wrap{max-width:84rem;margin:0 auto;padding:0 max(16px,3vw)}
+/* search */
+.q{position:relative}.q input{width:100%;font:1.15rem var(--serif);padding:.95rem 1rem .95rem 3rem;border:1.5px solid var(--ink);border-radius:10px;background:var(--paper);color:var(--ink)}
+.q input:focus{outline:3px solid color-mix(in srgb,var(--rubric) 35%,transparent);outline-offset:1px;border-color:var(--rubric)}
+.q svg{position:absolute;left:1rem;top:50%;translate:0 -50%;width:1.2rem;stroke:var(--ink-2);fill:none;stroke-width:2}
+.try{display:flex;flex-wrap:wrap;gap:.4rem;margin:.75rem 0 0;font:.875rem var(--sans);align-items:center}
+.chipb{border:1px solid var(--rule);background:var(--chip);color:var(--ink);border-radius:999px;padding:.3rem .75rem;font:inherit;cursor:pointer}
+.chipb[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.hero{padding:3.5rem 0 2rem;display:grid;gap:2rem}
+.hero h1{font-size:clamp(1.9rem,4.5vw,3.1rem);letter-spacing:-.01em;max-width:18ch;margin:0}
+.hero p.sub{color:var(--ink-2);max-width:40rem;font-size:1.1rem;margin:.75rem 0 1.5rem}
+@media(min-width:1000px){.hero{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:end}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);font-family:var(--sans)}
+.stats div{padding:.75rem .5rem 0 0}.stats b{display:block;font:600 2rem/1 var(--serif)}.stats span{font-size:.8rem;color:var(--ink-2)}
+/* concordance results */
+.res{margin-top:1rem;border:1px solid var(--rule);border-radius:10px;background:var(--paper);overflow:hidden}
+.res:empty{display:none}.res h3{font:600 .72rem var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);margin:0;padding:.6rem 1rem;background:var(--paper-2)}
+.res a.r{display:grid;grid-template-columns:7.5rem 1fr;gap:.75rem;padding:.6rem 1rem;border-top:1px solid var(--rule);color:var(--ink);text-decoration:none}
+.res a.r:hover{background:var(--paper-2)}.res .k{font:600 .9rem var(--sans);color:var(--rubric)}.res .ctx{font-size:.95rem}.res .ctx small{display:block;color:var(--ink-2);font:.8rem var(--sans)}
+.res mark{background:color-mix(in srgb,var(--rubric) 18%,transparent);color:inherit;padding:0 .1em}
+/* sections */
+.sec{padding:2.5rem 0}.sec>header{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1rem;border-bottom:1px solid var(--rule);padding-bottom:.5rem}
+.sec h2{margin:0;font-size:1.45rem}.sec header a{font:.9rem var(--sans)}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(11.5rem,1fr);gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.5rem}
+.rail>*{scroll-snap-align:start}
+/* specimen tile */
+.tile{display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--paper);color:var(--ink);text-decoration:none;transition:translate .15s}
+.tile:hover{translate:0 -2px;border-color:var(--ink-2)}
+.spec{position:relative;height:9.5rem;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid var(--rule)}
+.spec .sg{font:400 3.6rem/1 var(--sigla);color:var(--rubric);position:relative;z-index:1}
+.spec .scr{position:absolute;left:-.25rem;right:-.25rem;bottom:.55rem;font:600 .82rem/1 var(--serif);letter-spacing:.32em;color:var(--ink);opacity:.38;white-space:nowrap;overflow:hidden}
+.spec .scr+.scr{bottom:1.6rem;opacity:.22}
+.papyrus .spec{background-color:#e8d9b5;background-image:repeating-linear-gradient(90deg,rgba(110,80,30,.10) 0 1px,transparent 1px 5px),repeating-linear-gradient(0deg,rgba(110,80,30,.08) 0 1px,transparent 1px 7px)}
+.majuscule .spec{background-color:#efe7da;background-image:radial-gradient(rgba(90,70,40,.07) 1px,transparent 1.2px);background-size:6px 6px}
+.group .spec{background:var(--paper-2)}
+.papyrus .spec .scr,.majuscule .spec .scr{color:#2a2218}
+@media(prefers-color-scheme:dark){.papyrus .spec{background-color:#3a3222}.majuscule .spec{background-color:#2e2b27}.papyrus .spec .scr,.majuscule .spec .scr{color:#e8dcc4}}
+.meta{padding:.65rem .8rem .8rem;display:grid;gap:.3rem}.meta b{font-size:1.02rem;line-height:1.25}
+.meta .ln{display:flex;justify-content:space-between;font:.8rem var(--sans);color:var(--ink-2)}
+.cov{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:.15rem}.cov i{height:5px;border-radius:1px;background:var(--bar-none)}.cov i.on{background:var(--bar-full)}
+.covk{display:grid;grid-template-columns:repeat(5,1fr);font:.62rem var(--sans);color:var(--ink-2);gap:2px}
+/* gallery */
+.gal-head{padding:2rem 0 1rem;display:grid;gap:1rem}
+.filters{display:grid;gap:.6rem;font:.875rem var(--sans);position:sticky;top:0;background:var(--paper);z-index:2;padding:.6rem 0;border-bottom:1px solid var(--rule)}
+.frow{display:flex;gap:.4rem;overflow-x:auto;align-items:center;white-space:nowrap;padding-bottom:2px}.frow .label{min-width:5.5rem;margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;padding:1.25rem 0 3rem}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}.gal{display:grid;grid-template-columns:14rem minmax(0,1fr);gap:2rem}
+.filters{position:sticky;top:1rem;align-self:start;border:0;padding:1rem 0}.frow{flex-wrap:wrap;overflow:visible}.frow .label{min-width:100%}}
+@media(max-width:400px){.spec{height:7rem}.spec .sg{font-size:2.6rem}.meta b{font-size:.92rem}}
+.count{font:.875rem var(--sans);color:var(--ink-2)}
+/* covers */
+.cover{aspect-ratio:3/4;border-radius:3px 8px 8px 3px;padding:1.1rem 1rem 1rem 1.5rem;display:flex;flex-direction:column;justify-content:space-between;color:var(--on-pig);text-decoration:none;position:relative;box-shadow:inset 6px 0 0 rgba(0,0,0,.18),0 1px 2px rgba(0,0,0,.15)}
+.cover::after{content:"";position:absolute;inset:.45rem .45rem .45rem .85rem;border:1px solid rgba(251,246,236,.45);border-radius:2px;pointer-events:none}
+.cover .k{font:600 .65rem var(--sans);letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.cover .t{font:600 1.3rem/1.15 var(--serif);text-wrap:balance}.cover .orn{font:1.4rem var(--sigla);opacity:.8}
+.ochre{background:var(--ochre)}.verdigris{background:var(--verdigris)}.lapis{background:var(--lapis)}.gall{background:var(--gall)}
+.shelf{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(9.5rem,11rem);gap:1.25rem;overflow-x:auto;padding:.25rem 0 1rem}
+.shelf figure{margin:0}.shelf figcaption{font:.8rem var(--sans);color:var(--ink-2);margin-top:.4rem}
+/* book page */
+.book{display:grid;gap:1.75rem;padding:2rem 0}.book .cover{max-width:15rem;width:62%}.book .cover .t{font-size:1.75rem}
+@media(min-width:900px){.book{grid-template-columns:17rem minmax(0,1fr) 17rem;gap:2.5rem;align-items:start}.book .cover{width:100%;max-width:none}}
+.book h1{font-size:clamp(1.8rem,3.4vw,2.6rem);margin:.2rem 0 .6rem}
+.spec-t{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font:.875rem var(--sans);margin:1rem 0;padding:1rem 0;border-block:1px solid var(--rule)}.spec-t dt{color:var(--ink-2)}.spec-t dd{margin:0}
+.act{display:flex;gap:.6rem;flex-wrap:wrap}.btn{font:600 .95rem var(--sans);padding:.65rem 1.1rem;border-radius:8px;text-decoration:none;border:1.5px solid var(--ink)}
+.btn.p{background:var(--ink);color:var(--paper)}.btn.s{color:var(--ink)}
+.box{border:1px solid var(--rule);border-radius:8px;padding:1rem}.box h2{font-size:1rem;margin:0 0 .5rem;font-family:var(--sans)}
+.learn{padding-left:1.1rem;margin:0}.learn li{margin:.3rem 0}
+.read{display:grid;gap:2rem;border-top:1px solid var(--rule);padding:2rem 0 3rem}@media(min-width:1000px){.read{grid-template-columns:15rem minmax(0,44rem);gap:3.5rem}.read nav{position:sticky;top:1rem;align-self:start}}
+.read nav .toc{font:.875rem/1.5 var(--sans);padding-left:1.1rem}
+/* witness profile */
+.prof{display:grid;gap:1.75rem;padding:2rem 0 3rem}.prof .tile{pointer-events:none}.prof .spec{height:13rem}.prof .spec .sg{font-size:5.5rem}
+@media(min-width:900px){.prof{grid-template-columns:19rem minmax(0,42rem) minmax(0,1fr);gap:2.5rem}.prof>aside{position:sticky;top:1rem;align-self:start}}
+.crumbs{font:.85rem var(--sans);color:var(--ink-2);padding-top:1.25rem}
+.foot{border-top:1px solid var(--rule);padding:1.5rem max(16px,3vw);font:.85rem var(--sans);color:var(--ink-2)}
+</style></head><body>
+<div class="uc">Under construction: content is being checked.</div>
+<header class="top"><a class="mark" href="home.html"><i>𝔓</i>Textual Criticism</a><nav><a href="witnesses.html">Witnesses</a><a href="guide.html">Guides</a><a href="guide.html">Background</a></nav></header><main class="wrap">
+<section class="hero"><div><p class="label">New Testament manuscripts, for translators</p>
+<h1>Look up any witness, verse or idea in the apparatus.</h1>
+<p class="sub">Type what you see in the UBS apparatus: a siglum, a verse, or a term. Results show every place the site discusses it.</p>
+<div class="q"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="q" type="search" value="John 1:18" placeholder="John 1:18, 𝔓⁶⁶, B, harder reading…" aria-label="Search witnesses, verses and ideas" autocomplete="off"></div>
+<div class="try"><span class="muted">Try</span><button class="chipb" data-try="John 1:18">John 1:18</button><button class="chipb" data-try="𝔓⁶⁶">𝔓⁶⁶</button><button class="chipb" data-try="03">03</button><button class="chipb" data-try="Byz">Byz</button><button class="chipb" data-try="James 2:20">James 2:20</button><button class="chipb" data-try="harder reading">harder reading</button></div>
+<div id="res" class="res" aria-live="polite"></div></div>
+<div class="stats"><div><b>15</b><span>witnesses profiled</span></div><div><b>5</b><span>guides</span></div><div><b>2027</b><span>Old Testament pages</span></div></div>
+</section>
+<section class="sec"><header><h2>Witnesses</h2><a href="witnesses.html">All 15 with filters →</a></header>
+<div class="rail"><a class="tile papyrus" href="witness.html" data-type="papyrus" data-c="2" data-g="e" data-s="p52 p52 rylands papyrus"><div class="spec"><span class="scr">ΟΙΙΟΥΔΑΙΟΙΟΙΙΟΥΔΑΙΟΙΟΙΙΟΥΔΑΙΟΙ</span><span class="scr">ΙΟΙΑΔΥΟΙΙΟΙΟΙΑΔΥΟΙΙΟΙΟΙΑΔΥΟΙΙΟ</span><span class="sg">𝔓⁵²</span></div><div class="meta"><b>Rylands papyrus</b><div class="ln"><span>2nd c.</span><span>papyrus</span></div><div class="cov" aria-label="Contents: Gospels"><i class="on" title="Gospels"></i><i class="" title="Acts"></i><i class="" title="Paul"></i><i class="" title="Catholic letters"></i><i class="" title="Revelation"></i></div></div></a><a class="tile papyrus" href="witness.html" data-type="papyrus" data-c="3" data-g="p" data-s="p46 p46 chester beatty ii"><div class="spec"><span class="scr">ΠΡΟΣΡΩΜΑΙΟΥΣΠΡΟΣΡΩΜΑΙΟΥΣΠΡΟΣΡΩΜΑΙΟΥΣ</span><span class="scr">ΣΥΟΙΑΜΩΡΣΟΡΠΣΥΟΙΑΜΩΡΣΟΡΠΣΥΟΙΑΜΩΡΣΟΡΠ</span><span class="sg">𝔓⁴⁶</span></div><div class="meta"><b>Chester Beatty II</b><div class="ln"><span>c. 200</span><span>papyrus</span></div><div class="cov" aria-label="Contents: Paul"><i class="" title="Gospels"></i><i class="" title="Acts"></i><i class="on" title="Paul"></i><i class="" title="Catholic letters"></i><i class="" title="Revelation"></i></div></div></a><a class="tile papyrus" href="witness.html" data-type="papyrus" data-c="3" data-g="e" data-s="p64 p64 magdalen papyrus"><div class="spec"><span class="scr">ΚΑΤΑΜΑΘΘΑΙΟΝΚΑΤΑΜΑΘΘΑΙΟΝΚΑΤΑΜΑΘΘΑΙΟΝ</span><span class="scr">ΝΟΙΑΘΘΑΜΑΤΑΚΝΟΙΑΘΘΑΜΑΤΑΚΝΟΙΑΘΘΑΜΑΤΑΚ</span><span class="sg">𝔓⁶⁴</span></div><div class="meta"><b>Magdalen papyrus</b><div class="ln"><span>c. 200</span><span>papyrus</span></div><div class="cov" aria-label="Contents: Gospels"><i class="on" title="Gospels"></i><i class="" title="Acts"></i><i class="" title="Paul"></i><i class="" title="Catholic letters"></i><i class="" title="Revelation"></i></div></div></a><a class="tile papyrus" href="witness.html" data-type="papyrus" data-c="3" data-g="e" data-s="p66 p66 bodmer ii"><div class="spec"><span class="scr">ΕΝΑΡΧΗΗΝΟΛΟΓΟΣΕΝΑΡΧΗΗΝΟΛΟΓΟΣΕΝΑΡΧΗΗΝΟΛΟΓΟΣ</span><span class="scr">ΣΟΓΟΛΟΝΗΗΧΡΑΝΕΣΟΓΟΛΟΝΗΗΧΡΑΝΕΣΟΓΟΛΟΝΗΗΧΡΑΝΕ</span><span class="sg">𝔓⁶⁶</span></div><div class="meta"><b>Bodmer II</b><div class="ln"><span>c. 200</span><span>papyrus</span></div><div class="cov" aria-label="Contents: Gospels"><i class="on" title="Gospels"></i><i class="" title="Acts"></i><i class="" title="Paul"></i><i class="" title="Catholic letters"></i><i class="" title="Revelation"></i></div></div></a><a class="tile papyrus" href="witness.html" data-type="papyrus" data-c="3" data-g="e a" data-s="p45 p45 chester beatty i"><div class="spec"><span class="scr">ΚΑΙΕΓΕΝΕΤΟΚΑΙΕΓΕΝΕΤΟΚΑΙΕΓΕΝΕΤΟ</span><span class="scr">ΟΤΕΝΕΓΕΙΑΚΟΤΕΝΕΓΕΙΑΚΟΤΕΝΕΓΕΙΑΚ</span><span class="sg">𝔓⁴⁵</span></div><div class="meta"><b>Chester Beatty I</b><div class="ln"><span>3rd c.</span><span>papyrus</span></div><div class="cov" aria-label="Contents: Gospels, Acts"><i class="on" title="Gospels"></i><i class="on" title="Acts"></i><i class="" title="Paul"></i><i class="" title="Catholic letters"></i><i class="" title="Revelation"></i></div></div></a><a class="tile papyrus" href="witness.html" data-type="papyrus" data-c="3" data-g="r" data-s="p47 p47 chester beatty iii"><div class="spec"><span class="scr">ΑΠΟΚΑΛΥΨΙΣΑΠΟΚΑΛΥΨΙΣΑΠΟΚΑΛΥΨΙΣ</span><span class="scr">ΣΙΨΥΛΑΚΟΠΑΣΙΨΥΛΑΚΟΠΑΣΙΨΥΛΑΚΟΠΑ</span><span class="sg">𝔓⁴⁷</span></div><div class="meta"><b>Chester Beatty III</b><div class="ln"><span>3rd c.</span><span>papyrus</span></div><div class="cov" aria-label="Contents: Revelation"><i class="" title="Gospels"></i><i class="" title="Acts"></i><i class="" title="Paul"></i><i class="" title="Catholic letters"></i><i class="on" title="Revelation"></i></div></div></a><a class="tile papyrus" href="witness.html" data-type="papyrus" data-c="3" data-g="e" data-s="p75 p75 bodmer xiv–xv"><div class="spec"><span class="scr">ΕΥΑΓΓΕΛΙΟΝΕΥΑΓΓΕΛΙΟΝΕΥΑΓΓΕΛΙΟΝ</span><span class="scr">ΝΟΙΛΕΓΓΑΥΕΝΟΙΛΕΓΓΑΥΕΝΟΙΛΕΓΓΑΥΕ</span><span class="sg">𝔓⁷⁵</span></div><div class="meta"><b>Bodmer XIV–XV</b><div class="ln"><span>3rd c.</span><span>papyrus</span></div><div class="cov" aria-label="Contents: Gospels"><i class="on" title="Gospels"></i><i class="" title="Acts"></i><i class="" title="Paul"></i><i class="" title="Catholic letters"></i><i class="" title="Revelation"></i></div></div></a><a class="tile papyrus" href="witness.html" data-type="papyrus" data-c="4" data-g="c" data-s="p72 p72 bodmer vii–viii"><div class="spec"><span class="scr">ΠΕΤΡΟΥΕΠΙΣΤΟΛΗΠΕΤΡΟΥΕΠΙΣΤΟΛΗΠΕΤΡΟΥΕΠΙΣΤΟΛΗ</span><span class="scr">ΗΛΟΤΣΙΠΕΥΟΡΤΕΠΗΛΟΤΣΙΠΕΥΟΡΤΕΠΗΛΟΤΣΙΠΕΥΟΡΤΕΠ</span><span class="sg">𝔓⁷²</span></div><div class="meta"><b>Bodmer VII–VIII</b><div class="ln"><span>3rd–4th c.</span><span>papyrus</span></div><div class="cov" aria-label="Contents: Catholic letters"><i class="" title="Gospels"></i><i class="" title="Acts"></i><i class="" title="Paul"></i><i class="on" title="Catholic letters"></i><i class="" title="Revelation"></i></div></div></a><a class="tile papyrus" href="witness.html" data-type="papyrus" data-c="4" data-g="r" data-s="p115 p115 oxyrhynchus 4499"><div class="spec"><span class="scr">ΧΙΣΧΙΣΧΙΣ</span><span class="scr">ΣΙΧΣΙΧΣΙΧ</span><span class="sg">𝔓¹¹⁵</span></div><div class="meta"><b>Oxyrhynchus 4499</b><div class="ln"><span>3rd–4th c.</span><span>papyrus</span></div><div class="cov" aria-label="Contents: Revelation"><i class="" title="Gospels"></i><i class="" title="Acts"></i><i class="" title="Paul"></i><i class="" title="Catholic letters"></i><i class="on" title="Revelation"></i></div></div></a></div></section>
+<section class="sec"><header><h2>Guides and background</h2><a href="guide.html">All →</a></header>
+<div class="shelf"><figure><a class="cover lapis" href="guide.html"><span class="k">Guide</span><span class="t">Reading the apparatus</span><span class="orn">§</span></a><figcaption>12 min · Start here</figcaption></figure><figure><a class="cover verdigris" href="guide.html"><span class="k">Guide</span><span class="t">Weighing the evidence</span><span class="orn">§</span></a><figcaption>15 min · Start here</figcaption></figure><figure><a class="cover lapis" href="guide.html"><span class="k">Guide</span><span class="t">Which variants matter</span><span class="orn">§</span></a><figcaption>8 min · Going further</figcaption></figure><figure><a class="cover verdigris" href="guide.html"><span class="k">Guide</span><span class="t">Base texts</span><span class="orn">§</span></a><figcaption>10 min · Going further</figcaption></figure><figure><a class="cover lapis" href="guide.html"><span class="k">Guide</span><span class="t">Text policy</span><span class="orn">§</span></a><figcaption>6 min · Going further</figcaption></figure><figure><a class="cover ochre" href="guide.html"><span class="k">Background</span><span class="t">Materials</span><span class="orn">§</span></a><figcaption>9 min · Start here</figcaption></figure><figure><a class="cover ochre" href="guide.html"><span class="k">Background</span><span class="t">The New Testament text</span><span class="orn">§</span></a><figcaption>14 min · Going further</figcaption></figure></div></section>
+</main>
+<footer class="foot">An introduction for Bible translators and consultants. Sources are given on every page.</footer><script>
+(()=>{const IDX=[["john 1:18", "Verse", "John 1:18", "Apparatus guide worked example; μονογενὴς θεός vs ὁ μονογενὴς υἱός", "#"], ["john 1:18", "Verse", "John 1:18", "Codex Vaticanus reads μονογενὴς θεός with 𝔓⁶⁶ and א*", "witness.html"], ["john 1:18", "Verse", "John 1:18", "𝔓⁶⁶ (Bodmer II) supports θεός", "witness.html"], ["james 2:20", "Verse", "James 2:20", "Weighing the evidence: ἀργή “useless” vs νεκρά “dead”", "guide.html#example"], ["mark 16:9-20", "Verse", "Mark 16:9–20", "Vaticanus ends Mark at 16:8 but leaves a blank column", "witness.html"], ["mark 16:9-20", "Verse", "Mark 16:9–20", "Sinaiticus also ends at 16:8", "witness.html"], ["luke 23:34", "Verse", "Luke 23:34a", "Vaticanus lacks “Father, forgive them…”", "witness.html"], ["harder reading lectio difficilior", "Idea", "The harder reading", "Rule of thumb in Weighing the evidence", "guide.html#rules"], ["shorter reading", "Idea", "The shorter reading", "Rule of thumb in Weighing the evidence", "guide.html#rules"], ["harmonization", "Idea", "Harmonization", "Rule of thumb; see James 2:20", "guide.html#rules"], ["cbgm coherence", "Idea", "CBGM", "How the CBGM changes the picture", "guide.html"], ["rating {a} {b} {c} {d} letter", "Idea", "UBS ratings {A}–{D}", "Reading the apparatus", "#"], ["p52 p52 rylands papyrus ", "Witness", "Rylands papyrus", "P52 · 2nd c. · papyrus", "witness.html"], ["p46 p46 chester beatty ii ", "Witness", "Chester Beatty II", "P46 · c. 200 · papyrus", "witness.html"], ["p64 p64 magdalen papyrus ", "Witness", "Magdalen papyrus", "P64 · c. 200 · papyrus", "witness.html"], ["p66 p66 bodmer ii ", "Witness", "Bodmer II", "P66 · c. 200 · papyrus", "witness.html"], ["p45 p45 chester beatty i ", "Witness", "Chester Beatty I", "P45 · 3rd c. · papyrus", "witness.html"], ["p47 p47 chester beatty iii ", "Witness", "Chester Beatty III", "P47 · 3rd c. · papyrus", "witness.html"], ["p75 p75 bodmer xiv–xv ", "Witness", "Bodmer XIV–XV", "P75 · 3rd c. · papyrus", "witness.html"], ["p72 p72 bodmer vii–viii ", "Witness", "Bodmer VII–VIII", "P72 · 3rd–4th c. · papyrus", "witness.html"], ["p115 p115 oxyrhynchus 4499 ", "Witness", "Oxyrhynchus 4499", "P115 · 3rd–4th c. · papyrus", "witness.html"], ["01 sinaiticus codex sinaiticus ", "Witness", "Codex Sinaiticus", "01 · 4th c. · majuscule", "witness.html"], ["03 vaticanus codex vaticanus ", "Witness", "Codex Vaticanus", "03 · 4th c. · majuscule", "witness.html"], ["02 alexandrinus codex alexandrinus ", "Witness", "Codex Alexandrinus", "02 · 5th c. · majuscule", "witness.html"], ["05 bezae codex bezae ", "Witness", "Codex Bezae", "05 · 5th c. · majuscule", "witness.html"], ["p74 p74 bodmer xvii ", "Witness", "Bodmer XVII", "P74 · 7th c. · papyrus", "witness.html"], ["byz byz byzantine majority text byzantine majority", "Witness", "Byzantine majority text", "Byz · 9th c. on · group", "witness.html"], ["reading the apparatus what each part of a ubs entry means, worked through at john 1:18.", "Guide", "Reading the apparatus", "What each part of a UBS entry means, worked through at John 1:18.", "guide.html"], ["weighing the evidence how to judge between readings using external and internal evidence.", "Guide", "Weighing the evidence", "How to judge between readings using external and internal evidence.", "guide.html"], ["which variants matter when a variant changes your translation, and when it does not.", "Guide", "Which variants matter", "When a variant changes your translation, and when it does not.", "guide.html"], ["base texts the ubs text, the byzantine text and the textus receptus.", "Guide", "Base texts", "The UBS text, the Byzantine text and the Textus Receptus.", "guide.html"], ["text policy following the translation guidelines on variants.", "Guide", "Text policy", "Following the translation guidelines on variants.", "guide.html"], ["materials papyrus, parchment, scrolls and codices.", "Background", "Materials", "Papyrus, parchment, scrolls and codices.", "guide.html"], ["the new testament text how the text was copied, collected and printed.", "Background", "The New Testament text", "How the text was copied, collected and printed.", "guide.html"]];
+const sup={'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4','⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9'};
+const norm=s=>s.toLowerCase().replace(/[⁰-⁹]/g,c=>sup[c]||c).replace(/𝔓\s*/g,'p').replace(/\bp\s+(\d)/g,'p$1')
+ .replace(/[–—]/g,'-').replace(/\bjn\b|\bjoh\b/g,'john').replace(/\bmk\b/g,'mark').replace(/\blk\b/g,'luke').replace(/\bjas\b|\bjm\b/g,'james').replace(/\s+/g,' ').trim();
+const inp=document.getElementById('q'),out=document.getElementById('res');
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function run(){const q=norm(inp.value);if(!q){out.innerHTML='';return}
+ const hits=IDX.filter(e=>norm(e[0]+' '+e[2]).includes(q)||q.split(' ').every(t=>norm(e[0]+' '+e[2]+' '+e[3]).includes(t)));
+ if(!hits.length){out.innerHTML='<h3>No matches</h3><p style="padding:.6rem 1rem;margin:0">Try a verse (John 1:18), a siglum (B, 03, P66) or an idea (harder reading).</p>';return}
+ const groups={};hits.forEach(h=>(groups[h[1]]=groups[h[1]]||[]).push(h));
+ out.innerHTML=Object.entries(groups).map(([k,v])=>'<h3>'+k+(k=='Verse'?' — every place it is discussed':'')+'</h3>'+v.slice(0,6).map(h=>'<a class="r" href="'+h[4]+'"><span class="k">'+esc(h[2])+'</span><span class="ctx">'+esc(h[3])+'</span></a>').join('')).join('');}
+inp.addEventListener('input',run);
+document.querySelectorAll('[data-try]').forEach(b=>b.addEventListener('click',()=>{inp.value=b.dataset.try;run();inp.focus()}));
+if(inp.value)run();})();
+</script></body></html>

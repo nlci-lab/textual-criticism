@@ -63,3 +63,35 @@ reference-book feel for density or app chrome.
 Open points before building: group the nav (papyri / majuscules / minuscules /
 versions) so it stays short; decide whether the nav is collapsible on 900–1200px
 laptops.
+
+## 6 Catalogue (after discussion with the owner, 20 Nov 2026)
+
+Built from the owner's brief: search as the highlight, witnesses as a card
+gallery, guides and background as "book pages". Supersedes the recommendation
+above as the direction to develop.
+
+- **Home** (`home.html`): search first. Works like a concordance: a verse
+  (`John 1:18`, `jn 1:18`), a siglum (`𝔓⁶⁶`, `P66`, `03`, `B`) or an idea
+  (`harder reading`) lists every place the site discusses it, grouped by
+  Verse / Witness / Guide. Under it, a rail of witness tiles and a shelf of covers.
+- **Witnesses** (`witnesses.html`): even grid of specimen tiles (siglum large in
+  rubric, a strip of Greek capitals, papyrus-fibre or parchment texture by kind;
+  a licensed photo would replace the texture). Each shows name, date, kind and a
+  five-part coverage bar (Gospels / Acts / Paul / Catholic / Revelation). Filters
+  for kind, date and contents plus a search box; on phones the filters are
+  sideways-scrolling chip rows and the grid is two columns.
+- **Witness profile** (`witness.html`): tile and fact sheet on the left (sticky),
+  prose in the middle, links and "often cited with" tiles on the right.
+- **Guide** (`guide.html`): book-page landing (typographic cover, description,
+  reading time, level, prerequisite, sources, last checked, "What you will
+  learn", Read button) then a "Related" shelf, then the reading view with
+  sticky contents. Background pages use the same template with an ochre cover.
+
+Colour: the existing tokens plus three flat manuscript pigments used only on
+covers (lapis = guides, verdigris = method guides, ochre = background). No
+gradients except the subtle material textures on tiles.
+
+JS: two small inline scripts (search, filters), no framework. In Astro the
+concordance index would be built at build time from witness `key_units`, guide
+headings and a verse-reference field, and shipped as one small JSON file.
+Gallery data in the mock-up is approximate.

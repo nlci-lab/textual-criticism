@@ -5,6 +5,7 @@
 // listed sources (ADR 0004); the sources come at the end.
 import Base from './Base.astro';
 import Cover from '../components/Cover.astro';
+import Feedback from '../components/Feedback.astro';
 import ExampleCard from '../components/ExampleCard.astro';
 import { byPath, PIGMENT, KICKER, EXAMPLES, type GuideMeta } from '../data/guides';
 import { url } from '../lib/url';
@@ -98,6 +99,7 @@ const related = (meta?.related ?? []).map((p) => byPath(p) ?? (p === 'witnesses/
               {lastChecked && <p class="small muted">Last revised {lastChecked}.</p>}
             </section>
           )}
+          <Feedback title={title} />
         </article>
       </div>
       {practice.length > 0 && (
@@ -139,6 +141,7 @@ const related = (meta?.related ?? []).map((p) => byPath(p) ?? (p === 'witnesses/
           {lastChecked && <p class="small muted">Last revised {lastChecked}.</p>}
         </section>
       )}
+      <Feedback title={title} />
     </article>
   )}
 </Base>

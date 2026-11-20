@@ -6,6 +6,7 @@ import CntrViewer from '../../components/CntrViewer.astro';
 import Cite from '../../components/Cite.astro';
 import PageImage from '../../components/PageImage.astro';
 import WitnessTile from '../../components/WitnessTile.astro';
+import Feedback from '../../components/Feedback.astro';
 import { examplesFor } from '../../data/guides';
 import { url } from '../../lib/url';
 import { heSigla, ltrHe } from '../../lib/he';
@@ -120,6 +121,7 @@ const sl = w.siglum_lang;
     </section>
     </div>
     </div>
+    <Feedback title={`${w.siglum} ${w.names[0]}`} />
   </article>
 </Base>
 

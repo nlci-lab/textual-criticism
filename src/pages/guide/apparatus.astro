@@ -38,10 +38,14 @@ const g = (id: string) => url(`glossary/#${id}`);
     <p>Do not count witnesses. The third reading has the most manuscripts by far, but most of them are Byzantine copies made centuries later. Look at how early the witnesses are and how widely spread: the first reading has early Greek witnesses (𝔓⁶⁶ was copied around 200), while the third reading is spread across Greek, Latin and Syriac and early fathers.</p>
     <p>Read the readings as a story of change, and ask which reading best explains how the others arose. Scholars answer that question differently here:</p>
     <ul>
-      <li><strong>For "God" (the UBS text).</strong> It is the harder reading, and it is in the earliest papyri. A scribe who knew "the only Son" from John 3:16, 18 could easily have changed "God" to "Son".</li>
-      <li><strong>For "Son".</strong> It is found in every region and language, and in 2nd- and 3rd-century fathers, while "God" is found almost only in Egyptian ("Alexandrian") witnesses. "Son" fits how John writes elsewhere. And a scribe defending Christ's full deity had a reason to change "Son" to "God". Bart Ehrman argues this view (<i>The Orthodox Corruption of Scripture</i>, ch. 2).</li>
+      <li><strong>For "God" (the UBS text).</strong> The committee's reasons, as Metzger reports them:<sup class="cite"><a href="#src-metzger">1</a></sup> the papyri 𝔓⁶⁶ and 𝔓⁷⁵, both reading θεός, made its external support much stronger; "Son" is the easier reading and probably came from scribes making the verse match John 3:16, 18 and 1 John 4:9; and θεός without the article, as in 1:1, looks older, since no scribe had a reason to remove the article, while anyone changing to υἱός would add it.</li>
+      <li><strong>For "Son".</strong> It is found in every region and language, and in 2nd- and 3rd-century fathers, while "God" is found almost only in Egyptian ("Alexandrian") witnesses. "Son" fits how John writes elsewhere. And a scribe defending Christ's full deity had a reason to change "Son" to "God". Bart Ehrman argues this view (<i>The Orthodox Corruption of Scripture</i>, ch. 2, on John 1:18).</li>
+      <li><strong>The shortest reading, ὁ μονογενής.</strong> The committee found it attractive on internal grounds but too weakly attested to print.<sup class="cite"><a href="#src-metzger">1</a></sup></li>
     </ul>
-    <p>This is why the committee rated the unit <a href="#ratings">{'{B}'}</a>, not {'{A}'}: it chose "God" but did not think the question closed. Then check how your reference translations handle it. Many English translations print "God" or "the only God" and give "Son" in a footnote; REB and BJ do the opposite.</p>
+    <p>The decision was by a majority, not unanimous. One committee member (initials A.W.) added a dissenting note: he doubted John wrote μονογενὴς θεός, suggested it may be an early copying slip in the Alexandrian tradition (ΥΣ read as ΘΣ, see <a href={url('background/materials/')}>nomina sacra</a>), and said at least a {'{D}'} rating would be better.<sup class="cite"><a href="#src-metzger">1</a></sup></p>
+    <p>So the <a href="#ratings">{'{B}'}</a> rating hides a real disagreement inside the committee as well as outside it. Then check how your reference translations handle it. Many English translations print "God" or "the only God" and give "Son" in a footnote; REB and BJ do the opposite.</p>
+    <p class="small muted">Metzger also notes that some commentators read μονογενής as a noun, giving three separate titles: "the only one, God, who is at the Father's side".<sup class="cite"><a href="#src-metzger">1</a></sup></p>
+    <ol class="small srcs"><li id="src-metzger">Bruce M. Metzger, <i>A Textual Commentary on the Greek New Testament</i>, 2nd ed. (United Bible Societies, 1994), pp. 169–70, on John 1:18. Written for UBS4, which gave the same {'{B}'} rating as UBS5.</li></ol>
 
     <section class="unchecked-box" aria-labelledby="ratings">
       <h2 id="ratings">What the ratings do and do not tell you <span class="tag">not yet checked</span></h2>
@@ -61,6 +65,8 @@ const g = (id: string) => url(`glossary/#${id}`);
   .mk { font-family: var(--sans); font-size: 0.8em; color: var(--ink-2); margin-right: 0.15em; }
   .notes { padding-left: 1.4rem; }
   .notes li { margin-bottom: 0.8rem; }
+  .srcs { padding-left: 1.4rem; color: var(--ink-2); }
+  .srcs li:target { background: var(--paper-2); }
   [lang="grc"] { font-family: var(--serif); }
   .unchecked-box { border: 1px dashed var(--rule); border-radius: 6px; padding: 0 1rem 0.25rem; margin-top: 2.5rem; }
   .unchecked-box h2 { margin-top: 1rem; }

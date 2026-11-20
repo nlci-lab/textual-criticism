@@ -1,0 +1,13 @@
+---
+// Five-part bar: Gospels / Acts / Paul / Catholic letters / Revelation.
+import { GROUPS, type GroupState } from '../lib/coverage';
+interface Props { cov: Record<string, GroupState>; labelled?: boolean }
+const { cov, labelled = false } = Astro.props;
+const word = { on: 'complete', part: 'in part', off: 'not extant' } as const;
+const summary = GROUPS.map((g) => `${g.label}: ${word[cov[g.key]]}`).join('; ');
+---
+<ul class:list={['cov', { labelled }]} role="img" aria-label={`Contents. ${summary}`}>
+  {GROUPS.map((g) => (
+    <li class={cov[g.key] === 'off' ? undefined : cov[g.key]} title={`${g.label}: ${word[cov[g.key]]}`}>{labelled && g.short}</li>
+  ))}
+</ul>

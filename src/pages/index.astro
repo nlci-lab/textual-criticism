@@ -5,6 +5,7 @@ import Base from '../layouts/Base.astro';
 import WitnessTile from '../components/WitnessTile.astro';
 import Cover from '../components/Cover.astro';
 import ExampleCard from '../components/ExampleCard.astro';
+import Tour from '../components/Tour.astro';
 import { aliasIndex, allWitnesses } from '../lib/witnesses';
 import { GUIDES, PIGMENT, KICKER, EXAMPLES } from '../data/guides';
 import { url } from '../lib/url';
@@ -41,11 +42,10 @@ const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading
       </form>
       <noscript><p>Search needs JavaScript. Browse the <a href={url('witnesses/')}>witnesses</a>, <a href={url('guide/')}>guides</a> and <a href={url('glossary/')}>glossary</a> instead.</p></noscript>
     </div>
-    <dl class="stats">
-      <div><dt>Witnesses profiled</dt><dd>{all.length}</dd></div>
-      <div><dt>Guides and examples</dt><dd>{guides.length}</dd></div>
-      <div><dt>Old Testament pages</dt><dd>Being added</dd></div>
-    </dl>
+    <div class="hero-side">
+      <Tour />
+      <p class="stats-line">{all.length} witnesses profiled · {guides.length} guides · {EXAMPLES.length} worked examples · Old Testament pages being added</p>
+    </div>
   </section>
 
   <section class="sec">
@@ -173,7 +173,7 @@ const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading
   .hero { display: grid; gap: 2rem; padding: 2.5rem 0 1.5rem; }
   .hero h1 { font-size: clamp(1.9rem, 4.6vw, 3rem); letter-spacing: -0.01em; max-width: 20ch; margin: 0.25rem 0 0; }
   .sub { color: var(--ink-2); font-size: 1.1rem; max-width: 40rem; margin: 0.75rem 0 1.25rem; }
-  @media (min-width: 1000px) { .hero { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: end; padding-top: 3.5rem; } }
+  @media (min-width: 1000px) { .hero { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; padding-top: 3.5rem; } .hero-side { padding-top: 1.5rem; } }
   .search { position: relative; }
   .search input { font: 1.15rem var(--sigla); padding: 0.9rem 1rem 0.9rem 3rem; border: 1.5px solid var(--ink); border-radius: 10px; }
   .search input:focus { border-color: var(--rubric); outline: 3px solid color-mix(in srgb, var(--rubric) 30%, transparent); outline-offset: 1px; }
@@ -194,11 +194,7 @@ const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading
   .results :global(.ctx) { font-size: 0.95rem; line-height: 1.45; }
   .results :global(.none) { margin: 0; padding: 0.75rem 1rem; font-family: var(--sans); font-size: 0.9rem; }
   @media (max-width: 480px) { .results :global(a) { grid-template-columns: 1fr; gap: 0.15rem; } }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0; border-top: 1px solid var(--ink); font-family: var(--sans); }
-  .stats div { padding: 0.75rem 0.5rem 0 0; display: flex; flex-direction: column-reverse; justify-content: flex-end; }
-  .stats dd { margin: 0; font: 600 1.9rem/1.1 var(--serif); }
-  .stats dt { font-size: 0.8rem; color: var(--ink-2); }
-  .stats div:last-child dd { font-size: 1.1rem; padding-top: 0.6rem; }
+  .stats-line { margin: 0.75rem 0 0; font: 0.8rem var(--sans); color: var(--ink-2); }
   .tiles { --shelf-col: minmax(11rem, 12rem); }
   .ex-intro { margin: -0.25rem 0 1rem; max-width: var(--measure); }
   .ex-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }

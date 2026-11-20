@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/components.css';
 import { url } from '../lib/url';
+import gentiumRegular from '../fonts/GentiumBookPlus-Regular.woff2?url';
 interface Props { title: string; description?: string; nav?: string }
 const { title, description = 'An introduction to textual criticism of the Bible for translators and consultants: the manuscripts, the printed editions and their apparatus, and how to weigh the evidence.', nav } = Astro.props;
 const links = [
@@ -27,7 +28,7 @@ const links = [
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- display=optional: no font swap flash; slow connections keep the system serif. -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew&text=%D7%90&display=optional" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=optional" />
+  <link rel="preload" href={gentiumRegular} as="font" type="font/woff2" crossorigin />
   <script is:inline>
     try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
   </script>

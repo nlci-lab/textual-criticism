@@ -28,6 +28,10 @@ const shown = rs.filter((r) => {
   return JSON.stringify(r.al.slots.map((s) => s.word?.ortho)) !== JSON.stringify(f.al.slots.map((s) => s.word?.ortho))
     || JSON.stringify([...r.al.adds]) !== JSON.stringify([...f.al.adds]);
 });
+// Printed editions (optional Witness.kind) go after the manuscripts, in lower case, with no page link.
+const isEd = (w: Witness) => (w as Witness & { kind?: string }).kind === 'edition';
+shown.sort((a, b) => +isEd(a.w) - +isEd(b.w));
+const firstEd = shown.findIndex((r) => isEd(r.w));
 const label = (r: Row) => r.w.siglum + (shown.some((x) => x.w.id === r.w.id && x.hand !== r.hand) ? (r.hand === 'first' ? '*' : 'ᶜ') : '');
 const vref = `John ${verse.ref.split(' ')[1] ?? verse.ref}`;
 /** Transliterate manuscript words, borrowing breathings from the base word each one matches (in the unit first). */
@@ -85,17 +89,18 @@ function columns([s, e]: [number, number]) {
             <div class="rds">
               {rds.map((rd) => (
                 <div class="rd">
-                  <p class="form g">{rd.words.length ? rd.words.map((w, i) => <><Word w={w} />{i < rd.words.length - 1 ? ' ' : ''}</>) : <span class="om">{u.from > u.to ? 'nothing added' : '— omits'}</span>}</p>
+                  <p class="form g">{rd.words.length ? rd.words.map((w, i) => <><Word w={w} lower={rd.rows.every((r) => isEd(r.w))} />{i < rd.words.length - 1 ? ' ' : ''}</>) : <span class="om">{u.from > u.to ? 'nothing added' : '— omits'}</span>}</p>
                   {rd.words.length > 0 && <p class="tl" lang="grc-Latn">{tlWords(rd.words, u)}</p>}
                   <p class="eng">{rd.gloss ? (rd.words.length ? `“${rd.gloss}”` : rd.gloss) : ''}{rd.isBase && <span class="ubs">UBS text</span>}</p>
                   <ul class="wits">
-                    {rd.rows.map((r) => (
+                    {rd.rows.filter((r) => !isEd(r.w)).map((r) => (
                       <li>
                         <Sig w={r.w} text={siglum(r, rs, u)} verseId={verse.id} verseRef={vref} />
                         <span class="dt">{r.w.date}</span>
                       </li>
                     ))}
                   </ul>
+                  {rd.rows.some((r) => isEd(r.w)) && <p class="eds"><span class="eds-h">Printed editions</span> {rd.rows.filter((r) => isEd(r.w)).map((r, i, a) => <><span class="ed-sg" title={r.w.label}>{r.w.siglum}</span>{i < a.length - 1 ? ', ' : ''}</>)}</p>}
                 </div>
               ))}
             </div>
@@ -112,11 +117,11 @@ function columns([s, e]: [number, number]) {
       const cellFor = (r: Row, c: (typeof cols)[number]) => {
         if (c.t === 'add') {
           const a = r.al.adds.get(c.k) ?? [];
-          return <div class="cell g" role="cell">{a.map((x, i) => <><span class={cls[x.kind]}><Word w={x.word} /></span>{i < a.length - 1 ? ' ' : ''}</>)}{a.some((x) => glossOf(x.word)) && <span class="gl"> {a.map((x) => glossOf(x.word)).filter(Boolean).join(' ')}</span>}</div>;
+          return <div class="cell g" role="cell">{a.map((x, i) => <><span class={cls[x.kind]}><Word w={x.word} lower={isEd(r.w)} /></span>{i < a.length - 1 ? ' ' : ''}</>)}{a.some((x) => glossOf(x.word)) && <span class="gl"> {a.map((x) => glossOf(x.word)).filter(Boolean).join(' ')}</span>}</div>;
         }
         const s = r.al.slots[c.k];
         return s.word
-          ? <div class="cell g" role="cell"><span class={cls[s.kind]}><Word w={s.word} /></span>{s.kind === 'different' && glossOf(s.word) && <span class="gl"> {glossOf(s.word)}</span>}</div>
+          ? <div class="cell g" role="cell"><span class={cls[s.kind]}><Word w={s.word} lower={isEd(r.w)} /></span>{s.kind === 'different' && glossOf(s.word) && <span class="gl"> {glossOf(s.word)}</span>}</div>
           : <div class="cell" role="cell"><span class="om" title={s.kind === 'order' ? 'moved: see the added column' : 'missing'}>{s.kind === 'order' ? '↔' : '—'}</span></div>;
       };
       return (
@@ -127,11 +132,14 @@ function columns([s, e]: [number, number]) {
               {c.t === 'base' ? <><span class="g hb">{base[c.k][0]}</span><span class="tl" lang="grc-Latn">{translit(base[c.k][0])}</span><span class="gl">{base[c.k][1]}</span></> : <><span class="g hb">+</span><span class="gl">added</span></>}
             </div>)}
           </div>
-          {shown.map((r) => (
-            <div class="row" role="row">
-              <div class="cell lab" role="rowheader"><Sig w={r.w} text={label(r)} verseId={verse.id} verseRef={vref} /></div>
-              {cols.map((c) => cellFor(r, c))}
-            </div>
+          {shown.map((r, ri) => (
+            <>
+              {ri === firstEd && <div class="row" role="row"><div class="cell grp" role="cell">Printed editions</div></div>}
+              <div class:list={['row', { ed: isEd(r.w) }]} role="row">
+                <div class="cell lab" role="rowheader">{isEd(r.w) ? <span class="ed-sg" title={r.w.label}>{label(r)}</span> : <Sig w={r.w} text={label(r)} verseId={verse.id} verseRef={vref} />}</div>
+                {cols.map((c) => cellFor(r, c))}
+              </div>
+            </>
           ))}
         </div>
       );
@@ -323,6 +331,10 @@ function columns([s, e]: [number, number]) {
   .cell.lab :global(.sg) { font-size: 1.05rem; }
   .hb { font-weight: 600; }
   .cell.g { font-size: 1.05rem; }
+  .eds { margin: .45rem 0 0; font: .8rem var(--sans); color: var(--ink-2); }
+  .eds-h { font-weight: 600; margin-right: .25rem; }
+  .ed-sg { font: 600 .85rem var(--sans); color: var(--ink); }
+  .cell.grp { grid-column: 1 / -1; position: sticky; left: 0; background: var(--paper-2); font: 600 .75rem var(--sans); color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; border-top: 2px solid var(--rule); }
   .coll-credit { margin: .75rem 0 0; }
 </style>
 <style is:global>

@@ -158,8 +158,6 @@ const related = (meta?.related ?? []).map((p) => byPath(p) ?? (p === 'witnesses/
   @media (min-width: 1000px) {
     .read { grid-template-columns: 15rem minmax(0, 1fr); gap: 3rem; }
     .toc { position: sticky; top: 1rem; align-self: start; max-height: calc(100vh - 2rem); overflow: auto; }
-    .toc summary { pointer-events: none; list-style: none; }
-    .toc summary::-webkit-details-marker { display: none; }
   }
   .ctx :global(h2[id]) { scroll-margin-top: 1rem; }
   :global(.ctx.wide > :is(p, h1, h2, dl, ol, ul, section)) { max-width: var(--measure); }

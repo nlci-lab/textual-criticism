@@ -4,7 +4,7 @@
 // Thumbnails come from scripts/make-thumbs.mjs (public/img/ms/thumb/).
 import type { CollectionEntry } from 'astro:content';
 import CoverageBar from './CoverageBar.astro';
-import { coverage } from '../lib/coverage';
+import { coverage, lettersGroups } from '../lib/coverage';
 import { url } from '../lib/url';
 interface Props { w: CollectionEntry<'witnesses'>['data']; link?: boolean }
 const { w, link = true } = Astro.props;
@@ -18,12 +18,15 @@ const cov = w.kind === 'group' ? { e: 'on', a: 'on', p: 'on', c: 'on', r: 'on' }
 // A line of capitals for the texture; per-witness text can come later from a `specimen` field.
 const scr = 'ΚΑΙΕΓΕΝΕΤΟΕΝΤΑΙΣΗΜΕΡΑΙΣ';
 const Tag = link ? 'a' : 'div';
+// Filter membership: the book-level bar where we have it, else the sourced INTF content code (not shown as a bar).
+const groups = cov ? Object.entries(cov).filter(([, v]) => v !== 'off').map(([k]) => k) : lettersGroups(g?.content_letters?.value);
+const groupsAttr = (groups.length ? groups : lettersGroups(g?.content_letters?.value)).join(' ');
 // Search text for the gallery filter: siglum, GA number, names and aliases, folded like lib/sigla toKey.
 const fold = (x: string) => x.normalize('NFKC').toLowerCase();
 const search = [w.siglum, g?.ga, ...w.names, ...w.aliases].filter(Boolean).map((x) => fold(x!)).join(' | ');
 ---
 <Tag class="tile" href={link ? url(`w/${w.id}/`) : undefined}
-  data-kind={g?.category ?? w.kind} data-search={search} data-from={w.date?.from} data-groups={cov ? Object.entries(cov).filter(([, v]) => v !== 'off').map(([k]) => k).join(' ') : ''}>
+  data-kind={g?.category ?? w.kind} data-search={search} data-from={w.date?.from} data-id={w.id} data-groups={groupsAttr}>
   <div class:list={['tile-spec', photo ? 'photo' : texture]}>
     {photo ? (
       <img src={url(photo.file!.replace('img/ms/', 'img/ms/thumb/'))} alt="" width="480" height="360" loading="lazy" decoding="async" />

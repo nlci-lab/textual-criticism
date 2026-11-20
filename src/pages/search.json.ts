@@ -17,6 +17,9 @@ const slug = (t: string) => t.toLowerCase().normalize('NFKD').replace(/[^\w\s-]/
 // Page sources, read as text at build time to list their section headings.
 const SRC = import.meta.glob('./{guide,background}/**/*.astro', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
 
+const BOOKNAMES = 'Matthew|Mark|Luke|John|Acts|Romans|Corinthians|Galatians|Ephesians|Philippians|Colossians|Thessalonians|Timothy|Titus|Philemon|Hebrews|James|Peter|Jude|Revelation';
+const REF_RE = new RegExp(String.raw`\b(?:[1-3] )?(?:${BOOKNAMES}) \d+:\d+(?:[–-]\d+(?::\d+)?)?`, 'g');
+
 export const GET: APIRoute = async () => {
   const out: Entry[] = [];
   for (const w of await allWitnesses()) {
@@ -29,6 +32,17 @@ export const GET: APIRoute = async () => {
     for (const v of g.verses ?? []) {
       const ref = parseRef(v);
       if (ref) out.push({ k: 'v', ref, label: formatRef(ref), title: g.cover, ctx: g.summary, href: g.path });
+    }
+    // Every passage the page's own text mentions also enters the passage index.
+    const pageSrc = SRC[`./${g.path.replace(/\/$/, '')}.astro`] ?? SRC[`./${g.path}index.astro`] ?? '';
+    const seen = new Set((g.verses ?? []).map((v) => { const r = parseRef(v); return r ? formatRef(r) : v; }));
+    for (const m of pageSrc.matchAll(REF_RE)) {
+      const ref = parseRef(m[0]);
+      if (!ref || ref.from === undefined) continue;
+      const label = formatRef(ref);
+      if (seen.has(label)) continue;
+      seen.add(label);
+      out.push({ k: 'v', ref, label, title: g.cover, ctx: `Discussed in “${g.cover}”`, href: g.path });
     }
     out.push({ k: 'p', title: g.cover, kicker: KICKER[g.section], ctx: g.summary, href: g.path,
       text: [g.cover, g.summary, ...g.learn, ...(g.verses ?? [])].join(' ').toLowerCase() });

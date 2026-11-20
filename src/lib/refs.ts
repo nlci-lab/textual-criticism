@@ -31,7 +31,7 @@ export function parseRef(raw: string): Ref | null {
   const r = /^(\d+)(?:[:.](\d+))?(?:\s*-\s*(?:(\d+)[:.])?(\d+))?/.exec(rest);
   if (!r) return { book };
   const ch = +r[1];
-  if (!r[2]) return { book, from: ch * 1000, to: ch * 1000 + 999 };
+  if (!r[2]) return { book, from: ch * 1000, to: (r[4] ? +r[4] : ch) * 1000 + 999 };   // John 1 or John 1–8
   const from = ch * 1000 + +r[2];
   const to = r[4] ? (r[3] ? +r[3] : ch) * 1000 + +r[4] : from;
   return { book, from, to };
@@ -48,7 +48,7 @@ export function overlaps(a: Ref, b: Ref): boolean {
 export function formatRef(r: Ref): string {
   if (r.from === undefined) return r.book;
   const c1 = Math.floor(r.from / 1000), v1 = r.from % 1000, c2 = Math.floor(r.to! / 1000), v2 = r.to! % 1000;
-  if (v1 === 0 && v2 === 999) return `${r.book} ${c1}`;
+  if (v1 === 0 && v2 === 999) return c1 === c2 ? `${r.book} ${c1}` : `${r.book} ${c1}–${c2}`;
   if (r.from === r.to) return `${r.book} ${c1}:${v1}`;
   return c1 === c2 ? `${r.book} ${c1}:${v1}–${v2}` : `${r.book} ${c1}:${v1}–${c2}:${v2}`;
 }

@@ -2,12 +2,12 @@
    Pigments are used flat, only on covers. Rubric stays the accent for sigla and links. */
 
 /* Shelf / rail: one horizontal row that scrolls on narrow screens. No JS. */
-.shelf {
+:is(div, ul).shelf {
   display: grid; grid-auto-flow: column; grid-auto-columns: var(--shelf-col, minmax(10rem, 11.5rem));
   gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0.25rem 0 0.75rem;
   margin: 0; list-style: none;
 }
-.shelf > * { scroll-snap-align: start; }
+:is(div, ul).shelf > * { scroll-snap-align: start; }
 
 /* Chip buttons (filters, "try" suggestions). */
 .chip {

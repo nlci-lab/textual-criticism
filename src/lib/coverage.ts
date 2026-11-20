@@ -8,6 +8,17 @@ export const GROUPS = [
   { key: 'r', label: 'Revelation', short: 'Rev', books: ['Re'] },
 ] as const;
 
+/** Groups named by an INTF content code ("eap †", "p; p", "eapr ..."): INTF 'a' covers Acts and the Catholic letters. */
+export function lettersGroups(code: string | undefined): string[] {
+  const head = (code ?? '').split(/[\s(;:†]/)[0];   // lower-case letters only; INTF capitals mark other things
+  const out = new Set<string>();
+  for (const ch of head) {
+    if (ch === 'a') { out.add('a'); out.add('c'); }
+    else if ('epcr'.includes(ch)) out.add(ch);
+  }
+  return [...out];
+}
+
 export type GroupState = 'on' | 'part' | 'off';
 type Book = { book: string; status: 'complete' | 'partial' | 'fragment' | 'absent' };
 

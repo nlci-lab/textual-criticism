@@ -3,9 +3,11 @@
 // Without JavaScript all tiles show and the filter bar stays hidden.
 import Base from '../layouts/Base.astro';
 import WitnessTile from '../components/WitnessTile.astro';
-import { allWitnesses } from '../lib/witnesses';
+import { allWitnesses, aliasIndex } from '../lib/witnesses';
 import { GROUPS } from '../lib/coverage';
 const ws = await allWitnesses();
+// Siglum lookup follows ADR 0003 (B*, B², Bᵛⁱᵈ all mean B), using the same alias index as the home search.
+const keys = Object.fromEntries([...(await aliasIndex())].map(([k, v]) => [k, v.map((e) => e.id)]));
 
 const KINDS: [string, string][] = [
   ['papyrus', 'Papyri'], ['majuscule', 'Majuscules'], ['minuscule', 'Minuscules'], ['lectionary', 'Lectionaries'],
@@ -46,11 +48,14 @@ const DATES: [string, string][] = [['early', 'Before 300'], ['mid', '300–499']
     <div class="grid" id="grid">
       {ws.map((w) => <WitnessTile w={w} />)}
     </div>
+    <script type="application/json" id="alias-data" set:html={JSON.stringify(keys)}></script>
     <p class="none" id="none" hidden>No witness matches. <button class="reset" type="button" data-reset>Clear filters</button></p>
   </div>
 </Base>
 
 <script>
+  import { candidateKeys } from '../lib/sigla';
+  const keys = JSON.parse(document.getElementById('alias-data')!.textContent!) as Record<string, string[]>;
   const root = document.getElementById('filters')!;
   root.hidden = false;
   const tiles = [...document.querySelectorAll<HTMLElement>('#grid .tile')];
@@ -63,13 +68,15 @@ const DATES: [string, string][] = [['early', 'Before 300'], ['mid', '300–499']
   function dateBand(from: number) { return from < 300 ? 'early' : from < 500 ? 'mid' : 'late'; }
   function apply() {
     const t = fold(q.value);
+    // An exact siglum, number or name (with any apparatus marks) picks those witnesses; otherwise match by substring.
+    const exact = q.value.trim() ? candidateKeys(q.value.trim()).map((k) => keys[k]).find(Boolean) : undefined;
     let shown = 0;
     for (const el of tiles) {
       const d = el.dataset;
       const ok = (!st.kind || d.kind === st.kind)
         && (!st.date || (d.from !== undefined && d.from !== '' && dateBand(+d.from) === st.date))
         && (!st.group || (d.groups ?? '').split(' ').includes(st.group))
-        && (!t || (d.search ?? '').split(' | ').some((s) => s.replace(/\s+/g, '').includes(t)));
+        && (!t || (exact ? exact.includes(d.id!) : (d.search ?? '').split(' | ').some((s) => s.replace(/\s+/g, '').includes(t))));
       el.hidden = !ok;
       if (ok) shown++;
     }
@@ -111,6 +118,7 @@ const DATES: [string, string][] = [['early', 'Before 300'], ['mid', '300–499']
   .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; padding: 1.25rem 0 1rem; }
   .grid :global(.tile[hidden]) { display: none; }
   .none { font-family: var(--sans); }
+  .g-body:has(> .filters[hidden]) > * { grid-column: 1 / -1; }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   @media (min-width: 640px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; } }
   @media (min-width: 1000px) {

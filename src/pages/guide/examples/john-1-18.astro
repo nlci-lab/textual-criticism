@@ -1,0 +1,157 @@
+---
+// Worked example in the step-by-step format: the same order the guides teach.
+// Facts come from the UBS5 entry and the Metzger/Omanson summaries already on guide/apparatus/.
+import Context from '../../../layouts/Context.astro';
+import { url } from '../../../lib/url';
+import ExampleStyles from '../../../components/ExampleStyles.astro';
+const w = (id: string) => url(`w/${id}/`);
+const g = (id: string) => url(`glossary/#${id}`);
+const ap = url('guide/apparatus/');
+const sources = [
+  { cite: 'UBS Greek New Testament, 5th ed., apparatus at John 1:18, as shown in Paratext 9 (seen 19 Nov 2026).', checked: true },
+  { cite: 'Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed. (United Bible Societies, 1994), pp. 169–70, on John 1:18 (as summarized on this site’s apparatus guide).', checked: true },
+  { cite: 'Roger L. Omanson, A Textual Guide to the Greek New Testament (Deutsche Bibelgesellschaft, 2006), p. 165, on John 1:18 (as summarized on this site’s apparatus guide).', checked: true },
+  { cite: 'General handbooks on the copying quality of 𝔓⁷⁵, B and A (no specific source yet).', checked: false },
+  { cite: 'Bart D. Ehrman, The Orthodox Corruption of Scripture, ch. 2, on John 1:18 (as summarized on this site’s apparatus guide).', checked: true },
+];
+---
+<Context title="John 1:18: only God or only Son?" label="Guide" lastChecked="2026-11-20" sources={sources}
+  description="A worked example where the earliest papyri and the majority of manuscripts name Jesus differently.">
+  <div class="case">
+  <p class="lead">Some Bibles say "the only Son" made the Father known. Others say "the only God" or "God the only Son". Here we work through the evidence in the same order the <a href={url('guide/weighing-evidence/')}>weighing guide</a> teaches. The <a href={ap}>apparatus guide</a> takes this same entry apart piece by piece.</p>
+
+  <ol class="route" aria-label="The steps">
+    <li><a href="#step-1-find-the-problem">Find the problem</a></li>
+    <li><a href="#step-2-list-the-readings">List the readings</a></li>
+    <li><a href="#step-3-external-evidence">External evidence</a></li>
+    <li><a href="#step-4-internal-evidence">Internal evidence</a></li>
+    <li><a href="#step-5-weigh-it-up">Weigh it up</a></li>
+    <li><a href="#step-6-decide-for-your-translation">Decide</a></li>
+  </ol>
+
+  <section class="step">
+    <span class="n">Step 1</span>
+    <h2 id="step-1-find-the-problem">Find the problem</h2>
+    <p class="ask">What exactly differs between the manuscripts?</p>
+    <div class="banner">
+      <span class="ref">John 1:18 · UBS5 text (part)</span>
+      <p class="greek" lang="grc">θεὸν οὐδεὶς ἑώρακεν πώποτε· <mark>μονογενὴς θεὸς</mark> … ἐκεῖνος ἐξηγήσατο.</p>
+      <p class="gloss">"No one has ever seen God. <strong>The only God</strong> … has made him known."</p>
+    </div>
+    <p>The verse says someone close to the Father has made him known. The manuscripts disagree on what that someone is called. Is he <span lang="grc">θεός</span> (God) or <span lang="grc">υἱός</span> (Son)? And is there an article, <span lang="grc">ὁ</span> ("the"), in front?</p>
+    <p><span lang="grc">μονογενής</span> means "only" or "one and only".</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 2</span>
+    <h2 id="step-2-list-the-readings">List the readings</h2>
+    <p class="ask">Which readings are there, and who supports each one?</p>
+    <ul class="readings">
+      <li class="reading printed">
+        <span class="tag">UBS5 text</span>
+        <p class="form" lang="grc">μονογενὴς θεός</p>
+        <p class="meaning">"only God" (no article)</p>
+        <p class="wits"><a href={w('p66')}>𝔓⁶⁶</a>, <a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span>*</a> (the first hand), <a href={w('vaticanus')}>B</a>, C* (the first hand of Codex Ephraemi), L, some Syriac, Georgian, Origen, Didymus, Cyril</p>
+      </li>
+      <li class="reading">
+        <p class="form" lang="grc">ὁ μονογενὴς θεός</p>
+        <p class="meaning">"the only God"</p>
+        <p class="wits"><a href={w('p75')}>𝔓⁷⁵</a>, <a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span>²</a> (a later corrector), 33, Bohairic Coptic, Clement, Cyril</p>
+      </li>
+      <li class="reading">
+        <p class="form" lang="grc">ὁ μονογενὴς υἱός</p>
+        <p class="meaning">"the only Son"</p>
+        <p class="wits"><a href={w('alexandrinus')}>A</a>, C³ (a later corrector of C), W<sup>supp</sup>, Δ, Θ, Ψ, <a href={w('byz')}>Byz</a>, Lect, most Old Latin, the Vulgate, Syriac</p>
+      </li>
+      <li class="reading">
+        <p class="form" lang="grc">μονογενὴς υἱὸς θεοῦ</p>
+        <p class="meaning">"only Son of God"</p>
+        <p class="wits">One Old Latin manuscript, Irenaeus (in Latin), Ambrose</p>
+      </li>
+      <li class="reading">
+        <p class="form" lang="grc">ὁ μονογενής</p>
+        <p class="meaning">"the only one"</p>
+        <p class="wits">A Vulgate manuscript, Pseudo-Vigilius</p>
+      </li>
+    </ul>
+    <p>The lists here are shortened. To read every siglum and mark, see <a href={ap}>how to read this entry</a>.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 3</span>
+    <h2 id="step-3-external-evidence">External evidence</h2>
+    <p class="ask">What do the witnesses themselves tell us? Take the six questions in order; number comes last. We compare the two main readings: "God" (with or without the article) and "Son".</p>
+    <table class="qtable">
+      <thead><tr><th scope="col">Question</th><th scope="col">"God"</th><th scope="col">"Son"</th><th scope="col">Leans</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">How old?</th><td data-h="God">𝔓⁶⁶ and 𝔓⁷⁵, about 200–225; <span class="siglum" lang="he" dir="ltr">א</span> and B, 4th century</td><td data-h="Son">A, 5th century; early fathers in Latin</td><td data-h="Leans"><span class="lean a">"God"</span></td></tr>
+        <tr><th scope="row">From where?</th><td data-h="God">Witnesses usually grouped with the early Egyptian ("Alexandrian") text: 𝔓⁶⁶, 𝔓⁷⁵, B. <span class="siglum" lang="he" dir="ltr">א</span> usually belongs there too, but in John 1–8 it is often said to follow a different ("Western") kind of text. If so, its first hand supports "God" from outside that group. Text-type labels are disputed.</td><td data-h="Son">A and the Byzantine group, with Latin and Syriac versions</td><td data-h="Leans"><span class="lean even">open</span></td></tr>
+        <tr><th scope="row">How careful?</th><td data-h="God">𝔓⁷⁵ and B are carefully copied <span class="tag">not yet checked</span></td><td data-h="Son">A is carefully copied <span class="tag">not yet checked</span>; most others are later Byzantine copies</td><td data-h="Leans"><span class="lean a">"God"</span></td></tr>
+        <tr><th scope="row">How widespread?</th><td data-h="God">Mainly one region</td><td data-h="Son">Many regions</td><td data-h="Leans"><span class="lean b">"Son"</span></td></tr>
+        <tr><th scope="row">Independent?</th><td data-h="God">Not shown here. Sharing a region or a group label does not prove that copies share an ancestor.</td><td data-h="Son">Not shown here. Many late copies may go back to a few ancestors, but this page has no evidence of which.</td><td data-h="Leans"><span class="lean even">unresolved</span></td></tr>
+        <tr><th scope="row">How many?</th><td data-h="God">Few</td><td data-h="Son">Many more</td><td data-h="Leans"><span class="lean b">"Son"</span></td></tr>
+      </tbody>
+    </table>
+    <p>The last two readings have only a few, late or non-Greek witnesses, so we set them aside here.</p>
+    <p class="sofar">"God" has the oldest Greek witnesses. "Son" is spread much more widely. The papyri 𝔓⁶⁶ and 𝔓⁷⁵ only became known in the mid-1950s, and they made the support for "God" much stronger. The external evidence leans a little to "God", but not clearly.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 4</span>
+    <h2 id="step-4-internal-evidence">Internal evidence</h2>
+    <p class="ask">Which reading best explains how the others arose? And which would John have written?</p>
+    <div class="weigh">
+      <section class="side">
+        <h3>For "God"</h3>
+        <ul>
+          <li><strong>What a scribe would do:</strong> "Son" is the easier reading. John 3:16, 3:18 and 1 John 4:9 all say "only Son". A copyist could easily make 1:18 match them (<a href={url('guide/weighing-evidence/#internal-evidence-the-words')}>harmonization</a>).</li>
+          <li><strong>The article:</strong> <span lang="grc">θεός</span> without <span lang="grc">ὁ</span>, as in 1:1, looks older. No scribe had a reason to remove the article. But a scribe changing the word to <span lang="grc">υἱός</span> would add it.</li>
+        </ul>
+        <p class="small muted">Metzger gives these reasons for the committee.</p>
+      </section>
+      <section class="side">
+        <h3>For "Son"</h3>
+        <ul>
+          <li><strong>What John would write:</strong> "only Son" fits how John writes elsewhere.</li>
+          <li><strong>What a scribe would do:</strong> a scribe who wanted to defend Christ's full deity had a reason to change "Son" to "God".</li>
+          <li><strong>A copying slip:</strong> in manuscripts, "God" and "Son" were often written short, as ΘΣ and ΥΣ (<a href={url('background/materials/')}>nomina sacra</a>). One could be misread as the other.</li>
+        </ul>
+        <p class="small muted">Ehrman argues the first two points. One committee member (A.W.) suggested the copying slip.</p>
+      </section>
+    </div>
+    <p>The shortest reading, <span lang="grc">ὁ μονογενής</span> ("the only one"), could explain both longer readings. But it has too little support to print.</p>
+    <p class="sofar">The internal evidence is divided. Each side can explain how the other reading arose.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 5</span>
+    <h2 id="step-5-weigh-it-up">Weigh it up</h2>
+    <p class="ask">Putting the steps together, which reading came first, and how sure can we be?</p>
+    <ul class="scale">
+      <li><b>External evidence</b><span class="lean a">"God"</span><span>The oldest Greek witnesses; "Son" is far more widespread.</span></li>
+      <li><b>What a scribe would do</b><span class="lean even">even</span><span>Harmonizing explains "Son"; defending doctrine explains "God".</span></li>
+      <li><b>What John would write</b><span class="lean even">even</span><span>"Son" fits John's usage; "God" without the article echoes 1:1.</span></li>
+    </ul>
+    <div class="verdict">
+      <a class="badge" href={g('rating')} aria-label="Rating B: what the letters mean">{'{B}'}</a>
+      <div>
+        <p>UBS5 prints <span lang="grc">μονογενὴς θεός</span> with a {'{B}'} rating: the committee was fairly confident.</p>
+        <p>But the decision was by a majority. One member wrote that at least a {'{D}'} would be better. Read more on <a href={`${ap}#ratings`}>what the ratings tell you</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 6</span>
+    <h2 id="step-6-decide-for-your-translation">Decide for your translation</h2>
+    <p class="ask">What will you print, and what will you tell your readers?</p>
+    <aside class="translator">
+      <h3>For the translator</h3>
+      <p><strong>If you follow the UBS text,</strong> say "God". Bibles do this in different ways: "It is God the only Son" (NRSV), "God the One and Only" (NIV 1984). Choose wording that does not sound like a second God. A footnote can say that many manuscripts read "the only Son".</p>
+      <p><strong>If your church's text policy or main reference Bible follows "Son",</strong> as RSV, NJB, REB and BJ do, a footnote can say that some of the oldest manuscripts read "God".</p>
+      <p>Either way, the verse still teaches that Jesus is close to the Father and makes him known. Many readers know this verse well, so a footnote is helpful here.</p>
+    </aside>
+  </section>
+  </div>
+  <ExampleStyles />
+</Context>

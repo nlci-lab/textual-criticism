@@ -28,6 +28,7 @@ export const GUIDES: GuideMeta[] = [
     summary: 'John 1:18 taken apart piece by piece: the rating, the readings, the witnesses and their marks.',
     learn: ['What each part of a UBS entry means', 'How to read sigla, correctors and fathers', 'What a translator does with an entry', 'What the {A}–{D} ratings do and do not tell you'],
     related: ['guide/weighing-evidence/', 'guide/which-variants-matter/', 'guide/paratext/'], verses: ['John 1:18'],
+    practice: ['guide/examples/john-1-18/'],
   },
   {
     path: 'guide/which-variants-matter/', cover: 'Which variants matter', section: 'guide', level: 'Start here',
@@ -47,7 +48,7 @@ export const GUIDES: GuideMeta[] = [
     path: 'guide/examples/', cover: 'Worked examples', section: 'example', level: 'Going further',
     summary: 'Real places where Greek manuscripts differ, worked through step by step.',
     learn: ['How to apply the guides to a real verse', 'What UBS5 prints and why', 'What to tell your readers'],
-    related: ['guide/examples/john-7-53/', 'guide/examples/james-2-20/', 'guide/examples/romans-16-7/'],
+    related: ['guide/examples/john-7-53/', 'guide/examples/john-1-18/', 'guide/examples/james-2-20/', 'guide/examples/romans-16-7/'],
   },
   {
     path: 'guide/examples/james-2-20/', cover: 'James 2:20', section: 'example', level: 'Going further',
@@ -62,6 +63,13 @@ export const GUIDES: GuideMeta[] = [
     learn: ['Working through a variant step by step', 'Why “earliest” is not always “original”', 'Testing claims about an author’s style', 'Wording a fair footnote'],
     before: 'guide/weighing-evidence/', related: ['guide/examples/james-2-20/', 'guide/which-variants-matter/', 'guide/weighing-evidence/'], verses: ['John 7:53–8:11'],
     question: 'Was the story of the woman caught in adultery part of John?', skill: 'A whole passage; testing claims about style',
+  },
+  {
+    path: 'guide/examples/john-1-18/', cover: 'John 1:18', section: 'example', level: 'Going further',
+    summary: 'Only God or only Son? The oldest papyri and the majority of manuscripts disagree on how Jesus is named.',
+    learn: ['Weighing early papyri against wide spread', 'When internal evidence cuts both ways', 'What a {B} rating can hide', 'Footnoting a well-known verse'],
+    before: 'guide/apparatus/', related: ['guide/apparatus/', 'guide/examples/james-2-20/', 'guide/weighing-evidence/'], verses: ['John 1:18'],
+    question: '“Only God” or “only Son”?', skill: 'Early papyri against wide spread; internal evidence cuts both ways',
   },
   {
     path: 'guide/examples/romans-16-7/', cover: 'Romans 16:7', section: 'example', level: 'Going further',

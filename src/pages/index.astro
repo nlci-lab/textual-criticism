@@ -1,109 +1,194 @@
 ---
+// Home: one search box that works like a concordance (witnesses, passages, pages, glossary terms),
+// then shelves of witnesses, guides and background pages.
 import Base from '../layouts/Base.astro';
+import WitnessTile from '../components/WitnessTile.astro';
+import Cover from '../components/Cover.astro';
 import { aliasIndex, allWitnesses } from '../lib/witnesses';
+import { GUIDES, PIGMENT, KICKER } from '../data/guides';
 import { url } from '../lib/url';
 const index = await aliasIndex();
+const all = await allWitnesses();
 const keys = Object.fromEntries([...index].map(([k, v]) => [k, v.map((e) => e.id)]));
-const ws = (await allWitnesses()).map((w) => ({ id: w.id, s: w.siglum, n: w.names[0] + (w.siglum_scope ? ` (${w.siglum_scope})` : ''), l: w.siglum_lang ?? '' }));
+const ws = all.map((w) => ({ id: w.id, s: w.siglum, n: w.names[0] + (w.siglum_scope ? ` (${w.siglum_scope})` : ''), l: w.siglum_lang ?? '', d: w.date?.label ?? '' }));
+const guides = GUIDES.filter((g) => g.section !== 'background');
+const background = GUIDES.filter((g) => g.section === 'background');
+const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading', 'vid'];
 ---
 <Base title="Textual Criticism" nav="">
-  <div class="home prose">
-    <h1>Textual Criticism</h1>
-    <p class="intro">An introduction for Bible translators and consultants. Both Testaments come to us in handwritten copies, and the copies differ. Here you can learn how those differences arose, how the printed editions report them, and how to weigh them in your work.</p>
-    <p class="muted small scope">The New Testament pages are the fullest so far. Old Testament pages are being added.</p>
-    <nav class="paths" aria-label="Where to start">
-      <a href={url('guide/apparatus/')}><strong>Read an apparatus entry</strong><span>John 1:18, piece by piece</span></a>
-      <a href={url('guide/which-variants-matter/')}><strong>Which variants matter</strong><span>Not all differences weigh the same</span></a>
-      <a href={url('background/nt-text/')}><strong>How we got the New Testament</strong><span>From copies to printed editions</span></a>
-      <a href={url('background/ot-text/')}><strong>How we got the Old Testament</strong><span>The Masoretic Text, the scrolls, the Septuagint</span></a>
-    </nav>
-    <h2 class="lookup-h">Look up a witness</h2>
-    <p class="muted">New Testament witnesses: type a siglum as you see it in the Paratext UBS apparatus, or paste a run of them.</p>
-    <form class="search" id="lookup" action={url('witnesses/')} role="search">
-      <label class="label" for="q">Siglum, GA number or name</label>
-      <input id="q" name="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false"
-        placeholder="𝔓66, א, B, 05, Byz" aria-describedby="q-help" aria-controls="results" />
-      <div class="keys" role="group" aria-label="Insert a special character">
-        <button type="button" data-ch="א" lang="he" aria-label="Insert aleph">א</button>
-        <button type="button" data-ch="𝔓" aria-label="Insert papyrus P">𝔓</button>
-        <button type="button" data-ch="ƒ" aria-label="Insert family f">ƒ</button>
-        <button type="button" data-ch="ℓ" aria-label="Insert lectionary l">ℓ</button>
-      </div>
-      <p id="q-help" class="small muted">Press Enter to open the first match. Marks like <span class="siglum">*</span>, <span class="siglum">²</span> or <span class="siglum">vid</span> lead to the same witness.</p>
-      <ul class="results" id="results" aria-live="polite"></ul>
-    </form>
-    <noscript><p>Search needs JavaScript. Use the <a href={url('witnesses/')}>list of all witnesses</a>, or go straight to an address like <code>{url('p66/')}</code>.</p></noscript>
-    <p class="more-links">More: <a href={url('guide/')}>all guides</a> · <a href={url('background/')}>background</a> · <a href={url('witnesses/')}>all witnesses</a> · <a href={url('glossary/')}>glossary</a></p>
-  </div>
+  <section class="hero">
+    <div class="hero-main">
+      <p class="label">Bible manuscripts, for translators and consultants</p>
+      <h1>Look up a witness, a verse or a term from the apparatus.</h1>
+      <p class="sub">Type what you see in the UBS apparatus. The results show every place this site discusses it.</p>
+      <form class="search" id="lookup" action={url('witnesses/')} role="search">
+        <label class="visually-hidden" for="q">Search witnesses, verses and terms</label>
+        <svg class="mag" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></svg>
+        <input id="q" name="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false"
+          placeholder="John 1:18, 𝔓66, א, B, harder reading" aria-describedby="q-help" aria-controls="results" />
+        <div class="keys" role="group" aria-label="Insert a special character">
+          <button type="button" data-ch="א" lang="he" aria-label="Insert aleph">א</button>
+          <button type="button" data-ch="𝔓" aria-label="Insert papyrus P">𝔓</button>
+          <button type="button" data-ch="ƒ" aria-label="Insert family f">ƒ</button>
+          <button type="button" data-ch="ℓ" aria-label="Insert lectionary l">ℓ</button>
+          <span class="try" aria-label="Examples"><span class="muted">Try</span>
+            {TRY.map((t) => <button type="button" class="chip" data-try={t}>{t}</button>)}
+          </span>
+        </div>
+        <p id="q-help" class="small muted">Press Enter to open the first result. Marks like <span class="siglum">*</span>, <span class="siglum">²</span> or <span class="siglum">vid</span> after a siglum lead to the same witness.</p>
+        <div class="results" id="results" aria-live="polite"></div>
+      </form>
+      <noscript><p>Search needs JavaScript. Browse the <a href={url('witnesses/')}>witnesses</a>, <a href={url('guide/')}>guides</a> and <a href={url('glossary/')}>glossary</a> instead.</p></noscript>
+    </div>
+    <dl class="stats">
+      <div><dt>Witnesses profiled</dt><dd>{all.length}</dd></div>
+      <div><dt>Guides and examples</dt><dd>{guides.length}</dd></div>
+      <div><dt>Old Testament pages</dt><dd>Being added</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec">
+    <header><h2>Witnesses</h2><a href={url('witnesses/')}>All {all.length}, with filters →</a></header>
+    <div class="shelf tiles">{all.slice(0, 10).map((w) => <WitnessTile w={w} />)}</div>
+  </section>
+
+  <section class="sec">
+    <header><h2>Guides</h2><a href={url('guide/')}>All guides →</a></header>
+    <div class="shelf">{guides.map((g) => <figure><Cover title={g.cover} kicker={KICKER[g.section]} pigment={PIGMENT[g.section]} href={url(g.path)} /><figcaption>{g.level}</figcaption></figure>)}</div>
+  </section>
+
+  <section class="sec">
+    <header><h2>Background</h2><a href={url('background/')}>All background →</a></header>
+    <div class="shelf">{background.map((g) => <figure><Cover title={g.cover} kicker={KICKER[g.section]} pigment={PIGMENT[g.section]} href={url(g.path)} /><figcaption>{g.level}</figcaption></figure>)}</div>
+  </section>
+
   <script type="application/json" id="alias-data" set:html={JSON.stringify({ keys, ws })}></script>
 </Base>
 
 <script>
   import { candidateKeys, splitRun, toKey } from '../lib/sigla';
-  type W = { id: string; s: string; n: string; l: string };
+  import { parseRef, overlaps } from '../lib/refs';
+  import type { Entry } from './search.json';
+  type W = { id: string; s: string; n: string; l: string; d: string };
+  type Hit = { title: string; ctx: string; href: string; lang?: string; siglum?: boolean };
   const { keys, ws } = JSON.parse(document.getElementById('alias-data')!.textContent!) as { keys: Record<string, string[]>; ws: W[] };
   const byId = new Map(ws.map((w) => [w.id, w]));
   const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   const q = document.getElementById('q') as HTMLInputElement;
   const out = document.getElementById('results')!;
 
-  const resolve = (term: string): string[] => candidateKeys(term).map((k) => keys[k]).find(Boolean) ?? [];
+  // The concordance file loads on first focus or typing, not with the page.
+  let idx: Entry[] | null = null, loading: Promise<void> | null = null;
+  const load = () => (loading ??= fetch(`${base}search.json`).then((r) => r.json()).then((d) => { idx = d; show(); }).catch(() => { idx = []; }));
 
-  function search(text: string): W[] {
-    const seen = new Set<string>();
-    const hits: W[] = [];
+  const resolve = (term: string): string[] => candidateKeys(term).map((k) => keys[k]).find(Boolean) ?? [];
+  function witnesses(text: string): Hit[] {
+    const seen = new Set<string>(), hits: W[] = [];
     const add = (ids: string[]) => { for (const id of ids) if (!seen.has(id)) { seen.add(id); hits.push(byId.get(id)!); } };
-    add(resolve(text));                                   // exact siglum or name first
+    add(resolve(text));
     const parts = splitRun(text);
     if (parts.length > 1) parts.forEach((p) => add(resolve(p)));
-    const k = toKey(text).toLowerCase();                  // then prefix matches on any alias
+    const k = toKey(text).toLowerCase();
     // Single-letter sigla are case-sensitive (B is not b), so they only match exactly, never by prefix.
     if (k) for (const [alias, id] of Object.entries(keys)) if ([...alias].length > 1 && alias.toLowerCase().startsWith(k)) add(id);
-    return hits.slice(0, 12);
+    return hits.slice(0, 8).map((w) => ({ title: w.s, ctx: w.n + (w.d ? ` · ${w.d}` : ''), href: `w/${w.id}/`, lang: w.l, siglum: true }));
+  }
+
+  function groups(text: string): [string, Hit[]][] {
+    const res: [string, Hit[]][] = [];
+    const ref = parseRef(text);
+    if (ref && idx) {
+      const v = idx.filter((e) => e.k === 'v' && overlaps(ref, e.ref)) as Extract<Entry, { k: 'v' }>[];
+      if (v.length) res.push(['Passages: every place it is discussed', v.map((e) => ({ title: e.label, ctx: `${e.title}: ${e.ctx}`, href: e.href }))]);
+    }
+    const w = witnesses(text);
+    if (w.length) res.push(['Witnesses', w]);
+    if (idx) {
+      const words = text.toLowerCase().split(/\s+/).filter((t) => t.length > 1);
+      const match = (k: 'p' | 'g') => words.length ? (idx!.filter((e) => e.k === k && words.every((t) => (e as { text: string }).text.includes(t))) as Extract<Entry, { k: 'p' | 'g' }>[])
+        .sort((a, b) => +b.title.toLowerCase().includes(words[0]) - +a.title.toLowerCase().includes(words[0])).slice(0, 6)
+        .map((e) => ({ title: e.title, ctx: e.ctx, href: e.href })) : [];
+      const p = match('p'), g = match('g');
+      if (p.length) res.push(['Guides and background', p]);
+      if (g.length) res.push(['Glossary', g]);
+    }
+    return res;
   }
 
   function show() {
     const text = q.value.trim();
-    const hits = text ? search(text) : [];
-    out.replaceChildren(...hits.map((w) => {
-      const li = document.createElement('li'), a = document.createElement('a');
-      const s = document.createElement('span'), n = document.createElement('span');
-      a.href = `${base}w/${w.id}/`;
-      s.className = 'siglum'; s.textContent = w.s; if (w.l) s.lang = w.l;
-      n.className = 'r-name'; n.textContent = w.n;
-      a.append(s, n); li.append(a); return li;
-    }));
-    if (text && !hits.length) {
-      const li = document.createElement('li');
-      li.className = 'small muted';
-      li.textContent = 'No witness found. Only five sample profiles exist so far.';
-      out.append(li);
+    out.replaceChildren();
+    if (!text) return;
+    const gs = groups(text);
+    for (const [label, hits] of gs) {
+      const h = document.createElement('h3'); h.textContent = label;
+      const ul = document.createElement('ul');
+      for (const hit of hits) {
+        const li = document.createElement('li'), a = document.createElement('a');
+        const k = document.createElement('span'), c = document.createElement('span');
+        a.href = base + hit.href;
+        k.className = hit.siglum ? 'k siglum' : 'k'; k.textContent = hit.title; if (hit.lang) k.lang = hit.lang;
+        c.className = 'ctx'; c.textContent = hit.ctx;
+        a.append(k, c); li.append(a); ul.append(li);
+      }
+      out.append(h, ul);
+    }
+    if (!gs.length) {
+      const p = document.createElement('p');
+      p.className = 'none';
+      p.textContent = idx ? 'Nothing found. Try a verse (John 1:18), a siglum (B, 03, 𝔓66) or a term (vid, harmonization).' : 'Searching…';
+      out.append(p);
     }
   }
 
-  q.addEventListener('input', show);
+  q.addEventListener('focus', load, { once: true });
+  q.addEventListener('input', () => { load(); show(); });
   document.getElementById('lookup')!.addEventListener('submit', (e) => {
     e.preventDefault();
     const first = out.querySelector('a');
     if (first) location.href = first.href;
   });
-  document.querySelectorAll<HTMLButtonElement>('.keys button').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll<HTMLButtonElement>('.keys button[data-ch]').forEach((b) => b.addEventListener('click', () => {
     const ch = b.dataset.ch!, s = q.selectionStart ?? q.value.length, e = q.selectionEnd ?? s;
     q.value = q.value.slice(0, s) + ch + q.value.slice(e);
-    q.focus(); q.setSelectionRange(s + ch.length, s + ch.length); show();
+    q.focus(); q.setSelectionRange(s + ch.length, s + ch.length); load(); show();
+  }));
+  document.querySelectorAll<HTMLButtonElement>('[data-try]').forEach((b) => b.addEventListener('click', () => {
+    q.value = b.dataset.try!; q.focus(); load(); show();
   }));
   const pre = new URLSearchParams(location.search).get('q');
-  if (pre) { q.value = pre; show(); }
+  if (pre) { q.value = pre; load(); show(); }
 </script>
 
 <style>
-  .intro { font-size: var(--step-1); line-height: 1.5; margin: 0.5rem 0 1.25rem; }
-  .paths { display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); margin: 0 0 2rem; }
-  .paths a { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.8rem 0.9rem; border-radius: 10px; background: var(--paper-2); box-shadow: 0 0 0 1px var(--rule); text-decoration: none; color: var(--ink); }
-  .paths a:hover, .paths a:focus-visible { box-shadow: 0 0 0 1px var(--rubric); }
-  .paths strong { font-family: var(--serif); font-size: 1.05rem; color: var(--rubric); }
-  .paths span { font: 0.8125rem/1.4 var(--sans); color: var(--ink-2); }
-  .lookup-h { margin-top: 0; }
-  .scope { margin: -0.5rem 0 1.25rem; }
-  .more-links { margin-top: 1.5rem; font-family: var(--sans); font-size: var(--step--1); }
+  .hero { display: grid; gap: 2rem; padding: 2.5rem 0 1.5rem; }
+  .hero h1 { font-size: clamp(1.9rem, 4.6vw, 3rem); letter-spacing: -0.01em; max-width: 20ch; margin: 0.25rem 0 0; }
+  .sub { color: var(--ink-2); font-size: 1.1rem; max-width: 40rem; margin: 0.75rem 0 1.25rem; }
+  @media (min-width: 1000px) { .hero { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: end; padding-top: 3.5rem; } }
+  .search { position: relative; }
+  .search input { font: 1.15rem var(--sigla); padding: 0.9rem 1rem 0.9rem 3rem; border: 1.5px solid var(--ink); border-radius: 10px; }
+  .search input:focus { border-color: var(--rubric); outline: 3px solid color-mix(in srgb, var(--rubric) 30%, transparent); outline-offset: 1px; }
+  .mag { position: absolute; left: 1rem; top: 1.65rem; translate: 0 -50%; width: 1.2rem; stroke: var(--ink-2); fill: none; stroke-width: 2; pointer-events: none; }
+  .keys { align-items: center; }
+  .try { display: inline-flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; margin-left: 0.5rem; font: 0.875rem var(--sans); }
+  .keys .try .chip { min-width: 0; min-height: 2.25rem; font: 0.875rem var(--sans); border-radius: 999px; background: var(--chip); padding: 0.25rem 0.75rem; }
+  .results:empty { display: none; }
+  .results { margin-top: 0.75rem; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .results :global(h3) { font: 600 0.72rem var(--sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-2); margin: 0; padding: 0.55rem 1rem; background: var(--paper-2); }
+  .results :global(ul) { list-style: none; margin: 0; padding: 0; }
+  .results :global(li) { border-top: 1px solid var(--rule); }
+  .results :global(a) { display: grid; grid-template-columns: minmax(5.5rem, 8.5rem) 1fr; gap: 0.75rem; padding: 0.6rem 1rem; color: var(--ink); text-decoration: none; }
+  .results :global(a:hover), .results :global(a:focus-visible) { background: var(--paper-2); }
+  .results :global(.k) { font: 600 0.9rem var(--sans); color: var(--rubric); }
+  .results :global(.k.siglum) { font: 1.1rem var(--sigla); }
+  .results :global(.ctx) { font-size: 0.95rem; line-height: 1.45; }
+  .results :global(.none) { margin: 0; padding: 0.75rem 1rem; font-family: var(--sans); font-size: 0.9rem; }
+  @media (max-width: 480px) { .results :global(a) { grid-template-columns: 1fr; gap: 0.15rem; } }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0; border-top: 1px solid var(--ink); font-family: var(--sans); }
+  .stats div { padding: 0.75rem 0.5rem 0 0; display: flex; flex-direction: column-reverse; justify-content: flex-end; }
+  .stats dd { margin: 0; font: 600 1.9rem/1.1 var(--serif); }
+  .stats dt { font-size: 0.8rem; color: var(--ink-2); }
+  .stats div:last-child dd { font-size: 1.1rem; padding-top: 0.6rem; }
+  .tiles { --shelf-col: minmax(11rem, 12rem); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 </style>

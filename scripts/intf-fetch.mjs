@@ -64,9 +64,8 @@ for (const [i, ga] of gas.entries()) {
   if (i > 0) await sleep(DELAY);
   try {
     const rec = await fetchOne(ga);
-    await writeFile(`src/data/intf/${rec.docID}.json`, JSON.stringify(rec, null, 2) + '
-');
-    console.log(`${ga}	${rec.orig}	${rec.shelves.map((s) => `${s.institution}: ${s.shelfmark}`).join(' | ')}`);
+    await writeFile(`src/data/intf/${rec.docID}.json`, JSON.stringify(rec, null, 2) + '\n');
+    console.log(`${ga}\t${rec.orig}\t${rec.shelves.map((s) => `${s.institution}: ${s.shelfmark}`).join(' | ')}`);
     failuresInARow = 0;
   } catch (e) {
     console.error(`FAILED ${e.message}`);

@@ -76,6 +76,8 @@ const witnesses = defineCollection({
       label: z.string(),                      // what the page shows, e.g. "John 1:14–21"
       source_url: z.string().url(),           // the original image or viewer
       withheld: z.string().optional(),        // why no copy is shown (shows a link instead)
+      /** Set when the photo carries its own licence (e.g. printed on the image); otherwise CNTR's US public-domain note applies. */
+      licence: z.object({ holder: z.string(), name: z.string(), url: z.string().url() }).optional(),
     }).optional(),
     course_links: z.array(z.object({ module: z.string(), label: z.string() })).default([]),
     last_checked: isoDate,

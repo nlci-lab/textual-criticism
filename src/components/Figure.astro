@@ -1,0 +1,28 @@
+---
+// A small, lazy-loaded illustration with its credit and licence. Used on background pages.
+import { url } from '../lib/url';
+interface Props {
+  file: string; width: number; height: number; alt: string;
+  credit: string; creditUrl: string; licence: 'cntr' | 'commons-pd' | 'cul-by-nc';
+}
+const { file, width, height, alt, credit, creditUrl, licence } = Astro.props;
+---
+<figure class="fig">
+  <a href={creditUrl} target="_blank" rel="noopener">
+    <img src={url(file)} width={width} height={height} alt={alt} loading="lazy" decoding="async" />
+  </a>
+  <figcaption class="small">
+    <slot /> Image: <a href={creditUrl} target="_blank" rel="noopener">{credit} ↗</a>.
+    {licence === 'cntr'
+      ? <span class="muted">Public domain in the United States (<a href="https://scholar.google.com/scholar_case?case=5068002142390131270" target="_blank" rel="noopener">Bridgeman v. Corel, 1999</a>); use may be restricted elsewhere.</span>
+      : licence === 'cul-by-nc'
+        ? <span class="muted">Photo © Cambridge University Library, licensed under <a href="https://creativecommons.org/licenses/by-nc/3.0/" target="_blank" rel="noopener">CC BY-NC 3.0</a>; shown here for non-commercial teaching.</span>
+        : <span class="muted">Marked public domain on Wikimedia Commons.</span>}
+  </figcaption>
+</figure>
+
+<style>
+  .fig { margin: 0.75rem 0 1.25rem; max-width: 22rem; }
+  .fig img { display: block; width: 100%; height: auto; border-radius: 4px; background: var(--paper-2); }
+  .fig figcaption { margin-top: 0.4rem; font-family: var(--sans); line-height: 1.45; }
+</style>

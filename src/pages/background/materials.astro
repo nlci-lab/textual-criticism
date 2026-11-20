@@ -1,5 +1,6 @@
 ---
 import Context from '../../layouts/Context.astro';
+import Figure from '../../components/Figure.astro';
 import { url } from '../../lib/url';
 const w = (id: string) => url(`w/${id}/`);
 const sources = [
@@ -19,16 +20,52 @@ const sources = [
     <dt>Palimpsest</dt><dd>A parchment that was scraped and written over. The older text can still be read, now often with ultraviolet or multispectral imaging. Codex C (04) is a Greek Bible written over in the 12th century with works of Ephrem the Syrian.</dd>
     <dt>Paper</dt><dd>Used for some later minuscules, from about the 13th century.</dd>
   </dl>
+  <div class="figs">
+    <Figure file="img/ms/m10052-001r.webp" width={900} height={1296} licence="cntr" credit="CNTR" creditUrl="https://greekcntr.org/manuscripts/?w=m10052&v=43018031"
+      alt="A small, ragged papyrus fragment with a few lines of Greek capitals.">
+      <strong>Papyrus.</strong> <a href={w('p52')}>𝔓⁵²</a>, a fragment of John 18, mid-2nd century.
+    </Figure>
+    <Figure file="img/ms/m20005-179v.webp" width={900} height={1102} licence="cul-by-nc" credit="CNTR" creditUrl="https://greekcntr.org/manuscripts/?w=m20005&v=42006004"
+      alt="A parchment page with a single column of Greek capital letters.">
+      <strong>Parchment.</strong> A Greek page of <a href={w('bezae')}>Codex Bezae (D)</a>, Luke 5:38–6:9.
+    </Figure>
+    <Figure file="img/ms/palimpsest-codex-c.webp" width={508} height={621} licence="commons-pd" credit="Wikimedia Commons" creditUrl={`https://commons.wikimedia.org/wiki/File:Codex_Ephraemi_Rescriptus_fol_138r.jpg`}
+      alt="A parchment page where faint older Greek writing shows beneath a later text.">
+      <strong>Palimpsest.</strong> Codex C (04), folio 138r: the faint Greek Bible text lies under the later writing.
+    </Figure>
+  </div>
+  <p class="small muted">No paper example yet: we have not found a public-domain photo of a New Testament manuscript whose material a source confirms as paper.</p>
   <p>Ink was either carbon ink (soot and gum) or <em>iron-gall</em> ink, which turns brown with age and can eat through the page.</p>
 
   <h2>Scroll and codex</h2>
   <p>Jewish and Greek books were usually <em>scrolls</em> (rolls). Early Christians preferred the <em>codex</em>: sheets folded and sewn into a book, like ours. Almost all New Testament manuscripts are codices. A codex can hold all four Gospels in one volume, and it is easier to find a passage in it.</p>
+
+  <div class="figs">
+    <Figure file="img/ms/scroll-1qisa.webp" width={640} height={728} licence="commons-pd" credit="Wikimedia Commons" creditUrl={`https://commons.wikimedia.org/wiki/File:Great_Isaiah_Scroll_Ch53.jpg`}
+      alt="Columns of Hebrew writing on a long strip of leather, part of a scroll.">
+      <strong>Scroll.</strong> The Great Isaiah Scroll from Qumran (1QIsaᵃ), Isaiah 53.
+    </Figure>
+    <Figure file="img/ms/m10046-001r.webp" width={900} height={1765} licence="cntr" credit="CNTR" creditUrl="https://greekcntr.org/manuscripts/?w=m10046&v=45005017"
+      alt="A tall papyrus leaf from a book, covered in Greek writing.">
+      <strong>Codex.</strong> A leaf of <a href={w('p46')}>𝔓⁴⁶</a>, a papyrus book of Paul's letters (Romans 5:17–6:4).
+    </Figure>
+  </div>
 
   <h2>Scripts</h2>
   <dl class="terms">
     <dt>Majuscule</dt><dd>Separate capital letters, usually with no spaces between words and little punctuation (<em>scriptio continua</em>). Used until about the 9th century. Older books call these manuscripts "uncials".</dd>
     <dt>Minuscule</dt><dd>Smaller joined-up letters, faster to write. From the 9th century it replaced majuscule, so most of our manuscripts (the minuscules) are from the 9th century or later.</dd>
   </dl>
+  <div class="figs">
+    <Figure file="img/ms/m10066-001v.webp" width={900} height={1017} licence="cntr" credit="CNTR" creditUrl="https://greekcntr.org/manuscripts/?w=m10066&v=43001018"
+      alt="A papyrus page in separate Greek capital letters with no spaces between words.">
+      <strong>Majuscule.</strong> <a href={w('p66')}>𝔓⁶⁶</a>, John 1:14–21, with no spaces between words.
+    </Figure>
+    <Figure file="img/ms/minuscule-444.webp" width={900} height={1135} licence="commons-pd" credit="Wikimedia Commons" creditUrl={`https://commons.wikimedia.org/wiki/File:Minuscule_444_(Gregory-Aland)_folio_44.jpg`}
+      alt="A page of small joined-up Greek handwriting with a decorated heading.">
+      <strong>Minuscule.</strong> Minuscule 444, folio 44, the beginning of Mark.
+    </Figure>
+  </div>
   <p>With no spaces, a copyist sometimes had to decide where a word ended, and copyists did not always agree. Accents and breathings were mostly added later.</p>
 
   <h2>Nomina sacra</h2>
@@ -48,3 +85,7 @@ const sources = [
   <h2>Correctors</h2>
   <p>Many manuscripts were corrected: by the first scribe, by a checker in the same workshop, or by readers centuries later. The apparatus marks the first hand with <a href={url('glossary/#star')}>*</a> and later correctors with <a href={url('glossary/#correctors')}>¹ ² ᶜ</a>. See the correctors section of <a href={w('sinaiticus')}>Sinaiticus</a>.</p>
 </Context>
+<style>
+  .figs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: 0 1.25rem; align-items: start; }
+  .figs :global(.fig) { max-width: none; }
+</style>

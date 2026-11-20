@@ -11,7 +11,7 @@ for (const f of (await readdir(dir)).filter((x) => /\.(jpe?g|png)$/i.test(x))) {
   let q = 72;
   let info;
   do {
-    info = await sharp(join(dir, f)).resize({ width: 900, withoutEnlargement: true }).webp({ quality: q }).toFile(out);
+    info = await sharp(join(dir, f)).resize({ width: Number(process.env.MAX_W ?? 900), withoutEnlargement: true }).webp({ quality: q }).toFile(out);
     q -= 8;
   } while (info.size > 90_000 && q > 30);
   console.log(`${out}\t${info.width}x${info.height}\t${Math.round(info.size / 1024)} KB`);

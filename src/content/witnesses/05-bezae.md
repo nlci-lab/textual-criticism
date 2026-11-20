@@ -28,7 +28,7 @@ key_units:
     src: [metzger-acts, omanson-acts]
 links:
   - { label: "INTF NT.VMR record (GA 05)", url: "https://ntvmr.uni-muenster.de/manuscript-workspace?docID=20005", kind: record, licence: "unconfirmed" }
-  - { label: "Cambridge Digital Library: MS Nn.2.41 (full images)", url: "https://cudl.lib.cam.ac.uk/view/MS-NN-00002-00041/1", kind: images, licence: "unconfirmed" }
+  - { label: "Cambridge Digital Library: MS Nn.2.41 (full images)", url: "https://cudl.lib.cam.ac.uk/view/MS-NN-00002-00041/1", kind: images, licence: "Cambridge University Library images are CC BY-NC 3.0 (printed on the photo)." }
   - { label: "CSNTM record (GA 05)", url: "https://manuscripts.csntm.org/manuscript/View/GA_05", kind: images, licence: "CSNTM: every use needs their permission; link only." }
 sources:
   - { id: intf, cite: "INTF, Kurzgefasste Liste, NT.VMR record for 05 (docID 20005), retrieved 19 Nov 2026.", url: "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/?docID=20005&detail=shelfInstance", checked: true }
@@ -74,6 +74,7 @@ page_image:
   height: 1102
   label: "Luke 5:38–6:9 (Greek page)"
   source_url: "https://greekcntr.org/manuscripts/?w=m20005&v=42006004"
+  licence: { holder: "Cambridge University Library", name: "CC BY-NC 3.0", url: "https://creativecommons.org/licenses/by-nc/3.0/" }
 ---
 
 Codex Bezae has Greek on the left-hand page and Latin on the right, line by line. It is named after Theodore Beza, the Reformer, who owned it before it went to Cambridge.

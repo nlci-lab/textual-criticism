@@ -3,7 +3,7 @@
 // Where a copy is withheld (Vatican-held manuscripts, out of courtesy) it shows the reason and a link.
 import { url } from '../lib/url';
 interface Props {
-  img: { file?: string; width?: number; height?: number; label: string; source_url: string; withheld?: string };
+  img: { file?: string; width?: number; height?: number; label: string; source_url: string; withheld?: string; licence?: { holder: string; name: string; url: string } };
   siglum: string; name: string; siglumLang?: string;
 }
 const { img, siglum, name, siglumLang } = Astro.props;
@@ -16,7 +16,9 @@ const { img, siglum, name, siglumLang } = Astro.props;
     </a>
     <figcaption class="small">
       <span class="siglum" lang={siglumLang} dir="ltr">{siglum}</span>, {img.label}. Image: <a href={img.source_url} target="_blank" rel="noopener">CNTR (greekcntr.org) ↗</a>.
-      <span class="muted">A faithful photograph of a public-domain document is public domain in the United States (<a href="https://scholar.google.com/scholar_case?case=5068002142390131270" target="_blank" rel="noopener">Bridgeman v. Corel, 1999</a>); use may be restricted in other countries.</span>
+      {img.licence
+        ? <span class="muted">Photo © {img.licence.holder}, licensed under <a href={img.licence.url} target="_blank" rel="noopener">{img.licence.name}</a>; shown here for non-commercial teaching.</span>
+        : <span class="muted">A faithful photograph of a public-domain document is public domain in the United States (<a href="https://scholar.google.com/scholar_case?case=5068002142390131270" target="_blank" rel="noopener">Bridgeman v. Corel, 1999</a>); use may be restricted in other countries.</span>}
     </figcaption>
   </figure>
 ) : (

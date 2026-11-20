@@ -15,13 +15,14 @@ const links = [
 ];
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <meta name="color-scheme" content="light dark" />
+  <!-- Light by default; the Dark button switches (and is remembered). The system setting no longer decides. -->
+  <meta name="color-scheme" content="light" />
   <!-- Under construction: keep search engines out. Remove at launch. (A robots.txt would not work:
        on GitHub Pages it must sit at the domain root, and blocking crawling would hide this tag.) -->
   <meta name="robots" content="noindex, nofollow" />

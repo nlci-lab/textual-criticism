@@ -52,11 +52,14 @@ export function translit(s: string): string {
  * A manuscript word (written without breathings): transliterate its plain, expanded form and
  * borrow a rough breathing from the base word it lines up with. Initial υ and ρ always take one.
  */
+/** Common words that always take a rough breathing, for manuscript words with no base word to borrow from. */
+const ALWAYS_ROUGH = new Set(['ημιν', 'ημων', 'ημας', 'ημεισ', 'ημεις', 'ο', 'η', 'οι', 'αι', 'οσ', 'ος', 'ην', 'ινα', 'οτι', 'οπου', 'οτε', 'ωσ', 'ως', 'αγιοσ', 'αγιος', 'αμαρτια', 'εαυτου', 'ημερα', 'ολοσ', 'ολος', 'οραω']);
+
 export function translitMs(norm: string, base?: string): string {
   const roughBase = !!base && base.normalize('NFD').slice(0, 4).includes(ROUGH);
   const t = translit(norm);
   if (!t) return t;
   if (norm[0] === 'ρ') return 'rh' + t.slice(1);
-  if (roughBase || norm[0] === 'υ') return 'h' + t;
+  if (roughBase || norm[0] === 'υ' || (!base && ALWAYS_ROUGH.has(norm))) return 'h' + t;
   return t;
 }

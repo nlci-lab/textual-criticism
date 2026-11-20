@@ -146,7 +146,7 @@ function columns([s, e]: [number, number]) {
     })}
   </div>
 
-  <p class="coll-credit small muted">Manuscript text: transcriptions by Alan Bunning, <a href={data.source}>Center for New Testament Restoration</a>, {data.licence}. Lined up and glossed by this site; this comparison is also {data.licence}. Point at or tap a manuscript's siglum for details; click it to see its page at CNTR. Manuscript words are shown in capitals as written. The Byzantine text is not in CNTR's transcriptions, so it is not shown here.</p>
+  <p class="coll-credit small muted">Manuscript text: transcriptions by Alan Bunning, <a href={data.source}>Center for New Testament Restoration</a>, {data.licence}. Lined up and glossed by this site; this comparison is also {data.licence}. Point at or tap a manuscript's siglum for details; click it to see its page at CNTR. Manuscript words are shown in capitals as written. Printed editions (Byzantine text of Robinson–Pierpont, Textus Receptus, Westcott–Hort, CNTR's SR) come from the same CNTR files.</p>
 </details>
   <dialog class="cntr-dialog" data-page-dialog aria-label="CNTR page view">
     <div class="cntr-bar">
@@ -321,7 +321,7 @@ function columns([s, e]: [number, number]) {
   /* word by word */
   /* Phrases flow side by side and wrap to the next line, like text. */
   .coll-view[data-v="grid"]:not([hidden]) { display: flex; flex-wrap: wrap; gap: .9rem; align-items: flex-start; }
-  .blk { display: grid; max-width: 100%; grid-template-columns: 4.25rem repeat(var(--cols), max-content); overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; }
+  .blk { display: grid; max-width: 100%; grid-template-columns: minmax(4.25rem, max-content) repeat(var(--cols), max-content); overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; }
   .row { display: contents; }
   .cell { padding: .3rem .55rem; border-bottom: 1px solid var(--rule); white-space: nowrap; line-height: 1.55; }
   .row:last-child .cell { border-bottom: 0; }

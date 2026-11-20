@@ -1,8 +1,10 @@
 ---
+// Worked example in the step-by-step format: the same order the guides teach.
 import Context from '../../../layouts/Context.astro';
 import { url } from '../../../lib/url';
 import ExampleStyles from '../../../components/ExampleStyles.astro';
 const w = (id: string) => url(`w/${id}/`);
+const g = (id: string) => url(`glossary/#${id}`);
 const sources = [
   { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism Examples", example 2: James 2:20. Used with permission.', checked: true },
   { cite: 'United Bible Societies, The Greek New Testament, 5th ed., apparatus at James 2:20 (as reproduced in the Hemphill material above).', checked: true },
@@ -14,67 +16,128 @@ const sources = [
 <Context title="James 2:20: useless or dead?" label="Guide" lastChecked="2026-11-20" sources={sources}
   description="A worked example where good early manuscripts disagree and the context decides.">
   <div class="case">
-  <p class="lead">Some Bibles say faith without works is "useless". Others, the King James Version among them, say it is "dead". The difference goes back to the Greek manuscripts.</p>
+  <p class="lead">Some Bibles say faith without works is "useless". Others, the King James Version among them, say it is "dead". Here we work through the evidence in the same order the <a href={url('guide/weighing-evidence/')}>weighing guide</a> teaches.</p>
 
-  <div class="banner">
-    <span class="ref">James 2:20 · UBS5 text</span>
-    <p class="greek" lang="grc">θέλεις δὲ γνῶναι, ὦ ἄνθρωπε κενέ, ὅτι ἡ πίστις χωρὶς τῶν ἔργων <mark>ἀργή</mark> ἐστιν;</p>
-    <p class="gloss">"Do you want to know, you empty person, that faith without works is <strong>useless</strong>?" The question is that last adjective: <span lang="grc">ἀργή</span> (useless, idle) or <span lang="grc">νεκρά</span> (dead)?</p>
-  </div>
+  <ol class="route" aria-label="The steps">
+    <li><a href="#step-1-find-the-problem">Find the problem</a></li>
+    <li><a href="#step-2-list-the-readings">List the readings</a></li>
+    <li><a href="#step-3-external-evidence">External evidence</a></li>
+    <li><a href="#step-4-internal-evidence">Internal evidence</a></li>
+    <li><a href="#step-5-weigh-it-up">Weigh it up</a></li>
+    <li><a href="#step-6-decide-for-your-translation">Decide</a></li>
+  </ol>
 
-  <h2>The readings</h2>
-  <ul class="readings">
-    <li class="reading printed">
-      <span class="tag">UBS5 text</span>
-      <p class="form" lang="grc">ἀργή</p>
-      <p class="meaning">"useless"</p>
-      <p class="wits"><a href={w('vaticanus')}>B</a>, C* (the first hand of Codex Ephraemi), 1739 and some other minuscules, some Latin, Sahidic Coptic, Augustine</p>
-    </li>
-    <li class="reading">
-      <p class="form" lang="grc">νεκρά</p>
-      <p class="meaning">"dead"</p>
-      <p class="wits"><a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span></a>, <a href={w('alexandrinus')}>A</a>, C² (a later corrector of C), Ψ, many minuscules, <a href={w('byz')}>Byz</a>, Lect, Syriac, Bohairic Coptic</p>
-    </li>
-    <li class="reading">
-      <p class="form" lang="grc">κενή</p>
-      <p class="meaning">"empty"</p>
-      <p class="wits"><a href={w('p74')}>𝔓⁷⁴</a> and one Old Latin manuscript</p>
-    </li>
-  </ul>
-  <p>The <a href={url('glossary/#star')}>*</a> marks the first hand of a manuscript, and the raised numbers its <a href={url('glossary/#correctors')}>correctors</a>. The Textus Receptus reads "dead", and so does the KJV.</p>
-
-  <h2>Weighing the evidence</h2>
-  <p>The manuscripts themselves (the external evidence) are strong on both sides: each side has two of the great fourth- and fifth-century codices. So the choice rests on internal evidence, on which reading best explains how the others arose.</p>
-  <div class="weigh">
-    <section class="side">
-      <h3>For "useless"</h3>
-      <ul>
-        <li>The chapter calls faith without works "dead" in verses 17 and 26. A copyist who remembered those verses could easily write "dead" here too. It is harder to see why anyone would change "dead" to "useless" here and leave the other two alone.</li>
-        <li><span lang="grc">ἔργων ἀργή</span> (works … useless) is a play on words, since <span lang="grc">ἀργή</span> can be read as "without work".</li>
-      </ul>
-      <p>Metzger, Omanson, the NET notes and several commentaries give these reasons.</p>
-    </section>
-    <section class="side">
-      <h3>For "dead"</h3>
-      <p>Not everyone finds the internal arguments decisive. Hemphill points out that they can be turned around: "dead" would make verse 20 match verses 17 and 26, and if James liked the word play, why didn't he use it in those verses too?</p>
-    </section>
-  </div>
-  <p><span lang="grc">κενή</span> has weak support. It was probably suggested by <span lang="grc">κενέ</span> ("empty person") earlier in the same verse.</p>
-
-  <h2>What UBS5 prints</h2>
-  <div class="verdict">
-    <a class="badge" href={url('glossary/#rating')} aria-label="Rating B: what the letters mean">{'{B}'}</a>
-    <div>
-      <p>UBS5 prints <span lang="grc">ἀργή</span> with a {'{B}'} rating: the committee was fairly confident.</p>
-      <p>Omanson adds that here the two words differ little in meaning.</p>
+  <section class="step">
+    <span class="n">Step 1</span>
+    <h2 id="step-1-find-the-problem">Find the problem</h2>
+    <p class="ask">What exactly differs between the manuscripts?</p>
+    <div class="banner">
+      <span class="ref">James 2:20 · UBS5 text</span>
+      <p class="greek" lang="grc">θέλεις δὲ γνῶναι, ὦ ἄνθρωπε κενέ, ὅτι ἡ πίστις χωρὶς τῶν ἔργων <mark>ἀργή</mark> ἐστιν;</p>
+      <p class="gloss">"Do you want to know, you empty person, that faith without works is <strong>useless</strong>?"</p>
     </div>
-  </div>
+    <p>One word: the adjective at the end. Is faith without works <span lang="grc">ἀργή</span> (useless, idle) or <span lang="grc">νεκρά</span> (dead)?</p>
+  </section>
 
-  <aside class="translator">
-    <h2>For the translator</h2>
-    <p>Follow the UBS text: "useless" or a similar word. If your church knows "dead" from an older Bible, a short footnote can say that many manuscripts read "dead". The teaching of the passage stays the same, because verses 17 and 26 say "dead" in all the main witnesses.</p>
-    <p>Translator's helps do not always mark this variant. When Bibles in a language of wider communication disagree, check the apparatus yourself.</p>
-  </aside>
+  <section class="step">
+    <span class="n">Step 2</span>
+    <h2 id="step-2-list-the-readings">List the readings</h2>
+    <p class="ask">Which readings are there, and who supports each one?</p>
+    <ul class="readings">
+      <li class="reading printed">
+        <span class="tag">UBS5 text</span>
+        <p class="form" lang="grc">ἀργή</p>
+        <p class="meaning">"useless"</p>
+        <p class="wits"><a href={w('vaticanus')}>B</a>, C* (the first hand of Codex Ephraemi), 1739 and some other minuscules, some Latin, Sahidic Coptic, Augustine</p>
+      </li>
+      <li class="reading">
+        <p class="form" lang="grc">νεκρά</p>
+        <p class="meaning">"dead"</p>
+        <p class="wits"><a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span></a>, <a href={w('alexandrinus')}>A</a>, C² (a later corrector of C), Ψ, many minuscules, <a href={w('byz')}>Byz</a>, Lect, Syriac, Bohairic Coptic</p>
+      </li>
+      <li class="reading">
+        <p class="form" lang="grc">κενή</p>
+        <p class="meaning">"empty"</p>
+        <p class="wits"><a href={w('p74')}>𝔓⁷⁴</a> and one Old Latin manuscript</p>
+      </li>
+    </ul>
+    <p>The <a href={g('star')}>*</a> marks the first hand of a manuscript, and the raised numbers its <a href={g('correctors')}>correctors</a>. The Textus Receptus reads "dead", and so does the KJV.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 3</span>
+    <h2 id="step-3-external-evidence">External evidence</h2>
+    <p class="ask">What do the witnesses themselves tell us? Take the six questions in order; number comes last.</p>
+    <table class="qtable">
+      <thead><tr><th scope="col">Question</th><th scope="col">"Useless"</th><th scope="col">"Dead"</th><th scope="col">Leans</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">How old?</th><td data-h="Useless">B, 4th century</td><td data-h="Dead"><span class="siglum" lang="he" dir="ltr">א</span>, 4th century; A, 5th</td><td data-h="Leans"><span class="lean even">even</span></td></tr>
+        <tr><th scope="row">From where?</th><td data-h="Useless">Greek, Latin and Sahidic (Egypt)</td><td data-h="Dead">Greek, Syriac and Bohairic (Egypt)</td><td data-h="Leans"><span class="lean even">even</span></td></tr>
+        <tr><th scope="row">How careful?</th><td data-h="Useless">B and 1739 are carefully copied</td><td data-h="Dead"><span class="siglum" lang="he" dir="ltr">א</span> and A are carefully copied</td><td data-h="Leans"><span class="lean even">even</span></td></tr>
+        <tr><th scope="row">How widespread?</th><td data-h="Useless">Several regions</td><td data-h="Dead">Several regions</td><td data-h="Leans"><span class="lean even">even</span></td></tr>
+        <tr><th scope="row">Independent?</th><td data-h="Useless">C was first written with it, then corrected away from it</td><td data-h="Dead">The later Byzantine copies count as one line</td><td data-h="Leans"><span class="lean even">even</span></td></tr>
+        <tr><th scope="row">How many?</th><td data-h="Useless">Fewer</td><td data-h="Dead">Many more</td><td data-h="Leans"><span class="lean b">"dead"</span></td></tr>
+      </tbody>
+    </table>
+    <p><span lang="grc">κενή</span> has only one late Greek witness and one Latin one, so we can set it aside.</p>
+    <p class="sofar">The witnesses are strong on both sides: each has great fourth- and fifth-century codices. Only the count favours "dead", and the count comes last. The external evidence cannot decide.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 4</span>
+    <h2 id="step-4-internal-evidence">Internal evidence</h2>
+    <p class="ask">Which reading best explains how the others arose? And which would James have written?</p>
+    <div class="weigh">
+      <section class="side">
+        <h3>For "useless"</h3>
+        <ul>
+          <li><strong>What a scribe would do:</strong> verses 17 and 26 call faith without works "dead". A copyist who remembered them could easily write "dead" here too (<a href={url('guide/weighing-evidence/#internal-evidence-the-words')}>harmonization</a>). It is hard to see why anyone would change "dead" to "useless" here and leave the other two alone.</li>
+          <li><strong>What James would write:</strong> <span lang="grc">ἔργων ἀργή</span> (works … useless) is a play on words, since <span lang="grc">ἀργή</span> can be read as "without work".</li>
+          <li>C was first written with "useless" and later corrected to "dead": inside one manuscript, the change ran that way.</li>
+        </ul>
+        <p class="small muted">Metzger, Omanson, the NET notes and several commentaries give these reasons.</p>
+      </section>
+      <section class="side">
+        <h3>For "dead"</h3>
+        <ul>
+          <li>The same arguments can be turned around: James may have written "dead" here to match verses 17 and 26.</li>
+          <li>If James liked the word play, why didn't he use it in those verses too?</li>
+        </ul>
+        <p class="small muted">Hemphill points this out.</p>
+      </section>
+    </div>
+    <p><span lang="grc">κενή</span> ("empty") was probably suggested by <span lang="grc">κενέ</span> ("empty person") earlier in the same verse.</p>
+    <p class="sofar">Most of the internal evidence favours "useless": it explains how "dead" arose, and the reverse is harder to explain.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 5</span>
+    <h2 id="step-5-weigh-it-up">Weigh it up</h2>
+    <p class="ask">Putting the steps together, which reading came first, and how sure can we be?</p>
+    <ul class="scale">
+      <li><b>External evidence</b><span class="lean even">even</span><span>Strong early witnesses on both sides.</span></li>
+      <li><b>What a scribe would do</b><span class="lean a">"useless"</span><span>Harmonizing to verses 17 and 26 explains "dead".</span></li>
+      <li><b>What James would write</b><span class="lean a">"useless"</span><span>The word play fits; the counter-argument is weaker.</span></li>
+    </ul>
+    <div class="verdict">
+      <a class="badge" href={g('rating')} aria-label="Rating B: what the letters mean">{'{B}'}</a>
+      <div>
+        <p>UBS5 prints <span lang="grc">ἀργή</span> with a {'{B}'} rating: the committee was fairly confident.</p>
+        <p>Omanson adds that here the two words differ little in meaning.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 6</span>
+    <h2 id="step-6-decide-for-your-translation">Decide for your translation</h2>
+    <p class="ask">What will you print, and what will you tell your readers?</p>
+    <aside class="translator">
+      <h3>For the translator</h3>
+      <p>Follow the UBS text: "useless" or a similar word. If your church knows "dead" from an older Bible, a short footnote can say that many manuscripts read "dead". The teaching of the passage stays the same, because verses 17 and 26 say "dead" in all the main witnesses.</p>
+      <p>Translator's helps do not always mark this variant. When Bibles in a language of wider communication disagree, check the apparatus yourself.</p>
+    </aside>
+  </section>
   </div>
   <ExampleStyles />
 </Context>

@@ -1,0 +1,162 @@
+---
+// Worked example in the step-by-step format: the same order the guides teach.
+// Written up from our own notes of a public paper presentation (Nov 2026), with our own checks.
+// The speaker is not named here until permission is given.
+import Context from '../../../layouts/Context.astro';
+import { url } from '../../../lib/url';
+import ExampleStyles from '../../../components/ExampleStyles.astro';
+const w = (id: string) => url(`w/${id}/`);
+const g = (id: string) => url(`glossary/#${id}`);
+const sources = [
+  { cite: 'Our notes from a public paper presentation arguing that John wrote the passage (November 2026), with our own follow-up checks. The speaker is not named here.', checked: true },
+  { cite: 'SBL Greek New Testament and the Robinson–Pierpont Byzantine text, searched for every word and phrase discussed in step 4.', checked: true },
+  { cite: 'NET Bible, textual note on John 7:53–8:11 (for the witnesses that omit the passage, including 565 and 1424*).', checked: true },
+  { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005), on the passage.', checked: false },
+  { cite: 'Rayan J. Lobo, A Johannine Reading of the Pericope Adulterae (Mohr Siebeck, WUNT II, 2026); Onyekachi Ugwu, The Woman Caught in Adultery and the Gospel of John (Mohr Siebeck, WUNT II, 2026). Publisher descriptions only.', checked: true },
+];
+---
+<Context title="John 7:53–8:11: the woman caught in adultery" label="Guide" lastChecked="2026-11-20" sources={sources}
+  description="A whole story that some manuscripts have and others do not, worked through step by step.">
+  <div class="case">
+  <p class="lead">Most modern Bibles print this story in brackets, or with a note like "The earliest manuscripts do not include this section." Is that note fair? Here we work through the evidence in the same order the <a href={url('guide/weighing-evidence/')}>weighing guide</a> teaches.</p>
+  <p class="small muted">This example started from a public talk that argued John wrote the story. We have checked its claims and added the evidence on the other side.</p>
+
+  <ol class="route" aria-label="The steps">
+    <li><a href="#step-1-find-the-problem">Find the problem</a></li>
+    <li><a href="#step-2-list-the-readings">List the readings</a></li>
+    <li><a href="#step-3-external-evidence">External evidence</a></li>
+    <li><a href="#step-4-internal-evidence">Internal evidence</a></li>
+    <li><a href="#step-5-weigh-it-up">Weigh it up</a></li>
+    <li><a href="#step-6-decide-for-your-translation">Decide</a></li>
+  </ol>
+
+  <section class="step">
+    <span class="n">Step 1</span>
+    <h2 id="step-1-find-the-problem">Find the problem</h2>
+    <p class="ask">What exactly differs between the manuscripts?</p>
+    <div class="banner">
+      <span class="ref">John 7:53–8:11 · UBS5 text</span>
+      <p class="gloss">Twelve verses: the scribes and Pharisees bring a woman caught in adultery to Jesus. He says, "Let the one without sin throw the first stone," and at the end, "Go, and sin no more." UBS5 prints the whole passage inside <a href={g('double-brackets')}>⟦ ⟧</a>.</p>
+    </div>
+    <p>This is not one word but a whole story. Some manuscripts have it here, some do not have it at all, and some have it somewhere else.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 2</span>
+    <h2 id="step-2-list-the-readings">List the readings</h2>
+    <p class="ask">Which readings are there, and who supports each one?</p>
+    <ul class="readings">
+      <li class="reading">
+        <p class="form">With the story</p>
+        <p class="meaning">after John 7:52</p>
+        <p class="wits">Codex Bezae (<a href={w('bezae')}>D</a>, about 400) <span class="tag">not yet checked</span>, most later Greek manuscripts, the <a href={w('byz')}>Byzantine</a> text, Latin manuscripts. The Textus Receptus and the KJV have it.</p>
+      </li>
+      <li class="reading printed">
+        <span class="tag">UBS5: in ⟦ ⟧</span>
+        <p class="form">Without the story</p>
+        <p class="meaning">7:52 runs straight on to 8:12</p>
+        <p class="wits"><a href={w('p66')}>𝔓⁶⁶</a>, <a href={w('p75')}>𝔓⁷⁵</a> (about 200), <a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span></a>, <a href={w('vaticanus')}>B</a> (4th century), Θ, 565, 1424*, the Old Syriac and the Peshitta. <a href={w('alexandrinus')}>A</a> and C are damaged here, but measuring the lost pages shows there was no room for it.</p>
+      </li>
+      <li class="reading">
+        <p class="form">In another place</p>
+        <p class="meaning">after Luke 21:38</p>
+        <p class="wits">The minuscules of family 13 (11th to 15th century). Other manuscripts place it elsewhere in John <span class="tag">not yet checked</span>.</p>
+      </li>
+    </ul>
+    <p>Two late manuscripts carry notes from their scribes. 565 says the story "is not in current copies" and was left out. 1424 says the verses are missing in some copies but "fully present" in the ancient ones <span class="tag">not yet checked</span>. So scribes already knew copies of both kinds.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 3</span>
+    <h2 id="step-3-external-evidence">External evidence</h2>
+    <p class="ask">What do the witnesses themselves tell us? Take the six questions in order; number comes last.</p>
+    <table class="qtable">
+      <thead><tr><th scope="col">Question</th><th scope="col">With the story</th><th scope="col">Without the story</th><th scope="col">Leans</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">How old?</th><td data-h="With">Earliest Greek copy: Codex Bezae, about 400 <span class="tag">not yet checked</span>.</td><td data-h="Without">𝔓⁶⁶ and 𝔓⁷⁵, about 200, about a hundred years after John wrote.</td><td data-h="Leans"><span class="lean b">without</span></td></tr>
+        <tr><th scope="row">From where?</th><td data-h="With">Later Greek copies everywhere; Latin in the West.</td><td data-h="Without">The early papyri are from Egypt, but the Syriac versions and Θ are not. The omission is not only Egyptian.</td><td data-h="Leans"><span class="lean b">without</span></td></tr>
+        <tr><th scope="row">How careful?</th><td data-h="With">Bezae often adds and rewords.</td><td data-h="Without"><span class="siglum" lang="he" dir="ltr">א</span> and B are carefully copied.</td><td data-h="Leans"><span class="lean b">without</span></td></tr>
+        <tr><th scope="row">How widespread?</th><td data-h="With">Very widespread from about the 9th century.</td><td data-h="Without">Widespread early: Egypt, Syria, Caucasus.</td><td data-h="Leans"><span class="lean even">even</span></td></tr>
+        <tr><th scope="row">Independent?</th><td data-h="With">The family 13 copies in Luke count as one witness, not many.</td><td data-h="Without">Several separate lines of copying.</td><td data-h="Leans"><span class="lean b">without</span></td></tr>
+        <tr><th scope="row">How many?</th><td data-h="With">About 1,600 Greek manuscripts <span class="tag">not yet checked</span>.</td><td data-h="Without">About 270 <span class="tag">not yet checked</span>.</td><td data-h="Leans"><span class="lean a">with</span></td></tr>
+      </tbody>
+    </table>
+    <div class="caution">
+      <strong>"Earliest" does not always mean "original"</strong>
+      The talk argued that Egypt's dry climate preserved papyri, and that after Egypt moved from Greek to Coptic its Greek books were used less and so survived. Copies used in Greek-speaking churches wore out and were replaced. A late copy can come from an older exemplar. This is a fair warning, but it does not explain why the Syriac versions also lack the story.
+    </div>
+    <p>A story that turns up in different places in different manuscripts behaves like a piece that was added later. Text that was there from the start does not usually move.</p>
+    <p class="sofar">The witnesses lean clearly toward "without the story". On their own, they suggest it was not part of John's Gospel at first.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 4</span>
+    <h2 id="step-4-internal-evidence">Internal evidence</h2>
+    <p class="ask">Which reading best explains how the other arose? And does the wording sound like John?</p>
+    <h3>What would a scribe do?</h3>
+    <div class="weigh">
+      <section class="side">
+        <h3>If it was added</h3>
+        <p>An old story about Jesus, told by word of mouth, was written into the margin and then into the text, in whichever place seemed to fit. Luke 21:37–38 says that Jesus taught in the temple by day, spent the nights on the Mount of Olives, and that "all the people came early in the morning" to hear him. That is why family 13 put the story there.</p>
+      </section>
+      <section class="side">
+        <h3>If it was left out</h3>
+        <p>Scribes may have feared that Jesus seemed too easy on adultery. That explanation goes back to Augustine. The talk also suggested a link with the present tense of "sin" in 1 John 3:6, 3:9 and 5:18 <span class="tag">not yet checked</span>.</p>
+      </section>
+    </div>
+    <h3>Does it sound like John?</h3>
+    <p>We searched the whole Greek New Testament for each word and phrase. Some features are found only in John; others are found only in Luke and the other Gospels.</p>
+    <div class="tw">
+    <table class="qtable">
+      <thead><tr><th scope="col">Verse</th><th scope="col">Feature</th><th scope="col">Elsewhere in the NT</th><th scope="col">Points to</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">8:6</th><td data-h="Feature"><span lang="grc">τοῦτο δὲ ἔλεγον πειράζοντες αὐτόν</span>, "this they said to test him"</td><td data-h="Elsewhere">Only John 6:6, 12:33, 21:19. 6:6 is almost word for word the same.</td><td data-h="Points to"><span class="lean a">John (strong)</span></td></tr>
+        <tr><th scope="row">8:7</th><td data-h="Feature">"throw a stone at" her, as three words</td><td data-h="Elsewhere">Only John 8:59.</td><td data-h="Points to"><span class="lean a">John</span></td></tr>
+        <tr><th scope="row">8:11</th><td data-h="Feature"><span lang="grc">μηκέτι ἁμάρτανε</span>, "sin no more"</td><td data-h="Elsewhere">Only John 5:14, also said by Jesus after meeting someone.</td><td data-h="Points to"><span class="lean a">John</span></td></tr>
+        <tr><th scope="row">8:3</th><td data-h="Feature"><span lang="grc">ἄγουσιν</span>, "they bring", opening a scene</td><td data-h="Elsewhere">Only John 9:13, 18:28. But all the Gospels use this kind of present tense.</td><td data-h="Points to"><span class="lean a">John (weak)</span></td></tr>
+        <tr><th scope="row">8:1</th><td data-h="Feature">"the Mount of Olives"</td><td data-h="Elsewhere">Never in John; ten times in the other Gospels. Luke 22:39 is almost the same sentence.</td><td data-h="Points to"><span class="lean b">Luke</span></td></tr>
+        <tr><th scope="row">8:2</th><td data-h="Feature"><span lang="grc">ὄρθρου</span>, "at dawn"</td><td data-h="Elsewhere">Only Luke 24:1 and Acts 5:21 (and a related word in Luke 24:22).</td><td data-h="Points to"><span class="lean b">Luke</span></td></tr>
+        <tr><th scope="row">8:3</th><td data-h="Feature">"the scribes"</td><td data-h="Elsewhere">Nowhere else in John; common in the other Gospels.</td><td data-h="Points to"><span class="lean b">not John</span></td></tr>
+        <tr><th scope="row">8:5</th><td data-h="Feature"><span lang="grc">λιθοβολεῖσθαι</span>, "to be stoned"</td><td data-h="Elsewhere">John elsewhere uses <span lang="grc">λιθάζω</span>. This verb is in Matthew, Luke and Acts. (The Byzantine text has John's verb here.)</td><td data-h="Points to"><span class="lean b">not John</span></td></tr>
+        <tr><th scope="row">8:10–11</th><td data-h="Feature"><span lang="grc">κατακρίνω</span>, "condemn"</td><td data-h="Elsewhere">Nowhere else in John.</td><td data-h="Points to"><span class="lean b">not John</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="caution">
+      <strong>Check every claim yourself</strong>
+      The talk also said that the verb in 8:5, <span lang="grc">ἐνετείλατο</span> ("Moses commanded"), is used only by John. A concordance shows it 15 times in the New Testament, including Mark 10:3 and Matthew 19:7, both about what Moses commanded. One search was enough to drop that argument.
+    </div>
+    <p class="sofar">The internal evidence is mixed. A few phrases are found only in John; several words are typical of Luke and never used by John.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 5</span>
+    <h2 id="step-5-weigh-it-up">Weigh it up</h2>
+    <p class="ask">Putting the steps together, which reading came first, and how sure can we be?</p>
+    <ul class="scale">
+      <li><b>External evidence</b><span class="lean b">without</span><span>The earliest copies, from more than one region, lack the story, and it wanders between places.</span></li>
+      <li><b>What a scribe would do</b><span class="lean b">without</span><span>An added story explains the different places better than a removed one does.</span></li>
+      <li><b>Sounds like John?</b><span class="lean even">mixed</span><span>Some phrases are only in John; some words are Luke's, never John's.</span></li>
+    </ul>
+    <p>Most editors conclude that the story was not part of John's Gospel as first written, but that it is very old. That is what the UBS ⟦ ⟧ means. A minority, including the talk this example started from, holds that John wrote it and scribes removed it. Two books published in 2026 take a middle view: an early story, told orally, later written into John's Gospel. That would explain why it sounds partly like John and partly like Luke.</p>
+    <div class="verdict">
+      <a class="badge" href={g('double-brackets')} aria-label="Double brackets: what they mean">⟦ ⟧</a>
+      <div>
+        <p>UBS5 prints the passage inside double brackets: added later, but very old and important.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 6</span>
+    <h2 id="step-6-decide-for-your-translation">Decide for your translation</h2>
+    <p class="ask">What will you print, and what will you tell your readers?</p>
+    <aside class="translator">
+      <h3>For the translator</h3>
+      <p>Keep the story in its usual place. Readers know it and churches preach from it. Mark it as most modern Bibles do, and follow your project's <a href={url('guide/text-policy/')}>text policy</a> and your regional-language Bible.</p>
+      <p>Word the note carefully. "The earliest manuscripts do not include this section" is true, but readers may take it to mean the story is false. A fuller note is fairer: <em>"Many early manuscripts do not have 7:53–8:11. Some place it after John 7:36, after John 21:25, or after Luke 21:38."</em> <span class="tag">not yet checked</span> Check the places against your own sources before you print them.</p>
+    </aside>
+  </section>
+  </div>
+  <ExampleStyles />
+</Context>

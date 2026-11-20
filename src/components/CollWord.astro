@@ -1,13 +1,19 @@
 ---
-// One manuscript word: sacred-name overline, damaged letters dotted, lost letters greyed.
+// One manuscript word, shown in capitals as the scribe wrote it: every sigma as lunate Ϲ,
+// sacred-name overline, damaged letters dotted, lost letters greyed, ν-suspension as a stroke.
 import type { MsWord } from '../lib/collate';
-interface Props { w: MsWord }
-const { w } = Astro.props;
-// CNTR writes every sigma as σ; show a final one as ς, as printed Greek does.
-const gl = w.glyphs.map((g, i) => (i === w.glyphs.length - 1 && g.c === 'σ' ? { ...g, c: 'ς' } : g));
+// lower: a printed edition, shown in ordinary lower case with final ς.
+interface Props { w: MsWord; lower?: boolean }
+const { w, lower = false } = Astro.props;
+const cap = (c: string) => (c === 'σ' || c === 'ς' || c === 'ϲ' ? 'Ϲ' : c.toUpperCase());
+const gl = lower
+  ? w.glyphs.map((g, i) => (i === w.glyphs.length - 1 && g.c === 'σ' ? { ...g, c: 'ς' } : g))
+  : w.glyphs.map((g) => ({ ...g, c: cap(g.c) }));
 ---
-<span class:list={['cw', { ns: w.ns }]} title={w.ns ? `Shortened sacred name: ${w.norm}` : undefined}>{gl.map((g) => g.dmg ? <span class="dmg">{g.c}</span> : g.miss ? <span class="miss">{g.c}</span> : g.c)}</span>
+<span class:list={['cw', { ns: w.ns, lc: lower }]} title={w.ns ? `Shortened sacred name: ${w.norm}` : undefined}>{gl.map((g) => g.dmg ? <span class="dmg">{g.c}</span> : g.miss ? <span class="miss">{g.c}</span> : g.c)}</span>
 <style>
+  .cw { font-family: var(--serif); letter-spacing: .03em; }
+  .cw.lc { letter-spacing: 0; }
   .ns { text-decoration: overline; text-decoration-thickness: 1px; }
   .dmg { text-decoration: underline dotted; }
   .miss { color: var(--ink-2); }

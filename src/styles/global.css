@@ -1,5 +1,11 @@
 /* Reference-book layout: one reading column, margin notes collapse under text on phones.
    Ink and vellum neutrals; rubric red is the only accent, kept for sigla and links. */
+/* Gentium Book Plus 7.000, SIL International, SIL Open Font License 1.1 (src/fonts/OFL.txt, public/fonts/OFL.txt).
+   Subset to Latin, Latin-1, Latin Extended-A, combining marks, Greek and Greek Extended.
+   display: optional = no font swap flash; a slow first load keeps the system serif. */
+@font-face { font-family: "Gentium Book Plus"; src: url("../fonts/GentiumBookPlus-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: optional; }
+@font-face { font-family: "Gentium Book Plus"; src: url("../fonts/GentiumBookPlus-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: optional; }
+@font-face { font-family: "Gentium Book Plus"; src: url("../fonts/GentiumBookPlus-Italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: optional; }
 :root {
   --paper: #fbfaf8;        /* vellum, cooled off so it is not the stock cream */
   --paper-2: #f1efeb;      /* fact table / spec card ground */

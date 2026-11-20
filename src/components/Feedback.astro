@@ -1,0 +1,86 @@
+---
+// "Was this page helpful?" box. Answers go to the site team's Google Form, without leaving the page.
+// With JavaScript: posted in the background (no Google script is loaded on our page).
+// Without JavaScript: the same form posts to Google Forms in a new tab.
+// Spam guard: a hidden honeypot field and a minimum time on the page; no reCAPTCHA (Google Forms can't verify one).
+interface Props { title: string }
+const { title } = Astro.props;
+const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLScpYSI4caU6nIqjtIHRco82kP3zA9MxJLTibfwkpjesGLnkcQ';
+const F = { page: 'entry.1446309272', helpful: 'entry.456704230', comment: 'entry.589762770', name: 'entry.617170599' };
+const pageUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://nlci-lab.github.io').href;
+const prefilled = `${FORM}/viewform?usp=pp_url&${F.page}=${encodeURIComponent(pageUrl)}`;
+const id = 'fb-' + Math.random().toString(36).slice(2, 8);
+---
+<section class="fb" aria-labelledby={`${id}-h`} data-feedback data-action={`${FORM}/formResponse`}>
+  <h2 id={`${id}-h`}>Was this page helpful?</h2>
+  <form method="post" action={`${FORM}/formResponse`} target="_blank">
+    <input type="hidden" name={F.page} value={pageUrl} />
+    <fieldset class="fb-yn">
+      <legend class="visually-hidden">Was “{title}” helpful?</legend>
+      <label><input type="radio" name={F.helpful} value="Yes" /> <span>Yes</span></label>
+      <label><input type="radio" name={F.helpful} value="No" /> <span>No</span></label>
+    </fieldset>
+    <label class="fb-field">
+      <span>Comment or correction <span class="muted">(optional)</span></span>
+      <textarea name={F.comment} rows="3" maxlength="2000" placeholder="What helped, what was unclear, or what is wrong on this page?"></textarea>
+    </label>
+    <label class="fb-field">
+      <span>Your name or email, if you would like a reply <span class="muted">(optional)</span></span>
+      <input type="text" name={F.name} maxlength="200" autocomplete="email" />
+    </label>
+    <!-- Honeypot: people never see or fill this; simple bots do. -->
+    <label class="fb-hp" aria-hidden="true">Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+    <div class="fb-row">
+      <button type="submit">Send</button>
+      <p class="fb-status small" role="status" aria-live="polite"></p>
+    </div>
+    <p class="fb-note small muted">Your answer goes to a Google Form read by the site team. Leave out personal details unless you want a reply. <a href={prefilled}>Open the form in Google Forms</a>.</p>
+  </form>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-feedback]').forEach((box) => {
+    const form = box.querySelector('form')!;
+    const status = box.querySelector<HTMLElement>('.fb-status')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const started = Date.now();
+    form.removeAttribute('target');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      // Quietly drop bot-like submissions: honeypot filled, or sent within 3 seconds of loading the page.
+      if (String(data.get('website') ?? '') !== '' || Date.now() - started < 3000) { status.textContent = 'Thank you.'; return; }
+      data.delete('website');
+      btn.disabled = true;
+      status.textContent = 'Sending…';
+      try {
+        // Google Forms does not allow reading the reply from another site, so this is a "no-cors" post:
+        // it reaches the form, but we cannot confirm it. The link below the box is the fallback.
+        await fetch(box.dataset.action!, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(data as unknown as Record<string, string>) });
+        form.querySelectorAll('textarea, input[type=text]').forEach((el) => ((el as HTMLInputElement).value = ''));
+        status.textContent = 'Thank you. Your answer has been sent.';
+      } catch {
+        status.textContent = 'Could not send. Please use the link to Google Forms below.';
+        btn.disabled = false;
+      }
+    });
+  });
+</script>
+
+<style>
+  .fb { margin: 2.5rem 0 1rem; padding: 1rem 1.1rem 1.1rem; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper-2); font-family: var(--sans); max-width: var(--measure); }
+  .fb h2 { margin: 0 0 .6rem; font: 600 1.05rem var(--sans); }
+  .fb-yn { border: 0; margin: 0 0 .75rem; padding: 0; display: flex; gap: .5rem; }
+  .fb-yn label { display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .9rem; border: 1px solid var(--ink-2); border-radius: 999px; cursor: pointer; background: var(--paper); min-height: 2.25rem; }
+  .fb-yn label:has(input:checked) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .fb-yn input { accent-color: var(--rubric); }
+  .fb-field { display: grid; gap: .3rem; margin-bottom: .7rem; font-size: .9rem; }
+  .fb-field textarea, .fb-field input { font: 1rem var(--serif); color: var(--ink); background: var(--paper); border: 1px solid var(--ink-2); border-radius: 8px; padding: .5rem .6rem; width: 100%; }
+  .fb-field :focus { outline: 2px solid var(--rubric); outline-offset: 1px; }
+  .fb-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .fb-row { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; }
+  .fb-row button { font: 600 .95rem var(--sans); padding: .5rem 1.2rem; border-radius: 8px; border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; min-height: 2.5rem; }
+  .fb-row button:disabled { opacity: .6; cursor: default; }
+  .fb-status { margin: 0; }
+  .fb-note { margin: .75rem 0 0; }
+</style>

@@ -1,0 +1,69 @@
+---
+// Step 6 of a worked example: check the text policy, then our recommendation, then suggested actions.
+// Our decision is offered as a recommendation; the project's Review Committee decides.
+import { url } from '../lib/url';
+type ActionKind = 'footnote' | 'brackets' | 'wording' | 'committee' | 'consult' | 'record' | 'none';
+interface Props {
+  /** What the UBS text prints here (HTML). */
+  ubs: string;
+  /** What to check in the regional-language Bible (HTML). */
+  lwc: string;
+  /** Who decides, and how the text policy applies here (HTML). */
+  decides: string;
+  /** Our recommendation (HTML). */
+  recommendation: string;
+  actions: { kind: ActionKind; text: string }[];
+}
+const { ubs, lwc, decides, recommendation, actions } = Astro.props;
+const LABEL: Record<ActionKind, string> = {
+  footnote: 'Footnote', brackets: 'Brackets', wording: 'Wording', committee: 'Review Committee',
+  consult: 'Consult', record: 'Record it', none: 'Not needed',
+};
+const policy = url('guide/text-policy/');
+---
+<p class="ask">What will you print, and what will you tell your readers?</p>
+<div class="decide">
+  <section class="d-box">
+    <h3><span class="d-n">1</span> Check your text policy</h3>
+    <p class="small muted">Your project's text policy comes first. For NLCI teams it is in <a href={policy}>Which text should a translation follow?</a>: translate from the UBS text, follow the regional-language Bible for passages with a long tradition, and let the Review Committee decide where the two differ.</p>
+    <dl class="d-checks">
+      <div><dt>The UBS text</dt><dd set:html={ubs} /></div>
+      <div><dt>Your regional-language Bible</dt><dd set:html={lwc} /></div>
+      <div><dt>Who decides</dt><dd set:html={decides} /></div>
+    </dl>
+  </section>
+  <section class="d-box d-rec">
+    <h3><span class="d-n">2</span> Our recommendation</h3>
+    <p class="d-note">A recommendation, not a ruling. Your Review Committee makes the decision for your project.</p>
+    <div set:html={recommendation} />
+  </section>
+  <section class="d-box">
+    <h3><span class="d-n">3</span> Suggested actions</h3>
+    <ul class="d-actions">
+      {actions.map((a) => <li><span class:list={['d-kind', `k-${a.kind}`]}>{LABEL[a.kind]}</span><span set:html={a.text} /></li>)}
+    </ul>
+  </section>
+</div>
+
+<style>
+  .decide { display: grid; gap: .9rem; margin-top: .5rem; }
+  .d-box { border: 1px solid var(--rule); border-radius: 10px; padding: .9rem 1rem 1rem; background: var(--paper); }
+  .d-box h3 { margin: 0 0 .5rem; font: 600 1rem var(--sans); display: flex; gap: .5rem; align-items: center; }
+  .d-n { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; border: 1.5px solid var(--rubric); color: var(--rubric); font-size: .8rem; }
+  .d-checks { margin: .6rem 0 0; display: grid; gap: 0; }
+  .d-checks div { display: grid; grid-template-columns: minmax(9rem, 12rem) 1fr; gap: .25rem 1rem; padding: .5rem 0; border-top: 1px solid var(--rule); }
+  .d-checks dt { font: 600 .85rem var(--sans); color: var(--ink-2); }
+  .d-checks dd { margin: 0; }
+  @media (max-width: 40rem) { .d-checks div { grid-template-columns: 1fr; } }
+  .d-rec { border: 1.5px solid var(--ink); background: var(--paper-2); }
+  .d-note { font: italic .85rem var(--sans); color: var(--ink-2); margin: 0 0 .6rem; }
+  .d-rec :global(p:last-child) { margin-bottom: 0; }
+  .d-actions { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
+  .d-actions li { display: grid; grid-template-columns: 9.5rem 1fr; gap: .75rem; align-items: baseline; padding-top: .55rem; border-top: 1px solid var(--rule); }
+  .d-actions li:first-child { border-top: 0; padding-top: 0; }
+  @media (max-width: 40rem) { .d-actions li { grid-template-columns: 1fr; gap: .2rem; } }
+  .d-kind { justify-self: start; font: 600 .75rem/1.6 var(--sans); padding: 0 .55rem; border-radius: 999px; border: 1px solid var(--rule); background: var(--paper-2); color: var(--ink); white-space: nowrap; }
+  .d-kind.k-footnote, .d-kind.k-brackets, .d-kind.k-wording { border-color: var(--lapis); }
+  .d-kind.k-committee, .d-kind.k-consult { border-color: var(--rubric); }
+  .d-kind.k-none { color: var(--ink-2); border-style: dashed; }
+</style>

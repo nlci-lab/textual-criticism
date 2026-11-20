@@ -3,6 +3,7 @@
 import Context from '../../../layouts/Context.astro';
 import { url } from '../../../lib/url';
 import ExampleStyles from '../../../components/ExampleStyles.astro';
+import DecideStep from '../../../components/DecideStep.astro';
 const w = (id: string) => url(`w/${id}/`);
 const g = (id: string) => url(`glossary/#${id}`);
 const sources = [
@@ -131,12 +132,12 @@ const sources = [
   <section class="step">
     <span class="n">Step 6</span>
     <h2 id="step-6-decide-for-your-translation">Decide for your translation</h2>
-    <p class="ask">What will you print, and what will you tell your readers?</p>
-    <aside class="translator">
-      <h3>For the translator</h3>
-      <p>Follow the UBS text: "useless" or a similar word. If your church knows "dead" from an older Bible, a short footnote can say that many manuscripts read "dead". The teaching of the passage stays the same, because verses 17 and 26 say "dead" in all the main witnesses.</p>
-      <p>Translator's helps do not always mark this variant. When Bibles in a language of wider communication disagree, check the apparatus yourself.</p>
-    </aside>
+    <DecideStep
+      ubs={`<span lang="grc">ἀργή</span>, “useless”, rated {B}.`}
+      lwc={`Bibles that follow the Textus Receptus, such as the KJV, have “dead”. Check what yours has.`}
+      decides={`A one-word difference that changes the meaning very little. The team can usually follow the UBS text; take it to the Review Committee if your regional-language Bible has “dead” and readers know the verse well.`}
+      recommendation={`<p>Follow the UBS text: “useless” or a similar word. The teaching stays the same, because verses 17 and 26 say “dead” in all the main witnesses.</p><p>Translator’s helps do not always mark this variant. When Bibles in a language of wider communication disagree, check the apparatus yourself.</p>`}
+      actions={[{ kind: 'footnote', text: `Optional: “Many manuscripts read ‘dead’.” Useful if your readers know “dead” from an older Bible.` }, { kind: 'committee', text: `Only if your regional-language Bible has “dead”.` }, { kind: 'none', text: `Brackets: not used for a one-word difference.` }, { kind: 'record', text: `Note the decision in your project records.` }]} />
   </section>
   </div>
   <ExampleStyles />

@@ -5,6 +5,7 @@
 import Context from '../../../layouts/Context.astro';
 import { url } from '../../../lib/url';
 import ExampleStyles from '../../../components/ExampleStyles.astro';
+import DecideStep from '../../../components/DecideStep.astro';
 const w = (id: string) => url(`w/${id}/`);
 const g = (id: string) => url(`glossary/#${id}`);
 const sources = [
@@ -150,12 +151,12 @@ const sources = [
   <section class="step">
     <span class="n">Step 6</span>
     <h2 id="step-6-decide-for-your-translation">Decide for your translation</h2>
-    <p class="ask">What will you print, and what will you tell your readers?</p>
-    <aside class="translator">
-      <h3>For the translator</h3>
-      <p>Keep the story in its usual place. Readers know it and churches preach from it. Mark it as most modern Bibles do, and follow your project's <a href={url('guide/text-policy/')}>text policy</a> and your regional-language Bible.</p>
-      <p>Word the note carefully. "The earliest manuscripts do not include this section" is true, but readers may take it to mean the story is false. A fuller note is fairer: <em>"Many early manuscripts do not have 7:53–8:11. Some place it after John 7:36, after John 21:25, or after Luke 21:38."</em> <span class="tag">not yet checked</span> Check the places against your own sources before you print them.</p>
-    </aside>
+    <DecideStep
+      ubs={`The whole passage, inside double brackets ⟦ ⟧: added later, but very old and important.`}
+      lwc={`Check how it prints the story. Most Bibles keep it in its usual place, in brackets or with a note.`}
+      decides={`This is the kind of passage the policy names: one with a long tradition. Follow the regional-language Bible, and let the Review Committee decide whether and how to mark it.`}
+      recommendation={`<p>Keep the story in its usual place: readers know it and churches preach from it. Mark it as your regional-language Bible does, or with brackets as the UBS text does, and add a fair note.</p><p>Word the note carefully. “The earliest manuscripts do not include this section” is true, but readers may take it to mean the story is false.</p>`}
+      actions={[{ kind: 'brackets', text: `Put 7:53–8:11 in brackets, if your regional-language Bible or Review Committee chooses to mark it that way.` }, { kind: 'footnote', text: `“Many early manuscripts do not have 7:53–8:11. Some place it after John 7:36, after John 21:25, or after Luke 21:38.” <span class="tag">not yet checked</span> Check the places against your own sources first.` }, { kind: 'committee', text: `The Review Committee decides inclusion and marking.` }, { kind: 'record', text: `Note the decision and the wording of the note in your project records.` }]} />
   </section>
   </div>
   <ExampleStyles />

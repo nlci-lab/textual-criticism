@@ -13,8 +13,10 @@ const KINDS: [string, string][] = [
   ['papyrus', 'Papyri'], ['majuscule', 'Majuscules'], ['minuscule', 'Minuscules'], ['lectionary', 'Lectionaries'],
   ['version', 'Versions'], ['father', 'Church fathers'], ['group', 'Text groups'],
 ];
-const present = new Set(ws.map((w) => w.greek_ms?.category ?? w.kind));
-const kinds = KINDS.filter(([k]) => present.has(k));
+// The four Greek manuscript kinds always show, with a count, even before any profile of that kind exists.
+const count = (k: string) => ws.filter((w) => (w.greek_ms?.category ?? w.kind) === k).length;
+const ALWAYS = new Set(['papyrus', 'majuscule', 'minuscule', 'lectionary']);
+const kinds = KINDS.filter(([k]) => ALWAYS.has(k) || count(k) > 0).map(([k, l]) => [k, l, count(k)] as const);
 const DATES: [string, string][] = [['early', 'Before 300'], ['mid', '300–499'], ['late', '500 and later']];
 ---
 <Base title="Witnesses" nav="witnesses/" description="Every manuscript and text group the site profiles, with filters by kind, date and contents.">
@@ -32,7 +34,7 @@ const DATES: [string, string][] = [['early', 'Before 300'], ['mid', '300–499']
       </label>
       <div class="frow"><p class="label">Kind</p>
         <button class="chip" data-f="kind" data-v="" aria-pressed="true">All</button>
-        {kinds.map(([k, l]) => <button class="chip" data-f="kind" data-v={k} aria-pressed="false">{l}</button>)}
+        {kinds.map(([k, l, n]) => <button class="chip" data-f="kind" data-v={k} aria-pressed="false">{l} <span class="n">{n}</span></button>)}
       </div>
       <div class="frow"><p class="label">Date</p>
         <button class="chip" data-f="date" data-v="" aria-pressed="true">Any</button>
@@ -49,7 +51,7 @@ const DATES: [string, string][] = [['early', 'Before 300'], ['mid', '300–499']
       {ws.map((w) => <WitnessTile w={w} />)}
     </div>
     <script type="application/json" id="alias-data" set:html={JSON.stringify(keys)}></script>
-    <p class="none" id="none" hidden>No witness matches. <button class="reset" type="button" data-reset>Clear filters</button></p>
+    <p class="none" id="none" hidden><span id="none-msg">No witness matches.</span> <button class="reset" type="button" data-reset>Clear filters</button></p>
   </div>
 </Base>
 
@@ -82,6 +84,8 @@ const DATES: [string, string][] = [['early', 'Before 300'], ['mid', '300–499']
     }
     n.textContent = String(shown);
     none.hidden = shown > 0;
+    const empty = st.kind && !tiles.some((el) => el.dataset.kind === st.kind);
+    document.getElementById('none-msg')!.textContent = empty ? 'No profiles of this kind yet. They are being added.' : 'No witness matches.';
   }
   function set(f: string, v: string) {
     st[f] = v;
@@ -118,6 +122,7 @@ const DATES: [string, string][] = [['early', 'Before 300'], ['mid', '300–499']
   .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; padding: 1.25rem 0 1rem; }
   .grid :global(.tile[hidden]) { display: none; }
   .none { font-family: var(--sans); }
+  .chip .n { font-size: 0.75rem; opacity: 0.7; margin-left: 0.15rem; }
   .g-body:has(> .filters[hidden]) > * { grid-column: 1 / -1; }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   @media (min-width: 640px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; } }

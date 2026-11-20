@@ -7,9 +7,9 @@ import { url } from '../lib/url';
 interface Props { title: string; passage: string; minutes: number; lead: string; description: string; sources: string[] }
 const { title, passage, minutes, lead, description, sources } = Astro.props;
 ---
-<Base title={`${title} · Practice`} description={description} nav="guide/examples/">
+<Base title={`${title} · Practice`} description={description} nav="learn/">
   <article class="mm" data-mm>
-    <p class="mm-crumbs small"><a href={url('practice/')}>Practice</a> › {passage}</p>
+    <p class="mm-crumbs small"><a href={url('learn/')}>Learn</a> › <a href={url('learn/#modules')}>Micro modules</a> › {passage}</p>
     <p class="label">Micro module · about {minutes} minutes</p>
     <h1>{title}</h1>
     <p class="lead">{lead}</p>
@@ -17,7 +17,7 @@ const { title, passage, minutes, lead, description, sources } = Astro.props;
     <slot />
     <section class="mm-done" hidden>
       <h2>Well done</h2>
-      <p>You have worked through {passage} in the same steps the <a href={url('guide/examples/')}>worked examples</a> use. Try <a href={url('practice/')}>another micro module</a>, or read the <a href={url('guide/doubtful-passages/')}>list of doubtful passages</a>.</p>
+      <p>You have worked through {passage} in the same steps the <a href={url('guide/examples/')}>worked examples</a> use. Try <a href={url('learn/#modules')}>another micro module</a>, or read the <a href={url('guide/doubtful-passages/')}>list of doubtful passages</a>.</p>
     </section>
     <section class="mm-sources">
       <h2>Sources</h2>

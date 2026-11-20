@@ -11,53 +11,101 @@ const sources = [
 ---
 <Context title="Using the UBS apparatus in Paratext" label="Guide" lastChecked="2026-11-20" sources={sources}
   description="Which Paratext resources show the UBS apparatus, how to set them up beside your translation, and how to decode the sigla.">
-  <p class="lead">Paratext can show the Greek New Testament with the UBS apparatus next to your draft. You click a small raised mark in the Greek text and the apparatus entry for that place opens. This page explains how to get the resources, how to arrange them, and how to read what you see.</p>
+  <p class="lead">Paratext can show the Greek New Testament, with the UBS apparatus, right next to your draft. Click a small raised mark in the Greek and the apparatus entry for that place pops up.</p>
+
+  <figure class="ptx-fig">
+    <div class="ptx-scroll">
+      <svg class="ptx-layout" viewBox="0 0 640 300" role="img" aria-labelledby="ptx-lt">
+        <title id="ptx-lt">Sketch of a Paratext screen: your project on the left, the Greek resource in the middle with a popup opening from a raised mark, and a Text Collection on the right.</title>
+        <rect x="1" y="1" width="638" height="298" rx="10" class="frame"/>
+        <text x="16" y="20" class="lbl">Paratext</text>
+        <rect x="14" y="32" width="190" height="254" rx="6" class="pane"/>
+        <text x="26" y="52" class="h">Your project</text>
+        <rect x="26" y="68" width="160" height="6" class="ln"/><rect x="26" y="82" width="140" height="6" class="ln"/><rect x="26" y="96" width="155" height="6" class="ln"/><rect x="26" y="110" width="120" height="6" class="ln"/>
+        <rect x="220" y="32" width="200" height="254" rx="6" class="pane"/>
+        <text x="232" y="52" class="h">Greek NT + UBS apparatus</text>
+        <rect x="232" y="68" width="170" height="6" class="ln"/><rect x="232" y="82" width="80" height="6" class="ln"/>
+        <circle cx="320" cy="80" r="5" class="mark"/>
+        <rect x="232" y="96" width="160" height="6" class="ln"/>
+        <path d="M320 86 L300 136" class="arrow"/>
+        <rect x="232" y="136" width="178" height="80" rx="5" class="pop"/>
+        <text x="242" y="156" class="sm">1.1 {'{B}'} Συμεών א A …</text>
+        <text x="242" y="176" class="sm">// Σίμων 𝔓72 B Ψ …</text>
+        <text x="242" y="204" class="lbl">popup</text>
+        <rect x="436" y="32" width="190" height="254" rx="6" class="pane"/>
+        <text x="448" y="52" class="h">Text Collection</text>
+        <text x="448" y="78" class="sm">Greek</text><rect x="500" y="72" width="110" height="6" class="ln"/>
+        <text x="448" y="98" class="sm">TR</text><rect x="500" y="92" width="100" height="6" class="ln"/>
+        <text x="448" y="118" class="sm">Hindi</text><rect x="500" y="112" width="110" height="6" class="ln"/>
+        <text x="448" y="138" class="sm">Tamil</text><rect x="500" y="132" width="90" height="6" class="ln"/>
+      </svg>
+    </div>
+    <figcaption>A schematic, not a screenshot: one way to arrange the windows.</figcaption>
+  </figure>
 
   <h2>Getting the resources</h2>
-  <p>Resources are installed from the Paratext menu item <em>Download/Install resources</em>. Choose <em>Internet (DBL and Paratext servers)</em>, type a search word in the filter box, tick the resource and install it. You can also install resources from a folder (for example a USB drive) if someone gives you the files.</p>
-  <p>Resources come from the Digital Bible Library (DBL). Each one is licensed to a person or an organisation. So a resource that a colleague can install may not appear for you. If a resource is missing, first untick the option that shows only resources in languages you already use; it hides many resources. If it is still missing, ask your organisation's Paratext administrator about the licence.</p>
-  <p>Resources that help with text-critical questions:</p>
+  <ol class="ptx-steps">
+    <li>In Paratext, open <em>Download/Install resources</em>.</li>
+    <li>Choose <em>Internet (DBL and Paratext servers)</em>.</li>
+    <li>Type a search word in the filter box.</li>
+    <li>Tick the resource and install it.</li>
+  </ol>
+  <p>If someone gives you the files, on a USB drive for example, you can install from that folder instead.</p>
+  <p>Resources come from the Digital Bible Library (DBL), and each one is licensed to a person or an organisation. That is why a colleague may be able to install a resource you cannot see.</p>
+  <div class="ptx-callout">
+    <p class="ptx-k">Resource missing?</p>
+    <p>First untick the option that shows only resources in languages you already use. It hides many resources. Still missing? Ask your organisation's Paratext administrator about the licence.</p>
+  </div>
+  <p>These resources help with text-critical questions:</p>
   <div class="table-wrap">
-    <table>
+    <table class="ptx-table">
       <thead><tr><th>Resource</th><th>Search for</th><th>What it gives you</th></tr></thead>
       <tbody>
         <tr><td>A Greek New Testament with the UBS apparatus</td><td>your Greek NT</td><td>The Greek text with the variant marks and apparatus entries.</td></tr>
-        <tr><td>NET08</td><td><code>net</code></td><td>The NET Bible notes. Text-critical notes have their own note type, separate from translators' notes.</td></tr>
+        <tr><td>NET08</td><td><code>net</code></td><td>The NET Bible notes. Text-critical notes are their own note type, separate from translators' notes.</td></tr>
         <tr><td>TNN (and TND, if offered)</td><td><code>notes</code></td><td>Translator's Notes.</td></tr>
         <tr><td>HBKENG</td><td><code>handbook</code></td><td>The UBS Handbook Series in English.</td></tr>
         <tr><td>Textus Receptus (Elzevir 1624, Scrivener 1881)</td><td>—</td><td>The Greek text behind the King James Version and many older Bibles. Both editions are old enough to be in the public domain.</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Some resources stop part way through a book. When a resource has nothing for your verse, that is normal. It does not mean you set it up wrongly.</p>
+  <p>Some resources stop part way through a book. If one has nothing for your verse, that is normal. You did not set it up wrongly.</p>
 
   <h2>Arranging the windows</h2>
-  <p>Open the Greek resource in its own window beside your project. To compare several texts at one verse, use a <em>Text Collection</em>. A Text Collection shows the same verse from several projects and resources at once, and it scrolls with your other windows. Open one from the main menu with <em>Open text collection</em>. Add the Greek text, the Textus Receptus and the major-language Bibles your readers know (for example Hindi or Tamil).</p>
-  <p>The simple one-pane view of a Text Collection does not show footnotes or their marks. From the collection's tab menu choose <em>View &gt; Two panes</em>, then click the name of a text. The right pane then shows that text with more context.</p>
+  <p>Put the Greek resource in its own window beside your project. To compare several texts at one verse, use a <em>Text Collection</em>: it shows the same verse from several projects and resources at once, and scrolls along with your other windows.</p>
+  <ol class="ptx-steps">
+    <li>From the main menu choose <em>Open text collection</em>.</li>
+    <li>Add the Greek text, the Textus Receptus and the major-language Bibles your readers know (Hindi or Tamil, for example).</li>
+    <li>The simple one-pane view hides footnotes and their marks. From the collection's tab menu choose <em>View &gt; Two panes</em>.</li>
+    <li>Click the name of a text. The right pane shows it with more context.</li>
+  </ol>
 
   <h2>What the apparatus looks like</h2>
-  <p>In the Greek text, a small raised number marks a place where the apparatus has an entry. Click it and a popup opens. Here is the entry for 2 Peter 1:1, where the manuscripts differ on the spelling of Peter's other name:</p>
-  <pre class="app"><span lang="grc">1.1 {'{B}'} Συμεών</span> <span class="siglum" lang="he" dir="ltr">א</span> A 33 307 436 442 642 1175 1448 1735 1739 1852 2344 Byz<sup>pt</sup> [K L P] Lect arm geo // <span lang="grc">Σίμων</span> 𝔓<sup>72</sup> B Ψ 5 81 1243 1611 2492 Byz<sup>pt</sup> ℓ 147 ℓ 590 … it<sup>ar,z</sup> vg cop<sup>sa,bo</sup> eth slav BTI DHH?</pre>
-  <p>The sigla (the short names for witnesses) are printed as in the UBS edition. Paratext does not expand them when you point at them. Read the entry like this:</p>
-  <ul>
+  <p>A small raised number in the Greek marks a place where the apparatus has an entry. Click it and a popup opens. At 2 Peter 1:1 the manuscripts differ on the spelling of Peter's other name:</p>
+  <figure class="ptx-specimen">
+    <pre class="app"><span lang="grc">1.1 {'{B}'} Συμεών</span> <span class="siglum" lang="he" dir="ltr">א</span> A 33 307 436 442 642 1175 1448 1735 1739 1852 2344 Byz<sup>pt</sup> [K L P] Lect arm geo // <span lang="grc">Σίμων</span> 𝔓<sup>72</sup> B Ψ 5 81 1243 1611 2492 Byz<sup>pt</sup> ℓ 147 ℓ 590 … it<sup>ar,z</sup> vg cop<sup>sa,bo</sup> eth slav BTI DHH?</pre>
+    <figcaption>UBS5 apparatus at 2 Peter 1:1, as Paratext shows it</figcaption>
+  </figure>
+  <p>The sigla (short names for witnesses) are printed just as in the UBS edition. Paratext does not expand them when you point at them. Here is how to read this entry:</p>
+  <ul class="ptx-read">
     <li><a href={url('glossary/#rating')}>{'{B}'}</a> is the committee's rating for the reading printed in the text.</li>
-    <li>The first reading, <span lang="grc">Συμεών</span>, is followed by the witnesses that support it.</li>
+    <li>The first reading, <span lang="grc">Συμεών</span>, comes with the witnesses that support it.</li>
     <li><a href={url('glossary/#double-slash')}>//</a> starts the next reading, <span lang="grc">Σίμων</span>, and its witnesses.</li>
-    <li><a href={url('glossary/#byz')}>Byz</a><sup>pt</sup> appears on both sides. Part of the Byzantine manuscripts supports each reading; they do not speak with one voice.</li>
-    <li>"DHH?" is a modern translation cited with a question mark: it probably supports the reading, but its wording leaves some doubt.</li>
+    <li><a href={url('glossary/#byz')}>Byz</a><sup>pt</sup> turns up on both sides. Part of the Byzantine manuscripts supports each reading; they do not speak with one voice.</li>
+    <li>"DHH?" is a modern translation cited with a question mark. It probably supports the reading, but its wording leaves some doubt.</li>
   </ul>
   <p>For a full walk through one entry, see <a href={url('guide/apparatus/')}>How to read a UBS apparatus entry</a>.</p>
 
   <h2>Decoding the sigla</h2>
-  <p>Paratext Help contains the full UBS5 list of symbols and abbreviations. Search Help for the item "What is the meaning of the abbreviations used in the apparatuses?". It tells you what a symbol means, for example what <code>{'{ }'}</code> or <code>[ ]</code> do. It does not tell you what a manuscript is or how old it is.</p>
-  <p>For that, use this site. The <a href={url('')}>lookup page</a> takes a siglum and opens the witness. Short addresses also work: <a href={url('p66/')}>{url('p66/')}</a> opens 𝔓⁶⁶, and <a href={url('aleph/')}>{url('aleph/')}</a> opens Codex Sinaiticus (<span class="siglum" lang="he" dir="ltr">א</span>). Each witness page gives the date, contents and where the manuscript is kept.</p>
+  <p>Paratext Help has the full UBS5 list of symbols and abbreviations. Search Help for "What is the meaning of the abbreviations used in the apparatuses?". It tells you what a symbol means, such as <code>{'{ }'}</code> or <code>[ ]</code>. It does not tell you what a manuscript is or how old it is.</p>
+  <p>For that, use this site. The <a href={url('')}>lookup page</a> takes a siglum and opens the witness. Short addresses work too: <a href={url('p66/')}>{url('p66/')}</a> opens 𝔓⁶⁶, and <a href={url('aleph/')}>{url('aleph/')}</a> opens Codex Sinaiticus (<span class="siglum" lang="he" dir="ltr">א</span>). Each witness page gives the date, the contents and where the manuscript is kept.</p>
 
   <h2>If you cannot get the resources</h2>
-  <ul>
-    <li>The NET Bible notes, including the text-critical notes, are free at <a href="https://netbible.org">netbible.org</a>.</li>
+  <ul class="ptx-alt">
+    <li>The NET Bible notes, text-critical notes included, are free at <a href="https://netbible.org">netbible.org</a>.</li>
     <li>The INTF in Münster lists the Greek manuscripts, with dates and many images, in the New Testament Virtual Manuscript Room: <a href="https://ntvmr.uni-muenster.de">ntvmr.uni-muenster.de</a>.</li>
-    <li>Codex Sinaiticus can be read page by page at <a href="https://codexsinaiticus.org">codexsinaiticus.org</a>, and Codex Vaticanus at <a href="https://digi.vatlib.it">digi.vatlib.it</a>.</li>
-    <li>The Textus Receptus editions are in the public domain, so free copies can be found and loaded.</li>
+    <li>You can read Codex Sinaiticus page by page at <a href="https://codexsinaiticus.org">codexsinaiticus.org</a>, and Codex Vaticanus at <a href="https://digi.vatlib.it">digi.vatlib.it</a>.</li>
+    <li>The Textus Receptus editions are in the public domain, so you can find free copies and load them.</li>
   </ul>
 
   <aside class="unverified" aria-labelledby="unv">
@@ -69,9 +117,41 @@ const sources = [
       <li>Whether the UBS apparatus popup works inside a Text Collection, or only in the resource's own window.</li>
     </ul>
   </aside>
+  
 </Context>
 
 <style>
   .table-wrap { overflow-x: auto; }
-  pre.app { white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--step--1); }
+  pre.app { white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--step--1); margin: 0; }
+  .ptx-fig { margin: 1.5rem 0; }
+  .ptx-scroll { overflow-x: auto; }
+  .ptx-layout { display: block; width: 100%; min-width: 520px; height: auto; }
+  .ptx-layout .frame { fill: var(--paper-2); stroke: var(--rule); }
+  .ptx-layout .pane { fill: var(--paper); stroke: var(--rule); }
+  .ptx-layout .ln { fill: var(--rule); }
+  .ptx-layout .mark { fill: var(--rubric); }
+  .ptx-layout .pop { fill: var(--warn-bg); stroke: var(--rubric); }
+  .ptx-layout .arrow { stroke: var(--rubric); stroke-width: 1.5; fill: none; }
+  .ptx-layout text { fill: var(--ink); font-family: var(--sans); }
+  .ptx-layout .h { font-size: 12px; font-weight: 600; }
+  .ptx-layout .sm { font-size: 11px; fill: var(--ink-2); }
+  .ptx-layout .lbl { font-size: 10px; fill: var(--ink-2); text-transform: uppercase; letter-spacing: .08em; }
+  figcaption { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-2); margin-top: .4rem; }
+  .ptx-steps { list-style: none; counter-reset: s; padding: 0; margin-left: .8rem; }
+  .ptx-steps li { counter-increment: s; position: relative; padding: .35rem 0 .6rem 1.6rem; border-left: 2px solid var(--rule); }
+  .ptx-steps li:last-child { border-left-color: transparent; }
+  .ptx-steps li::before { content: counter(s); position: absolute; left: -.9rem; top: .25rem; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--paper); border: 2px solid var(--rubric); color: var(--rubric); font: 600 .85rem/1.4rem var(--sans); text-align: center; box-sizing: border-box; }
+  .ptx-callout { background: var(--warn-bg); color: var(--warn-ink); border-left: 4px solid var(--rubric); padding: .8rem 1rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+  .ptx-callout p { margin: .2rem 0; }
+  .ptx-k { font-family: var(--sans); font-weight: 700; }
+  .ptx-table th { font-family: var(--sans); text-align: left; border-bottom: 2px solid var(--rubric); }
+  .ptx-table td, .ptx-table th { padding: .5rem .6rem; vertical-align: top; }
+  .ptx-table tbody tr:nth-child(odd) { background: var(--paper-2); }
+  .ptx-table td:first-child { font-weight: 600; }
+  .ptx-specimen { margin: 1.2rem 0; padding: 1rem 1.1rem; background: var(--paper-2); border: 1px solid var(--rule); border-top: 3px solid var(--rubric); border-radius: 6px; }
+  .ptx-read li::marker, .ptx-alt li::marker { color: var(--rubric); }
+  .ptx-read li { margin: .4rem 0; }
+  .ptx-print { display: flex; gap: 1rem; align-items: center; margin: 1.4rem 0; --thumb-w: 9rem; }
+  .ptx-credit { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-2); margin: 0; }
+  @media (max-width: 420px) { .ptx-print { flex-direction: column; align-items: flex-start; } }
 </style>

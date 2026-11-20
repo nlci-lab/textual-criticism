@@ -1,46 +1,106 @@
 ---
 import Context from '../../layouts/Context.astro';
+import Thumb from '../../components/Thumb.astro';
+import Lightbox from '../../components/Lightbox.astro';
 import { url } from '../../lib/url';
 const sources = [
   { cite: 'Adapted from Thomas Hemphill, "Textual Criticism 1 – NT background, theory and principles", EMDC 2021 (slides: the age of printing; Erasmus 1516; Textus Receptus). Used with permission.', checked: true },
   { cite: 'NLCI base-text survey of Indian-language Bibles: a structural check of 15 test verses in each version\'s Paratext text, calibrated against the KJV and the Berean Study Bible (2026).', checked: true },
   { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005), on Erasmus and the Textus Receptus.', checked: false },
+  { cite: 'Image: "Erasmus 1516 title page", photo by Concord, Wikimedia Commons, CC BY-SA 3.0 (https://commons.wikimedia.org/wiki/File:Erasmus_1516_title_page.JPG).', checked: true },
+  { cite: 'Images: Basel on the Rhine; Erasmus memorial in Basel Minster. Slides: Thomas Hemphill, EMDC 2021, used with permission.', checked: true },
 ];
 const tests = ['Matt 17:21', 'Matt 18:11', 'Matt 23:14', 'Mark 7:16', 'Mark 9:44', 'Mark 9:46', 'Mark 11:26', 'Mark 15:28', 'Luke 17:36', 'Luke 23:17', 'John 5:4', 'Acts 8:37', 'Acts 15:34', 'Acts 28:29', 'Rom 16:24'];
+type Row = { v: string; lang: string; n: number; follows: string; jn: string; marked: string; check?: boolean };
+const rows: Row[] = [
+  { v: 'Bailey New Testament, 1829', lang: 'Malayalam', n: 15, follows: 'TR', jn: 'present', marked: 'no' },
+  { v: 'Sathyavedapusthakam, 1910', lang: 'Malayalam', n: 15, follows: 'TR', jn: 'absent', marked: '6, in brackets with footnotes' },
+  { v: 'Malayalam 2010', lang: 'Malayalam', n: 15, follows: 'TR', jn: 'absent', marked: '6, in brackets with footnotes' },
+  { v: 'POC Bible (Catholic)', lang: 'Malayalam', n: 15, follows: 'TR', jn: 'absent', marked: 'no' },
+  { v: 'Thiruvachanam', lang: 'Malayalam', n: 15, follows: 'TR', jn: 'not yet settled', marked: '10, in brackets with footnotes' },
+  { v: 'Hindi Old Version, re-edited (BSI)', lang: 'Hindi', n: 14, follows: 'TR', jn: 'absent', marked: '12, in brackets with footnotes' },
+  { v: 'Tamil Old Version, 1957', lang: 'Tamil', n: 15, follows: 'TR', jn: 'present', marked: 'no' },
+  { v: 'Kannada Revised, 1951', lang: 'Kannada', n: 10, follows: 'mixed', jn: 'absent', marked: 'no' },
+  { v: 'King James Version (check)', lang: 'English', n: 15, follows: 'TR', jn: 'present', marked: 'no', check: true },
+  { v: 'Berean Study Bible (check)', lang: 'English', n: 0, follows: 'critical', jn: 'absent', marked: 'footnotes', check: true },
+];
 ---
 <Context title="Two Greek texts behind our Bibles" label="Guide" lastChecked="2026-11-20" sources={sources}
   description="Why the Bible your church already reads often differs from the UBS Greek New Testament, and which Greek text each Indian-language Bible follows.">
-  <p class="lead">A pastor opens his Bible at Acts 8:37 and reads the verse. Your new draft, made from the UBS Greek New Testament, has no verse 37. Neither side has made a mistake. The two Bibles were translated from two different Greek texts.</p>
+
+  <div class="bt-scene">
+    <p class="lead">A pastor opens his Bible at Acts 8:37 and reads the verse. Your new draft, made from the UBS Greek New Testament, has no verse 37. Nobody has made a mistake. The two Bibles come from two different Greek texts.</p>
+    <div class="bt-verses" aria-hidden="true">
+      <div class="bt-v"><span class="bt-tag">His Bible</span><span>8:36</span><span class="on">8:37</span><span>8:38</span></div>
+      <div class="bt-v"><span class="bt-tag">Your draft</span><span>8:36</span><span class="gap">—</span><span>8:38</span></div>
+    </div>
+  </div>
 
   <h2>Two printed Greek texts</h2>
-  <p>A <em>base text</em> is the Greek text a translation is made from. Most Bibles in use today come from one of two kinds of base text.</p>
-  <p>The first is the <em>Textus Receptus</em> (Latin for "received text", often shortened to TR). In 1516, in Basel, Erasmus printed the first published Greek New Testament. He used a small number of late Greek manuscripts, from about the 10th to the 15th century. Later printers corrected and reprinted his text. This line of printed editions is the TR. So there is not one single TR, but a family of close editions. The TR is near to the <a href={url('w/byz/')}>Byzantine text</a>, the form of the text found in most late manuscripts, but it is not exactly the same. The King James Version, Luther's German Bible and the Russian Synodal Bible were translated from it.</p>
-  <p>The second is the <em>critical text</em>: an edition made by comparing many manuscripts, including the oldest ones found since the 19th century. The UBS Greek New Testament and the Nestle–Aland edition print the same critical text. The <a href={url('background/nt-text/')}>history of the New Testament text</a> tells this story in more detail.</p>
+  <p>A <em>base text</em> is the Greek text a translation is made from. Most Bibles in use today come from one of two kinds.</p>
+
+  <div class="bt-cards">
+    <section class="bt-card">
+      <p class="bt-kicker">Textus Receptus (TR)</p>
+      <p>Latin for "received text". In 1516, in Basel, Erasmus printed the first published Greek New Testament, from a small number of late Greek manuscripts dating from about the 10th to the 15th century. Later printers corrected and reprinted his text. That line of printed editions is the TR, so it is a family of close editions, not one single text.</p>
+      <p>It is near to the <a href={url('w/byz/')}>Byzantine text</a>, the form found in most late manuscripts, but not exactly the same.</p>
+    </section>
+    <section class="bt-card">
+      <p class="bt-kicker">Critical text</p>
+      <p>An edition made by comparing many manuscripts, including the oldest ones found since the 19th century.</p>
+      <p>The UBS Greek New Testament and the Nestle–Aland edition print the same critical text. The <a href={url('background/nt-text/')}>history of the New Testament text</a> tells the story in more detail.</p>
+    </section>
+  </div>
+
+  <figure class="bt-line">
+    <figcaption class="bt-kicker">From Erasmus to the King James Version</figcaption>
+    <ol>
+      <li><span class="yr">1516</span>Erasmus prints the first published Greek New Testament in Basel.</li>
+      <li><span class="yr">Later</span>Printers correct and reprint it: the TR family of editions.</li>
+      <li class="out"><span class="yr">Translated from the TR</span>King James Version · Luther's German Bible · Russian Synodal Bible</li>
+    </ol>
+  </figure>
+
+  <div class="bt-gallery">
+    <figure>
+      <Thumb file="img/guides/bt-erasmus-1516-title.webp" width={900} height={1200} alt="The printed title page of Erasmus's 1516 New Testament, with a decorated woodcut border around Latin text." caption="Title page of Erasmus's 1516 New Testament. Photo: Concord, Wikimedia Commons, CC BY-SA 3.0" />
+      <figcaption>Erasmus's 1516 New Testament. Photo: <a href="https://commons.wikimedia.org/wiki/File:Erasmus_1516_title_page.JPG">Concord</a>, CC BY-SA 3.0</figcaption>
+    </figure>
+    <figure>
+      <Thumb file="img/guides/bt-basel-rhine.webp" width={814} height={611} alt="Basel seen from a bridge over the Rhine, with the red sandstone towers of the minster on the left bank." caption="Basel on the Rhine, where Erasmus printed in 1516. Slide: Thomas Hemphill, EMDC 2021, used with permission" />
+      <figcaption>Basel, on the Rhine. Slide: Thomas Hemphill, EMDC 2021, used with permission</figcaption>
+    </figure>
+    <figure>
+      <Thumb file="img/guides/bt-erasmus-memorial.webp" width={642} height={856} alt="A stone memorial in Basel Minster with a long gilded Latin inscription and the words 'Erasmus von Rotterdam, 1536' at its base." caption="Erasmus's memorial in Basel Minster. Slide: Thomas Hemphill, EMDC 2021, used with permission" />
+      <figcaption>Erasmus's memorial, Basel Minster. Slide: Thomas Hemphill, EMDC 2021, used with permission</figcaption>
+    </figure>
+  </div>
 
   <h2>Where they differ</h2>
-  <p>In most verses the two texts say the same thing. But in a known set of places the TR has words, or whole verses, that the critical text leaves out of the main text. The UBS editors judged that those words were added by copyists after the first centuries. In a UBS Greek New Testament these verses are missing from the text and are given in the apparatus (the notes at the foot of the page). That is why some verse numbers seem to "jump" in a modern translation: Matthew 18:10 is followed by 18:12.</p>
+  <p>In most verses the two texts say the same thing. But in a known set of places the TR has words, or whole verses, that the critical text leaves out of the main text. The UBS editors judged that copyists added those words after the first centuries. A UBS Greek New Testament leaves these verses out of the text and gives them in the apparatus, the notes at the foot of the page.</p>
+  <p class="bt-callout">That is why some verse numbers seem to "jump" in a modern translation: Matthew 18:10 is followed by 18:12.</p>
 
   <h2>Which text each Indian-language Bible follows</h2>
-  <p>To find out, we checked fifteen test verses in each version. Each of these verses is printed in the TR but left out of the critical text. A version that has the verse follows the TR at that point. The check looks only at whether the verse is there, and whether the version itself puts it in brackets or a footnote. It does not judge wording, so it works the same way in any script.</p>
-  <p class="small">The fifteen test verses: {tests.join(' · ')}.</p>
-  <p>To test the method, it was first run on two English Bibles whose base text is known. The King James Version had all 15 verses. The Berean Study Bible, made from the critical text, had none.</p>
+  <p>We checked fifteen test verses in each version. Each one is printed in the TR but left out of the critical text, so a version that has the verse follows the TR at that point. The check only asks whether the verse is there, and whether the version itself puts it in brackets or a footnote. It does not judge wording, so it works the same way in any script.</p>
+  <p class="small bt-tests" aria-label="The fifteen test verses">{tests.map((t) => <span>{t}</span>)}</p>
+  <p>We first tried the method on two English Bibles whose base text is known. The King James Version had all 15 verses. The Berean Study Bible, made from the critical text, had none.</p>
 
   <div class="tablewrap">
-    <table>
+    <table class="bt-matrix">
       <thead>
         <tr><th scope="col">Version</th><th scope="col">Language</th><th scope="col">Test verses present</th><th scope="col">Follows</th><th scope="col">1 John 5:7 longer form</th><th scope="col">Doubtful verses marked by the version</th></tr>
       </thead>
       <tbody>
-        <tr><td>Bailey New Testament, 1829</td><td>Malayalam</td><td>15 of 15</td><td>TR</td><td>present</td><td>no</td></tr>
-        <tr><td>Sathyavedapusthakam, 1910</td><td>Malayalam</td><td>15 of 15</td><td>TR</td><td>absent</td><td>6, in brackets with footnotes</td></tr>
-        <tr><td>Malayalam 2010</td><td>Malayalam</td><td>15 of 15</td><td>TR</td><td>absent</td><td>6, in brackets with footnotes</td></tr>
-        <tr><td>POC Bible (Catholic)</td><td>Malayalam</td><td>15 of 15</td><td>TR</td><td>absent</td><td>no</td></tr>
-        <tr><td>Thiruvachanam</td><td>Malayalam</td><td>15 of 15</td><td>TR</td><td>not yet settled</td><td>10, in brackets with footnotes</td></tr>
-        <tr><td>Hindi Old Version, re-edited (BSI)</td><td>Hindi</td><td>14 of 15</td><td>TR</td><td>absent</td><td>12, in brackets with footnotes</td></tr>
-        <tr><td>Tamil Old Version, 1957</td><td>Tamil</td><td>15 of 15</td><td>TR</td><td>present</td><td>no</td></tr>
-        <tr><td>Kannada Revised, 1951</td><td>Kannada</td><td>10 of 15</td><td>mixed</td><td>absent</td><td>no</td></tr>
-        <tr class="muted"><td>King James Version (check)</td><td>English</td><td>15 of 15</td><td>TR</td><td>present</td><td>no</td></tr>
-        <tr class="muted"><td>Berean Study Bible (check)</td><td>English</td><td>0 of 15</td><td>critical</td><td>absent</td><td>footnotes</td></tr>
+        {rows.map((r) => (
+          <tr class={r.check ? 'muted' : ''}>
+            <th scope="row">{r.v}</th>
+            <td>{r.lang}</td>
+            <td class="nowrap"><span class="pips" aria-hidden="true">{Array.from({ length: 15 }, (_, i) => <i class={i < r.n ? 'f' : ''}></i>)}</span>{r.n} of 15</td>
+            <td><span class={`badge b-${r.follows}`}>{r.follows}</span></td>
+            <td>{r.jn}</td>
+            <td>{r.marked}</td>
+          </tr>
+        ))}
       </tbody>
     </table>
   </div>
@@ -48,18 +108,26 @@ const tests = ['Matt 17:21', 'Matt 18:11', 'Matt 23:14', 'Mark 7:16', 'Mark 9:44
 
   <h2>What the table shows</h2>
   <p>Every Indian-language version checked so far stands mainly on the TR side. Kannada 1951 is the exception: five test verses are missing, so it cannot be given one label. If your project works beside it, check the verse in front of you.</p>
-  <p>"Follows the TR" does not mean every version is the same. 1 John 5:7–8 has a longer form in the TR, which speaks of "the Father, the Word, and the Holy Spirit" in heaven. Almost no Greek manuscript has it. The Tamil Old Version prints it; the Malayalam 1910 version does not. Within Malayalam, Bailey's New Testament of 1829, the first in the language, has it, and the 1910 revision dropped it. A base text can change between one edition and the next.</p>
-  <p>Several versions already mark the doubtful verses themselves. The Hindi Old Version puts twelve in brackets with a footnote. When you discuss one of these verses with a review committee, you can begin with the note their own Bible already prints.</p>
+  <p>Following the TR does not make every version the same. In 1 John 5:7–8 the TR has a longer form that speaks of "the Father, the Word, and the Holy Spirit" in heaven. Almost no Greek manuscript has it. The Tamil Old Version prints it; the Malayalam 1910 version does not. Within Malayalam, Bailey's New Testament of 1829, the first in the language, has it, and the 1910 revision dropped it. A base text can change from one edition to the next.</p>
+  <p class="bt-callout">Several versions already mark the doubtful verses themselves. The Hindi Old Version puts twelve in brackets with a footnote. When you discuss one of these verses with a review committee, you can start from the note their own Bible already prints.</p>
 
   <h2>Four passages the table does not score</h2>
-  <p>Mark 16:9–20, Luke 22:43–44, John 7:53–8:11 and 1 John 5:7–8 were noted but not counted. The UBS text prints the first three in double brackets, and versions on both sides may print or footnote them, so finding them in a Bible does not show which Greek text it follows.</p>
+  <ul class="bt-chips"><li>Mark 16:9–20</li><li>Luke 22:43–44</li><li>John 7:53–8:11</li><li>1 John 5:7–8</li></ul>
+  <p>We noted these but did not count them. The UBS text prints the first three in double brackets, and versions on both sides may print or footnote them, so finding them in a Bible does not show which Greek text it follows.</p>
 
   <h2>The case for the TR and the Byzantine text</h2>
-  <p>Most textual critics today hold that the oldest manuscripts usually keep the earliest wording, and the UBS committee works this way. A minority of scholars disagree. Some hold that the text found in the great majority of manuscripts, the Byzantine or "Majority" text, is closest to the original, because God preserved it in the copies the church used for centuries. Others defend the TR itself, often for the same reason. People in your churches who hold these views are not ignorant. They are taking one side of a real debate, and they deserve a careful answer, not a dismissal.</p>
-  <p>Note also that the TR and the Majority text are not the same. In some places, 1 John 5:7–8 among them, the TR has a reading that most Byzantine manuscripts do not have.</p>
+  <p>Most textual critics today hold that the oldest manuscripts usually keep the earliest wording, and the UBS committee works this way. A minority of scholars disagree.</p>
+  <div class="bt-cards">
+    <section class="bt-card"><p class="bt-kicker">Majority text</p><p>Some hold that the text found in the great majority of manuscripts, the Byzantine or "Majority" text, is closest to the original, because God preserved it in the copies the church used for centuries.</p></section>
+    <section class="bt-card"><p class="bt-kicker">Textus Receptus</p><p>Others defend the TR itself, often for the same reason.</p></section>
+  </div>
+  <p>People in your churches who hold these views are not ignorant. They are taking one side of a real debate, and they deserve a careful answer, not a dismissal.</p>
+  <p>The TR and the Majority text are not the same, either. In some places, 1 John 5:7–8 among them, the TR has a reading that most Byzantine manuscripts do not.</p>
 
   <h2>What this means for your work</h2>
-  <p>If you translate from the UBS text in a language whose older Bible follows the TR, your draft and your readers' Bible will disagree at these verses. This will happen many times, not once. It helps to agree with the project's sponsors before drafting how you will handle such verses: leave them out, put them in brackets, or keep them with a footnote. Then the decision is not made again, under pressure, verse by verse.</p>
+  <p>If you translate from the UBS text in a language whose older Bible follows the TR, your draft and your readers' Bible will disagree at these verses, many times over. It helps to agree with the project's sponsors, before drafting, which of these you will do:</p>
+  <ol class="bt-options"><li>Leave them out</li><li>Put them in brackets</li><li>Keep them, with a footnote</li></ol>
+  <p>Then nobody has to decide again, under pressure, verse by verse.</p>
 
   <aside class="unverified" aria-labelledby="unv">
     <h2 id="unv">Not yet verified</h2>
@@ -71,10 +139,52 @@ const tests = ['Matt 17:21', 'Matt 18:11', 'Matt 23:14', 'Mark 7:16', 'Mark 9:44
       <li>Wording differences at Matt 6:13, Luke 23:34, Acts 18:17, Jas 2:20 and 1 Tim 3:16 have not yet been checked by readers of each language. <em>(from: survey notes)</em></li>
     </ul>
   </aside>
+  <Lightbox />
 </Context>
 
 <style>
+  .bt-scene { border-left: 3px solid var(--rubric); padding: 0.25rem 0 0.25rem 1rem; margin: 1rem 0 1.5rem; }
+  .bt-verses { display: grid; gap: 0.4rem; margin-top: 0.75rem; font-family: var(--sans); font-size: 0.85rem; }
+  .bt-v { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+  .bt-v span { padding: 0.15rem 0.5rem; border: 1px solid var(--rule); border-radius: 4px; background: var(--paper-2); }
+  .bt-v .bt-tag { border: 0; background: none; min-width: 5.5rem; color: var(--ink-2); padding-left: 0; }
+  .bt-v .on { border-color: var(--rubric); color: var(--rubric); font-weight: 600; }
+  .bt-v .gap { border-style: dashed; color: var(--ink-2); }
+  .bt-cards { display: grid; gap: 0.75rem; margin: 1rem 0; }
+  @media (min-width: 640px) { .bt-cards { grid-template-columns: 1fr 1fr; } }
+  .bt-card { background: var(--paper-2); border: 1px solid var(--rule); border-top: 3px solid var(--rubric); border-radius: 6px; padding: 0.75rem 1rem; }
+  .bt-card p { margin: 0.4rem 0; }
+  .bt-kicker { font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--rubric); font-weight: 600; }
+  .bt-line { margin: 1.5rem 0 1rem; }
+  .bt-line figcaption { margin-bottom: 0.6rem; }
+  .bt-line ol { list-style: none; margin: 0; padding: 0; }
+  .bt-line li { position: relative; padding: 0 0 1rem 1.25rem; border-left: 2px solid var(--rule); margin-left: 0.4rem; }
+  .bt-line li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .bt-line li::before { content: ''; position: absolute; left: -0.45rem; top: 0.15rem; width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--paper); border: 2px solid var(--rubric); box-sizing: border-box; }
+  .bt-line li.out::before { background: var(--rubric); }
+  .bt-line .yr { display: block; font-family: var(--sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--rubric); font-weight: 600; }
+  .bt-gallery { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0 1.5rem; }
+  .bt-gallery figure { margin: 0; width: 7.5rem; }
+  .bt-gallery figcaption { font-family: var(--sans); font-size: 0.72rem; color: var(--ink-2); margin-top: 0.35rem; line-height: 1.3; }
+  .bt-callout { background: var(--warn-bg); color: var(--warn-ink); border-radius: 6px; padding: 0.6rem 0.9rem; }
+  .bt-tests { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .bt-tests span, .bt-chips li { font-family: var(--sans); font-size: 0.8rem; border: 1px solid var(--rule); border-radius: 999px; padding: 0.1rem 0.55rem; background: var(--paper-2); }
+  .bt-chips { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .bt-options { display: grid; gap: 0.5rem; padding: 0; list-style: none; counter-reset: o; }
+  @media (min-width: 640px) { .bt-options { grid-template-columns: repeat(3, 1fr); } }
+  .bt-options li { counter-increment: o; border: 1px solid var(--rule); border-radius: 6px; padding: 0.5rem 0.75rem; background: var(--paper-2); }
+  .bt-options li::before { content: counter(o); font-family: var(--sans); font-weight: 700; color: var(--rubric); margin-right: 0.5rem; }
   .tablewrap { overflow-x: auto; margin: 1rem 0; }
-  .tablewrap table { border-collapse: collapse; min-width: 36rem; font-size: 0.875rem; }
-  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--rule); }
+  .tablewrap table { border-collapse: collapse; min-width: 42rem; font-size: 0.875rem; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--rule); }
+  .bt-matrix thead th { font-family: var(--sans); font-size: 0.75rem; color: var(--ink-2); border-bottom: 2px solid var(--ink-2); }
+  .bt-matrix tbody th { font-weight: 600; }
+  .nowrap { white-space: nowrap; }
+  .pips { display: inline-flex; gap: 1px; vertical-align: middle; margin-right: 0.4rem; }
+  .pips i { width: 4px; height: 12px; background: var(--rule); border-radius: 1px; }
+  .pips i.f { background: var(--rubric); }
+  .badge { font-family: var(--sans); font-size: 0.75rem; font-weight: 600; padding: 0.1rem 0.5rem; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+  .b-TR { color: var(--rubric); }
+  .b-mixed { color: var(--warn-ink); background: var(--warn-bg); }
+  .b-critical { color: var(--ink); }
 </style>

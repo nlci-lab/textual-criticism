@@ -1,79 +1,157 @@
 ---
 import Context from '../../layouts/Context.astro';
+import Thumb from '../../components/Thumb.astro';
+import Lightbox from '../../components/Lightbox.astro';
 import { url } from '../../lib/url';
 const w = (id: string) => url(`w/${id}/`);
+const COMMONS = 'https://commons.wikimedia.org/wiki/File:';
+const SLIDE = 'Slide: Thomas Hemphill, EMDC 2021, used with permission.';
+const fan = Array.from({ length: 11 }, (_, i) => 30 + i * 20);
 const sources = [
-  { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism for Bible translators" (slides and talk "Textual criticism 1 - NT background, theory & principles"), EMDC, November 2021: the lists of external and internal evidence. Used with permission.', checked: true },
+  { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism for Bible translators" (slides and talk "Textual criticism 1 - NT background, theory & principles"), EMDC, November 2021: the lists of external and internal evidence, and the Codex Vaticanus and Codex Sinaiticus slide images. Used with permission.', checked: true },
   { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism Examples" (workbook prepared for EMDC, 9 November 2021), James 2:20. Used with permission.', checked: true },
   { cite: 'Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed., on James 2:20 (read as quoted in the Hemphill workbook above).', checked: true },
   { cite: 'Roger L. Omanson, A Textual Guide to the Greek New Testament, on James 2:20 (read as quoted in the Hemphill workbook above).', checked: true },
+  { cite: 'Codex Ephraemi Rescriptus, folio 138r: image from Wikimedia Commons (Codex_Ephraemi_Rescriptus_fol_138r.jpg), marked public domain.', checked: true },
   { cite: 'Tommy Wasserman and Peter J. Gurry, A New Approach to Textual Criticism: An Introduction to the Coherence-Based Genealogical Method (SBL Press, 2017).', checked: false },
 ];
 ---
 <Context title="Weighing the evidence" label="Guide" lastChecked="2026-11-20" sources={sources}
   description="After you have read an apparatus entry: how to judge between the readings using external and internal evidence.">
-  <p class="lead">An apparatus entry tells you which manuscripts support which reading. It does not tell you which reading is right. To judge that, you weigh two kinds of evidence: the witnesses themselves (<em>external evidence</em>) and the wording (<em>internal evidence</em>).</p>
-  <p>If you are not yet sure how to read an entry, start with the <a href={url('guide/apparatus/')}>apparatus guide and its John 1:18 example</a>. For what the manuscripts look like and what they are made of, see <a href={url('background/materials/')}>materials</a>.</p>
+  <p class="lead">An apparatus entry tells you which manuscripts support which reading. It does not tell you which reading is right. For that, you weigh two kinds of evidence: the witnesses themselves, and the wording.</p>
+  <p>New to reading an entry? Start with the <a href={url('guide/apparatus/')}>apparatus guide and its John 1:18 example</a>. To see what manuscripts look like and what they are made of, go to <a href={url('background/materials/')}>materials</a>.</p>
+
+  <div class="twin">
+    <section class="card">
+      <p class="kicker">External evidence</p>
+      <p class="big">Who says it?</p>
+      <p>The witnesses: manuscripts, early translations, quotations.</p>
+    </section>
+    <section class="card">
+      <p class="kicker">Internal evidence</p>
+      <p class="big">What does it say?</p>
+      <p>The wording: what a scribe would do, and what the author would write.</p>
+    </section>
+  </div>
 
   <h2>External evidence: the witnesses</h2>
-  <p>A <em>witness</em> is any source for the text: a Greek manuscript, an early translation (a <em>version</em>), or a quotation in a church writer (a <em>father</em>). External evidence looks at these sources before looking at the words. Editors ask these things:</p>
-  <ul>
-    <li>Age. How old is the <em>earliest</em> witness for each reading? An older copy is likely to stand fewer copying steps from the original.</li>
-    <li>Source. Where does the witness come from, and which group of manuscripts does it belong to? Some groups have known habits. Codex Bezae (<a href={w('bezae')}>D 05</a>), for example, often adds words that explain.</li>
-    <li>Quality. Was the copy made with care? <a href={w('vaticanus')}>Codex Vaticanus</a> and <a href={w('sinaiticus')}>Codex Sinaiticus</a> were copied very carefully. A hurried copy is more likely to contain slips.</li>
-    <li>Spread. Do witnesses from different regions agree? Agreement between Egypt, Syria and Italy is hard to explain as one local mistake.</li>
-    <li>Relationship. Are the witnesses independent, or were they copied from each other?</li>
-    <li>Number. How many manuscripts have the reading? This comes last.</li>
-  </ul>
+  <p>A <em>witness</em> is any source for the text. It may be a Greek manuscript, an early translation (a <em>version</em>), or a quotation in a church writer (a <em>father</em>). Before looking at the words, editors ask these questions about the sources.</p>
+  <ol class="checks">
+    <li><span class="q">How old?</span> Look at the <em>earliest</em> witness for each reading. An older copy probably stands fewer copying steps from the original.</li>
+    <li><span class="q">From where?</span> Which group of manuscripts does the witness belong to? Some groups have known habits. Codex Bezae (<a href={w('bezae')}>D 05</a>), for example, often adds words that explain.</li>
+    <li><span class="q">How careful?</span> <a href={w('vaticanus')}>Codex Vaticanus</a> and <a href={w('sinaiticus')}>Codex Sinaiticus</a> were copied very carefully. A hurried copy is more likely to contain slips.</li>
+    <li><span class="q">How widespread?</span> When witnesses from Egypt, Syria and Italy agree, one local mistake can hardly explain it.</li>
+    <li><span class="q">Independent?</span> Or was one copied from another?</li>
+    <li><span class="q">How many?</span> This comes last.</li>
+  </ol>
+
+  <div class="gallery">
+    <figure class="withheld">
+      <p class="small muted">Codex Vaticanus is held by the Vatican Library, which asks permission for online use of its photos. Out of courtesy we show no copy here. <a href="https://digi.vatlib.it/view/MSS_Vat.gr.1209" target="_blank" rel="noopener">See Codex Vaticanus at the Vatican Library ↗</a> or read its <a href={w('vaticanus')}>profile</a>.</p>
+    </figure>
+    <figure>
+      <Thumb file="img/guides/weigh-sinaiticus.webp" width={771} height={806} alt="A page of Codex Sinaiticus with four narrow columns of Greek capital letters." caption={`Codex Sinaiticus. ${SLIDE}`} />
+      <figcaption><a href={w('sinaiticus')}>Codex Sinaiticus</a>, a page in four columns. <span class="credit">{SLIDE}</span></figcaption>
+    </figure>
+  </div>
 
   <h3>Why we do not simply count</h3>
-  <p>Most Greek manuscripts are late. A large share come from the tenth century or later, and many belong to the Byzantine group (cited in UBS as <a href={w('byz')}>Byz</a>). If five hundred late copies all go back to one ancestor, they are really one witness repeated five hundred times. Two early, independent copies can outweigh them. Number matters only when the other questions give no answer.</p>
+  <p>Most Greek manuscripts are late. A large share date from the tenth century or later, and many belong to the Byzantine group (cited in UBS as <a href={w('byz')}>Byz</a>). If five hundred late copies all go back to one ancestor, they are really one witness repeated five hundred times. Two early, independent copies can outweigh them. Number matters only when the other questions give no answer.</p>
+  <div class="diagram">
+    <svg viewBox="0 0 520 195" role="img" aria-labelledby="dg-t">
+      <title id="dg-t">Left: many late copies that all come from one ancestor count as one witness. Right: two early copies that do not depend on each other count as two witnesses.</title>
+      <g class="ln">
+        {fan.map((x) => <line x1="130" y1="96" x2={x} y2="140" />)}
+      </g>
+      <circle cx="130" cy="90" r="9" class="anc" />
+      {fan.map((x) => <circle cx={x} cy="146" r="6" class="late" />)}
+      <circle cx="340" cy="146" r="11" class="early" />
+      <circle cx="440" cy="146" r="11" class="early" />
+      <text x="130" y="72" class="lbl">one ancestor</text>
+      <text x="130" y="178" class="cap">many late copies = one witness</text>
+      <text x="390" y="178" class="cap">two independent copies = two witnesses</text>
+    </svg>
+  </div>
 
   <h2>Internal evidence: the words</h2>
-  <p>Internal evidence looks at the readings themselves. It asks two different questions.</p>
-  <p><em>Transcriptional</em> evidence asks: what was a scribe likely to do? Scribes made slips of the eye and hand. They also made changes on purpose: they explained hard wording, smoothed grammar, and made one passage match another.</p>
-  <p><em>Intrinsic</em> evidence asks: what was the author likely to write? Does the reading fit this writer's words, style and thought?</p>
+  <p>Here you look at the readings themselves, and ask two different questions.</p>
+  <div class="twin">
+    <section class="card">
+      <p class="kicker">Transcriptional</p>
+      <p class="big">What was a scribe likely to do?</p>
+      <p>Scribes slipped with eye and hand. They also made changes on purpose: they explained hard wording, smoothed grammar, and made one passage match another.</p>
+    </section>
+    <section class="card">
+      <p class="kicker">Intrinsic</p>
+      <p class="big">What was the author likely to write?</p>
+      <p>Does the reading fit this writer's words, style and thought?</p>
+    </section>
+  </div>
 
   <h3>Rules of thumb</h3>
-  <p>Textual critics use a few rules. Each one is a guide, not a law.</p>
-  <dl class="terms">
-    <dt>The reading that best explains the others</dt>
-    <dd>If reading A easily explains how B arose, but B does not explain A, prefer A. The other rules are ways of applying this one.</dd>
-    <dt>The harder reading</dt>
-    <dd>Scribes removed difficulties more often than they created them. A rough or surprising reading is often older. Limit: a reading can be hard because it is a plain mistake.</dd>
-    <dt>The shorter reading</dt>
-    <dd>Scribes added explaining words more often than they removed words. Limit: scribes also dropped words by accident, for example when their eye jumped between two similar lines. Never use this rule alone.</dd>
-    <dt>Harmonization</dt>
-    <dd>A reading that makes a verse match a nearby verse, or one Gospel match another, is often the later one.</dd>
-    <dt>The author's style</dt>
-    <dd>Prefer the reading that fits the author's usual words and ideas. Limit: a scribe can also "correct" a text toward the author's usual style.</dd>
-  </dl>
-  <p>Every rule can be argued both ways by someone who has already chosen an answer. Before you state a conclusion, say which rule you are using and why.</p>
+  <p>Each of these is a guide, not a law.</p>
+  <div class="master">
+    <p class="kicker">The rule behind the rules</p>
+    <p class="big">Prefer the reading that best explains the others.</p>
+    <p>If reading A easily explains how B arose, but B does not explain A, prefer A. The other rules are ways of applying this one.</p>
+  </div>
+  <div class="rules">
+    <section class="rule">
+      <h4>The harder reading</h4>
+      <p>Scribes removed difficulties more often than they created them, so a rough or surprising reading is often older.</p>
+      <p class="limit"><span>Limit</span> A reading can be hard because it is a plain mistake.</p>
+    </section>
+    <section class="rule">
+      <h4>The shorter reading</h4>
+      <p>Scribes added explaining words more often than they removed words.</p>
+      <p class="limit"><span>Limit</span> Scribes also dropped words by accident, for example when the eye jumped between two similar lines. Never use this rule alone.</p>
+    </section>
+    <section class="rule">
+      <h4>Harmonization</h4>
+      <p>When a reading makes a verse match a nearby verse, or one Gospel match another, it is often the later one.</p>
+    </section>
+    <section class="rule">
+      <h4>The author's style</h4>
+      <p>Prefer the reading that fits the author's usual words and ideas.</p>
+      <p class="limit"><span>Limit</span> A scribe can also "correct" a text toward the author's usual style.</p>
+    </section>
+  </div>
+  <p class="note">Someone who has already chosen an answer can argue any of these rules either way. So when you state a conclusion, say which rule you are using and why.</p>
 
   <h2>A worked example: James 2:20</h2>
-  <p>Some Bibles say faith without works is "useless". Others, including the King James Version, say it is "dead". The UBS text reads <span lang="grc">ἀργή</span> ("useless") and gives it a {'{B}'} rating. The entry, shortened:</p>
+  <p>Some Bibles say faith without works is "useless". Others, including the King James Version, say "dead". The UBS text reads <span lang="grc">ἀργή</span> ("useless") and rates it {'{B}'}. Here is the entry, shortened:</p>
   <div class="scroll">
-    <table>
+    <table class="readings">
       <thead><tr><th>Reading</th><th>Some witnesses</th><th>Earliest</th></tr></thead>
       <tbody>
-        <tr><td><span lang="grc">ἀργή</span> "useless"</td><td><a href={w('vaticanus')}>B</a>, C* (first hand of Codex C), 1739, some Latin, Sahidic Coptic</td><td>4th c.</td></tr>
-        <tr><td><span lang="grc">νεκρά</span> "dead"</td><td><a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span></a>, <a href={w('alexandrinus')}>A</a>, C² (a later corrector of C), <a href={w('byz')}>Byz</a>, Syriac</td><td>4th c.</td></tr>
-        <tr><td><span lang="grc">κενή</span> "empty"</td><td><a href={w('p74')}>𝔓⁷⁴</a>, one Latin manuscript</td><td>7th c.</td></tr>
+        <tr class="chosen"><td><span lang="grc">ἀργή</span> <span class="gl">"useless"</span> <span class="tag">UBS text</span></td><td><a href={w('vaticanus')}>B</a>, C* (first hand of Codex C), 1739, some Latin, Sahidic Coptic</td><td class="c">4th c.</td></tr>
+        <tr><td><span lang="grc">νεκρά</span> <span class="gl">"dead"</span></td><td><a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span></a>, <a href={w('alexandrinus')}>A</a>, C² (a later corrector of C), <a href={w('byz')}>Byz</a>, Syriac</td><td class="c">4th c.</td></tr>
+        <tr><td><span lang="grc">κενή</span> <span class="gl">"empty"</span></td><td><a href={w('p74')}>𝔓⁷⁴</a>, one Latin manuscript</td><td class="c">7th c.</td></tr>
       </tbody>
     </table>
   </div>
-  <p>The external evidence is close. Both main readings have a fourth-century codex and good early support. "Dead" has many more manuscripts, but as we saw, number counts for little. So internal evidence must decide.</p>
-  <ul>
-    <li>Verses 17 and 26 both say faith without works is "dead". A scribe who had just copied "dead" could easily write it again in verse 20. That is harmonization. It is hard to see why a scribe would change "dead" to "useless" in verse 20 only.</li>
-    <li><span lang="grc">ἀργή</span> is built from "not" + <span lang="grc">ἔργον</span> ("work"), and it stands next to <span lang="grc">ἔργων</span> ("works"). This play on words, roughly "faith without works is workless", is the kind of thing an author writes and a scribe flattens.</li>
+  <p>The external evidence is close. Both main readings have a fourth-century codex and good early support. "Dead" has many more manuscripts, but as we saw, number counts for little. So the internal evidence has to decide.</p>
+  <ul class="clues">
+    <li>Verses 17 and 26 both say faith without works is "dead". A scribe who had just copied "dead" could easily write it again in verse 20; that is harmonization. It is hard to see why a scribe would change "dead" to "useless" in verse 20 only.</li>
+    <li><span lang="grc">ἀργή</span> is built from "not" + <span lang="grc">ἔργον</span> ("work"), and it stands next to <span lang="grc">ἔργων</span> ("works"). The play on words, roughly "faith without works is workless", is the kind of thing an author writes and a scribe flattens.</li>
     <li>Codex C was first written with "useless" and later corrected to "dead". Inside that one manuscript, the change ran in that direction.</li>
     <li>The rare <span lang="grc">κενή</span> ("empty") is probably an echo of <span lang="grc">κενέ</span> ("empty", "foolish") earlier in the same verse.</li>
   </ul>
-  <p>The UBS committee, as Metzger reports, chose "useless" for the first two reasons. Omanson adds that the two words mean much the same here. For a translator, this means the choice changes little in meaning. If your readers know "dead", you can follow the UBS text and still respect their Bible.</p>
+  <figure class="side">
+    <Thumb file="img/guides/weigh-codex-c.webp" width={508} height={621} alt="A parchment page of Codex C where faint older Greek writing shows beneath a later text." caption="Codex C (04), folio 138r. Wikimedia Commons, marked public domain." />
+    <figcaption>A page of Codex C (04), the manuscript whose first hand reads "useless" here. Folio 138r. <span class="credit">Image: <a href={`${COMMONS}Codex_Ephraemi_Rescriptus_fol_138r.jpg`} target="_blank" rel="noopener">Wikimedia Commons ↗</a>, marked public domain.</span></figcaption>
+  </figure>
+  <p>As Metzger reports, the UBS committee chose "useless" for the first two reasons. Omanson adds that the two words mean much the same here. So for a translator the choice changes little in meaning. If your readers know "dead", you can follow the UBS text and still respect their Bible.</p>
 
   <h2>How the CBGM changes the picture</h2>
-  <p>In some books (the Catholic letters, James to Jude, in UBS5) the editors used the <em>Coherence-Based Genealogical Method</em> (CBGM). A computer compares the full text of many manuscripts and shows how closely each one agrees with each other one. The editors then judge, place by place, which reading gave rise to which, and check whether those judgments fit together across the whole book. The method looks at how texts relate, not at the age of the parchment or at old group names like "Alexandrian". Where the editors found two readings equally strong, the edition marks the place with a <a href={url('glossary/#diamond')}>♦</a>.</p>
-  <p>The CBGM still depends on the same judgments described above. It does not replace them; it tests them against one another.</p>
+  <p>In some books (the Catholic letters, James to Jude, in UBS5) the editors used the <em>Coherence-Based Genealogical Method</em> (CBGM).</p>
+  <ol class="flow">
+    <li>A computer compares the full text of many manuscripts and shows how closely each one agrees with each other one.</li>
+    <li>The editors judge, place by place, which reading gave rise to which.</li>
+    <li>They check whether those judgments fit together across the whole book.</li>
+  </ol>
+  <p>The method looks at how texts relate, not at the age of the parchment or at old group names like "Alexandrian". Where the editors found two readings equally strong, the edition marks the place with a <a href={url('glossary/#diamond')}>♦</a>.</p>
+  <p>The CBGM still rests on the same judgments described above. It does not replace them; it tests them against one another.</p>
 
   <aside class="unverified" aria-labelledby="unv">
     <h2 id="unv">Not yet verified</h2>
@@ -83,10 +161,69 @@ const sources = [
       <li>Whether the CBGM gives the oldest manuscripts less weight than older methods did is debated and needs a source.</li>
     </ul>
   </aside>
+  <Lightbox />
 </Context>
 
 <style>
-  .scroll { overflow-x: auto; max-width: 100%; }
-  .scroll table { border-collapse: collapse; min-width: 32rem; }
-  .scroll th, .scroll td { text-align: left; padding: 0.35rem 0.6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .kicker { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rubric); margin: 0 0 0.25rem; }
+  .big { font-family: var(--serif); font-size: 1.2rem; line-height: 1.3; margin: 0 0 0.4rem; color: var(--ink); }
+  .twin { display: grid; gap: 0.75rem; margin: 1.25rem 0; }
+  @media (min-width: 600px) { .twin { grid-template-columns: 1fr 1fr; } }
+  .card { background: var(--paper-2); border: 1px solid var(--rule); border-top: 3px solid var(--rubric); border-radius: 8px; padding: 0.9rem 1rem; min-width: 0; }
+  .card p:last-child { margin-bottom: 0; color: var(--ink-2); }
+
+  .checks { counter-reset: c; list-style: none; padding: 0; margin: 1rem 0; }
+  .checks li { counter-increment: c; position: relative; padding: 0.55rem 0 0.55rem 2.6rem; border-bottom: 1px solid var(--rule); }
+  .checks li::before { content: counter(c); position: absolute; left: 0; top: 0.55rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; display: grid; place-items: center; font-family: var(--sans); font-size: 0.85rem; color: var(--rubric); border: 1.5px solid var(--rubric); box-sizing: border-box; }
+  .checks li:last-child::before { color: var(--ink-2); border-color: var(--rule); }
+  .q { display: block; font-family: var(--sans); font-weight: 600; font-size: 0.95rem; color: var(--ink); }
+
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.25rem 0; }
+  .gallery figure, .side { margin: 0; min-width: 0; --thumb-w: 100%; }
+  figcaption { font-size: 0.88rem; color: var(--ink-2); margin-top: 0.45rem; line-height: 1.45; }
+  .credit { display: block; font-family: var(--sans); font-size: 0.72rem; margin-top: 0.2rem; }
+  .side { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.9rem; align-items: start; margin: 1.25rem 0; padding: 0.75rem; background: var(--paper-2); border-radius: 8px; }
+  .side figcaption { margin: 0; }
+
+  .diagram { overflow-x: auto; margin: 1rem 0 1.5rem; padding: 0.75rem; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper-2); }
+  .diagram svg { display: block; width: 100%; min-width: 300px; max-width: 520px; margin: 0 auto; height: auto; }
+  .ln line { stroke: var(--ink-2); stroke-width: 1; opacity: 0.6; }
+  .anc { fill: var(--ink-2); }
+  .late { fill: var(--paper); stroke: var(--ink-2); stroke-width: 1.2; }
+  .early { fill: var(--rubric); }
+  .diagram text { font-family: var(--sans); text-anchor: middle; fill: var(--ink); }
+  .lbl { font-size: 13px; }
+  .diagram .cap { font-size: 12px; fill: var(--ink-2); }
+
+  .master { margin: 1rem 0; padding: 1rem 1.1rem; border-left: 4px solid var(--rubric); background: var(--paper-2); border-radius: 0 8px 8px 0; }
+  .master p:last-child { margin-bottom: 0; }
+  .rules { display: grid; gap: 0.75rem; }
+  @media (min-width: 600px) { .rules { grid-template-columns: 1fr 1fr; } }
+  .rule { border: 1px solid var(--rule); border-radius: 8px; padding: 0.8rem 0.95rem; min-width: 0; }
+  .rule h4 { margin: 0 0 0.35rem; font-family: var(--sans); font-size: 0.98rem; }
+  .rule p { margin: 0 0 0.5rem; }
+  .rule p:last-child { margin-bottom: 0; }
+  .limit { background: var(--warn-bg); color: var(--warn-ink); padding: 0.45rem 0.6rem; border-radius: 6px; font-size: 0.9rem; }
+  .limit span { font-family: var(--sans); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; margin-right: 0.35rem; }
+  .note { margin-top: 1rem; font-style: italic; color: var(--ink-2); }
+
+  .scroll { overflow-x: auto; max-width: 100%; margin: 1rem 0; border: 1px solid var(--rule); border-radius: 8px; }
+  .readings { border-collapse: collapse; min-width: 32rem; width: 100%; }
+  .readings th { font-family: var(--sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); background: var(--paper-2); }
+  .readings th, .readings td { text-align: left; padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .readings tr:last-child td { border-bottom: 0; }
+  .readings .chosen td:first-child { box-shadow: inset 3px 0 0 var(--rubric); }
+  .readings td [lang="grc"] { font-size: 1.1rem; }
+  .gl { color: var(--ink-2); }
+  .tag { display: inline-block; font-family: var(--sans); font-size: 0.68rem; color: var(--rubric); border: 1px solid var(--rubric); border-radius: 999px; padding: 0 0.45rem; margin-left: 0.3rem; vertical-align: middle; }
+  .c { white-space: nowrap; font-family: var(--sans); font-size: 0.9rem; }
+
+  .clues { padding-left: 1.2rem; }
+  .clues li { margin-bottom: 0.5rem; }
+  .clues li::marker { color: var(--rubric); }
+
+  .flow { list-style: none; padding: 0; margin: 1rem 0; counter-reset: f; }
+  .flow li { counter-increment: f; position: relative; padding: 0 0 1rem 2.4rem; }
+  .flow li::before { content: counter(f); position: absolute; left: 0; top: 0; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--rubric); color: var(--paper); display: grid; place-items: center; font-family: var(--sans); font-size: 0.8rem; }
+  .flow li:not(:last-child)::after { content: ""; position: absolute; left: 0.8rem; top: 1.7rem; bottom: 0.2rem; width: 1px; background: var(--rule); }
 </style>

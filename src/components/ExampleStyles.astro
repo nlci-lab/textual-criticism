@@ -1,0 +1,70 @@
+---
+// Shared "case file" styles for the worked examples (guide/examples/*).
+// Everything is scoped under .case so it cannot leak into other pages.
+---
+<style is:global>
+  .case { --case-gap: 1rem; }
+  .case .banner {
+    margin: 1.25rem 0 1.5rem; padding: 1rem 1.1rem 1.1rem;
+    border-left: 4px solid var(--rubric); background: var(--paper-2);
+    border-radius: 0 10px 10px 0;
+  }
+  .case .banner .ref {
+    display: block; font-family: var(--sans); font-size: var(--step--1);
+    letter-spacing: .08em; text-transform: uppercase; color: var(--rubric); margin-bottom: .4rem;
+  }
+  .case .banner .greek { font-family: var(--serif); font-size: var(--step-1); line-height: 1.5; margin: 0 0 .5rem; }
+  .case .banner .gloss { color: var(--ink-2); margin: 0; }
+  .case .banner mark { background: none; color: var(--rubric); font-weight: 600; }
+
+  .case .readings { display: grid; gap: var(--case-gap); margin: 1rem 0; padding: 0; list-style: none; }
+  @media (min-width: 40rem) { .case .readings { grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); } }
+  .case .reading {
+    margin: 0; padding: .9rem 1rem; border: 1px solid var(--rule); border-radius: 10px;
+    background: var(--paper); display: flex; flex-direction: column; gap: .5rem;
+  }
+  .case .reading.printed { border-color: var(--rubric); box-shadow: inset 0 3px 0 var(--rubric); }
+  .case .reading .form { font-family: var(--serif); font-size: var(--step-2); line-height: 1.2; margin: 0; }
+  .case .reading .meaning { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-2); margin: 0; }
+  .case .reading .tag {
+    align-self: flex-start; font-family: var(--sans); font-size: var(--step--1);
+    padding: .1rem .5rem; border-radius: 999px; border: 1px solid var(--rubric); color: var(--rubric);
+  }
+  .case .reading .wits { margin: 0; padding-top: .5rem; border-top: 1px dashed var(--rule); font-size: var(--step--1); line-height: 1.55; }
+
+  .case .weigh { display: grid; gap: var(--case-gap); margin: 1rem 0; }
+  @media (min-width: 40rem) { .case .weigh { grid-template-columns: 1fr 1fr; } }
+  .case .side { padding: .9rem 1rem; border-radius: 10px; background: var(--paper-2); border: 1px solid var(--rule); }
+  .case .side h3 { margin: 0 0 .5rem; font-family: var(--sans); font-size: var(--step-0); }
+  .case .side ul { margin: 0; padding-left: 1.1rem; }
+  .case .side li { margin-bottom: .45rem; }
+  .case .side p:last-child { margin-bottom: 0; }
+
+  .case .verdict {
+    display: flex; gap: 1rem; align-items: flex-start; margin: 1rem 0;
+    padding: 1rem; border: 1px solid var(--rule); border-radius: 10px;
+  }
+  .case .badge {
+    flex: none; width: 3.2rem; height: 3.2rem; border-radius: 50%;
+    display: grid; place-items: center; font-family: var(--sans); font-weight: 700; font-size: var(--step-1);
+    border: 2px solid var(--rubric); color: var(--rubric); text-decoration: none;
+  }
+  .case .verdict p { margin: 0 0 .5rem; }
+  .case .verdict p:last-child { margin-bottom: 0; }
+
+  .case .translator {
+    margin: 1.5rem 0; padding: 1rem 1.1rem; border-radius: 10px;
+    background: var(--warn-bg); color: var(--warn-ink);
+  }
+  .case .translator h2 { margin-top: 0; font-size: var(--step-1); color: inherit; }
+  .case .translator a { color: inherit; }
+  .case .translator ul { margin-bottom: 0; padding-left: 1.1rem; }
+  .case .translator p:last-child { margin-bottom: 0; }
+
+  .case .figure { display: flex; gap: 1rem; align-items: flex-start; margin: 1rem 0; }
+  .case .figure .thumb { --thumb-w: 6.5rem; }
+  .case .figure p { margin: 0; font-size: var(--step--1); color: var(--ink-2); }
+
+  .case .tw { overflow-x: auto; }
+  .case .tw table { min-width: 28rem; }
+</style>

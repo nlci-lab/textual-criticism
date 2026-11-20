@@ -1,20 +1,48 @@
 ---
 import Context from '../../../layouts/Context.astro';
 import { url } from '../../../lib/url';
+import ExampleStyles from '../../../components/ExampleStyles.astro';
 const sources = [
   { cite: 'Thomas Hemphill, "New Testament Textual Criticism Examples" (EMDC, 9 November 2021). Adapted and used with permission.', checked: true },
 ];
 ---
 <Context title="Worked examples" label="Guide" lastChecked="2026-11-20" sources={sources}
   description="Real places where Greek manuscripts differ, worked through step by step for translators.">
-  <p class="lead">Each example takes one verse where manuscripts differ. It shows the readings, who supports them, the arguments, what the UBS Greek New Testament prints, and what a translator can do.</p>
-  <ul class="examples">
-    <li><a href={url('guide/apparatus/')}>John 1:18</a>: "only God" or "only Son"? A step-by-step reading of one apparatus entry.</li>
-    <li><a href={url('guide/examples/james-2-20/')}>James 2:20</a>: is faith without works "useless" or "dead"? Early witnesses split, and the context decides.</li>
-    <li><a href={url('guide/examples/romans-16-7/')}>Romans 16:7</a>: Junia or Junias? The letters are certain; the accent, and so the gender, is debated.</li>
+  <div class="case">
+  <p class="lead">Each example takes one verse where the manuscripts differ: the readings and who supports them, the arguments, what the UBS Greek New Testament prints, and what a translator can do.</p>
+  <ul class="cases">
+    <li><a class="card" href={url('guide/apparatus/')}>
+      <span class="ref">John 1:18</span>
+      <span class="q">"Only God" or "only Son"?</span>
+      <span class="d">A step-by-step reading of one apparatus entry.</span>
+    </a></li>
+    <li><a class="card" href={url('guide/examples/james-2-20/')}>
+      <span class="ref">James 2:20</span>
+      <span class="q">Is faith without works "useless" or "dead"?</span>
+      <span class="d">Early witnesses split, and the context decides.</span>
+    </a></li>
+    <li><a class="card" href={url('guide/examples/romans-16-7/')}>
+      <span class="ref">Romans 16:7</span>
+      <span class="q">Junia or Junias?</span>
+      <span class="d">The letters are certain; the accent, and so the gender, is debated.</span>
+    </a></li>
   </ul>
   <p>The James and Romans examples are adapted from material by Thomas Hemphill (EMDC 2021), used with permission.</p>
+  </div>
+  <ExampleStyles />
 </Context>
 <style>
-  .examples li { margin-bottom: .6rem; }
+  .cases { list-style: none; padding: 0; margin: 1.25rem 0; display: grid; gap: 1rem; }
+  @media (min-width: 40rem) { .cases { grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); } }
+  .card {
+    display: flex; flex-direction: column; gap: .35rem; height: 100%; box-sizing: border-box;
+    padding: 1rem 1.1rem; border: 1px solid var(--rule); border-left: 4px solid var(--rubric);
+    border-radius: 10px; background: var(--paper-2); color: var(--ink); text-decoration: none;
+    transition: border-color 160ms ease;
+  }
+  .card:hover, .card:focus-visible { border-color: var(--rubric); }
+  .ref { font-family: var(--sans); font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase; color: var(--rubric); }
+  .q { font-family: var(--serif); font-size: var(--step-1); line-height: 1.3; }
+  .d { font-size: var(--step--1); color: var(--ink-2); }
+  @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
 </style>

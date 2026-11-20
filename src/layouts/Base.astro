@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/components.css';
 import { url } from '../lib/url';
+import gentiumRegular from '../fonts/GentiumBookPlus-Regular.woff2?url';
 interface Props { title: string; description?: string; nav?: string }
 const { title, description = 'An introduction to textual criticism of the Bible for translators and consultants: the manuscripts, the printed editions and their apparatus, and how to weigh the evidence.', nav } = Astro.props;
 const links = [
@@ -27,7 +28,7 @@ const links = [
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- display=optional: no font swap flash; slow connections keep the system serif. -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew&text=%D7%90&display=optional" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=optional" />
+  <link rel="preload" href={gentiumRegular} as="font" type="font/woff2" crossorigin />
   <script is:inline>
     try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
@@ -59,6 +60,23 @@ const links = [
       function label() { b.textContent = cur() === 'dark' ? 'Light' : 'Dark'; b.setAttribute('aria-label', 'Switch to ' + b.textContent.toLowerCase() + ' theme'); }
       label();
       b.addEventListener('click', function () { var t = cur() === 'dark' ? 'light' : 'dark'; root.dataset.theme = t; try { localStorage.setItem('theme', t); } catch (e) {} label(); });
+    })();
+  </script>
+  <script is:inline>
+    // Mirrors src/integrations/external-links.mjs (which rewrites built HTML) so `astro dev` matches.
+    (function () {
+      document.querySelectorAll('a[href]').forEach(function (a) {
+        if (a.dataset.extDone || !/^https?:$/i.test(a.protocol) || a.origin === location.origin) return;
+        a.dataset.extDone = '1';
+        if (!a.getAttribute('target')) a.target = '_blank';
+        var rel = (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
+        if (rel.indexOf('noopener') < 0) { rel.push('noopener'); a.setAttribute('rel', rel.join(' ')); }
+        var lab = a.getAttribute('aria-label');
+        if (lab !== null) { if (!/new tab/i.test(lab)) a.setAttribute('aria-label', lab + ' (opens in a new tab)'); }
+        else if (!/new tab/i.test(a.textContent)) {
+          var s = document.createElement('span'); s.className = 'visually-hidden'; s.textContent = ' (opens in a new tab)'; a.appendChild(s);
+        }
+      });
     })();
   </script>
 </body>

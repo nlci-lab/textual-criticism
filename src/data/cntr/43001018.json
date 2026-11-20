@@ -1,0 +1,145 @@
+{
+  "source": "https://github.com/Center-for-New-Testament-Restoration/transcriptions/tree/4e743a41a4b2ca010ece53229cd272aa59b1efe6",
+  "commit": "4e743a41a4b2ca010ece53229cd272aa59b1efe6",
+  "licence": "CC BY-SA 4.0",
+  "credit": "Alan Bunning, Center for New Testament Restoration",
+  "verse": "43001018",
+  "witnesses": {
+    "01": "/=θν ουδεισ εωρα/κεν πωποτε μο/νογενησ =θσ x{} {ο ων} εισ το¯ /κολπον του πα/τροσ εκεινοσ εξη/γησατο",
+    "02": "=θν ουδεισ εωρα/κεν πωποτε ο μονογενησ /υιοσ ο ων εισ τον κολπον /του =πρσ εκεινοσ εξηγησατο",
+    "03": "=θν ουδεισ εο/ρακεν πωποτε μονο/γενησ =θσ ο ων εισ τον /κολπον του πατροσ /εκεινοσ εξηγησατο",
+    "032": "/=θν ουδισ εωρακεν πωποτε ει μη ο μονο/γενησ =υσ ο ων εισ τον κολπον του =πρσ /εκινοσ εξηγησατο ημιν",
+    "04": "/=θν ουδεισ εωρακεν πωποτε μονογεν^η^σ =θσ ο ων /εισ τον κολπον του =πρσ εκεινοσ εξηγησατο",
+    "P66": "/=θν ουδεισ εωρακεν πωποται μο%/νογενησ =θσ ο ων εισ τον κολπον το^υ^ /=πρσ εκινοσ εξηγησατο",
+    "P75": "=θν ουδεισ x{πωποτε εο/ρακεν} {εορακεν /πωποτε} ο μονογενησ =θσ ο ων εισ τον κολ/πον του πατροσ εκεινοσ εξηγησατο",
+    "RP": "Θεὸν οὐδεὶς ἑώρακεν πώποτε ὁ μονογενὴς υἱός ὁ ὢν εἰς τὸν κόλπον τοῦ πατρός ἐκεῖνος ἐξηγήσατο",
+    "ST": "Θεὸν οὐδεὶς ἑώρακε πώποτε ὁ μονογενὴς υἱὸς ὁ ὢν εἰς τὸν κόλπον τοῦ πατρὸς ἐκεῖνος ἐξηγήσατο",
+    "KJTR": "Θεὸν Οὐδεὶς ἑώρακεν πώποτε ὁ μονογενὴς Υἱός ὁ ὢν εἰς τὸν κόλπον τοῦ Πατρός ἐκεῖνος ἐξηγήσατο",
+    "WH": "θεὸν οὐδεὶς ἑώρακεν πώποτε μονογενὴς θεὸς ὁ ὢν εἰς τὸν κόλπον τοῦ πατρὸς ἐκεῖνος ἐξηγήσατο",
+    "SR": "Θεὸν οὐδεὶς ἑώρακεν πώποτε μονογενὴς Θεὸς ὁ ὢν εἰς τὸν κόλπον τοῦ Πατρὸς ἐκεῖνος ἐξηγήσατο"
+  },
+  "meta": {
+    "01": {
+      "kind": "manuscript",
+      "ga": "01",
+      "siglum": "א",
+      "siglumLang": "he",
+      "name": "Codex Sinaiticus",
+      "ntvmr": 20001,
+      "cntr": "m20001",
+      "from": 300,
+      "to": 399,
+      "date": "4th c.",
+      "holding": "London, British Library, Add. 43725"
+    },
+    "02": {
+      "kind": "manuscript",
+      "ga": "02",
+      "siglum": "A",
+      "name": "Codex Alexandrinus",
+      "ntvmr": 20002,
+      "cntr": "m20002",
+      "from": 400,
+      "to": 499,
+      "date": "5th c.",
+      "holding": "London, British Library, Royal 1 D.VIII"
+    },
+    "03": {
+      "kind": "manuscript",
+      "ga": "03",
+      "siglum": "B",
+      "name": "Codex Vaticanus",
+      "ntvmr": 20003,
+      "cntr": "m20003",
+      "from": 300,
+      "to": 399,
+      "date": "4th c.",
+      "holding": "Città del Vaticano, Biblioteca Apostolica Vaticana, Vat. gr. 1209, p. 1235-1518"
+    },
+    "032": {
+      "kind": "manuscript",
+      "ga": "032",
+      "siglum": "W",
+      "name": "Codex Washingtonianus",
+      "ntvmr": 20032,
+      "cntr": "m20032",
+      "from": 400,
+      "to": 499,
+      "date": "5th c.",
+      "holding": "Washington D.C., Smithsonian Institution, Freer Gallery of Art, 06.274 / F1906.274"
+    },
+    "04": {
+      "kind": "manuscript",
+      "ga": "04",
+      "siglum": "C",
+      "name": "Codex Ephraemi Rescriptus",
+      "ntvmr": 20004,
+      "cntr": "m20004",
+      "from": 400,
+      "to": 499,
+      "date": "5th c.",
+      "holding": "Paris, Bibliothèque Nationale, Gr. 9"
+    },
+    "P66": {
+      "kind": "manuscript",
+      "ga": "P66",
+      "siglum": "𝔓⁶⁶",
+      "name": "Papyrus 66",
+      "ntvmr": 10066,
+      "cntr": "m10066",
+      "from": 200,
+      "to": 225,
+      "date": "200–225",
+      "material": "papyrus",
+      "holding": "Cologny/Genf, Bibliotheca Bodmeriana, P. Bodmer II; Dublin, Chester Beatty Library, CBL BP XIX; Köln, Institut für Altertumskunde, Inv. Nr. 4274/4298"
+    },
+    "P75": {
+      "kind": "manuscript",
+      "ga": "P75",
+      "siglum": "𝔓⁷⁵",
+      "name": "Papyrus 75",
+      "ntvmr": 10075,
+      "cntr": "m10075",
+      "from": 200,
+      "to": 225,
+      "date": "200–225",
+      "material": "papyrus",
+      "holding": "Città del Vaticano, Biblioteca Apostolica Vaticana, Pap. Hanna.1 (Mater.Verbi)"
+    },
+    "RP": {
+      "kind": "edition",
+      "siglum": "Byz (RP)",
+      "name": "Robinson–Pierpont Byzantine Textform",
+      "date": "2025",
+      "cntr": ""
+    },
+    "ST": {
+      "kind": "edition",
+      "siglum": "TR (Stephanus)",
+      "name": "Stephanus Textus Receptus",
+      "date": "1550",
+      "cntr": ""
+    },
+    "KJTR": {
+      "kind": "edition",
+      "siglum": "TR (KJV)",
+      "name": "King James Textus Receptus (CNTR; text underlying the 1769 KJV)",
+      "date": "2020",
+      "cntr": ""
+    },
+    "WH": {
+      "kind": "edition",
+      "siglum": "WH",
+      "name": "Westcott and Hort",
+      "date": "1885",
+      "cntr": ""
+    },
+    "SR": {
+      "kind": "edition",
+      "siglum": "SR",
+      "name": "Statistical Restoration (CNTR)",
+      "date": "2022",
+      "cntr": ""
+    }
+  }
+}

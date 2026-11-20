@@ -123,3 +123,23 @@ Each step is shippable on its own; the owner approves each push.
    keep every tile typographic for a uniform look?
 3. Course: does a lesson have its own text, or is it a guided path through
    existing guides with short intros and a check question at the end?
+
+## Owner's answers (20 Nov 2026)
+
+1. MDX: explained; decision pending (default stays: keep `.astro` + data file).
+2. Tiles use the site's own photo crop where one exists; texture otherwise.
+3. Course lessons reuse the existing guides. Review of fit:
+
+| Lesson | Existing material | Fit | Work needed |
+|---|---|---|---|
+| 1 Why there are variants | background/nt-text "Writing and copying"; materials "How copyists changed the text" | Good | Short intro; point to two sections, not whole pages |
+| 2 Manuscripts and their names | materials (surfaces, scripts); paratext "Decoding the sigla"; glossary; witness gallery | **Gap** | No page explains papyrus / majuscule / minuscule / version / father and how a siglum is built. Write one new short page (~600 words), which also helps the gallery |
+| 3 Reading the apparatus | guide/apparatus (1,195 words) | Very good | Intro + check question only |
+| 4 Weighing the evidence | guide/weighing-evidence (2,103 words) + examples/james-2-20 | Good, long | Split across two sittings by section anchors (external / internal + example); James 2:20 is told twice (guide and example page): make the module the practice, the guide the explanation |
+| 5 Which variants matter | guide/which-variants-matter (1,550) | Good | Intro + question |
+| 6 Your project's text policy | guide/base-texts (2,034) + guide/text-policy (861) | Good, long | Lesson uses base-texts "Where they differ" + "What this means", then text-policy; skip the Indian-language table on first pass |
+
+No rewriting of guide text is needed. Two rules for lessons: (a) a lesson never
+sends readers into a "Not yet verified" section; (b) each lesson = intro
+(~100 words), links to named sections, one check question, "what to do in your
+project" line. The Paratext guide becomes an optional practical lesson.

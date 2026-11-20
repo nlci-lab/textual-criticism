@@ -1,0 +1,58 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Home · Textual Criticism (Margin notes)</title>
+<style>
+:root{--paper:#fbfaf8;--paper-2:#f1efeb;--ink:#1f1c19;--ink-2:#57504a;--rule:#d9d4cc;--rubric:#9d2a1f;
+--warn-bg:#fbf1d9;--warn-ink:#5c4300;--bar-full:#3b3530;--bar-part:#a39a90;--bar-none:#e6e1da;
+--serif:"Gentium Book Plus","Gentium Plus","Noto Serif",Cambria,"Times New Roman",serif;
+--sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif;
+--sigla:"Gentium Book Plus","Cambria Math","STIX Two Math","Noto Sans Math","Segoe UI Symbol",serif;
+--hebrew:"Noto Serif Hebrew","SBL Hebrew","Times New Roman",serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--paper:#17191b;--paper-2:#212427;--ink:#e8e3db;--ink-2:#ada69c;--rule:#3a3d41;
+--rubric:#f08b7c;--warn-bg:#3a3014;--warn-ink:#f3dc9b;--bar-full:#e8e3db;--bar-part:#8c857c;--bar-none:#33373b;color-scheme:dark}}
+*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:1.0625rem/1.6 var(--serif)}
+a{color:var(--rubric);text-underline-offset:.15em;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--rubric);outline-offset:2px}
+h1,h2,h3,h4{line-height:1.2;font-weight:600;text-wrap:balance}h1{font-size:2.2rem;margin:0 0 .5rem}
+h2{font-size:1.3rem;margin:2rem 0 .5rem}h3{font-size:1.0625rem;margin:1.5rem 0 .25rem}h4{margin:0 0 .25rem;font-size:1rem}
+p,ul,ol{margin:0 0 1rem}
+.siglum{font-family:var(--sigla);color:var(--rubric);white-space:nowrap}[lang=he]{font-family:var(--hebrew);unicode-bidi:isolate}
+[lang=grc]{font-family:var(--serif)}
+.label,.kicker{font:600 .75rem/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin:0 0 .25rem}
+.muted{color:var(--ink-2)}.small{font-size:.875rem}.lead{font-size:1.2rem;line-height:1.5}
+.uc{background:var(--warn-bg);color:var(--warn-ink);font:.8125rem/1.4 var(--sans);padding:.35rem 16px;text-align:center}
+.brand{font:600 1rem var(--serif);color:var(--ink);text-decoration:none}
+.card{border:1px solid var(--rule);background:var(--paper-2);padding:.75rem 1rem;border-radius:4px}
+.card .big,.master .big{font-size:1.15rem;font-weight:600;margin:0 0 .25rem}
+.twin{display:grid;gap:.75rem;margin:1rem 0}@media(min-width:560px){.twin{grid-template-columns:1fr 1fr}}
+.checks{padding-left:1.5rem}.checks .q{font-weight:600}
+.master{border-left:3px solid var(--rubric);padding:.5rem 1rem;margin:1rem 0;background:var(--paper-2)}
+.rules{display:grid;gap:.75rem}.rule{border-top:1px solid var(--rule);padding-top:.5rem}
+.limit{font-size:.9375rem;color:var(--ink-2)}.limit span{font:600 .7rem var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--rubric);margin-right:.4rem}
+.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.9375rem}
+th,td{text-align:left;vertical-align:top;padding:.4rem .6rem;border-bottom:1px solid var(--rule)}th{font:600 .75rem var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+tr.chosen td{background:var(--paper-2)}.tag{font:600 .7rem var(--sans);border:1px solid var(--rubric);color:var(--rubric);padding:0 .3rem;border-radius:3px;margin-left:.3rem}
+.gl{color:var(--ink-2)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;margin:0 0 1rem;font-size:.9375rem}.facts dt{font:600 .75rem/1.9 var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}.facts dd{margin:0}
+.books{display:flex;flex-wrap:wrap;gap:2px;margin:.25rem 0 .5rem;padding:0;list-style:none;font:600 .7rem var(--sans)}
+.books li{padding:.2rem .3rem;min-width:2.4rem;text-align:center;border-radius:2px}
+.books .complete{background:var(--bar-full);color:var(--paper)}.books .partial{background:var(--bar-part);color:var(--ink)}.books .absent{background:var(--bar-none);color:var(--ink-2)}
+.units{list-style:none;padding:0}.units li{border-top:1px solid var(--rule);padding:.5rem 0}.units b{font-family:var(--sans);font-size:.875rem}
+.sources{font-size:.875rem;color:var(--ink-2);padding-left:1.25rem}
+.note{border-left:3px solid var(--rule);padding-left:.75rem;color:var(--ink-2)}
+.withheld{border:1px dashed var(--rule);padding:.75rem 1rem;font-size:.9375rem;color:var(--ink-2)}
+.wlist{list-style:none;padding:0;margin:0}.wlist li{display:grid;grid-template-columns:4.5rem 1fr auto;gap:.5rem;padding:.4rem 0;border-top:1px solid var(--rule);align-items:baseline}
+.wlist .siglum{font-size:1.1rem}.wlist .d{font:.8125rem var(--sans);color:var(--ink-2)}
+.glist{list-style:none;padding:0;margin:0}.glist li{padding:.45rem 0;border-top:1px solid var(--rule)}.glist p{margin:0;font-size:.9375rem;color:var(--ink-2)}
+.diagram svg{width:100%;max-width:520px;height:auto}.diagram line{stroke:var(--bar-part)}.diagram .anc{fill:var(--rubric)}.diagram .late{fill:var(--bar-part)}.diagram .early{fill:var(--bar-full)}.diagram text{fill:var(--ink-2);font:13px var(--sans);text-anchor:middle}
+
+.top{max-width:76rem;margin:0 auto;padding:.75rem 16px;border-bottom:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:.25rem 1.25rem;align-items:baseline;font-family:var(--sans)}
+.top nav a{margin-right:1rem;font-size:.9rem}
+.page{max-width:76rem;margin:0 auto;padding:1.5rem 16px 3rem}
+.mg>*{min-width:0}.mg .m{font-size:.875rem;line-height:1.45;color:var(--ink-2);border-left:2px solid var(--rubric);padding-left:.75rem;margin:0 0 1rem}
+.mg .m .label{color:var(--rubric)}
+@media(min-width:960px){.mg{max-width:40rem}.mg::after{content:"";display:block;clear:both}
+.mg>.m{float:right;clear:right;width:min(20rem,calc(100vw - 40rem - 7rem));margin:.3rem calc(-1 * min(20rem,calc(100vw - 40rem - 7rem)) - 3rem) 1rem 0;border-left:0;padding:.4rem 0 0;border-top:1px solid var(--rule)}
+.mg>.wide{width:min(calc(100vw - 32px),72rem)}}
+.home3{display:grid;gap:2rem}@media(min-width:960px){.home3{grid-template-columns:minmax(0,40rem) 1fr;column-gap:3.5rem}}
+</style></head><body><div class="uc">Under construction: content is being checked.</div><header class="top"><a class="brand" href="home.html">Textual Criticism</a><nav><a href="witness.html">Witnesses</a><a href="guide.html">Guides</a><a href="#">Background</a></nav></header><main class="page"><div class="home3"><div><h1>Textual Criticism</h1><p class="lead">An introduction to the manuscripts behind the New Testament, for Bible translators and consultants. Look up a witness cited in the UBS apparatus, or learn how to read and weigh the evidence.</p><h2>Witnesses cited in UBS</h2><ul class="wlist"><li><span class="siglum">𝔓⁴⁵</span><a href="witness.html">Chester Beatty papyrus of Gospels and Acts</a><span class="d">3rd c.</span></li><li><span class="siglum">𝔓⁴⁶</span><a href="witness.html">Paul's letters, the earliest collection</a><span class="d">c. 200</span></li><li><span class="siglum">𝔓⁶⁶</span><a href="witness.html">John, Bodmer papyrus</a><span class="d">c. 200</span></li><li><span class="siglum">𝔓⁷⁵</span><a href="witness.html">Luke and John, close to B</a><span class="d">3rd c.</span></li><li><span class="siglum" lang=he dir=ltr>א</span> 01<a href="witness.html">Codex Sinaiticus</a><span class="d">4th c.</span></li><li><span class="siglum">A</span> 02<a href="witness.html">Codex Alexandrinus</a><span class="d">5th c.</span></li><li><span class="siglum">B</span> 03<a href="witness.html">Codex Vaticanus</a><span class="d">4th c.</span></li><li><span class="siglum">D</span> 05<a href="witness.html">Codex Bezae, Greek and Latin</a><span class="d">5th c.</span></li><li><span class="siglum">Byz</span><a href="witness.html">The Byzantine majority text</a><span class="d">9th c. on</span></li></ul></div><div><h2>Guides</h2><ul class="glist"><li><a href="guide.html">Reading the apparatus</a><p>What each part of a UBS entry means, with John 1:18.</p></li><li><a href="guide.html">Weighing the evidence</a><p>External and internal evidence, and how to judge.</p></li><li><a href="guide.html">Which variants matter</a><p>When a variant changes the translation, and when it does not.</p></li><li><a href="guide.html">Base texts</a><p>UBS, the Byzantine text, and the Textus Receptus.</p></li><li><a href="guide.html">Text policy</a><p>Following the translation guidelines on variants.</p></li><li><a href="guide.html">Using Paratext</a><p>Where the apparatus and resources live in Paratext.</p></li></ul><h2>Background</h2><ul class="glist"><li><a href="#">Materials</a><p>Papyrus, parchment, scrolls and codices.</p></li><li><a href="#">The New Testament text</a><p>How the text was copied and printed.</p></li><li><a href="#">The Old Testament text</a><p>Coming in 2027.</p></li></ul></div></div></main></body></html>

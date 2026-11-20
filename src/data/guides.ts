@@ -41,13 +41,19 @@ export const GUIDES: GuideMeta[] = [
     path: 'guide/examples/', cover: 'Worked examples', section: 'example', level: 'Going further',
     summary: 'Real places where Greek manuscripts differ, worked through step by step.',
     learn: ['How to apply the guides to a real verse', 'What UBS5 prints and why', 'What to tell your readers'],
-    related: ['guide/examples/james-2-20/', 'guide/examples/romans-16-7/', 'guide/weighing-evidence/'],
+    related: ['guide/examples/john-7-53/', 'guide/examples/james-2-20/', 'guide/examples/romans-16-7/'],
   },
   {
     path: 'guide/examples/james-2-20/', cover: 'James 2:20', section: 'example', level: 'Going further',
     summary: 'Useless or dead? Good early manuscripts disagree, and the context decides.',
     learn: ['Weighing two fourth-century codices', 'Spotting harmonization', 'Handling a familiar reading in your translation'],
     before: 'guide/weighing-evidence/', related: ['guide/examples/romans-16-7/', 'guide/weighing-evidence/'], verses: ['James 2:20'],
+  },
+  {
+    path: 'guide/examples/john-7-53/', cover: 'John 7:53–8:11', section: 'example', level: 'Going further',
+    summary: 'The woman caught in adultery: a whole story some manuscripts have and others do not.',
+    learn: ['Working through a variant step by step', 'Why “earliest” is not always “original”', 'Testing claims about an author’s style', 'Wording a fair footnote'],
+    before: 'guide/weighing-evidence/', related: ['guide/examples/james-2-20/', 'guide/which-variants-matter/', 'guide/weighing-evidence/'], verses: ['John 7:53–8:11'],
   },
   {
     path: 'guide/examples/romans-16-7/', cover: 'Romans 16:7', section: 'example', level: 'Going further',

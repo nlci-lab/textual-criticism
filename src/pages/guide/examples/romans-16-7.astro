@@ -1,10 +1,12 @@
 ---
+// Worked example in the step-by-step format: the same order the guides teach.
 import Context from '../../../layouts/Context.astro';
 import { url } from '../../../lib/url';
 import ExampleStyles from '../../../components/ExampleStyles.astro';
 import Thumb from '../../../components/Thumb.astro';
 import Lightbox from '../../../components/Lightbox.astro';
 const w = (id: string) => url(`w/${id}/`);
+const g = (id: string) => url(`glossary/#${id}`);
 const sources = [
   { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism Examples", example 3: Romans 16:7. Used with permission.', checked: true },
   { cite: 'United Bible Societies, The Greek New Testament, 5th ed., apparatus at Romans 16:7 (as reproduced in the Hemphill material above).', checked: true },
@@ -12,89 +14,153 @@ const sources = [
   { cite: 'Roger L. Omanson, A Textual Guide to the Greek New Testament, on Romans 16:7 (as quoted in the Hemphill material).', checked: true },
   { cite: 'NET Bible, study note on Romans 16:7, citing D. Moo, Romans (NICNT) (as quoted in the Hemphill material).', checked: true },
 ];
+const A = '<span class="siglum" lang="he" dir="ltr">א</span>';
 ---
 <Context title="Romans 16:7: Junia or Junias?" label="Guide" lastChecked="2026-11-20" sources={sources}
   description="A worked example where the letters are certain but the accent, and so the person's gender, is debated.">
   <div class="case">
-  <p class="lead">Paul greets "Andronicus and Junia" (or "Junias"), who are "outstanding among the apostles". Junia is a woman's name; Junias would be a man's. Many languages mark names for gender, so the translator has to choose.</p>
+  <p class="lead">Paul greets "Andronicus and Junia" (or "Junias"), who are "outstanding among the apostles". Junia is a woman's name; Junias would be a man's. Many languages mark names for gender, so the translator has to choose. Here we work through it in the same order the <a href={url('guide/weighing-evidence/')}>weighing guide</a> teaches.</p>
 
-  <div class="banner">
-    <span class="ref">Romans 16:7 · UBS5 text</span>
-    <p class="greek" lang="grc">ἀσπάσασθε Ἀνδρόνικον καὶ <mark>Ἰουνίαν</mark> τοὺς συγγενεῖς μου καὶ συναιχμαλώτους μου, οἵτινές εἰσιν ἐπίσημοι ἐν τοῖς ἀποστόλοις …</p>
-    <p class="gloss"><span lang="grc">Ιουνιαν</span> is accusative (the object form) and can come from two names. Only the accent tells them apart: <span lang="grc">Ἰουνίαν</span> from the woman's name <span lang="grc">Ἰουνία</span> (Junia), or <span lang="grc">Ἰουνιᾶν</span> from the man's name <span lang="grc">Ἰουνιᾶς</span> (Junias).</p>
-  </div>
-  <p>Accents are small marks above Greek letters. Early manuscripts, written in capitals, usually had none; they were added later.</p>
+  <ol class="route" aria-label="The steps">
+    <li><a href="#step-1-find-the-problem">Find the problem</a></li>
+    <li><a href="#step-2-list-the-readings">List the readings</a></li>
+    <li><a href="#step-3-external-evidence">External evidence</a></li>
+    <li><a href="#step-4-internal-evidence">Internal evidence</a></li>
+    <li><a href="#step-5-weigh-it-up">Weigh it up</a></li>
+    <li><a href="#step-6-decide-for-your-translation">Decide</a></li>
+  </ol>
 
-  <h2>The readings</h2>
-  <ul class="readings">
-    <li class="reading printed">
-      <p class="form" lang="grc">Ἰουνίαν</p>
-      <p class="meaning">with the feminine accent</p>
-      <p class="wits">Later correctors of <a href={w('vaticanus')}>B</a> and <a href={w('bezae')}>D</a>, Ψ (probably), many minuscules, <a href={w('byz')}>Byz</a>, Lect, Chrysostom</p>
-    </li>
-    <li class="reading">
-      <p class="form" lang="grc">ΙΟΥΝΙΑΝ</p>
-      <p class="meaning">without accents</p>
-      <p class="wits"><a href={w('sinaiticus')}><span class="siglum" lang="he" dir="ltr">א</span></a>, <a href={w('alexandrinus')}>A</a>, the first hand of B, C, the first hand of D, F, G, P</p>
-    </li>
-    <li class="reading">
-      <p class="form" lang="grc">Ἰουλίαν</p>
-      <p class="meaning">"Julia" (a woman's name)</p>
-      <p class="wits"><a href={w('p46')}>𝔓⁴⁶</a>, minuscule 6, some Latin, Bohairic Coptic, Ethiopic, Jerome</p>
-    </li>
-  </ul>
-  <p>No manuscript in the UBS5 apparatus has the masculine accent. The apparatus lists "Junias" only for some modern translations.</p>
-
-  <div class="figure">
-    <Thumb file="img/guides/ex-p46-romans-16.webp" width={900} height={1297}
-      alt="A papyrus page of Greek capitals from Romans 16; about eleven lines down it reads ΚΑΙ ΙΟΥΛΙΑΝ, 'and Julia'."
-      caption="𝔓⁴⁶, Romans 16 (leaf 11 verso). Image: CNTR. Public domain in the United States (Bridgeman v. Corel, 1999); use may be restricted elsewhere." />
-    <p>𝔓⁴⁶ at Romans 16. About eleven lines down it reads <span lang="grc">ΙΟΥΛΙΑΝ</span>, "Julia". Image: CNTR. Public domain in the United States (Bridgeman v. Corel, 1999); use may be restricted elsewhere.</p>
-  </div>
-
-  <h2>What UBS5 prints</h2>
-  <div class="verdict">
-    <a class="badge" href={url('glossary/#rating')} aria-label="Rating A: what the letters mean">{'{A}'}</a>
-    <div>
-      <p>The spelling is settled. UBS5 gives <span lang="grc">Ἰουνιαν</span> an {'{A}'} rating. Metzger and Omanson both say the committee agreed on the letters (Junia/Junias, not Julia), but the {'{A}'} does not decide the accent.</p>
-      <p>"Julia" has one early papyrus and little other support, and may be a slip influenced by the Julia in verse 15.</p>
+  <section class="step">
+    <span class="n">Step 1</span>
+    <h2 id="step-1-find-the-problem">Find the problem</h2>
+    <p class="ask">What exactly differs between the manuscripts?</p>
+    <div class="banner">
+      <span class="ref">Romans 16:7 · UBS5 text</span>
+      <p class="greek" lang="grc">ἀσπάσασθε Ἀνδρόνικον καὶ <mark>Ἰουνίαν</mark> τοὺς συγγενεῖς μου καὶ συναιχμαλώτους μου, οἵτινές εἰσιν ἐπίσημοι ἐν τοῖς ἀποστόλοις …</p>
+      <p class="gloss">"Greet Andronicus and <strong>Junia</strong>, my relatives and fellow prisoners, who are outstanding among the apostles …"</p>
     </div>
-  </div>
+    <p>There are two questions here, and it helps to keep them apart:</p>
+    <ol>
+      <li><strong>The letters.</strong> Most manuscripts have <span lang="grc">ΙΟΥΝΙΑΝ</span>; a few have <span lang="grc">ΙΟΥΛΙΑΝ</span>, "Julia".</li>
+      <li><strong>The accent.</strong> <span lang="grc">Ιουνιαν</span> is the object form of two possible names. Only the accent tells them apart: <span lang="grc">Ἰουνίαν</span> from the woman's name <span lang="grc">Ἰουνία</span> (Junia), or <span lang="grc">Ἰουνιᾶν</span> from the man's name <span lang="grc">Ἰουνιᾶς</span> (Junias).</li>
+    </ol>
+    <p>Accents are small marks above Greek letters. Early manuscripts, written in capitals, usually had none; they were added later. So the earliest witnesses can answer the first question but not the second.</p>
+  </section>
 
-  <h2>Weighing the accent</h2>
-  <p>Metzger reports that the committee itself was divided on the accent.</p>
-  <div class="weigh">
-    <section class="side">
-      <h3>For Junias (a man)</h3>
-      <ul>
-        <li>Some committee members thought it unlikely that a woman would be called one of the "apostles". They took Junias as a short form of the man's name Junianus.</li>
-        <li>The New Testament names no other woman apostle. Hemphill notes that this can be seen either as a fair argument from Paul's other writings or as a circular one.</li>
-      </ul>
-    </section>
-    <section class="side">
-      <h3>For Junia (a woman)</h3>
-      <ul>
-        <li>The Latin woman's name Junia appears more than 250 times in inscriptions from Rome alone. Metzger and Omanson say the man's name Junias is not found anywhere; the NET note, following Moo, knows of one instance, in Epiphanius.</li>
-        <li>When scribes began to add accents, they wrote the feminine form.</li>
-        <li>Several other pairs in this chapter are husband and wife, such as Prisca and Aquila (verse 3). Verse 12 pairs two women, though, so this does not prove much.</li>
-      </ul>
-    </section>
-  </div>
-  <p>The words that follow, "relatives" and "fellow prisoners", are masculine plural in Greek. Omanson notes that they can describe two men or a man and a woman.</p>
-
-  <h2>Printed editions and translations</h2>
-  <p>Before the third printing of the fourth edition, the UBS text accented the name as Junias; it now has Junia. Most printed Textus Receptus editions have no accents; Scrivener's 1881 edition has the masculine. The KJV has "Junia". English translations differ: NIV 1984, NASB and NJB have "Junias", for example, while NIV 2011, ESV, NRSV and NET have "Junia".</p>
-  <p>Hemphill observes that translations have shifted over time, and that a reader's views about women in ministry can shape how the evidence is weighed. His own view is that we cannot be sure, but that "Junia" is somewhat more likely, because the earliest accented manuscripts have it and the woman's name was more common.</p>
-
-  <aside class="translator">
-    <h2>For the translator</h2>
-    <ul>
-      <li>If your language can give the name without marking gender, that stays closest to what the early manuscripts show.</li>
-      <li>If you must choose, the textual evidence, as far as it goes, leans to Junia. A footnote can give the other form.</li>
-      <li>Think about how readers and churches in your context will receive the choice.</li>
-      <li>If you hold a strong view on the wider question, ask a team member with a different view to review your decision.</li>
+  <section class="step">
+    <span class="n">Step 2</span>
+    <h2 id="step-2-list-the-readings">List the readings</h2>
+    <p class="ask">Which readings are there, and who supports each one?</p>
+    <ul class="readings">
+      <li class="reading printed">
+        <span class="tag">UBS5 text</span>
+        <p class="form" lang="grc">Ἰουνίαν</p>
+        <p class="meaning">with the feminine accent: Junia</p>
+        <p class="wits">Later correctors of <a href={w('vaticanus')}>B</a> and <a href={w('bezae')}>D</a>, Ψ (probably), many minuscules, <a href={w('byz')}>Byz</a>, Lect, Chrysostom</p>
+      </li>
+      <li class="reading">
+        <p class="form" lang="grc">ΙΟΥΝΙΑΝ</p>
+        <p class="meaning">without accents: Junia or Junias</p>
+        <p class="wits"><a href={w('sinaiticus')}><Fragment set:html={A} /></a>, <a href={w('alexandrinus')}>A</a>, the first hand of B, C, the first hand of D, F, G, P</p>
+      </li>
+      <li class="reading">
+        <p class="form" lang="grc">Ἰουλίαν</p>
+        <p class="meaning">"Julia" (a woman's name)</p>
+        <p class="wits"><a href={w('p46')}>𝔓⁴⁶</a>, minuscule 6, some Latin, Bohairic Coptic, Ethiopic, Jerome</p>
+      </li>
     </ul>
-  </aside>
+    <p>No manuscript in the UBS5 apparatus has the masculine accent. The apparatus lists "Junias" only for some modern translations.</p>
+    <div class="figure">
+      <Thumb file="img/guides/ex-p46-romans-16.webp" width={900} height={1297}
+        alt="A papyrus page of Greek capitals from Romans 16; about eleven lines down it reads ΚΑΙ ΙΟΥΛΙΑΝ, 'and Julia'."
+        caption="𝔓⁴⁶, Romans 16 (leaf 11 verso). Image: CNTR. Public domain in the United States (Bridgeman v. Corel, 1999); use may be restricted elsewhere." />
+      <p>𝔓⁴⁶ at Romans 16. About eleven lines down it reads <span lang="grc">ΙΟΥΛΙΑΝ</span>, "Julia". Image: CNTR. Public domain in the United States (Bridgeman v. Corel, 1999); use may be restricted elsewhere.</p>
+    </div>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 3</span>
+    <h2 id="step-3-external-evidence">External evidence</h2>
+    <p class="ask">What do the witnesses themselves tell us? Take the six questions in order; number comes last.</p>
+    <h3>The letters: Junia(s) or Julia?</h3>
+    <table class="qtable">
+      <thead><tr><th scope="col">Question</th><th scope="col">ΙΟΥΝΙΑΝ</th><th scope="col">ΙΟΥΛΙΑΝ, "Julia"</th><th scope="col">Leans</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">How old?</th><td data-h="ΙΟΥΝΙΑΝ">The great 4th- and 5th-century codices</td><td data-h="Julia">𝔓⁴⁶, about 200</td><td data-h="Leans"><span class="lean b">Julia</span></td></tr>
+        <tr><th scope="row">From where?</th><td data-h="ΙΟΥΝΙΑΝ">Greek manuscripts east and west</td><td data-h="Julia">One papyrus, some Latin, Bohairic, Ethiopic</td><td data-h="Leans"><span class="lean a">Junia(s)</span></td></tr>
+        <tr><th scope="row">How careful?</th><td data-h="ΙΟΥΝΙΑΝ"><Fragment set:html={A} />, A, B, C: carefully copied</td><td data-h="Julia">One early papyrus</td><td data-h="Leans"><span class="lean even">even</span></td></tr>
+        <tr><th scope="row">How widespread?</th><td data-h="ΙΟΥΝΙΑΝ">Almost all Greek manuscripts</td><td data-h="Julia">Scattered</td><td data-h="Leans"><span class="lean a">Junia(s)</span></td></tr>
+        <tr><th scope="row">Independent?</th><td data-h="ΙΟΥΝΙΑΝ">Many separate lines of copying</td><td data-h="Julia">One Greek papyrus and one minuscule; the rest are translations</td><td data-h="Leans"><span class="lean a">Junia(s)</span></td></tr>
+        <tr><th scope="row">How many?</th><td data-h="ΙΟΥΝΙΑΝ">Very many</td><td data-h="Julia">Few</td><td data-h="Leans"><span class="lean a">Junia(s)</span></td></tr>
+      </tbody>
+    </table>
+    <h3>The accent: Junia or Junias?</h3>
+    <p>The earliest manuscripts have no accents, so they cannot vote. When scribes began to add accents, they wrote the feminine form, Junia. No manuscript in the UBS5 apparatus has the masculine.</p>
+    <p class="sofar">The letters are settled: <span lang="grc">ΙΟΥΝΙΑΝ</span>, not Julia. For the accent, the only manuscript evidence points to Junia, but it is later than Paul by several centuries.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 4</span>
+    <h2 id="step-4-internal-evidence">Internal evidence</h2>
+    <p class="ask">Which reading best explains how the others arose? And which name did Paul most likely mean?</p>
+    <h3>What would a scribe do?</h3>
+    <p>"Julia" may be a slip influenced by the Julia greeted in verse 15. It is harder to see why anyone would change a familiar Julia into a rare Junia.</p>
+    <h3>Which name did Paul mean?</h3>
+    <p>Metzger reports that the UBS committee itself was divided on the accent.</p>
+    <div class="weigh">
+      <section class="side">
+        <h3>For Junias (a man)</h3>
+        <ul>
+          <li>Some committee members thought it unlikely that a woman would be called one of the "apostles". They took Junias as a short form of the man's name Junianus.</li>
+          <li>The New Testament names no other woman apostle. Hemphill notes that this can be seen either as a fair argument from Paul's other writings or as a circular one.</li>
+        </ul>
+      </section>
+      <section class="side">
+        <h3>For Junia (a woman)</h3>
+        <ul>
+          <li>The Latin woman's name Junia appears more than 250 times in inscriptions from Rome alone. Metzger and Omanson say the man's name Junias is not found anywhere; the NET note, following Moo, knows of one instance, in Epiphanius.</li>
+          <li>Several other pairs in this chapter are husband and wife, such as Prisca and Aquila (verse 3). Verse 12 pairs two women, though, so this does not prove much.</li>
+        </ul>
+      </section>
+    </div>
+    <p>The words that follow, "relatives" and "fellow prisoners", are masculine plural in Greek. Omanson notes that they can describe two men or a man and a woman, so they do not decide it.</p>
+    <p class="sofar">"Julia" is probably a slip. On the accent, the name evidence favours Junia; the argument for Junias rests mainly on a view about who could be an apostle.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 5</span>
+    <h2 id="step-5-weigh-it-up">Weigh it up</h2>
+    <p class="ask">Putting the steps together, which reading came first, and how sure can we be?</p>
+    <ul class="scale">
+      <li><b>The letters</b><span class="lean a">ΙΟΥΝΙΑΝ</span><span>Almost all witnesses; Julia is explained as a slip.</span></li>
+      <li><b>Accent: manuscripts</b><span class="lean a">Junia</span><span>The earliest accented copies are feminine; none are masculine.</span></li>
+      <li><b>Accent: the name</b><span class="lean a">Junia</span><span>A common woman's name; the man's name is almost unknown.</span></li>
+      <li><b>Accent: the context</b><span class="lean even">open</span><span>The grammar fits either; "among the apostles" is read both ways.</span></li>
+    </ul>
+    <div class="verdict">
+      <a class="badge" href={g('rating')} aria-label="Rating A: what the letters mean">{'{A}'}</a>
+      <div>
+        <p>UBS5 gives the letters <span lang="grc">Ἰουνιαν</span> an {'{A}'} rating. Metzger and Omanson both say the committee agreed on the letters (Junia/Junias, not Julia), but the {'{A}'} does not decide the accent.</p>
+        <p>Before the third printing of the fourth edition, the UBS text accented the name as Junias; it now has Junia.</p>
+      </div>
+    </div>
+    <p>Translations have changed over time too. Most printed Textus Receptus editions have no accents; Scrivener's 1881 edition has the masculine. The KJV has "Junia". NIV 1984, NASB and NJB have "Junias", while NIV 2011, ESV, NRSV and NET have "Junia". Hemphill observes that a reader's views about women in ministry can shape how the evidence is weighed. His own view is that we cannot be sure, but that "Junia" is somewhat more likely.</p>
+  </section>
+
+  <section class="step">
+    <span class="n">Step 6</span>
+    <h2 id="step-6-decide-for-your-translation">Decide for your translation</h2>
+    <p class="ask">What will you print, and what will you tell your readers?</p>
+    <aside class="translator">
+      <h3>For the translator</h3>
+      <ul>
+        <li>If your language can give the name without marking gender, that stays closest to what the early manuscripts show.</li>
+        <li>If you must choose, the textual evidence, as far as it goes, leans to Junia. A footnote can give the other form.</li>
+        <li>Think about how readers and churches in your context will receive the choice.</li>
+        <li>If you hold a strong view on the wider question, ask a team member with a different view to review your decision.</li>
+      </ul>
+    </aside>
+  </section>
   </div>
   <Lightbox />
   <ExampleStyles />

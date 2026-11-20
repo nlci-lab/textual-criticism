@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { url } from '../lib/url';
 interface Props { title: string; description?: string; nav?: string }
-const { title, description = 'What each witness in the UBS Greek New Testament apparatus is, and why it matters.', nav } = Astro.props;
+const { title, description = 'An introduction to textual criticism for Bible translators and consultants: the manuscripts, the UBS apparatus, and how to weigh the evidence.', nav } = Astro.props;
 const links = [
   ['', 'Look up'],
   ['witnesses/', 'All witnesses'],
@@ -30,7 +30,7 @@ const links = [
 <body>
   <header class="site-head">
     <div class="wrap">
-      <a class="brand" href={url()}>UBS Witnesses</a>
+      <a class="brand" href={url()}>Textual Criticism</a>
       <nav aria-label="Main">
         {links.map(([p, l]) => <a href={url(p)} aria-current={nav === p ? 'page' : undefined}>{l}</a>)}
       </nav>
@@ -40,7 +40,7 @@ const links = [
   <main class="wrap"><slot /></main>
   <footer class="site-foot">
     <div class="wrap">
-      <p>An NLCI field guide for Bible translators. Text CC BY-SA 4.0; code MIT. Images stay under their holders' terms and are linked, not copied.</p>
+      <p>An introductory resource on textual criticism for Bible translators and consultants, from NLCI. Text CC BY-SA 4.0; code MIT. Images stay under their holders' terms and are linked, not copied.</p>
     </div>
   </footer>
   <script is:inline>

@@ -6,9 +6,16 @@ const index = await aliasIndex();
 const keys = Object.fromEntries([...index].map(([k, v]) => [k, v.map((e) => e.id)]));
 const ws = (await allWitnesses()).map((w) => ({ id: w.id, s: w.siglum, n: w.names[0] + (w.siglum_scope ? ` (${w.siglum_scope})` : ''), l: w.siglum_lang ?? '' }));
 ---
-<Base title="UBS Witnesses" nav="">
+<Base title="Textual Criticism" nav="">
   <div class="home prose">
-    <h1>Look up a witness</h1>
+    <h1>Textual Criticism</h1>
+    <p class="intro">An introduction for Bible translators and consultants. The New Testament comes to us in thousands of handwritten copies, and they differ. Here you can learn how those differences arose, how the UBS Greek New Testament reports them, and how to weigh them in your work.</p>
+    <nav class="paths" aria-label="Where to start">
+      <a href={url('guide/apparatus/')}><strong>Read an apparatus entry</strong><span>John 1:18, piece by piece</span></a>
+      <a href={url('guide/which-variants-matter/')}><strong>Which variants matter</strong><span>Not all differences weigh the same</span></a>
+      <a href={url('background/nt-text/')}><strong>How we got the New Testament</strong><span>From copies to printed editions</span></a>
+    </nav>
+    <h2 class="lookup-h">Look up a witness</h2>
     <p class="muted">Type a siglum as you see it in the Paratext UBS apparatus, or paste a run of them.</p>
     <form class="search" id="lookup" action={url('witnesses/')} role="search">
       <label class="label" for="q">Siglum, GA number or name</label>
@@ -24,8 +31,7 @@ const ws = (await allWitnesses()).map((w) => ({ id: w.id, s: w.siglum, n: w.name
       <ul class="results" id="results" aria-live="polite"></ul>
     </form>
     <noscript><p>Search needs JavaScript. Use the <a href={url('witnesses/')}>list of all witnesses</a>, or go straight to an address like <code>{url('p66/')}</code>.</p></noscript>
-    <h2>Start here</h2>
-    <p><a href={url('guide/apparatus/')}>How to read a UBS apparatus entry</a>: John 1:18, taken apart piece by piece.</p>
+    <p class="more-links">More: <a href={url('guide/')}>all guides</a> · <a href={url('background/')}>background</a> · <a href={url('witnesses/')}>all witnesses</a> · <a href={url('glossary/')}>glossary</a></p>
   </div>
   <script type="application/json" id="alias-data" set:html={JSON.stringify({ keys, ws })}></script>
 </Base>
@@ -87,3 +93,14 @@ const ws = (await allWitnesses()).map((w) => ({ id: w.id, s: w.siglum, n: w.name
   const pre = new URLSearchParams(location.search).get('q');
   if (pre) { q.value = pre; show(); }
 </script>
+
+<style>
+  .intro { font-size: var(--step-1); line-height: 1.5; margin: 0.5rem 0 1.25rem; }
+  .paths { display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); margin: 0 0 2rem; }
+  .paths a { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.8rem 0.9rem; border-radius: 10px; background: var(--paper-2); box-shadow: 0 0 0 1px var(--rule); text-decoration: none; color: var(--ink); }
+  .paths a:hover, .paths a:focus-visible { box-shadow: 0 0 0 1px var(--rubric); }
+  .paths strong { font-family: var(--serif); font-size: 1.05rem; color: var(--rubric); }
+  .paths span { font: 0.8125rem/1.4 var(--sans); color: var(--ink-2); }
+  .lookup-h { margin-top: 0; }
+  .more-links { margin-top: 1.5rem; font-family: var(--sans); font-size: var(--step--1); }
+</style>

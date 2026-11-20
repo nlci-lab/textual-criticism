@@ -1,6 +1,6 @@
-# UBS Witnesses: a field guide to the UBS apparatus
+# Textual Criticism: an introductory resource for Bible translators
 
-A static site for Bible translators who meet sigla like `א`, `B`, `𝔓⁶⁶`, `ƒ¹³` or `Byz` in the UBS Greek New Testament apparatus in Paratext and need to know, in under a minute, what each witness is and why it matters.
+An introductory resource on textual criticism for Bible translators and consultants. It started as a guide for those who meet sigla like `א`, `B`, `𝔓⁶⁶`, `ƒ¹³` or `Byz` in the UBS Greek New Testament apparatus in Paratext and need to know, in under a minute, what each witness is and why it matters.
 
 Live (after review): https://nlci-lab.github.io/textual-criticism/
 

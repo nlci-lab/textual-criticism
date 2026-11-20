@@ -4,7 +4,7 @@ kind: group
 siglum: "Byz"
 names: ["Byzantine text"]
 aliases: ["Byzantine", "Byzantine text", "Byzpt", "Byz pt"]
-lead: "Byz is not one manuscript. It stands for the reading of most Byzantine manuscripts, the form of the text copied most often in the Greek church from about the 9th century on."
+lead: "Byz is not one manuscript. It stands for the reading of most Byzantine manuscripts, the form of the text that was copied most often in the Greek church from about the 7th century on (Metzger and Ehrman, p. 280)."
 key_units:
   - ref: "John 1:18"
     note: "Byz reads ὁ μονογενὴς υἱός (\"the only Son\"), with A, C³, Wˢᵘᵖᵖ, Δ, Θ, Ψ and others. The UBS text prints μονογενὴς θεός."

@@ -1,32 +1,124 @@
 ---
+// Witness gallery: every profile as a tile, in UBS citation order, with filters and a find box.
+// Without JavaScript all tiles show and the filter bar stays hidden.
 import Base from '../layouts/Base.astro';
+import WitnessTile from '../components/WitnessTile.astro';
 import { allWitnesses } from '../lib/witnesses';
-import { url } from '../lib/url';
+import { GROUPS } from '../lib/coverage';
 const ws = await allWitnesses();
-type Wit = (typeof ws)[number];
-const GROUPS: [string, (w: Wit) => boolean][] = [
-  ['Papyri', (w) => w.greek_ms?.category === 'papyrus'],
-  ['Majuscules', (w) => w.greek_ms?.category === 'majuscule'],
-  ['Minuscules', (w) => w.greek_ms?.category === 'minuscule'],
-  ['Lectionaries', (w) => w.greek_ms?.category === 'lectionary'],
-  ['Group readings', (w) => w.kind === 'group'],
+
+const KINDS: [string, string][] = [
+  ['papyrus', 'Papyri'], ['majuscule', 'Majuscules'], ['minuscule', 'Minuscules'], ['lectionary', 'Lectionaries'],
+  ['version', 'Versions'], ['father', 'Church fathers'], ['group', 'Text groups'],
 ];
+const present = new Set(ws.map((w) => w.greek_ms?.category ?? w.kind));
+const kinds = KINDS.filter(([k]) => present.has(k));
+const DATES: [string, string][] = [['early', 'Before 300'], ['mid', '300–499'], ['late', '500 and later']];
 ---
-<Base title="All witnesses" nav="witnesses/">
-  <h1 class="page-h1">All witnesses</h1>
-  <p class="muted prose">In the order the UBS apparatus cites them. Five sample profiles so far; the rest follow after review.</p>
-  {GROUPS.map(([label, f]) => {
-    const list = ws.filter(f);
-    return list.length > 0 && (
-      <section class="prose">
-        <h2>{label}</h2>
-        <ul class="results">
-          {list.map((w) => (
-            <li><a href={url(`w/${w.id}/`)}><span class="siglum" lang={w.siglum_lang}>{w.siglum}</span><span class="r-name">{w.names[0]} {w.date && <span class="muted small">· {w.date.label}</span>}</span></a></li>
-          ))}
-        </ul>
-      </section>
-    );
-  })}
+<Base title="Witnesses" nav="witnesses/" description="Every manuscript and text group the site profiles, with filters by kind, date and contents.">
+  <div class="g-head">
+    <p class="label">Witnesses</p>
+    <h1>Manuscripts and text groups</h1>
+    <p class="muted g-intro">Every witness the site profiles, in the order the UBS apparatus cites them. Filter by kind, date or the books a witness contains, or type a siglum. More profiles follow after review.</p>
+  </div>
+
+  <div class="g-body">
+    <div class="filters" id="filters" role="group" aria-label="Filter witnesses" hidden>
+      <label class="find">
+        <span class="visually-hidden">Find a witness</span>
+        <input id="wq" type="search" placeholder="B, 03, 𝔓66, Bezae…" autocomplete="off" autocapitalize="off" spellcheck="false" />
+      </label>
+      <div class="frow"><p class="label">Kind</p>
+        <button class="chip" data-f="kind" data-v="" aria-pressed="true">All</button>
+        {kinds.map(([k, l]) => <button class="chip" data-f="kind" data-v={k} aria-pressed="false">{l}</button>)}
+      </div>
+      <div class="frow"><p class="label">Date</p>
+        <button class="chip" data-f="date" data-v="" aria-pressed="true">Any</button>
+        {DATES.map(([k, l]) => <button class="chip" data-f="date" data-v={k} aria-pressed="false">{l}</button>)}
+      </div>
+      <div class="frow"><p class="label">Contains</p>
+        <button class="chip" data-f="group" data-v="" aria-pressed="true">Any</button>
+        {GROUPS.map((g) => <button class="chip" data-f="group" data-v={g.key} aria-pressed="false">{g.label}</button>)}
+      </div>
+      <p class="count" aria-live="polite"><span id="n">{ws.length}</span> of {ws.length} shown <button class="reset" id="reset" type="button">Clear filters</button></p>
+    </div>
+
+    <div class="grid" id="grid">
+      {ws.map((w) => <WitnessTile w={w} />)}
+    </div>
+    <p class="none" id="none" hidden>No witness matches. <button class="reset" type="button" data-reset>Clear filters</button></p>
+  </div>
 </Base>
-<style>.page-h1 { margin-top: 1.5rem; }</style>
+
+<script>
+  const root = document.getElementById('filters')!;
+  root.hidden = false;
+  const tiles = [...document.querySelectorAll<HTMLElement>('#grid .tile')];
+  const q = document.getElementById('wq') as HTMLInputElement;
+  const n = document.getElementById('n')!;
+  const none = document.getElementById('none')!;
+  const st: Record<string, string> = { kind: '', date: '', group: '' };
+  const fold = (x: string) => x.normalize('NFKC').toLowerCase().replace(/\s+/g, '');
+
+  function dateBand(from: number) { return from < 300 ? 'early' : from < 500 ? 'mid' : 'late'; }
+  function apply() {
+    const t = fold(q.value);
+    let shown = 0;
+    for (const el of tiles) {
+      const d = el.dataset;
+      const ok = (!st.kind || d.kind === st.kind)
+        && (!st.date || (d.from !== undefined && d.from !== '' && dateBand(+d.from) === st.date))
+        && (!st.group || (d.groups ?? '').split(' ').includes(st.group))
+        && (!t || (d.search ?? '').split(' | ').some((s) => s.replace(/\s+/g, '').includes(t)));
+      el.hidden = !ok;
+      if (ok) shown++;
+    }
+    n.textContent = String(shown);
+    none.hidden = shown > 0;
+  }
+  function set(f: string, v: string) {
+    st[f] = v;
+    root.querySelectorAll<HTMLButtonElement>(`[data-f="${f}"]`).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+  }
+  root.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-f]');
+    if (b) { set(b.dataset.f!, b.dataset.v!); apply(); }
+  });
+  function reset() { q.value = ''; Object.keys(st).forEach((f) => set(f, '')); apply(); }
+  document.getElementById('reset')!.addEventListener('click', reset);
+  document.querySelector('[data-reset]')!.addEventListener('click', reset);
+  q.addEventListener('input', apply);
+  // ?q= from the old home lookup keeps working.
+  const pre = new URLSearchParams(location.search).get('q');
+  if (pre) q.value = pre;
+  apply();
+</script>
+
+<style>
+  .g-head { padding: 1.75rem 0 1rem; }
+  .g-intro { max-width: var(--measure); }
+  .filters[hidden] { display: none; }
+  .filters { display: grid; gap: 0.6rem; font-family: var(--sans); padding: 0.5rem 0 0.75rem; border-bottom: 1px solid var(--rule); }
+  .find input {
+    width: 100%; font: 1.05rem var(--sigla); padding: 0.65rem 0.8rem; color: var(--ink);
+    background: var(--paper); border: 1.5px solid var(--ink-2); border-radius: 8px;
+  }
+  .find input:focus { border-color: var(--rubric); outline: none; }
+  .frow { display: flex; gap: 0.4rem; align-items: center; overflow-x: auto; white-space: nowrap; padding-bottom: 2px; }
+  .frow .label { min-width: 4.75rem; margin: 0; }
+  .count { margin: 0; font-size: 0.875rem; color: var(--ink-2); }
+  .reset { font: inherit; background: none; border: 0; color: var(--rubric); text-decoration: underline; cursor: pointer; padding: 0 0 0 0.5rem; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; padding: 1.25rem 0 1rem; }
+  .grid :global(.tile[hidden]) { display: none; }
+  .none { font-family: var(--sans); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; } }
+  @media (min-width: 1000px) {
+    .g-body { display: grid; grid-template-columns: 14.5rem minmax(0, 1fr); gap: 2rem; align-items: start; }
+    .filters { position: sticky; top: 1rem; border: 0; padding: 0; }
+    .frow { flex-wrap: wrap; overflow: visible; white-space: normal; }
+    .frow .label { min-width: 100%; margin-top: 0.5rem; }
+    .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); padding-top: 0; }
+  }
+  @media (min-width: 1250px) { .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+</style>

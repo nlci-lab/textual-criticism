@@ -11,6 +11,7 @@ const sources = [
   { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005).', checked: false },
   { cite: 'D. C. Parker, An Introduction to the New Testament Manuscripts and their Texts (Cambridge University Press, 2008).', checked: false },
   { cite: 'Larry W. Hurtado, The Earliest Christian Artifacts: Manuscripts and Christian Origins (Eerdmans, 2006).', checked: false },
+  { cite: 'Vellum: Society of American Archivists, Dictionary of Archives Terminology, "vellum" (dictionary.archivists.org/entry/vellum.html); U.S. National Archives, "Paper: Vellum" (archives.gov/preservation/formats/paper-vellum.html). Accessed 2026-11-20.', checked: true },
 ];
 
 const PD_US = { text: 'Public domain in the United States', href: 'https://scholar.google.com/scholar_case?case=5068002142390131270', law: 'Bridgeman v. Corel, 1999' };
@@ -71,7 +72,7 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
       <Thumb file="img/ms/m20005-179v.webp" width={900} height={1102} alt="A parchment page with a single column of Greek capital letters." caption="Codex Bezae (D), Luke 5:38–6:9 (parchment)" />
       <div class="plate-label">
         <h3>Parchment</h3>
-        <p>Animal skin (sheep, goat or calf), scraped and dried under tension. Very fine parchment is called <em>vellum</em>. It is strong and could be reused. From the 4th century it replaced papyrus for important books: <a href={w('sinaiticus')}><span lang="he" dir="ltr">א</span></a> and <a href={w('vaticanus')}>B</a> are parchment.</p>
+        <p>Animal skin (sheep, goat or calf), scraped and dried under tension. Parchment made from calfskin is called <a href={url('glossary/#vellum')}><em>vellum</em></a>. In practice, people often use the two words for the same thing. It is strong and could be reused. From the 4th century it replaced papyrus for important books: <a href={w('sinaiticus')}><span lang="he" dir="ltr">א</span></a> and <a href={w('vaticanus')}>B</a> are parchment.</p>
         <p class="specimen">Shown: a Greek page of <a href={w('bezae')}>Codex Bezae (D)</a>, Luke 5:38–6:9.</p>
         <p class="credit">Image: <a href="https://greekcntr.org/manuscripts/?w=m20005&v=42006004" target="_blank" rel="noopener">CNTR ↗</a>. Photo © Cambridge University Library, licensed under <a href="https://creativecommons.org/licenses/by-nc/3.0/" target="_blank" rel="noopener">CC BY-NC 3.0</a>; shown here for non-commercial teaching.</p>
       </div>

@@ -16,55 +16,48 @@ const reading = [
   description="NLCI's guidance on the Hebrew and Greek base texts: what we ask translation teams to do, and why.">
   <p class="lead">Every translation team has to decide which Hebrew and Greek text to translate from. This page sets out NLCI's guidance for its teams, from NLCI's Translation Guidelines. If you work with another organisation, check its own guidance too.</p>
 
-  <section class="policy" aria-labelledby="pol-h">
-    <h2 id="pol-h">What we ask</h2>
-    <div class="rules">
-      <article>
-        <p class="k">New Testament</p>
-        <p>Translate from the latest critical text of the UBS Greek New Testament or Nestle–Aland (UBS 4th or 5th, NA 27th or 28th edition). NLCI prefers this to the <a href={url('w/byz/')}>Majority Text</a>.</p>
-      </article>
-      <article>
-        <p class="k">Old Testament</p>
-        <p>Translate from the Masoretic Text as printed in Biblia Hebraica Stuttgartensia. Where NLCI judges a Masoretic reading doubtful, it may follow another text instead. The Guidelines give Psalm 22:15–16 as an example.</p>
-      </article>
-      <article>
-        <p class="k">Passages with a long tradition</p>
-        <p>Where a passage has a long tradition in the regional-language Bible, follow that Bible (the language of wider communication, or LWC). This keeps the translation acceptable to the wider church and keeps the churches united.</p>
-      </article>
-      <article>
-        <p class="k">The Review Committee decides</p>
-        <p>Each project has a Review Committee of church leaders from the community. It decides which version to use as the base text, and whether to include a passage where the regional-language Bible and the UBS critical text differ. Its members receive training in translation principles so that they can make these decisions.</p>
-      </article>
-      <article>
-        <p class="k">Theology and the text</p>
-        <p>Never change the text to fit a theological position. Where a passage is ambiguous, keep the ambiguity and let the church interpret it. If the team and the consultant cannot agree on such an issue, consult at least two other senior consultants.</p>
-      </article>
-    </div>
-  </section>
+  <nav class="brief" aria-label="In brief">
+    <p class="brief-h">In brief</p>
+    <ul>
+      <li><a href="#nt">New Testament:</a> the UBS or Nestle–Aland critical text.</li>
+      <li><a href="#ot">Old Testament:</a> the Masoretic Text in BHS, with room for other texts where it is doubtful.</li>
+      <li><a href="#tradition">Long-tradition passages:</a> follow the regional-language Bible.</li>
+      <li><a href="#rc">The Review Committee</a> decides the base text and disputed passages.</li>
+      <li><a href="#theology">Theology</a> never changes the text.</li>
+    </ul>
+  </nav>
 
-  <h2>The reasoning behind it</h2>
-  <div class="why">
-    <div class="why-card">
-      <h3>Why not the Textus Receptus?</h3>
-      <p>Erasmus, Stephanus, Beza and others built the Textus Receptus in the 16th century from the few Greek manuscripts they had, mostly copied in the 11th to 13th centuries. They chose carefully among those readings. Since then, much older manuscripts have come to light, some from the 3rd and 4th centuries. Scholars agree these are genuine. The Nestle–Aland text takes them into account, and that is the main reason it differs from the Textus Receptus.</p>
-    </div>
-    <div class="why-card">
-      <h3>Why not the Majority Text?</h3>
-      <p>The <a href={url('w/byz/')}>Majority Text</a> follows the reading found in the most manuscripts. Scribes in the Greek-speaking churches of the Byzantine world made many copies, often from a single source manuscript, so a reading in that source turned up in every copy. Most scholars therefore weigh the number of manuscripts together with their date, where they come from and how they are related. See <a href={url('guide/weighing-evidence/')}>Weighing the evidence</a>.</p>
-    </div>
-  </div>
+  <h2>What we ask</h2>
 
-  <div class="note">
-    <p class="k">How much do the differences matter?</p>
-    <p>Almost no two manuscripts agree in every detail, but most differences do not change the meaning. Scholars disagree about how much the rest matter, and how confident we can be. See <a href={url('guide/which-variants-matter/')}>Which variants deserve your attention</a>.</p>
-  </div>
+  <h3 id="nt">New Testament</h3>
+  <p>Translate from the latest critical text of the UBS Greek New Testament or Nestle–Aland (UBS 4th or 5th, NA 27th or 28th edition). NLCI prefers this to the <a href={url('w/byz/')}>Majority Text</a>.</p>
+
+  <h3 id="ot">Old Testament</h3>
+  <p>Translate from the Masoretic Text as printed in Biblia Hebraica Stuttgartensia. Where NLCI judges a Masoretic reading doubtful, it may follow another text instead. The Guidelines give Psalm 22:15–16 as an example.</p>
+
+  <h3 id="tradition">Passages with a long tradition</h3>
+  <p>Where a passage has a long tradition in the regional-language Bible, follow that Bible (the language of wider communication, or LWC). This keeps the translation acceptable to the wider church and keeps the churches united.</p>
+
+  <h3 id="rc">The Review Committee decides</h3>
+  <p>Each project has a Review Committee of church leaders from the community. It decides which version to use as the base text, and whether to include a passage where the regional-language Bible and the UBS critical text differ. Its members receive training in translation principles so that they can make these decisions.</p>
+
+  <h3 id="theology">Theology and the text</h3>
+  <p>Never change the text to fit a theological position. Where a passage is ambiguous, keep the ambiguity and let the church interpret it. If the team and the consultant cannot agree on such an issue, consult at least two other senior consultants.</p>
+
+  <h2>Why the critical text</h2>
+  <h3>Rather than the Textus Receptus</h3>
+  <p>Erasmus, Stephanus, Beza and others built the Textus Receptus in the 16th century from the few Greek manuscripts they had, mostly copied in the 11th to 13th centuries. They chose carefully among those readings. Since then, much older manuscripts have come to light, some from the 3rd and 4th centuries. Scholars agree these are genuine. The Nestle–Aland text takes them into account, and that is the main reason it differs from the Textus Receptus.</p>
+  <h3>Rather than the Majority Text</h3>
+  <p>The <a href={url('w/byz/')}>Majority Text</a> follows the reading found in the most manuscripts. Scribes in the Greek-speaking churches of the Byzantine world made many copies, often from a single source manuscript, so a reading in that source turned up in every copy. Most scholars therefore weigh the number of manuscripts together with their date, where they come from and how they are related. See <a href={url('guide/weighing-evidence/')}>Weighing the evidence</a>.</p>
+  <h3>How much the differences matter</h3>
+  <p>Almost no two manuscripts agree in every detail, but most differences do not change the meaning. Scholars disagree about how much the rest matter, and how confident we can be. See <a href={url('guide/which-variants-matter/')}>Which variants deserve your attention</a>.</p>
 
   <h2>What this means for your team</h2>
-  <ul class="todo">
+  <ol class="todo">
     <li>Before you draft, agree the base text with your Review Committee and record the decision.</li>
     <li>Where the regional-language Bible and the UBS text differ, take the question to the Review Committee. <a href={url('guide/base-texts/')}>Two Greek texts behind our Bibles</a> shows where these differences usually fall, and <a href={url('guide/which-variants-matter/')}>Which variants deserve your attention</a> helps you sort them.</li>
     <li>When you study a variant, start with the <a href={url('guide/apparatus/')}>UBS apparatus</a>, then <a href={url('guide/weighing-evidence/')}>weigh the evidence</a>.</li>
-  </ul>
+  </ol>
 
   <h2>Further reading</h2>
   <ul class="books">
@@ -73,22 +66,15 @@ const reading = [
 </Context>
 
 <style>
-  .policy { margin-top: 1.5rem; }
-  .rules { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); margin-top: 0.75rem; }
-  .rules article { padding: 0.85rem 1rem; background: var(--paper-2); border-radius: 10px; box-shadow: 0 0 0 1px var(--rule); border-top: 3px solid var(--rubric); }
-  .rules p { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
-  .k { font: 600 0.75rem/1.3 var(--sans) !important; letter-spacing: 0.06em; text-transform: uppercase; color: var(--rubric); margin-bottom: 0.35rem !important; }
-  .why { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
-  .why-card { padding: 0.9rem 1rem; border-left: 3px solid var(--ink-2); background: var(--paper-2); border-radius: 0 10px 10px 0; }
-  .why-card h3 { margin: 0 0 0.4rem; font-size: 1.05rem; }
-  .why-card p { margin: 0; font-size: 0.9375rem; line-height: 1.55; }
-  .note { margin: 1.5rem 0; padding: 0.9rem 1rem; border-radius: 10px; background: var(--warn-bg); color: var(--warn-ink); }
-  .note .k { color: var(--warn-ink); }
-  .note p { margin: 0; }
-  .note a { color: inherit; }
-  .todo { padding-left: 1.2rem; }
+  .brief { margin: 1.25rem 0 0.5rem; padding: 0.9rem 1.1rem; background: var(--paper-2); border-left: 3px solid var(--rubric); border-radius: 0 8px 8px 0; }
+  .brief-h { margin: 0 0 0.4rem; font: 600 0.75rem/1.3 var(--sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--rubric); }
+  .brief ul { margin: 0; padding-left: 1.1rem; }
+  .brief li { margin-bottom: 0.25rem; }
+  h3 { scroll-margin-top: 1rem; }
+  h3 + p { margin-top: 0.25rem; }
+  .todo { padding-left: 1.3rem; }
   .todo li { margin-bottom: 0.6rem; }
-  .todo li::marker { color: var(--rubric); }
+  .todo li::marker { color: var(--rubric); font-weight: 700; }
   .books { padding-left: 1.2rem; font-size: 0.9375rem; }
   .books li { margin-bottom: 0.4rem; }
   .au { font-weight: 600; }

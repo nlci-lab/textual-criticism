@@ -7,6 +7,14 @@ import { url } from '../../lib/url';
 import Thumb from '../../components/Thumb.astro';
 import Lightbox from '../../components/Lightbox.astro';
 const w = (id: string) => url(`w/${id}/`);
+import { allWitnesses } from '../../lib/witnesses';
+// Other manuscripts on the site made of each material (from their profiles), for the "More" links.
+const ws = await allWitnesses();
+const onMaterial = (m: string, except: string) =>
+  ws.filter((x) => x.greek_ms?.material?.value === m && x.id !== except)
+    .map((x) => ({ id: x.id, siglum: x.siglum, lang: x.siglum_lang, name: x.names[0] }));
+const morePapyrus = onMaterial('papyrus', 'p52');
+const moreParchment = onMaterial('parchment', 'bezae');
 const sources = [
   { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005).', checked: false },
   { cite: 'D. C. Parker, An Introduction to the New Testament Manuscripts and their Texts (Cambridge University Press, 2008).', checked: false },
@@ -64,6 +72,7 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
         <h3>Papyrus</h3>
         <p>Made from the papyrus reed. Thin strips were laid in two layers, one across the other, pressed and dried. It lasts only in a dry climate, which is why almost all our papyri come from Egypt. The New Testament papyri (𝔓) are the oldest group, mostly 2nd to 4th century.</p>
         <p class="specimen">Shown: <a href={w('p52')}>𝔓⁵²</a>, a fragment of John 18, mid-2nd century.</p>
+        <p class="more">More on papyrus: {morePapyrus.map((x, i) => <>{i > 0 && ', '}<a href={w(x.id)} title={x.name}><span class="siglum" lang={x.lang} dir="ltr">{x.siglum}</span></a></>)}</p>
         <p class="credit">Image: <a href="https://greekcntr.org/manuscripts/?w=m10052&v=43018031" target="_blank" rel="noopener">CNTR ↗</a>. {PD_US.text} (<a href={PD_US.href} target="_blank" rel="noopener">{PD_US.law}</a>); use may be restricted elsewhere.</p>
       </div>
     </article>
@@ -74,6 +83,7 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
         <h3>Parchment</h3>
         <p>Animal skin (sheep, goat or calf), scraped and dried under tension. Parchment made from calfskin is called <a href={url('glossary/#vellum')}><em>vellum</em></a>. In practice, people often use the two words for the same thing. It is strong and could be reused. From the 4th century it replaced papyrus for important books: <a href={w('sinaiticus')}><span lang="he" dir="ltr">א</span></a> and <a href={w('vaticanus')}>B</a> are parchment.</p>
         <p class="specimen">Shown: a Greek page of <a href={w('bezae')}>Codex Bezae (D)</a>, Luke 5:38–6:9.</p>
+        <p class="more">More on parchment: {moreParchment.map((x, i) => <>{i > 0 && ', '}<a href={w(x.id)} title={x.name}><span class="siglum" lang={x.lang} dir="ltr">{x.siglum}</span></a></>)}</p>
         <p class="credit">Image: <a href="https://greekcntr.org/manuscripts/?w=m20005&v=42006004" target="_blank" rel="noopener">CNTR ↗</a>. Photo © Cambridge University Library, licensed under <a href="https://creativecommons.org/licenses/by-nc/3.0/" target="_blank" rel="noopener">CC BY-NC 3.0</a>; shown here for non-commercial teaching.</p>
       </div>
     </article>
@@ -107,8 +117,8 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
   <p>Jewish and Greek books were usually <em>scrolls</em> (rolls). Early Christians preferred the <em>codex</em>: sheets folded and sewn into a book, like ours. Almost all New Testament manuscripts are codices. A codex can hold all four Gospels in one volume, and it is easier to find a passage in it.</p>
   <div class="diptych">
     <figure>
-      <Thumb file="img/ms/scroll-1qisa.webp" width={640} height={728} alt="Columns of Hebrew writing on a long strip of leather, part of a scroll." caption="The Great Isaiah Scroll (1QIsaᵃ), Isaiah 53 (scroll)" />
-      <figcaption><span class="tagline">Scroll</span> The Great Isaiah Scroll from Qumran (1QIsaᵃ), Isaiah 53. <span class="credit">Image: <a href={`${COMMONS}Great_Isaiah_Scroll_Ch53.jpg`} target="_blank" rel="noopener">Wikimedia Commons ↗</a>, marked public domain.</span></figcaption>
+      <Thumb file="img/ms/scroll-torah.webp" width={900} height={675} alt="An open Torah scroll on two wooden rollers, with columns of Hebrew writing." caption="A Torah scroll on vellum with wooden rollers, Eastern Europe, mid-19th century (scroll)" />
+      <figcaption><span class="tagline">Scroll</span> A Torah scroll on vellum, rolled on two wooden rollers (Eastern Europe, mid-19th century; Jewish Museum of Australia). <span class="credit">Photo: Azoma, <a href={`${COMMONS}Torah_at_the_state_library_of_Victoria.jpg`} target="_blank" rel="noopener">Wikimedia Commons ↗</a>, licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</span></figcaption>
     </figure>
     <figure>
       <Thumb file="img/ms/m10046-001r.webp" width={900} height={1765} alt="A tall papyrus leaf from a book, covered in Greek writing." caption="𝔓⁴⁶, Romans 5:17–6:4 (codex leaf)" />
@@ -202,6 +212,8 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
   .plate-label h3 { margin: 0; font-size: var(--step-1); }
   .plate-label p { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
   .plate-label .specimen { font-family: var(--sans); font-size: var(--step--1); border-top: 1px solid var(--rule); padding-top: 0.45rem; }
+  .more { font-family: var(--sans); font-size: var(--step--1); }
+  .more .siglum { font-size: 1.05em; }
   .credit { font-family: var(--sans); font-size: 0.75rem; color: var(--ink-2); line-height: 1.45; }
   @media (max-width: 26rem) { .plate { --thumb-w: 5.75rem; gap: 0.8rem; padding: 0.75rem; } .thumb-empty { width: 5.75rem; } }
 

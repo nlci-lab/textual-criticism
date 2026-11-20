@@ -73,15 +73,18 @@ function parseWords(src: string): MsWord[] {
 export function parseMes(line: string): Layer[] {
   const first: string[] = [], corr: string[] = [];
   let hasCorr = false;
-  const re = /x\{([^}]*)\}\s*\{([^}]*)\}((?:\s*[a-c]\{[^}]*\})*)/g;
+  // MES grammar: correction = (x{original} )? {edit} ( a{edit} | b{edit} | c{edit} )*
+  // With x: first hand = x{…}; without x: first hand = the first {…}. Corrected text = the last edit.
+  const re = /(?:x\{([^}]*)\}\s*)?\{([^}]*)\}((?:\s*[a-c]\{[^}]*\})*)/g;
   let last = 0, m: RegExpExecArray | null;
   while ((m = re.exec(line))) {
     const before = line.slice(last, m.index);
     first.push(before); corr.push(before);
-    first.push(m[1]);
     const later = [...m[3].matchAll(/[a-c]\{([^}]*)\}/g)].map((x) => x[1]);
-    corr.push(later.length ? later[later.length - 1] : m[2]);
-    hasCorr = true;
+    const orig = m[1] !== undefined ? m[1] : m[2];
+    const fixed = later.length ? later[later.length - 1] : m[2];
+    first.push(orig); corr.push(fixed);
+    if (orig.trim() !== fixed.trim()) hasCorr = true;
     last = re.lastIndex;
   }
   first.push(line.slice(last)); corr.push(line.slice(last));

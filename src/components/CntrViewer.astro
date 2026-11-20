@@ -21,6 +21,11 @@ const href = `https://greekcntr.org/manuscripts/?w=${encodeURIComponent(w)}&v=${
   document.querySelectorAll<HTMLAnchorElement>('.cntr-open').forEach((a) => {
     const dlg = a.parentElement!.querySelector('dialog')!;
     const frame = dlg.querySelector('iframe')!;
+    // With the dialog available, the link opens a viewer here rather than a new tab; say so to screen readers.
+    if ('showModal' in dlg) {
+      a.querySelectorAll('.vh, .visually-hidden').forEach((s) => { if (/new tab/.test(s.textContent ?? '')) s.textContent = ' (opens a page view)'; });
+      const l = a.getAttribute('aria-label'); if (l) a.setAttribute('aria-label', l.replace(/\(?opens in a new tab\)?/, '(opens a page view)'));
+    }
     a.addEventListener('click', (e) => {
       if (e.metaKey || e.ctrlKey || e.shiftKey || !('showModal' in dlg)) return;
       e.preventDefault();

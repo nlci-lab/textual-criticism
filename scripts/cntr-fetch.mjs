@@ -34,7 +34,10 @@ async function cached(file, get) {
 
 async function raw(path) {
   const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${COMMIT}/${path.split('/').map(encodeURIComponent).join('/')}`);
-  return r.ok ? r.text() : null;
+  // Every path comes from the pinned tree listing, so any failure (429, 503, …) is an error, never "not there".
+  // Throwing here stops the run before the verse JSON is written, so a bad download can't drop a witness.
+  if (!r.ok) throw new Error(`CNTR download failed: ${path} (${r.status} ${r.statusText})`);
+  return r.text();
 }
 
 async function listAll() {

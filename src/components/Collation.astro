@@ -208,6 +208,13 @@ function columns([s, e]: [number, number]) {
       dlg.showModal();
     }
 
+    // With the dialog available these links open a viewer on this page, so say that instead of "new tab".
+    function asViewer(a: HTMLAnchorElement) {
+      if (!('showModal' in dlg)) return;
+      a.querySelectorAll('.vh, .visually-hidden').forEach((s) => { if (/new tab/.test(s.textContent ?? '')) s.textContent = ' (opens a page view)'; });
+      const l = a.getAttribute('aria-label'); if (l) a.setAttribute('aria-label', l.replace(/\(?opens in a new tab\)?/, '(opens a page view)'));
+    }
+
     // Siglum details cards: hover, focus or first tap shows; Esc, tap outside or leaving hides.
     let open: { wrap: HTMLElement; card: HTMLElement } | null = null;
     let timer = 0;
@@ -236,17 +243,21 @@ function columns([s, e]: [number, number]) {
       btn.setAttribute('aria-haspopup', 'dialog');
       btn.setAttribute('aria-label', btn.getAttribute('aria-label')!.replace('(opens in a new tab)', '(opens a page view)'));
       wrap.addEventListener('mouseenter', () => { if (hover.matches) showCard(wrap); });
-      wrap.addEventListener('mouseleave', () => { if (hover.matches && open?.wrap === wrap) timer = window.setTimeout(hideCard, 250); });
-      btn.addEventListener('pointerdown', (e) => { touch = e.pointerType !== 'mouse'; });
+      // Leaving with the pointer doesn't hide a card that still holds keyboard focus; focusout handles that.
+      wrap.addEventListener('mouseleave', () => { if (hover.matches && open?.wrap === wrap && !wrap.contains(document.activeElement)) timer = window.setTimeout(hideCard, 250); });
+      // Remember at pointerdown whether this card was already open, before the focus event can open it.
+      let wasOpen = false;
+      btn.addEventListener('pointerdown', (e) => { touch = e.pointerType !== 'mouse'; wasOpen = open?.wrap === wrap; });
       btn.addEventListener('focus', () => showCard(wrap));
       wrap.addEventListener('focusout', (e) => { if (!wrap.contains(e.relatedTarget as Node)) { if (open?.wrap === wrap) hideCard(); } });
       btn.addEventListener('click', (e) => {
         // A tap first shows the card; a second tap (or the card's page link) opens the page.
-        if (touch && open?.wrap !== wrap) { e.preventDefault(); showCard(wrap); touch = false; return; }
+        if (touch && !wasOpen) { e.preventDefault(); showCard(wrap); touch = false; wasOpen = true; return; }
         touch = false;
         openPage(btn, e);
       });
-      wrap.querySelector<HTMLAnchorElement>('.sg-pagelink')?.addEventListener('click', (e) => openPage(e.currentTarget as HTMLAnchorElement, e));
+      const pl = wrap.querySelector<HTMLAnchorElement>('.sg-pagelink');
+      if (pl) { asViewer(pl); pl.addEventListener('click', (e) => openPage(e.currentTarget as HTMLAnchorElement, e)); }
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && open && !dlg.open) hideCard(); });
     document.addEventListener('pointerdown', (e) => { if (open && !open.wrap.contains(e.target as Node)) hideCard(); });

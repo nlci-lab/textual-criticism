@@ -5,11 +5,11 @@ import Lightbox from '../../components/Lightbox.astro';
 import { url } from '../../lib/url';
 const w = (id: string) => url(`w/${id}/`);
 const COMMONS = 'https://commons.wikimedia.org/wiki/File:';
-const SLIDE = 'Slide: Thomas Hemphill, EMDC 2021, used with permission.';
+const SLIDE = 'Slide: Thomas Hemphill, used with permission.';
 const fan = Array.from({ length: 11 }, (_, i) => 30 + i * 20);
 const sources = [
-  { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism for Bible translators" (slides and talk "Textual criticism 1 - NT background, theory & principles"), EMDC, November 2021: the lists of external and internal evidence, and the Codex Vaticanus and Codex Sinaiticus slide images. Used with permission.', checked: true },
-  { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism Examples" (workbook prepared for EMDC, 9 November 2021), James 2:20. Used with permission.', checked: true },
+  { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism for Bible translators" (slides and talk "Textual criticism 1 - NT background, theory & principles"): the lists of external and internal evidence, and the Codex Vaticanus and Codex Sinaiticus slide images. Used with permission.', checked: true },
+  { cite: 'Adapted from Thomas Hemphill, "New Testament Textual Criticism Examples" (workbook), James 2:20. Used with permission.', checked: true },
   { cite: 'Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed., on James 2:20 (read as quoted in the Hemphill workbook above).', checked: true },
   { cite: 'Roger L. Omanson, A Textual Guide to the Greek New Testament, on James 2:20 (read as quoted in the Hemphill workbook above).', checked: true },
   { cite: 'Codex Ephraemi Rescriptus, folio 138r: image from Wikimedia Commons (Codex_Ephraemi_Rescriptus_fol_138r.jpg), marked public domain.', checked: true },

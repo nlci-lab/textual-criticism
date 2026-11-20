@@ -4,11 +4,11 @@ import Thumb from '../../components/Thumb.astro';
 import Lightbox from '../../components/Lightbox.astro';
 import { url } from '../../lib/url';
 const sources = [
-  { cite: 'Adapted from Thomas Hemphill, "Textual Criticism 1 – NT background, theory and principles", EMDC 2021 (slides: the age of printing; Erasmus 1516; Textus Receptus). Used with permission.', checked: true },
+  { cite: 'Adapted from Thomas Hemphill, "Textual Criticism 1 – NT background, theory and principles" (slides: the age of printing; Erasmus 1516; Textus Receptus). Used with permission.', checked: true },
   { cite: 'NLCI base-text survey of Indian-language Bibles: a structural check of 15 test verses in each version\'s Paratext text, calibrated against the KJV and the Berean Study Bible (2026).', checked: true },
   { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005), on Erasmus and the Textus Receptus.', checked: false },
   { cite: 'Image: "Erasmus 1516 title page", photo by Concord, Wikimedia Commons, CC BY-SA 3.0 (https://commons.wikimedia.org/wiki/File:Erasmus_1516_title_page.JPG).', checked: true },
-  { cite: 'Images: Basel on the Rhine; Erasmus memorial in Basel Minster. Slides: Thomas Hemphill, EMDC 2021, used with permission.', checked: true },
+  { cite: 'Images: Basel on the Rhine; Erasmus memorial in Basel Minster. Slides: Thomas Hemphill, used with permission.', checked: true },
 ];
 const tests = ['Matt 17:21', 'Matt 18:11', 'Matt 23:14', 'Mark 7:16', 'Mark 9:44', 'Mark 9:46', 'Mark 11:26', 'Mark 15:28', 'Luke 17:36', 'Luke 23:17', 'John 5:4', 'Acts 8:37', 'Acts 15:34', 'Acts 28:29', 'Rom 16:24'];
 type Row = { v: string; lang: string; n: number; follows: string; jn: string; marked: string; check?: boolean };
@@ -67,12 +67,12 @@ const rows: Row[] = [
       <figcaption>Erasmus's 1516 New Testament. Photo: <a href="https://commons.wikimedia.org/wiki/File:Erasmus_1516_title_page.JPG">Concord</a>, CC BY-SA 3.0</figcaption>
     </figure>
     <figure>
-      <Thumb file="img/guides/bt-basel-rhine.webp" width={814} height={611} alt="Basel seen from a bridge over the Rhine, with the red sandstone towers of the minster on the left bank." caption="Basel on the Rhine, where Erasmus printed in 1516. Slide: Thomas Hemphill, EMDC 2021, used with permission" />
-      <figcaption>Basel, on the Rhine. Slide: Thomas Hemphill, EMDC 2021, used with permission</figcaption>
+      <Thumb file="img/guides/bt-basel-rhine.webp" width={814} height={611} alt="Basel seen from a bridge over the Rhine, with the red sandstone towers of the minster on the left bank." caption="Basel on the Rhine, where Erasmus printed in 1516. Slide: Thomas Hemphill, used with permission" />
+      <figcaption>Basel, on the Rhine. Slide: Thomas Hemphill, used with permission</figcaption>
     </figure>
     <figure>
-      <Thumb file="img/guides/bt-erasmus-memorial.webp" width={642} height={856} alt="A stone memorial in Basel Minster with a long gilded Latin inscription and the words 'Erasmus von Rotterdam, 1536' at its base." caption="Erasmus's memorial in Basel Minster. Slide: Thomas Hemphill, EMDC 2021, used with permission" />
-      <figcaption>Erasmus's memorial, Basel Minster. Slide: Thomas Hemphill, EMDC 2021, used with permission</figcaption>
+      <Thumb file="img/guides/bt-erasmus-memorial.webp" width={642} height={856} alt="A stone memorial in Basel Minster with a long gilded Latin inscription and the words 'Erasmus von Rotterdam, 1536' at its base." caption="Erasmus's memorial in Basel Minster. Slide: Thomas Hemphill, used with permission" />
+      <figcaption>Erasmus's memorial, Basel Minster. Slide: Thomas Hemphill, used with permission</figcaption>
     </figure>
   </div>
 

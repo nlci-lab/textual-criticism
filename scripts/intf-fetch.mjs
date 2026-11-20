@@ -1,9 +1,13 @@
 // Fetch INTF Kurzgefasste Liste records for GA numbers and cache them as JSON in src/data/intf/.
 // Usage: node scripts/intf-fetch.mjs P45 02 04 33 ...
+// Polite by design: one request per FETCH_DELAY_MS (default 90 s), one retry, and it stops
+// after two failures in a row, so a block is never hammered.
 // Only facts present in the Liste are kept; everything else is added by hand with its own source.
 import { mkdir, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 
+const DELAY = Number(process.env.FETCH_DELAY_MS ?? 90000);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const API = 'https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/';
 
 export function docId(ga) {
@@ -22,7 +26,7 @@ const unesc = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt
 async function fetchOne(ga) {
   const id = docId(ga);
   const url = `${API}?docID=${id}&detail=shelfInstance`;
-  for (let attempt = 1; attempt <= 6; attempt++) {
+  for (let attempt = 1; attempt <= 2; attempt++) {
     try {
       // curl, not fetch: Node's fetch times out against this server where curl does not.
       const xml = execFileSync('curl', ['-s', '-m', '90', url], { encoding: 'utf8' });
@@ -47,20 +51,25 @@ async function fetchOne(ga) {
         url, retrieved: new Date().toISOString().slice(0, 10),
       };
     } catch (e) {
-      if (attempt === 6) throw new Error(`${ga}: ${e.message}`);
-      await new Promise((r) => setTimeout(r, 20000 * attempt));
+      if (attempt === 2) throw new Error(`${ga}: ${e.message}`);
+      await new Promise((r) => setTimeout(r, DELAY));
     }
   }
 }
 
 const gas = process.argv.slice(2);
 await mkdir('src/data/intf', { recursive: true });
-for (const ga of gas) {
+let failuresInARow = 0;
+for (const [i, ga] of gas.entries()) {
+  if (i > 0) await sleep(DELAY);
   try {
     const rec = await fetchOne(ga);
-    await writeFile(`src/data/intf/${rec.docID}.json`, JSON.stringify(rec, null, 2) + '\n');
-    console.log(`${ga}\t${rec.orig}\t${rec.shelves.map((s) => `${s.institution}: ${s.shelfmark}`).join(' | ')}`);
+    await writeFile(`src/data/intf/${rec.docID}.json`, JSON.stringify(rec, null, 2) + '
+');
+    console.log(`${ga}	${rec.orig}	${rec.shelves.map((s) => `${s.institution}: ${s.shelfmark}`).join(' | ')}`);
+    failuresInARow = 0;
   } catch (e) {
     console.error(`FAILED ${e.message}`);
+    if (++failuresInARow >= 2) { console.error('Two failures in a row: stopping so we do not hammer the server.'); process.exit(1); }
   }
 }

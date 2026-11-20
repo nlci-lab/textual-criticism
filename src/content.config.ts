@@ -79,7 +79,6 @@ const witnesses = defineCollection({
       /** Set when the photo carries its own licence (e.g. printed on the image); otherwise CNTR's US public-domain note applies. */
       licence: z.object({ holder: z.string(), name: z.string(), url: z.string().url() }).optional(),
     }).optional(),
-    course_links: z.array(z.object({ module: z.string(), label: z.string() })).default([]),
     last_checked: isoDate,
     greek_ms: greekMs.optional(),
     group: group.optional(),

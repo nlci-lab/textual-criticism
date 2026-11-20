@@ -7,7 +7,7 @@
 - [ ] Each profile's `unverified` list.
 - [ ] Image licences: codexsinaiticus.org, Cambridge Digital Library, BnF Gallica, British Library images, NT.VMR terms.
 - [ ] Whether UBS5 prints `Dᵖ`, `Eᵃ`, `Kᵃᵖ` etc. with superscripts or plain letters.
-- [ ] Run the course `cod` reviewer over context pages and the top ~20 profiles.
+- [ ] Run a skeptical-reviewer pass (critical-school stance) over context pages and the top ~20 profiles.
 
 ## Next content
 
@@ -22,6 +22,6 @@
 - Paratext bridge: one-page siglum cheat sheet; URL pattern `/w/{id}/` and `/{siglum}/` for bookmarks.
 - Offline service worker.
 - Hindi and other South Asian languages (i18n is set up with `en` only).
-- Course links back to modules in the training repo.
+- A textual-criticism course hosted on this site (later; the site must not depend on or link to any external course).
 - IIIF viewing in the modal, source by source, once a licence allows it (CSNTM would need permission from manuscripts@csntm.org).
 - Search: split comma lists in version superscripts (`itᵃ,ᵃᵘʳ,ᵇ`) once versions exist.

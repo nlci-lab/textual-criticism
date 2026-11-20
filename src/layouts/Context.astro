@@ -8,8 +8,10 @@ interface Props {
   checked?: boolean; lastChecked: string;
   /** Wide pages (e.g. with image plates) drop the reading-column limit; text blocks keep it. */
   wide?: boolean;
+  /** Wording of the banner tag; defaults to 'not yet checked'. */
+  statusTag?: string;
 }
-const { title, description, label, sources, checked = false, lastChecked, wide = false } = Astro.props;
+const { title, description, label, sources, checked = false, lastChecked, wide = false, statusTag = 'not yet checked' } = Astro.props;
 ---
 <Base title={title} description={description} nav="background/">
   <article class:list={["ctx", wide ? "wide" : "prose"]}>
@@ -17,7 +19,7 @@ const { title, description, label, sources, checked = false, lastChecked, wide =
     <h1>{title}</h1>
     {!checked && (
       <p class="notice">
-        <span class="tag">under review</span> Written from the handbooks listed at the end, but not yet checked line by line against them. Use it as a guide, not as a source.
+        <span class="tag">{statusTag}</span> Written from the handbooks listed at the end, but not yet checked line by line against them. Use it as a guide, not as a source.
       </p>
     )}
     <slot />

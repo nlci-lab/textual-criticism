@@ -4,7 +4,7 @@ kind: group
 siglum: "Byz"
 names: ["Byzantine text"]
 aliases: ["Byzantine", "Byzantine text", "Byzpt", "Byz pt"]
-lead: "Not one manuscript: Byz stands for the reading found in most of the Byzantine manuscripts, the form of text copied most often in the Greek church from about the 9th century on."
+lead: "Byz is not one manuscript. It stands for the reading of most Byzantine manuscripts, the form of the text copied most often in the Greek church from about the 9th century on."
 key_units:
   - ref: "John 1:18"
     note: "Byz reads ὁ μονογενὴς υἱός (\"the only Son\"), with A, C³, Wˢᵘᵖᵖ, Δ, Θ, Ψ and others. The UBS text prints μονογενὴς θεός."
@@ -34,4 +34,4 @@ Thousands of Greek manuscripts were copied in the Byzantine empire, most of them
 
 The Byzantine text is the main source of the Textus Receptus, the Greek text behind the King James Version and many older translations. That is why a translator comparing an older Bible with the UBS text often finds that the older Bible follows Byz.
 
-Most text critics think the Byzantine text grew later out of earlier forms, by smoothing and combining readings. A minority, the defenders of "Byzantine priority", argue that the majority of manuscripts is the best guide to the original. The UBS text follows the first view, so Byz is often on the side not printed in the text. Byz is still an important witness: in many units it agrees with the oldest manuscripts.
+Most text critics think the Byzantine text grew later out of earlier forms, by smoothing and combining readings. A minority, the defenders of "Byzantine priority", argue that the majority of manuscripts is the best guide to the original. The UBS text follows the first view, so Byz is often on the side not printed in the text. Byz still matters, though: in many units it agrees with the oldest manuscripts.

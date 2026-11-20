@@ -90,4 +90,4 @@ Vaticanus is a parchment book written in capital letters, three columns to a pag
 
 It has been in the Vatican Library for at least five hundred years, which is why it is known by the library's shelfmark, Vat. gr. 1209.
 
-Where B and 𝔓⁷⁵ agree in Luke and John, the agreement shows that B's text was already in existence around 200. This is one reason the UBS committee gives B so much weight. Translators should still read the committee's reasoning in each case, not count the letter B as an automatic answer.
+Where B and 𝔓⁷⁵ agree in Luke and John, the agreement shows that B's text was already in existence around 200. This is one reason the UBS committee gives B so much weight. Still, read the committee's reasoning in each case: the letter B on its own does not settle a reading.

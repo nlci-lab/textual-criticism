@@ -80,4 +80,4 @@ Codex Bezae has Greek on the left-hand page and Latin on the right, line by line
 
 When D stands alone against all the other early Greek manuscripts, the UBS committee rarely follows it. But D is often joined by Old Latin and Syriac witnesses, which suggests that its kind of text was spread widely by the second century.
 
-Note the siglum: in the Gospels and Acts, D means this manuscript (05). In Paul's letters, D means a different manuscript, Codex Claromontanus (06).
+In the Gospels and Acts, D means this manuscript (05). In Paul's letters it means a different one, Codex Claromontanus (06).

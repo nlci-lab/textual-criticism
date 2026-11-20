@@ -1,0 +1,119 @@
+---
+// Shared viewer for <Thumb> images.
+// - Mouse/trackpad: hovering a thumbnail shows a large floating preview beside it.
+// - Click, tap or Enter: opens the image full size in a modal; Esc, the close button
+//   or a click on the backdrop closes it, and focus returns to the thumbnail.
+---
+<div class="peek" id="peek" hidden aria-hidden="true">
+  <img alt="" />
+  <p class="peek-cap"></p>
+</div>
+
+<dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-cap">
+  <figure>
+    <img alt="" />
+    <figcaption id="lightbox-cap"></figcaption>
+  </figure>
+  <button type="button" class="lb-close" aria-label="Close image">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6.4 5 12 10.6 17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6 10.6 12 5 6.4Z" fill="currentColor"/></svg>
+  </button>
+</dialog>
+
+<script>
+  const peek = document.getElementById('peek') as HTMLDivElement;
+  const peekImg = peek.querySelector('img')!;
+  const peekCap = peek.querySelector('.peek-cap')!;
+  const dlg = document.getElementById('lightbox') as HTMLDialogElement;
+  const dlgImg = dlg.querySelector('img')!;
+  const dlgCap = dlg.querySelector('figcaption')!;
+  const canHover = matchMedia('(hover: hover) and (pointer: fine)');
+  let timer = 0;
+  let opener: HTMLElement | null = null;
+
+  function placePeek(a: HTMLElement) {
+    const r = a.getBoundingClientRect();
+    const w = Math.min(380, innerWidth - 32);
+    const ratio = Number(a.dataset.h) / Number(a.dataset.w);
+    const h = Math.min(w * ratio + 48, innerHeight - 32);
+    const right = r.right + 16 + w <= innerWidth - 16;
+    const left = right ? r.right + 16 : Math.max(16, r.left - 16 - w);
+    const top = Math.min(Math.max(16, r.top + r.height / 2 - h / 2), innerHeight - h - 16);
+    peek.style.width = `${w}px`;
+    peek.style.left = `${left}px`;
+    peek.style.top = `${top}px`;
+  }
+
+  document.querySelectorAll<HTMLAnchorElement>('a.thumb').forEach((a) => {
+    a.addEventListener('mouseenter', () => {
+      if (!canHover.matches || dlg.open) return;
+      timer = window.setTimeout(() => {
+        peekImg.src = a.dataset.full!;
+        peekImg.alt = '';
+        peekCap.textContent = a.dataset.caption ?? '';
+        placePeek(a);
+        peek.hidden = false;
+        requestAnimationFrame(() => peek.classList.add('on'));
+      }, 180);
+    });
+    a.addEventListener('mouseleave', () => {
+      clearTimeout(timer);
+      peek.classList.remove('on');
+      peek.hidden = true;
+    });
+    a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || !('showModal' in dlg)) return;
+      e.preventDefault();
+      clearTimeout(timer);
+      peek.hidden = true;
+      opener = a;
+      dlgImg.src = a.dataset.full!;
+      dlgImg.alt = a.querySelector('img')?.alt ?? '';
+      dlgCap.textContent = a.dataset.caption ?? '';
+      dlg.showModal();
+    });
+  });
+
+  dlg.querySelector('.lb-close')!.addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('close', () => { opener?.focus(); });
+</script>
+
+<style>
+  .peek {
+    position: fixed; z-index: 40; pointer-events: none;
+    padding: 8px; border-radius: 14px;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px) saturate(1.2);
+    box-shadow: 0 24px 48px rgb(0 0 0 / 0.28), 0 0 0 1px var(--rule);
+    opacity: 0; transform: translateY(6px) scale(0.98);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+  .peek.on { opacity: 1; transform: none; }
+  .peek img { display: block; width: 100%; height: auto; max-height: calc(100vh - 110px); object-fit: contain; border-radius: 8px; }
+  .peek-cap { margin: 6px 4px 2px; font: 0.8125rem/1.4 var(--sans); color: var(--ink-2); }
+
+  .lightbox {
+    width: min(92vw, 56rem); max-height: 92dvh; padding: 0; border: 0; overflow: visible;
+    background: transparent; color: var(--ink);
+  }
+  .lightbox[open] { animation: lb-in 180ms ease; }
+  .lightbox::backdrop { background: rgb(10 10 12 / 0.72); backdrop-filter: blur(6px); }
+  .lightbox figure {
+    margin: 0; padding: 10px; border-radius: 16px; background: var(--paper);
+    box-shadow: 0 30px 80px rgb(0 0 0 / 0.45);
+  }
+  .lightbox img { display: block; width: 100%; height: auto; max-height: calc(92dvh - 90px); object-fit: contain; border-radius: 10px; background: var(--paper-2); }
+  .lightbox figcaption { padding: 10px 6px 4px; font: 0.875rem/1.45 var(--sans); color: var(--ink-2); }
+  .lb-close {
+    position: absolute; top: -14px; right: -14px; width: 40px; height: 40px; border-radius: 999px;
+    display: grid; place-items: center; border: 0; cursor: pointer;
+    color: var(--ink); background: var(--paper); box-shadow: 0 6px 16px rgb(0 0 0 / 0.3), 0 0 0 1px var(--rule);
+  }
+  .lb-close:hover { color: var(--rubric); }
+  @media (max-width: 30rem) { .lb-close { top: 8px; right: 8px; } }
+  @keyframes lb-in { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .peek { transition: none; }
+    .lightbox[open] { animation: none; }
+  }
+</style>

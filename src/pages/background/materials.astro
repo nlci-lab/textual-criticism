@@ -4,6 +4,8 @@
 // Every fact on the page is the same as in the text version; the chart only plots dates stated below.
 import Context from '../../layouts/Context.astro';
 import { url } from '../../lib/url';
+import Thumb from '../../components/Thumb.astro';
+import Lightbox from '../../components/Lightbox.astro';
 const w = (id: string) => url(`w/${id}/`);
 const sources = [
   { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005).', checked: false },
@@ -56,10 +58,7 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
   <h2 id="surfaces">Writing surfaces</h2>
   <div class="plates">
     <article class="plate">
-      <a class="plate-img" href="https://greekcntr.org/manuscripts/?w=m10052&v=43018031" target="_blank" rel="noopener">
-        <img src={url('img/ms/m10052-001r.webp')} width="900" height="1296" loading="lazy" decoding="async"
-          alt="A small, ragged papyrus fragment with a few lines of Greek capitals." />
-      </a>
+      <Thumb file="img/ms/m10052-001r.webp" width={900} height={1296} alt="A small, ragged papyrus fragment with a few lines of Greek capitals." caption="𝔓⁵², a fragment of John 18 (papyrus)" />
       <div class="plate-label">
         <h3>Papyrus</h3>
         <p>Made from the papyrus reed. Thin strips were laid in two layers, one across the other, pressed and dried. It lasts only in a dry climate, which is why almost all our papyri come from Egypt. The New Testament papyri (𝔓) are the oldest group, mostly 2nd to 4th century.</p>
@@ -69,10 +68,7 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
     </article>
 
     <article class="plate">
-      <a class="plate-img" href="https://greekcntr.org/manuscripts/?w=m20005&v=42006004" target="_blank" rel="noopener">
-        <img src={url('img/ms/m20005-179v.webp')} width="900" height="1102" loading="lazy" decoding="async"
-          alt="A parchment page with a single column of Greek capital letters." />
-      </a>
+      <Thumb file="img/ms/m20005-179v.webp" width={900} height={1102} alt="A parchment page with a single column of Greek capital letters." caption="Codex Bezae (D), Luke 5:38–6:9 (parchment)" />
       <div class="plate-label">
         <h3>Parchment</h3>
         <p>Animal skin (sheep, goat or calf), scraped and dried under tension. Very fine parchment is called <em>vellum</em>. It is strong and could be reused. From the 4th century it replaced papyrus for important books: <a href={w('sinaiticus')}><span lang="he" dir="ltr">א</span></a> and <a href={w('vaticanus')}>B</a> are parchment.</p>
@@ -82,10 +78,7 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
     </article>
 
     <article class="plate">
-      <a class="plate-img" href={`${COMMONS}Codex_Ephraemi_Rescriptus_fol_138r.jpg`} target="_blank" rel="noopener">
-        <img src={url('img/ms/palimpsest-codex-c.webp')} width="508" height="621" loading="lazy" decoding="async"
-          alt="A parchment page where faint older Greek writing shows beneath a later text." />
-      </a>
+      <Thumb file="img/ms/palimpsest-codex-c.webp" width={508} height={621} alt="A parchment page where faint older Greek writing shows beneath a later text." caption="Codex C (04), folio 138r (palimpsest)" />
       <div class="plate-label">
         <h3>Palimpsest</h3>
         <p>A parchment that was scraped and written over. The older text can still be read, now often with ultraviolet or multispectral imaging. Codex C (04) is a Greek Bible written over in the 12th century with works of Ephrem the Syrian.</p>
@@ -95,7 +88,7 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
     </article>
 
     <article class="plate">
-      <div class="plate-img empty" aria-hidden="true"><span>No photo yet</span></div>
+      <div class="thumb-empty" aria-hidden="true"><span>No photo yet</span></div>
       <div class="plate-label">
         <h3>Paper</h3>
         <p>Used for some later minuscules, from about the 13th century.</p>
@@ -113,17 +106,11 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
   <p>Jewish and Greek books were usually <em>scrolls</em> (rolls). Early Christians preferred the <em>codex</em>: sheets folded and sewn into a book, like ours. Almost all New Testament manuscripts are codices. A codex can hold all four Gospels in one volume, and it is easier to find a passage in it.</p>
   <div class="diptych">
     <figure>
-      <a href={`${COMMONS}Great_Isaiah_Scroll_Ch53.jpg`} target="_blank" rel="noopener">
-        <img src={url('img/ms/scroll-1qisa.webp')} width="640" height="728" loading="lazy" decoding="async"
-          alt="Columns of Hebrew writing on a long strip of leather, part of a scroll." />
-      </a>
+      <Thumb file="img/ms/scroll-1qisa.webp" width={640} height={728} alt="Columns of Hebrew writing on a long strip of leather, part of a scroll." caption="The Great Isaiah Scroll (1QIsaᵃ), Isaiah 53 (scroll)" />
       <figcaption><span class="tagline">Scroll</span> The Great Isaiah Scroll from Qumran (1QIsaᵃ), Isaiah 53. <span class="credit">Image: <a href={`${COMMONS}Great_Isaiah_Scroll_Ch53.jpg`} target="_blank" rel="noopener">Wikimedia Commons ↗</a>, marked public domain.</span></figcaption>
     </figure>
     <figure>
-      <a href="https://greekcntr.org/manuscripts/?w=m10046&v=45005017" target="_blank" rel="noopener">
-        <img src={url('img/ms/m10046-001r.webp')} width="900" height="1765" loading="lazy" decoding="async"
-          alt="A tall papyrus leaf from a book, covered in Greek writing." />
-      </a>
+      <Thumb file="img/ms/m10046-001r.webp" width={900} height={1765} alt="A tall papyrus leaf from a book, covered in Greek writing." caption="𝔓⁴⁶, Romans 5:17–6:4 (codex leaf)" />
       <figcaption><span class="tagline">Codex</span> A leaf of <a href={w('p46')}>𝔓⁴⁶</a>, a papyrus book of Paul's letters (Romans 5:17–6:4). <span class="credit">Image: <a href="https://greekcntr.org/manuscripts/?w=m10046&v=45005017" target="_blank" rel="noopener">CNTR ↗</a>. {PD_US.text} (<a href={PD_US.href} target="_blank" rel="noopener">{PD_US.law}</a>).</span></figcaption>
     </figure>
   </div>
@@ -131,17 +118,11 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
   <h2 id="scripts">Scripts</h2>
   <div class="diptych">
     <figure>
-      <a href="https://greekcntr.org/manuscripts/?w=m10066&v=43001018" target="_blank" rel="noopener">
-        <img src={url('img/ms/m10066-001v.webp')} width="900" height="1017" loading="lazy" decoding="async"
-          alt="A papyrus page in separate Greek capital letters with no spaces between words." />
-      </a>
+      <Thumb file="img/ms/m10066-001v.webp" width={900} height={1017} alt="A papyrus page in separate Greek capital letters with no spaces between words." caption="𝔓⁶⁶, John 1:14–21 (majuscule)" />
       <figcaption><span class="tagline">Majuscule</span> Separate capital letters, usually with no spaces between words and little punctuation (<em>scriptio continua</em>). Used until about the 9th century. Older books call these manuscripts "uncials". <span class="credit">Shown: <a href={w('p66')}>𝔓⁶⁶</a>, John 1:14–21. Image: <a href="https://greekcntr.org/manuscripts/?w=m10066&v=43001018" target="_blank" rel="noopener">CNTR ↗</a>. {PD_US.text} (<a href={PD_US.href} target="_blank" rel="noopener">{PD_US.law}</a>).</span></figcaption>
     </figure>
     <figure>
-      <a href={`${COMMONS}Minuscule_444_(Gregory-Aland)_folio_44.jpg`} target="_blank" rel="noopener">
-        <img src={url('img/ms/minuscule-444.webp')} width="900" height="1135" loading="lazy" decoding="async"
-          alt="A page of small joined-up Greek handwriting with a decorated heading." />
-      </a>
+      <Thumb file="img/ms/minuscule-444.webp" width={900} height={1135} alt="A page of small joined-up Greek handwriting with a decorated heading." caption="Minuscule 444, folio 44, beginning of Mark (minuscule)" />
       <figcaption><span class="tagline">Minuscule</span> Smaller joined-up letters, faster to write. From the 9th century it replaced majuscule, so most of our manuscripts (the minuscules) are from the 9th century or later. <span class="credit">Shown: minuscule 444, folio 44, the beginning of Mark. Image: <a href={`${COMMONS}Minuscule_444_(Gregory-Aland)_folio_44.jpg`} target="_blank" rel="noopener">Wikimedia Commons ↗</a>, marked public domain.</span></figcaption>
     </figure>
   </div>
@@ -181,6 +162,7 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
 
   <h2 id="correctors">Correctors</h2>
   <p>Many manuscripts were corrected: by the first scribe, by a checker in the same workshop, or by readers centuries later. The apparatus marks the first hand with <a href={url('glossary/#star')}>*</a> and later correctors with <a href={url('glossary/#correctors')}>¹ ² ᶜ</a>. See the correctors section of <a href={w('sinaiticus')}>Sinaiticus</a>.</p>
+  <Lightbox />
 </Context>
 
 <style>
@@ -201,20 +183,26 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
   .bar-note { fill: var(--paper); font-size: 9px; font-style: italic; }
 
   .plates {
-    display: grid; gap: 1.25rem; margin: 1rem 0 0.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    display: grid; gap: 0.9rem; margin: 1rem 0 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
   }
-  .plate { display: flex; flex-direction: column; background: var(--paper-2); border-radius: 6px; overflow: hidden; min-width: 0; }
-  .plate-img { display: block; aspect-ratio: 4 / 3; background: var(--paper); }
-  .plate-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
-  .plate-img.empty { display: grid; place-items: center; background: repeating-linear-gradient(45deg, var(--paper-2), var(--paper-2) 8px, var(--paper) 8px, var(--paper) 16px); border-bottom: 1px solid var(--rule); }
-  .plate-img.empty span { font: 600 0.8125rem var(--sans); color: var(--ink-2); background: var(--paper-2); padding: 0.25rem 0.6rem; border-radius: 3px; }
-  .plate-label { padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .plate {
+    display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start;
+    padding: 0.9rem; border-radius: 14px; min-width: 0;
+    background: var(--paper-2); box-shadow: 0 0 0 1px var(--rule);
+  }
+  .thumb-empty {
+    width: 7.5rem; aspect-ratio: 4 / 5; border-radius: 10px; display: grid; place-items: center;
+    background: repeating-linear-gradient(45deg, var(--paper-2), var(--paper-2) 7px, var(--paper) 7px, var(--paper) 14px);
+    box-shadow: 0 0 0 1px var(--rule);
+  }
+  .thumb-empty span { font: 600 0.75rem var(--sans); color: var(--ink-2); background: var(--paper-2); padding: 0.2rem 0.5rem; border-radius: 999px; }
+  .plate-label { display: flex; flex-direction: column; gap: 0.45rem; min-width: 0; }
   .plate-label h3 { margin: 0; font-size: var(--step-1); }
   .plate-label p { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
-  .plate-label .specimen { font-family: var(--sans); font-size: var(--step--1); border-top: 1px solid var(--rule); padding-top: 0.5rem; }
+  .plate-label .specimen { font-family: var(--sans); font-size: var(--step--1); border-top: 1px solid var(--rule); padding-top: 0.45rem; }
   .credit { font-family: var(--sans); font-size: 0.75rem; color: var(--ink-2); line-height: 1.45; }
-  .plate-label .credit { margin-top: auto; }
+  @media (max-width: 26rem) { .plate { --thumb-w: 5.75rem; gap: 0.8rem; padding: 0.75rem; } .thumb-empty { width: 5.75rem; } }
 
   .ink { display: flex; gap: 0.9rem; align-items: center; margin: 1.5rem 0; max-width: var(--measure); }
   .ink p { margin: 0; }
@@ -225,14 +213,14 @@ const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
   .sw.gall { background: var(--ink-gall); }
 
   .diptych {
-    display: grid; gap: 1.25rem; margin: 1rem 0 1.25rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
-    max-width: 48rem;
+    display: grid; gap: 0.9rem; margin: 1rem 0 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    max-width: 52rem;
   }
-  .diptych figure { margin: 0; min-width: 0; }
-  .diptych img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 25%; border-radius: 6px; background: var(--paper-2); }
-  .diptych figcaption { margin-top: 0.6rem; font-size: 0.9375rem; line-height: 1.5; }
+  .diptych figure { margin: 0; min-width: 0; display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; }
+  .diptych figcaption { font-size: 0.9375rem; line-height: 1.5; }
   .diptych .credit { display: block; margin-top: 0.35rem; }
+  @media (max-width: 26rem) { .diptych figure { --thumb-w: 5.75rem; gap: 0.8rem; } }
   .tagline { display: block; font: 600 0.75rem/1.3 var(--sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--rubric); margin-bottom: 0.2rem; }
 
   .continua { max-width: var(--measure); margin: 0.5rem 0 1rem; padding: 1rem 1.1rem; background: var(--paper-2); border-radius: 6px; }

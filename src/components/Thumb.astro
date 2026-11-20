@@ -1,0 +1,38 @@
+---
+// A small thumbnail that previews the full image on hover (mouse/trackpad) and opens a
+// full-size lightbox on click, tap or Enter. Without JavaScript it is a plain link to the image.
+// Include <Lightbox /> once on any page that uses it.
+import { url } from '../lib/url';
+interface Props { file: string; width: number; height: number; alt: string; caption: string }
+const { file, width, height, alt, caption } = Astro.props;
+const src = url(file);
+---
+<a class="thumb" href={src} data-full={src} data-w={width} data-h={height} data-caption={caption}
+  aria-label={`Enlarge: ${alt}`}>
+  <img src={src} width={width} height={height} alt={alt} loading="lazy" decoding="async" />
+  <span class="zoom" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="14" height="14"><path d="M10.5 4a6.5 6.5 0 0 1 5.2 10.4l4.4 4.4-1.4 1.4-4.4-4.4A6.5 6.5 0 1 1 10.5 4Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Zm-.9 1.8h1.8v1.8h1.8v1.8h-1.8v1.8H9.6v-1.8H7.8V9.6h1.8Z" fill="currentColor"/></svg>
+  </span>
+</a>
+
+<style>
+  .thumb {
+    position: relative; display: block; flex: none;
+    width: var(--thumb-w, 7.5rem); aspect-ratio: 4 / 5;
+    border-radius: 10px; overflow: hidden; background: var(--paper-2);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 0 0 1px var(--rule);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    cursor: zoom-in;
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
+  .thumb:hover, .thumb:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.18), 0 0 0 1px var(--rubric);
+  }
+  .zoom {
+    position: absolute; right: 6px; bottom: 6px; display: grid; place-items: center;
+    width: 24px; height: 24px; border-radius: 999px;
+    color: #fff; background: rgb(0 0 0 / 0.55); backdrop-filter: blur(4px);
+  }
+  @media (prefers-reduced-motion: reduce) { .thumb { transition: none; } .thumb:hover { transform: none; } }
+</style>

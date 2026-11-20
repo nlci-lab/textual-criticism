@@ -2,7 +2,10 @@
 // so the site builds without the network. Pinned to one commit of the CNTR repository.
 // Transcriptions © Alan Bunning, Center for New Testament Restoration, CC BY-SA 4.0.
 // Usage: node scripts/cntr-fetch.mjs <BBCCCVVV> <ms> [<ms> ...]   e.g. 43001018 P66 P75 01 02 03 04 032
-//        node scripts/cntr-fetch.mjs <BBCCCVVV> --all   every class 1–3 file that has the verse
+//        node scripts/cntr-fetch.mjs <BBCCCVVV> --all   every class 1–3 file that has the verse, plus the editions
+//        node scripts/cntr-fetch.mjs <BBCCCVVV> --editions   only the printed editions in 'critical texts'
+// Editions are accented and punctuated; punctuation, ¶ and SR's ˚ (nomen sacrum mark) are stripped so the
+// MES parser reads them as plain words. Dates and names follow CNTR's Technical Reference abbreviation list.
 // Downloads are cached in .cache/cntr/ and INTF metadata in .cache/intf/ (gitignored), so reruns are fast.
 // Metadata (date, material, holding) comes from INTF NTVMR (src/data/intf/ is used first if present);
 // when INTF has no record the fields are left empty, never guessed.
@@ -124,11 +127,22 @@ async function meta(ga) {
   return m;
 }
 
+const EDITIONS = {
+  RP: { siglum: 'Byz (RP)', name: 'Robinson–Pierpont Byzantine Textform', date: '2025' },
+  ST: { siglum: 'TR (Stephanus)', name: 'Stephanus Textus Receptus', date: '1550' },
+  KJTR: { siglum: 'TR (KJV)', name: 'King James Textus Receptus (CNTR; text underlying the 1769 KJV)', date: '2020' },
+  WH: { siglum: 'WH', name: 'Westcott and Hort', date: '1885' },
+  SR: { siglum: 'SR', name: 'Statistical Restoration (CNTR)', date: '2022' },
+};
+const cleanEdition = (t) => t.replace(/[¶˚]/g, '').replace(/[.,;:··;]/g, '').replace(/\s+/g, ' ').trim();
+
 // ---- main ----
 await mkdir(CACHE, { recursive: true });
 await mkdir(ICACHE, { recursive: true });
 let paths;
+const wantEditions = mss[0] === '--all' || mss[0] === '--editions';
 if (mss[0] === '--all') paths = await listAll();
+else if (mss[0] === '--editions') paths = [];
 else {
   const all = await listAll();
   paths = mss.map((ms) => FOLDERS.map((f) => `${f}/${ms}.txt`).find((p) => all.includes(p)) ?? `missing/${ms}.txt`);
@@ -142,7 +156,14 @@ for (const p of paths) {
   out.witnesses[ms] = line ? line.slice(9) : null;
   console.log(`${ms}\t${text ? p : 'not found'}\t${line ? 'ok' : 'verse absent'}`);
 }
-for (const ms of Object.keys(out.witnesses)) out.meta[ms] = await meta(ms);
+for (const ms of Object.keys(out.witnesses)) out.meta[ms] = { kind: 'manuscript', ...(await meta(ms)) };
+if (wantEditions) for (const [id, e] of Object.entries(EDITIONS)) {
+  const line = (await fetchPath(`critical texts/${id}.txt`))?.split(/\r?\n/).find((l) => l.startsWith(verse + ' '));
+  if (!line) { console.log(`${id}\tverse absent`); continue; }
+  out.witnesses[id] = cleanEdition(line.slice(9));
+  out.meta[id] = { kind: 'edition', ...e, cntr: '' };
+  console.log(`${id}\tcritical texts/${id}.txt\tok`);
+}
 await mkdir('src/data/cntr', { recursive: true });
 await writeFile(`src/data/cntr/${verse}.json`, JSON.stringify(out, null, 2) + '\n');
 console.log(`wrote src/data/cntr/${verse}.json (${Object.keys(out.witnesses).length} witnesses)`);

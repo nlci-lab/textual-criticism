@@ -23,13 +23,16 @@ for (const src of Object.values(import.meta.glob('../../content/witnesses/*.md',
   const ga = src.match(/^\s+ga:\s*["']?([^"'\s]+)/m)?.[1];
   if (id && ga) profileByGa[ga] = id;
 }
-type Meta = { ga: string; siglum: string; siglumLang?: string; name?: string; date?: string; from?: number; to?: number; material?: string; holding?: string; ntvmr?: number; cntr: string };
+type Meta = { kind?: 'manuscript' | 'edition'; ga: string; siglum: string; siglumLang?: string; name?: string; date?: string; from?: number; to?: number; material?: string; holding?: string; ntvmr?: number; cntr: string };
 const metas = (data as unknown as { meta: Record<string, Meta> }).meta;
-const order = (ga: string) => [/^P\d/.test(ga) ? 0 : /^0\d/.test(ga) ? 1 : 2, Number(ga.replace(/^P/, ''))];
+/** Printed editions follow the manuscripts: Byzantine, the two Textus Receptus texts, WH, SR. */
+const EDITION_ORDER = ['RP', 'ST', 'KJTR', 'WH', 'SR'];
+const order = (id: string, m: Meta) => m.kind === 'edition' ? [3, EDITION_ORDER.indexOf(id)]
+  : [/^P\d/.test(m.ga) ? 0 : /^0\d/.test(m.ga) ? 1 : 2, Number(m.ga.replace(/^P/, ''))];
 export const witnesses: Witness[] = Object.entries(metas)
-  .sort(([, a], [, b]) => { const [x, y] = [order(a.ga), order(b.ga)]; return x[0] - y[0] || x[1] - y[1]; })
+  .sort(([i, a], [j, b]) => { const [x, y] = [order(i, a), order(j, b)]; return x[0] - y[0] || x[1] - y[1]; })
   .map(([id, m]) => ({
-    id, ga: m.ga, siglum: m.siglum, siglumLang: m.siglumLang, label: m.name ?? `GA ${m.ga}`, date: m.date ?? '',
+    id, kind: m.kind ?? 'manuscript', ga: m.ga, siglum: m.siglum, siglumLang: m.siglumLang, label: m.name ?? `GA ${m.ga}`, date: m.date ?? '',
     from: m.from, material: m.material, holding: m.holding, ntvmr: m.ntvmr, cntr: m.cntr,
     ...(profileByGa[m.ga] ? { profile: profileByGa[m.ga] } : {}),
   }));

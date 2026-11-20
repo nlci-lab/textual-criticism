@@ -14,6 +14,13 @@ licensed CC BY-SA 4.0 by Alan Bunning.
   pinned to one commit, so the build needs no network. With `--all` it scans every class 1–3 file at
   that commit and keeps each manuscript that has the verse, adding INTF NTVMR metadata (date, holding)
   per witness; downloads are cached in the gitignored `.cache/` folder so reruns are fast.
+- Printed editions from the repository's `critical texts` folder are included after the manuscripts
+  (`--editions`, or with `--all`): RP (Robinson–Pierpont 2025), ST (Stephanus 1550), KJTR (CNTR's 2020
+  King James Textus Receptus), WH (Westcott–Hort 1885) and SR (CNTR's Statistical Restoration 2022),
+  as named and dated in CNTR's Technical Reference. The repository README and LICENSE put the whole
+  repository, these files included, under CC BY-SA 4.0 with credit to Alan Bunning and CNTR; that is
+  the licence we follow. (greekcntr.org separately offers SR and KJTR as books under CC BY 4.0.)
+  Their punctuation, ¶ and SR's ˚ mark are stripped so the parser reads them as words; accents stay.
 - `src/lib/collate.ts` reads CNTR's markup (first hand vs corrector, nomina sacra, damaged and
   missing letters), aligns each witness against the base text and groups readings; an editor's
   unit list and glosses (`src/data/collations/*.ts`) decide what is shown.

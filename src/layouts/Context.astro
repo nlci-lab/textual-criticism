@@ -6,6 +6,7 @@
 import Base from './Base.astro';
 import Cover from '../components/Cover.astro';
 import Feedback from '../components/Feedback.astro';
+import Comments from '../components/Comments.astro';
 import ExampleCard from '../components/ExampleCard.astro';
 import { byPath, PIGMENT, KICKER, EXAMPLES, type GuideMeta } from '../data/guides';
 import { url } from '../lib/url';
@@ -100,6 +101,7 @@ const related = (meta?.related ?? []).map((p) => byPath(p) ?? (p === 'witnesses/
             </section>
           )}
           <Feedback title={title} />
+          <Comments />
         </article>
       </div>
       {practice.length > 0 && (
@@ -142,6 +144,7 @@ const related = (meta?.related ?? []).map((p) => byPath(p) ?? (p === 'witnesses/
         </section>
       )}
       <Feedback title={title} />
+          <Comments />
     </article>
   )}
 </Base>

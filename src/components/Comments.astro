@@ -1,0 +1,58 @@
+---
+// Public comments and reactions under a page, stored in GitHub Discussions (category "Page comments") via giscus.
+// Nothing loads from giscus or GitHub until the reader asks for it, so pages stay light and private by default.
+// One discussion per page, matched by the page path; readers need a GitHub account to comment or react.
+const REPO = 'nlci-lab/textual-criticism';
+const REPO_ID = 'R_kgDOV0mWuw';
+const CATEGORY = 'Page comments';
+const CATEGORY_ID = 'DIC_kwDOV0mWu84DLm1G';
+const discussions = `https://github.com/${REPO}/discussions/categories/page-comments`;
+---
+<section class="cm" aria-labelledby="cm-h" data-comments>
+  <h2 id="cm-h">Comments</h2>
+  <p class="small muted">Public comments and reactions, kept in the site's <a href={discussions}>GitHub Discussions</a>. You need a GitHub account to take part. For a private note to the site team, use the box above.</p>
+  <button type="button" class="cm-load">Show comments</button>
+  <div class="cm-thread"></div>
+</section>
+
+<script define:vars={{ REPO, REPO_ID, CATEGORY, CATEGORY_ID }}>
+  (function () {
+    var box = document.querySelector('[data-comments]');
+    if (!box) return;
+    var btn = box.querySelector('.cm-load');
+    var thread = box.querySelector('.cm-thread');
+    function theme() {
+      var t = document.documentElement.dataset.theme;
+      if (t === 'dark' || t === 'light') return t;
+      return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    btn.addEventListener('click', function () {
+      btn.hidden = true;
+      var s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      var attrs = {
+        'data-repo': REPO, 'data-repo-id': REPO_ID, 'data-category': CATEGORY, 'data-category-id': CATEGORY_ID,
+        'data-mapping': 'pathname', 'data-strict': '1', 'data-reactions-enabled': '1', 'data-emit-metadata': '0',
+        'data-input-position': 'top', 'data-theme': theme(), 'data-lang': 'en', 'data-loading': 'lazy',
+      };
+      for (var k in attrs) s.setAttribute(k, attrs[k]);
+      thread.appendChild(s);
+    });
+    // Follow the site's light/dark switch once the comments are loaded.
+    new MutationObserver(function () {
+      var f = box.querySelector('iframe.giscus-frame');
+      if (f && f.contentWindow) f.contentWindow.postMessage({ giscus: { setConfig: { theme: theme() } } }, 'https://giscus.app');
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  })();
+</script>
+
+<style>
+  .cm { margin: 1.5rem 0 1rem; max-width: var(--measure); font-family: var(--sans); }
+  .cm h2 { margin: 0 0 .4rem; font: 600 1.05rem var(--sans); }
+  .cm p { margin: 0 0 .75rem; }
+  .cm-load { font: 600 .95rem var(--sans); padding: .5rem 1.1rem; border-radius: 8px; border: 1.5px solid var(--ink); background: var(--paper); color: var(--ink); cursor: pointer; min-height: 2.5rem; }
+  .cm-load[hidden] { display: none; }
+  .cm-thread:empty { display: none; }
+</style>

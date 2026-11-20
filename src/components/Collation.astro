@@ -33,7 +33,7 @@ const isEd = (w: Witness) => (w as Witness & { kind?: string }).kind === 'editio
 shown.sort((a, b) => +isEd(a.w) - +isEd(b.w));
 const firstEd = shown.findIndex((r) => isEd(r.w));
 const label = (r: Row) => r.w.siglum + (shown.some((x) => x.w.id === r.w.id && x.hand !== r.hand) ? (r.hand === 'first' ? '*' : 'ᶜ') : '');
-const vref = `John ${verse.ref.split(' ')[1] ?? verse.ref}`;
+const vref = verse.ref;   // e.g. 'John 1:18', 'Mark 1:2'
 /** Transliterate manuscript words, borrowing breathings from the base word each one matches (in the unit first). */
 const tlWords = (ws: MsWord[], u?: UnitDef) => ws.map((w) => {
   const near = u ? baseWords.slice(Math.max(0, u.from - 1), u.to + 2) : [];

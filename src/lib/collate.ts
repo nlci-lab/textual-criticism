@@ -27,7 +27,7 @@ const NOMINA: Record<string, string> = {
 
 /** Lower case, no accents or breathings, final sigma as σ. */
 export function plain(s: string): string {
-  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/ς/g, 'σ');
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/ς/g, 'σ').replace(/[ʼ’']/g, '');   // elision marks in printed editions (ἐνʼ)
 }
 
 /**

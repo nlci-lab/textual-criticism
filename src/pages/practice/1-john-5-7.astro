@@ -1,0 +1,55 @@
+---
+import MicroModule from '../../components/MicroModule.astro';
+import MMStep from '../../components/MMStep.astro';
+import MMQuestion from '../../components/MMQuestion.astro';
+import Collation from '../../components/Collation.astro';
+import { v7, v8 } from '../../data/collations/1-john-5-7';
+import { url } from '../../lib/url';
+const sources = [
+  'Bruce M. Metzger and Bart D. Ehrman, <i>The Text of the New Testament</i>, 4th ed. (Oxford University Press, 2005), pp. 146–7, on Erasmus and the Comma Johanneum.',
+  'Manuscript and edition texts: Alan Bunning, Center for New Testament Restoration, transcriptions, CC BY-SA 4.0.',
+];
+---
+<MicroModule title="1 John 5:7–8: the “Johannine comma”" passage="1 John 5:7–8" minutes={8} sources={sources}
+  description="A short guided problem: how a sentence about the Father, the Word and the Holy Spirit entered the Textus Receptus."
+  lead="The KJV has a sentence in 1 John 5:7–8 that most modern Bibles do not. Find out where it came from, one step at a time.">
+
+  <MMStep n={1} title="Notice the problem">
+    <p><strong>KJV:</strong> “For there are three that bear record <em>in heaven, the Father, the Word, and the Holy Ghost: and these three are one. And there are three that bear witness in earth,</em> the Spirit, and the water, and the blood: and these three agree in one.”</p>
+    <p><strong>Most modern Bibles:</strong> “For there are three that testify: the Spirit and the water and the blood; and the three agree.”</p>
+    <MMQuestion q="What is different?" options={[
+      { text: 'The KJV has extra words about three that testify “in heaven” and “in earth”.', correct: true, why: 'Right. These extra words are called the “Johannine comma” (here “comma” means a short clause).' },
+      { text: 'Modern Bibles add the water and the blood.', why: 'No: both have the Spirit, the water and the blood.' },
+      { text: 'Only the word order is different.', why: 'No: the KJV has a whole extra clause.' },
+    ]} />
+  </MMStep>
+
+  <MMStep n={2} title="Look at the witnesses">
+    <p>Here are the two verses in the CNTR transcriptions of three great codices, and in five printed editions.</p>
+    <Collation verse={v7.verse} data={v7.data} base={v7.base} english={v7.english} witnesses={v7.witnesses} units={v7.units} phrases={v7.phrases} glosses={v7.glosses} />
+    <Collation verse={v8.verse} data={v8.data} base={v8.base} english={v8.english} witnesses={v8.witnesses} units={v8.units} phrases={v8.phrases} glosses={v8.glosses} />
+    <MMQuestion q="Which witnesses here have the extra words?" options={[
+      { text: 'Only the two Textus Receptus editions (Stephanus 1550 and the KJV’s Greek text).', correct: true, why: 'Right. Sinaiticus, Alexandrinus and Vaticanus do not have them, and neither do the Byzantine text (RP), Westcott–Hort or SR.' },
+      { text: 'The Byzantine text as well.', why: 'No: look again at Byz (RP). The comma is not even in the Byzantine majority text.' },
+      { text: 'Codex Sinaiticus and Codex Vaticanus.', why: 'No: both go straight from “three that testify” to “the Spirit and the water and the blood”.' },
+    ]} />
+  </MMStep>
+
+  <MMStep n={3} title="How did it get into the Textus Receptus?">
+    <p>Erasmus printed the first published Greek New Testament in 1516 without these words. He was criticized for leaving them out, and replied that he had found no Greek manuscript that contained them. Later a Greek manuscript with the words was produced, probably written in Oxford about 1520, and Erasmus put the words into his third edition of 1522 (Metzger and Ehrman, pp. 146–7). From there they passed into the Textus Receptus and the KJV. (It is often said that Erasmus promised to add them if one Greek manuscript had them; Metzger and Ehrman note that a specialist found no direct evidence of such a promise.)</p>
+    <MMQuestion q="Where did the Greek words in that manuscript most likely come from?" options={[
+      { text: 'From the Latin Vulgate, translated into Greek.', correct: true, why: 'Right. Metzger and Ehrman say the scribe took the disputed words from the Latin Vulgate (p. 146).' },
+      { text: 'From an early Greek manuscript that Erasmus found later.', why: 'No: the manuscript was a recent copy, made about 1520.' },
+      { text: 'From the Byzantine text.', why: 'No: as step 2 showed, the Byzantine text does not have them.' },
+    ]} />
+  </MMStep>
+
+  <MMStep n={4} title="Decide for your translation" last>
+    <p>The UBS text does not have the comma. Bibles that follow the Textus Receptus do.</p>
+    <MMQuestion q="Your regional-language Bible has the comma, and readers know it. What is the best next step?" options={[
+      { text: 'Take it to your Review Committee, with a recommendation and a footnote either way.', correct: true, why: 'Right. Your <a href="' + url('guide/text-policy/') + '">text policy</a> says to follow the regional-language Bible for passages with a long tradition, and the Review Committee decides where it differs from the UBS text. Our recommendation is to follow the UBS text, because no early witness has the comma, with a footnote such as: “A few late manuscripts add: in heaven, the Father, the Word and the Holy Spirit; and these three are one. And there are three that testify on earth.” If the committee keeps the comma, a footnote should say that the earliest manuscripts do not have it. The committee makes the decision.' },
+      { text: 'Keep the comma because it supports the doctrine of the Trinity.', why: 'No: the text policy says never to change the text to fit a theological position. Decide on the evidence.' },
+      { text: 'Remove it without any note.', why: 'Not wise: readers who know the longer form will be confused. A footnote explains the difference.' },
+    ]} />
+  </MMStep>
+</MicroModule>

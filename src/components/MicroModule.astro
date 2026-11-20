@@ -1,0 +1,96 @@
+---
+// Micro module: a short guided problem on one passage, one step at a time.
+// Steps are <section class="mm-step"> children (use MMStep). With JS, a step opens when the previous one is answered;
+// without JS every step and every answer is visible.
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+interface Props { title: string; passage: string; minutes: number; lead: string; description: string; sources: string[] }
+const { title, passage, minutes, lead, description, sources } = Astro.props;
+---
+<Base title={`${title} · Practice`} description={description} nav="guide/examples/">
+  <article class="mm" data-mm>
+    <p class="mm-crumbs small"><a href={url('practice/')}>Practice</a> › {passage}</p>
+    <p class="label">Micro module · about {minutes} minutes</p>
+    <h1>{title}</h1>
+    <p class="lead">{lead}</p>
+    <ol class="mm-progress" aria-label="Progress" hidden></ol>
+    <slot />
+    <section class="mm-done" hidden>
+      <h2>Well done</h2>
+      <p>You have worked through {passage} in the same steps the <a href={url('guide/examples/')}>worked examples</a> use. Try <a href={url('practice/')}>another micro module</a>, or read the <a href={url('guide/doubtful-passages/')}>list of doubtful passages</a>.</p>
+    </section>
+    <section class="mm-sources">
+      <h2>Sources</h2>
+      <ol>{sources.map((s) => <li set:html={s} />)}</ol>
+    </section>
+  </article>
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-mm]').forEach((root) => {
+    root.classList.add('js');
+    const steps = [...root.querySelectorAll<HTMLElement>('.mm-step')];
+    const prog = root.querySelector<HTMLOListElement>('.mm-progress')!;
+    const done = root.querySelector<HTMLElement>('.mm-done')!;
+    prog.hidden = false;
+    prog.innerHTML = steps.map((s, i) => `<li><span class="visually-hidden">Step ${i + 1}: </span>${s.dataset.title ?? ''}</li>`).join('');
+    const dots = [...prog.children] as HTMLElement[];
+    let open = 0;
+    function show(n: number) {
+      steps.forEach((s, i) => (s.hidden = i > n));
+      dots.forEach((d, i) => { d.classList.toggle('on', i <= n); if (i === n) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current'); });
+    }
+    steps.forEach((step, i) => {
+      const q = step.querySelector<HTMLElement>('[data-mmq]');
+      const next = step.querySelector<HTMLButtonElement>('.mm-next');
+      if (next) { next.hidden = !!q; next.addEventListener('click', () => go(i + 1)); }   // one handler per button; a question step shows it after checking
+      if (!q) return;
+      const act = q.querySelector<HTMLElement>('.mmq-act')!;
+      const btn = q.querySelector<HTMLButtonElement>('.mmq-check')!;
+      const res = q.querySelector<HTMLElement>('.mmq-result')!;
+      const opts = [...q.querySelectorAll<HTMLElement>('.mmq-opt')];
+      act.hidden = false;
+      q.addEventListener('change', () => { btn.disabled = false; });
+      btn.addEventListener('click', () => {
+        const chosen = opts.find((o) => o.querySelector('input')!.checked);
+        if (!chosen) return;
+        opts.forEach((o) => {
+          o.classList.remove('right', 'wrong');
+          const why = o.querySelector<HTMLElement>('.mmq-why')!;
+          why.hidden = !(o === chosen || o.dataset.correct);
+          if (o.dataset.correct) o.classList.add('right');
+          else if (o === chosen) o.classList.add('wrong');
+        });
+        const ok = !!chosen.dataset.correct;
+        res.textContent = ok ? 'Yes, that is right.' : 'Not quite. The right answer is marked.';
+        if (next) next.hidden = false;
+      });
+    });
+    function go(n: number) {
+      if (n >= steps.length) { done.hidden = false; done.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+      open = Math.max(open, n);
+      show(open);
+      steps[n].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      steps[n].querySelector<HTMLElement>('h2')?.focus();
+    }
+    show(0);
+  });
+</script>
+
+<style>
+  .mm { max-width: 46rem; margin: 1.5rem 0 3rem; }
+  .mm-crumbs { font-family: var(--sans); color: var(--ink-2); margin: 0 0 .75rem; }
+  .mm h1 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); margin: .2rem 0 .5rem; }
+  .mm .lead { font-size: 1.15rem; line-height: 1.5; }
+  .mm-progress { list-style: none; counter-reset: p; display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; margin: 1.25rem 0; font: .8rem var(--sans); color: var(--ink-2); }
+  .mm-progress[hidden] { display: none; }
+  .mm-progress :global(li) { counter-increment: p; display: inline-flex; gap: .35rem; align-items: center; padding: .2rem .6rem; border: 1px solid var(--rule); border-radius: 999px; }
+  .mm-progress :global(li)::before { content: counter(p); font-weight: 700; color: var(--rubric); }
+  .mm-progress :global(li.on) { border-color: var(--ink); color: var(--ink); }
+  .mm-progress :global(li[aria-current]) { background: var(--ink); color: var(--paper); }
+  .mm-progress :global(li[aria-current])::before { color: var(--paper); }
+  .mm-done { margin: 2rem 0; padding: 1rem 1.1rem; border-radius: 10px; background: var(--paper-2); border: 1px solid var(--rule); }
+  .mm-done h2 { margin-top: 0; }
+  .mm-sources ol { font-size: .875rem; padding-left: 1.3rem; color: var(--ink-2); }
+  .mm :global(.mm-step h2:focus) { outline: none; }
+</style>

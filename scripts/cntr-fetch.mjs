@@ -137,7 +137,8 @@ const EDITIONS = {
   WH: { siglum: 'WH', name: 'Westcott and Hort', date: '1885' },
   SR: { siglum: 'SR', name: 'Statistical Restoration (CNTR)', date: '2022' },
 };
-const cleanEdition = (t) => t.replace(/[¶˚]/g, '').replace(/[.,;:··;]/g, '').replace(/\s+/g, ' ').trim();
+// Editions carry punctuation and quotation marks (SR has “ ”); keep only words, accents and elision marks.
+const cleanEdition = (t) => t.replace(/[¶˚]/g, '').replace(/[.,;:··;“”‘«»()\[\]!?—]/g, '').replace(/\s+/g, ' ').trim();
 
 // ---- main ----
 await mkdir(CACHE, { recursive: true });

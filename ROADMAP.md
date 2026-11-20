@@ -9,6 +9,14 @@
 - [ ] Whether UBS5 prints `Dᵖ`, `Eᵃ`, `Kᵃᵖ` etc. with superscripts or plain letters.
 - [ ] Run a skeptical-reviewer pass (critical-school stance) over context pages and the top ~20 profiles.
 
+## Old Testament expansion (needed by March 2027)
+
+- [ ] Witness profiles for OT witnesses (`ot_ms` kind): Leningrad and Aleppo codices, key Dead Sea Scrolls (e.g. 1QIsaᵃ), Septuagint codices, Samaritan Pentateuch, Targums, Peshitta, Vulgate.
+- [ ] Lookup for BHS/BHQ sigla (𝔐, 𝔊, 𝔔, 𝔖, 𝔗, 𝔙, Smr) alongside the NT sigla.
+- [ ] Guides: reading a BHS/BHQ apparatus entry (worked example), weighing OT evidence, OT worked examples.
+- [ ] Background: expand "How we got the Old Testament text"; Masoretes and the Masorah.
+- [ ] Sources: Tov, Würthwein, BHS/BHQ introductions; Hemphill's OT material (credit, used with permission).
+
 ## Next content
 
 1. Remaining Greek witnesses (papyri, majuscules, minuscules, lectionaries), using `scripts/` to pull INTF Liste data.

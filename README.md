@@ -1,6 +1,6 @@
 # Textual Criticism: an introductory resource for Bible translators
 
-An introductory resource on textual criticism for Bible translators and consultants. It started as a guide for those who meet sigla like `א`, `B`, `𝔓⁶⁶`, `ƒ¹³` or `Byz` in the UBS Greek New Testament apparatus in Paratext and need to know, in under a minute, what each witness is and why it matters.
+An introductory resource on textual criticism for Bible translators and consultants. It covers both Testaments: the New Testament first, the Old Testament (Hebrew Bible, BHS/BHQ) being added. It started as a guide for those who meet sigla like `א`, `B`, `𝔓⁶⁶`, `ƒ¹³` or `Byz` in the UBS Greek New Testament apparatus in Paratext and need to know, in under a minute, what each witness is and why it matters.
 
 Live (after review): https://nlci-lab.github.io/textual-criticism/
 

@@ -5,7 +5,8 @@
 // listed sources (ADR 0004); the sources come at the end.
 import Base from './Base.astro';
 import Cover from '../components/Cover.astro';
-import { byPath, PIGMENT, KICKER, type GuideMeta } from '../data/guides';
+import ExampleCard from '../components/ExampleCard.astro';
+import { byPath, PIGMENT, KICKER, EXAMPLES, type GuideMeta } from '../data/guides';
 import { url } from '../lib/url';
 interface Props {
   title: string; description: string; label: string;
@@ -23,7 +24,7 @@ const { title, description, label, sources = [], checked = false, lastChecked, w
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const path = Astro.url.pathname.startsWith(base) ? Astro.url.pathname.slice(base.length) : Astro.url.pathname.replace(/^\//, '');
 const meta = byPath(path);
-const nav = path.startsWith('background/') ? 'background/' : 'guide/';
+const nav = path.startsWith('background/') ? 'background/' : path.startsWith('guide/examples/') ? 'guide/examples/' : 'guide/';
 
 // Render the body once: give every h2 an id, list them for the contents, and count words for reading time.
 let body = await Astro.slots.render('default');
@@ -47,6 +48,9 @@ const words = body.replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/g,
 const minutes = Math.max(3, Math.round(words / 150)); // about 150 words a minute for second-language readers
 
 const before = meta?.before ? byPath(meta.before) : undefined;
+const practice = (meta?.practice ?? []).map(byPath).filter(Boolean) as GuideMeta[];
+const exIndex = EXAMPLES.findIndex((e) => e.path === path);
+const next = exIndex >= 0 && EXAMPLES.length > 1 ? EXAMPLES[(exIndex + 1) % EXAMPLES.length] : undefined;
 const related = (meta?.related ?? []).map((p) => byPath(p) ?? (p === 'witnesses/' ? 'witnesses' : undefined)).filter(Boolean) as (GuideMeta | 'witnesses')[];
 ---
 <Base title={title} description={description} nav={nav}>
@@ -96,6 +100,19 @@ const related = (meta?.related ?? []).map((p) => byPath(p) ?? (p === 'witnesses/
           )}
         </article>
       </div>
+      {practice.length > 0 && (
+        <section class="sec practise" id="practise">
+          <header><h2>Practise this</h2><a href={url('guide/examples/')}>All worked examples →</a></header>
+          <p class="muted small">See this guide put into practice, one step at a time.</p>
+          <div class="excards">{practice.map((ex) => <ExampleCard ex={ex} />)}</div>
+        </section>
+      )}
+      {next && (
+        <section class="sec" id="next-example">
+          <header><h2>Next worked example</h2><a href={url('guide/examples/')}>All worked examples →</a></header>
+          <div class="excards one"><ExampleCard ex={next} /></div>
+        </section>
+      )}
       {related.length > 0 && (
         <section class="sec" id="related">
           <header><h2>Related</h2></header>
@@ -127,6 +144,8 @@ const related = (meta?.related ?? []).map((p) => byPath(p) ?? (p === 'witnesses/
 </Base>
 <style>
   .plain { margin-top: 1.5rem; }
+  .excards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+  .excards.one { max-width: 26rem; }
   /* Book page header */
   .book { display: grid; gap: 1.5rem; padding: 1.75rem 0 2rem; border-bottom: 1px solid var(--rule); }
   .book > :global(.cover) { width: 11rem; }

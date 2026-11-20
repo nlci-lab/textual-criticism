@@ -8,7 +8,7 @@ import { GUIDES, KICKER } from '../data/guides';
 import { GLOSSARY } from '../data/glossary';
 
 export type Entry =
-  | { k: 'v'; ref: { book: string; from?: number; to?: number }; label: string; title: string; ctx: string; href: string }
+  | { k: 'v'; ref: { book: string; from?: number; to?: number }; label: string; title: string; ctx: string; href: string; ex?: boolean }
   | { k: 'p' | 'g'; title: string; kicker: string; ctx: string; href: string; text: string };
 
 const plain = (s: string) => s.replace(/<[^>]+>/g, '').replace(/\{['"][^'"]*['"]\}/g, (m) => m.slice(2, -2)).replace(/\s+/g, ' ').trim();
@@ -31,7 +31,7 @@ export const GET: APIRoute = async () => {
   for (const g of GUIDES) {
     for (const v of g.verses ?? []) {
       const ref = parseRef(v);
-      if (ref) out.push({ k: 'v', ref, label: formatRef(ref), title: g.cover, ctx: g.summary, href: g.path });
+      if (ref) out.push({ k: 'v', ref, label: formatRef(ref), title: g.cover, ctx: g.question ?? g.summary, href: g.path, ...(g.section === 'example' ? { ex: true } : {}) });
     }
     // Every passage the page's own text mentions also enters the passage index.
     const pageSrc = SRC[`./${g.path.replace(/\/$/, '')}.astro`] ?? SRC[`./${g.path}index.astro`] ?? '';

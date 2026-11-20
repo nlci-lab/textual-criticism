@@ -4,14 +4,15 @@
 import Base from '../layouts/Base.astro';
 import WitnessTile from '../components/WitnessTile.astro';
 import Cover from '../components/Cover.astro';
+import ExampleCard from '../components/ExampleCard.astro';
 import { aliasIndex, allWitnesses } from '../lib/witnesses';
-import { GUIDES, PIGMENT, KICKER } from '../data/guides';
+import { GUIDES, PIGMENT, KICKER, EXAMPLES } from '../data/guides';
 import { url } from '../lib/url';
 const index = await aliasIndex();
 const all = await allWitnesses();
 const keys = Object.fromEntries([...index].map(([k, v]) => [k, v.map((e) => e.id)]));
 const ws = all.map((w) => ({ id: w.id, s: w.siglum, n: w.names[0] + (w.siglum_scope ? ` (${w.siglum_scope})` : ''), l: w.siglum_lang ?? '', d: w.date?.label ?? '' }));
-const guides = GUIDES.filter((g) => g.section !== 'background');
+const guides = GUIDES.filter((g) => g.section === 'guide');
 const background = GUIDES.filter((g) => g.section === 'background');
 const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading', 'vid'];
 ---
@@ -58,6 +59,12 @@ const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading
   </section>
 
   <section class="sec">
+    <header><h2>Worked examples</h2><a href={url('guide/examples/')}>All worked examples →</a></header>
+    <p class="muted ex-intro">The guides explain the method. These examples put it into practice on real verses, one step at a time.</p>
+    <div class="ex-grid">{EXAMPLES.map((ex) => <ExampleCard ex={ex} />)}</div>
+  </section>
+
+  <section class="sec">
     <header><h2>Background</h2><a href={url('background/')}>All background →</a></header>
     <div class="shelf">{background.map((g) => <figure><Cover title={g.cover} kicker={KICKER[g.section]} pigment={PIGMENT[g.section]} href={url(g.path)} /><figcaption>{g.level}</figcaption></figure>)}</div>
   </section>
@@ -70,7 +77,7 @@ const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading
   import { parseRef, overlaps } from '../lib/refs';
   import type { Entry } from './search.json';
   type W = { id: string; s: string; n: string; l: string; d: string };
-  type Hit = { title: string; ctx: string; href: string; lang?: string; siglum?: boolean };
+  type Hit = { title: string; ctx: string; href: string; lang?: string; siglum?: boolean; badge?: string };
   const { keys, ws } = JSON.parse(document.getElementById('alias-data')!.textContent!) as { keys: Record<string, string[]>; ws: W[] };
   const byId = new Map(ws.map((w) => [w.id, w]));
   const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
@@ -99,7 +106,8 @@ const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading
     const ref = parseRef(text);
     if (ref && idx) {
       const v = idx.filter((e) => e.k === 'v' && overlaps(ref, e.ref)) as Extract<Entry, { k: 'v' }>[];
-      if (v.length) res.push(['Passages: every place it is discussed', v.map((e) => ({ title: e.label, ctx: `${e.title}: ${e.ctx}`, href: e.href }))]);
+      v.sort((a, b) => +!!b.ex - +!!a.ex);   // worked examples first
+      if (v.length) res.push(['Passages: every place it is discussed', v.map((e) => ({ title: e.label, ctx: `${e.title}: ${e.ctx}`, href: e.href, badge: e.ex ? 'Worked example' : undefined }))]);
     }
     const w = witnesses(text);
     if (w.length) res.push(['Witnesses', w]);
@@ -129,6 +137,7 @@ const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading
         a.href = base + hit.href;
         k.className = hit.siglum ? 'k siglum' : 'k'; k.textContent = hit.title; if (hit.lang) k.lang = hit.lang;
         c.className = 'ctx'; c.textContent = hit.ctx;
+        if (hit.badge) { const b = document.createElement('span'); b.className = 'badge'; b.textContent = hit.badge; c.prepend(b); }
         a.append(k, c); li.append(a); ul.append(li);
       }
       out.append(h, ul);
@@ -181,6 +190,7 @@ const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading
   .results :global(a:hover), .results :global(a:focus-visible) { background: var(--paper-2); }
   .results :global(.k) { font: 600 0.9rem var(--sans); color: var(--rubric); }
   .results :global(.k.siglum) { font: 1.1rem var(--sigla); }
+  .results :global(.badge) { display: inline-block; margin-right: 0.4rem; padding: 0 0.45rem; border-radius: 999px; border: 1px solid var(--verdigris); color: var(--verdigris); font: 600 0.72rem/1.5 var(--sans); vertical-align: 0.1em; }
   .results :global(.ctx) { font-size: 0.95rem; line-height: 1.45; }
   .results :global(.none) { margin: 0; padding: 0.75rem 1rem; font-family: var(--sans); font-size: 0.9rem; }
   @media (max-width: 480px) { .results :global(a) { grid-template-columns: 1fr; gap: 0.15rem; } }
@@ -190,5 +200,7 @@ const TRY = ['John 1:18', '𝔓66', 'B', '05', 'Mark 16:9–20', 'harder reading
   .stats dt { font-size: 0.8rem; color: var(--ink-2); }
   .stats div:last-child dd { font-size: 1.1rem; padding-top: 0.6rem; }
   .tiles { --shelf-col: minmax(11rem, 12rem); }
+  .ex-intro { margin: -0.25rem 0 1rem; max-width: var(--measure); }
+  .ex-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 </style>

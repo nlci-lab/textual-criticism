@@ -1,6 +1,7 @@
 // Book-page metadata for guides, worked examples and background pages (design direction 6).
 // Page bodies stay in src/pages/**.astro; Context.astro looks the page up here by its path.
 // Reading time is counted from the page text at build time, not stored.
+import { parseRef, overlaps } from '../lib/refs';
 
 export type Section = 'guide' | 'example' | 'background';
 export interface GuideMeta {
@@ -12,7 +13,10 @@ export interface GuideMeta {
   learn: string[];         // "What you will learn"
   before?: string;         // path of a page to read first
   related: string[];       // paths
-  verses?: string[];       // passages the page works through (used by search later)
+  verses?: string[];       // passages the page works through (indexed for search)
+  question?: string;       // worked examples: the question the example answers
+  skill?: string;          // worked examples: what it teaches, in a few words
+  practice?: string[];     // guides: worked examples that put this guide into practice
 }
 
 export const PIGMENT: Record<Section, 'lapis' | 'verdigris' | 'ochre'> = { guide: 'lapis', example: 'verdigris', background: 'ochre' };
@@ -30,12 +34,14 @@ export const GUIDES: GuideMeta[] = [
     summary: 'Not all variants weigh the same. Sorting them by meaning and by rating, and when to add a footnote.',
     learn: ['The kinds of variants', 'How to sort a variant quickly', 'What a rating does not tell you', 'When to add a footnote'],
     before: 'guide/apparatus/', related: ['guide/weighing-evidence/', 'guide/text-policy/', 'guide/examples/'],
+    practice: ['guide/examples/romans-16-7/', 'guide/examples/john-7-53/'],
   },
   {
     path: 'guide/weighing-evidence/', cover: 'Weighing the evidence', section: 'guide', level: 'Going further',
     summary: 'From reading an entry to judging between readings: external and internal evidence.',
     learn: ['The questions editors ask about witnesses', 'Why counting manuscripts misleads', 'Scribal habits and the author’s style', 'Rules of thumb, and their limits', 'How the CBGM changes the picture'],
     before: 'guide/apparatus/', related: ['guide/examples/james-2-20/', 'background/materials/', 'guide/which-variants-matter/'], verses: ['James 2:20'],
+    practice: ['guide/examples/james-2-20/', 'guide/examples/john-7-53/'],
   },
   {
     path: 'guide/examples/', cover: 'Worked examples', section: 'example', level: 'Going further',
@@ -48,18 +54,21 @@ export const GUIDES: GuideMeta[] = [
     summary: 'Useless or dead? Good early manuscripts disagree, and the context decides.',
     learn: ['Weighing two fourth-century codices', 'Spotting harmonization', 'Handling a familiar reading in your translation'],
     before: 'guide/weighing-evidence/', related: ['guide/examples/romans-16-7/', 'guide/weighing-evidence/'], verses: ['James 2:20'],
+    question: 'Is faith without works “useless” or “dead”?', skill: 'Strong witnesses on both sides; harmonization decides',
   },
   {
     path: 'guide/examples/john-7-53/', cover: 'John 7:53–8:11', section: 'example', level: 'Going further',
     summary: 'The woman caught in adultery: a whole story some manuscripts have and others do not.',
     learn: ['Working through a variant step by step', 'Why “earliest” is not always “original”', 'Testing claims about an author’s style', 'Wording a fair footnote'],
     before: 'guide/weighing-evidence/', related: ['guide/examples/james-2-20/', 'guide/which-variants-matter/', 'guide/weighing-evidence/'], verses: ['John 7:53–8:11'],
+    question: 'Was the story of the woman caught in adultery part of John?', skill: 'A whole passage; testing claims about style',
   },
   {
     path: 'guide/examples/romans-16-7/', cover: 'Romans 16:7', section: 'example', level: 'Going further',
     summary: 'Junia or Junias? The letters are certain but the accent, and so the person’s gender, is debated.',
     learn: ['When the variant is an accent, not a word', 'How printed editions and translations differ', 'What to tell your readers'],
-    related: ['guide/examples/james-2-20/', 'guide/base-texts/'], verses: ['Romans 16:7'],
+    before: 'guide/which-variants-matter/', related: ['guide/examples/james-2-20/', 'guide/base-texts/'], verses: ['Romans 16:7'],
+    question: 'Junia or Junias: a woman or a man?', skill: 'When the variant is an accent, not a word',
   },
   {
     path: 'guide/base-texts/', cover: 'Two Greek texts', section: 'guide', level: 'Going further',
@@ -100,3 +109,13 @@ export const GUIDES: GuideMeta[] = [
 ];
 
 export const byPath = (p: string) => GUIDES.find((g) => g.path === p);
+
+/** The worked examples themselves, in list order (not the examples index page). */
+export const EXAMPLES = GUIDES.filter((g) => g.section === 'example' && g.path !== 'guide/examples/');
+
+/** Worked examples that discuss a passage overlapping this reference. */
+export function examplesFor(ref: string): GuideMeta[] {
+  const r = parseRef(ref);
+  if (!r) return [];
+  return EXAMPLES.filter((e) => (e.verses ?? []).some((v) => { const x = parseRef(v); return !!x && overlaps(r, x); }));
+}

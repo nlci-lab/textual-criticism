@@ -1,0 +1,162 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Introduction to Textual Criticism · Textual Criticism (Catalogue)</title><style>
+:root{--paper:#fbfaf8;--paper-2:#f1efeb;--ink:#1f1c19;--ink-2:#57504a;--rule:#d9d4cc;--rubric:#9d2a1f;
+--warn-bg:#fbf1d9;--warn-ink:#5c4300;--bar-full:#3b3530;--bar-part:#a39a90;--bar-none:#e6e1da;
+--serif:"Gentium Book Plus","Gentium Plus","Noto Serif",Cambria,"Times New Roman",serif;
+--sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif;
+--sigla:"Gentium Book Plus","Cambria Math","STIX Two Math","Noto Sans Math","Segoe UI Symbol",serif;
+--hebrew:"Noto Serif Hebrew","SBL Hebrew","Times New Roman",serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--paper:#17191b;--paper-2:#212427;--ink:#e8e3db;--ink-2:#ada69c;--rule:#3a3d41;
+--rubric:#f08b7c;--warn-bg:#3a3014;--warn-ink:#f3dc9b;--bar-full:#e8e3db;--bar-part:#8c857c;--bar-none:#33373b;color-scheme:dark}}
+*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:1.0625rem/1.6 var(--serif)}
+a{color:var(--rubric);text-underline-offset:.15em;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--rubric);outline-offset:2px}
+h1,h2,h3,h4{line-height:1.2;font-weight:600;text-wrap:balance}h1{font-size:2.2rem;margin:0 0 .5rem}
+h2{font-size:1.3rem;margin:2rem 0 .5rem}h3{font-size:1.0625rem;margin:1.5rem 0 .25rem}h4{margin:0 0 .25rem;font-size:1rem}
+p,ul,ol{margin:0 0 1rem}
+.siglum{font-family:var(--sigla);color:var(--rubric);white-space:nowrap}[lang=he]{font-family:var(--hebrew);unicode-bidi:isolate}
+[lang=grc]{font-family:var(--serif)}
+.label,.kicker{font:600 .75rem/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin:0 0 .25rem}
+.muted{color:var(--ink-2)}.small{font-size:.875rem}.lead{font-size:1.2rem;line-height:1.5}
+.uc{background:var(--warn-bg);color:var(--warn-ink);font:.8125rem/1.4 var(--sans);padding:.35rem 16px;text-align:center}
+.brand{font:600 1rem var(--serif);color:var(--ink);text-decoration:none}
+.card{border:1px solid var(--rule);background:var(--paper-2);padding:.75rem 1rem;border-radius:4px}
+.card .big,.master .big{font-size:1.15rem;font-weight:600;margin:0 0 .25rem}
+.twin{display:grid;gap:.75rem;margin:1rem 0}@media(min-width:560px){.twin{grid-template-columns:1fr 1fr}}
+.checks{padding-left:1.5rem}.checks .q{font-weight:600}
+.master{border-left:3px solid var(--rubric);padding:.5rem 1rem;margin:1rem 0;background:var(--paper-2)}
+.rules{display:grid;gap:.75rem}.rule{border-top:1px solid var(--rule);padding-top:.5rem}
+.limit{font-size:.9375rem;color:var(--ink-2)}.limit span{font:600 .7rem var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--rubric);margin-right:.4rem}
+.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.9375rem}
+th,td{text-align:left;vertical-align:top;padding:.4rem .6rem;border-bottom:1px solid var(--rule)}th{font:600 .75rem var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+tr.chosen td{background:var(--paper-2)}.tag{font:600 .7rem var(--sans);border:1px solid var(--rubric);color:var(--rubric);padding:0 .3rem;border-radius:3px;margin-left:.3rem}
+.gl{color:var(--ink-2)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;margin:0 0 1rem;font-size:.9375rem}.facts dt{font:600 .75rem/1.9 var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}.facts dd{margin:0}
+.books{display:flex;flex-wrap:wrap;gap:2px;margin:.25rem 0 .5rem;padding:0;list-style:none;font:600 .7rem var(--sans)}
+.books li{padding:.2rem .3rem;min-width:2.4rem;text-align:center;border-radius:2px}
+.books .complete{background:var(--bar-full);color:var(--paper)}.books .partial{background:var(--bar-part);color:var(--ink)}.books .absent{background:var(--bar-none);color:var(--ink-2)}
+.units{list-style:none;padding:0}.units li{border-top:1px solid var(--rule);padding:.5rem 0}.units b{font-family:var(--sans);font-size:.875rem}
+.sources{font-size:.875rem;color:var(--ink-2);padding-left:1.25rem}
+.note{border-left:3px solid var(--rule);padding-left:.75rem;color:var(--ink-2)}
+.withheld{border:1px dashed var(--rule);padding:.75rem 1rem;font-size:.9375rem;color:var(--ink-2)}
+.wlist{list-style:none;padding:0;margin:0}.wlist li{display:grid;grid-template-columns:4.5rem 1fr auto;gap:.5rem;padding:.4rem 0;border-top:1px solid var(--rule);align-items:baseline}
+.wlist .siglum{font-size:1.1rem}.wlist .d{font:.8125rem var(--sans);color:var(--ink-2)}
+.glist{list-style:none;padding:0;margin:0}.glist li{padding:.45rem 0;border-top:1px solid var(--rule)}.glist p{margin:0;font-size:.9375rem;color:var(--ink-2)}
+.diagram svg{width:100%;max-width:520px;height:auto}.diagram line{stroke:var(--bar-part)}.diagram .anc{fill:var(--rubric)}.diagram .late{fill:var(--bar-part)}.diagram .early{fill:var(--bar-full)}.diagram text{fill:var(--ink-2);font:13px var(--sans);text-anchor:middle}
+
+:root{--ochre:#7a4f0e;--verdigris:#24594e;--lapis:#26406b;--gall:#2a2622;--on-pig:#fbf6ec;--chip:#e9e5de;--shadow:0 1px 0 var(--rule)}
+@media(prefers-color-scheme:dark){:root{--ochre:#8f6526;--verdigris:#2f6e60;--lapis:#3a5788;--gall:#3a3530;--on-pig:#fbf6ec;--chip:#2a2d31}}
+.top{display:flex;align-items:center;gap:1rem;padding:.7rem max(16px,3vw);border-bottom:1px solid var(--rule);font-family:var(--sans)}
+.top{flex-wrap:wrap}.top nav{display:flex;gap:1.1rem;margin-left:auto;font-size:.9rem;overflow-x:auto}@media(max-width:520px){.top nav{margin-left:0;width:100%;gap:1.25rem}}.top nav a{color:var(--ink);text-decoration:none}.top nav a[aria-current]{color:var(--rubric);box-shadow:inset 0 -2px var(--rubric)}
+.mark{font:600 1.05rem var(--serif);color:var(--ink);text-decoration:none;display:flex;gap:.5rem;align-items:center}
+.mark i{font:normal 1.25rem var(--sigla);color:var(--rubric)}
+.wrap{max-width:84rem;margin:0 auto;padding:0 max(16px,3vw)}
+/* search */
+.q{position:relative}.q input{width:100%;font:1.15rem var(--serif);padding:.95rem 1rem .95rem 3rem;border:1.5px solid var(--ink);border-radius:10px;background:var(--paper);color:var(--ink)}
+.q input:focus{outline:3px solid color-mix(in srgb,var(--rubric) 35%,transparent);outline-offset:1px;border-color:var(--rubric)}
+.q svg{position:absolute;left:1rem;top:50%;translate:0 -50%;width:1.2rem;stroke:var(--ink-2);fill:none;stroke-width:2}
+.try{display:flex;flex-wrap:wrap;gap:.4rem;margin:.75rem 0 0;font:.875rem var(--sans);align-items:center}
+.chipb{border:1px solid var(--rule);background:var(--chip);color:var(--ink);border-radius:999px;padding:.3rem .75rem;font:inherit;cursor:pointer}
+.chipb[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.hero{padding:3.5rem 0 2rem;display:grid;gap:2rem}
+.hero h1{font-size:clamp(1.9rem,4.5vw,3.1rem);letter-spacing:-.01em;max-width:18ch;margin:0}
+.hero p.sub{color:var(--ink-2);max-width:40rem;font-size:1.1rem;margin:.75rem 0 1.5rem}
+@media(min-width:1000px){.hero{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:end}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);font-family:var(--sans)}
+.stats div{padding:.75rem .5rem 0 0}.stats b{display:block;font:600 2rem/1 var(--serif)}.stats span{font-size:.8rem;color:var(--ink-2)}
+/* concordance results */
+.res{margin-top:1rem;border:1px solid var(--rule);border-radius:10px;background:var(--paper);overflow:hidden}
+.res:empty{display:none}.res h3{font:600 .72rem var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);margin:0;padding:.6rem 1rem;background:var(--paper-2)}
+.res a.r{display:grid;grid-template-columns:7.5rem 1fr;gap:.75rem;padding:.6rem 1rem;border-top:1px solid var(--rule);color:var(--ink);text-decoration:none}
+.res a.r:hover{background:var(--paper-2)}.res .k{font:600 .9rem var(--sans);color:var(--rubric)}.res .ctx{font-size:.95rem}.res .ctx small{display:block;color:var(--ink-2);font:.8rem var(--sans)}
+.res mark{background:color-mix(in srgb,var(--rubric) 18%,transparent);color:inherit;padding:0 .1em}
+/* sections */
+.sec{padding:2.5rem 0}.sec>header{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1rem;border-bottom:1px solid var(--rule);padding-bottom:.5rem}
+.sec h2{margin:0;font-size:1.45rem}.sec header a{font:.9rem var(--sans)}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(11.5rem,1fr);gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.5rem}
+.rail>*{scroll-snap-align:start}
+/* specimen tile */
+.tile{display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--paper);color:var(--ink);text-decoration:none;transition:translate .15s}
+.tile:hover{translate:0 -2px;border-color:var(--ink-2)}
+.spec{position:relative;height:9.5rem;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid var(--rule)}
+.spec .sg{font:400 3.6rem/1 var(--sigla);color:var(--rubric);position:relative;z-index:1}
+.spec .scr{position:absolute;left:-.25rem;right:-.25rem;bottom:.55rem;font:600 .82rem/1 var(--serif);letter-spacing:.32em;color:var(--ink);opacity:.38;white-space:nowrap;overflow:hidden}
+.spec .scr+.scr{bottom:1.6rem;opacity:.22}
+.papyrus .spec{background-color:#e8d9b5;background-image:repeating-linear-gradient(90deg,rgba(110,80,30,.10) 0 1px,transparent 1px 5px),repeating-linear-gradient(0deg,rgba(110,80,30,.08) 0 1px,transparent 1px 7px)}
+.majuscule .spec{background-color:#efe7da;background-image:radial-gradient(rgba(90,70,40,.07) 1px,transparent 1.2px);background-size:6px 6px}
+.group .spec{background:var(--paper-2)}
+.papyrus .spec .scr,.majuscule .spec .scr{color:#2a2218}
+@media(prefers-color-scheme:dark){.papyrus .spec{background-color:#3a3222}.majuscule .spec{background-color:#2e2b27}.papyrus .spec .scr,.majuscule .spec .scr{color:#e8dcc4}}
+.meta{padding:.65rem .8rem .8rem;display:grid;gap:.3rem}.meta b{font-size:1.02rem;line-height:1.25}
+.meta .ln{display:flex;justify-content:space-between;font:.8rem var(--sans);color:var(--ink-2)}
+.cov{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:.15rem}.cov i{height:5px;border-radius:1px;background:var(--bar-none)}.cov i.on{background:var(--bar-full)}
+.covk{display:grid;grid-template-columns:repeat(5,1fr);font:.62rem var(--sans);color:var(--ink-2);gap:2px}
+/* gallery */
+.gal-head{padding:2rem 0 1rem;display:grid;gap:1rem}
+.filters{display:grid;gap:.6rem;font:.875rem var(--sans);position:sticky;top:0;background:var(--paper);z-index:2;padding:.6rem 0;border-bottom:1px solid var(--rule)}
+.frow{display:flex;gap:.4rem;overflow-x:auto;align-items:center;white-space:nowrap;padding-bottom:2px}.frow .label{min-width:5.5rem;margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;padding:1.25rem 0 3rem}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}.gal{display:grid;grid-template-columns:14rem minmax(0,1fr);gap:2rem}
+.filters{position:sticky;top:1rem;align-self:start;border:0;padding:1rem 0}.frow{flex-wrap:wrap;overflow:visible}.frow .label{min-width:100%}}
+@media(max-width:400px){.spec{height:7rem}.spec .sg{font-size:2.6rem}.meta b{font-size:.92rem}}
+.count{font:.875rem var(--sans);color:var(--ink-2)}
+/* covers */
+.cover{aspect-ratio:3/4;border-radius:3px 8px 8px 3px;padding:1.1rem 1rem 1rem 1.5rem;display:flex;flex-direction:column;justify-content:space-between;color:var(--on-pig);text-decoration:none;position:relative;box-shadow:inset 6px 0 0 rgba(0,0,0,.18),0 1px 2px rgba(0,0,0,.15)}
+.cover::after{content:"";position:absolute;inset:.45rem .45rem .45rem .85rem;border:1px solid rgba(251,246,236,.45);border-radius:2px;pointer-events:none}
+.cover .k{font:600 .65rem var(--sans);letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.cover .t{font:600 1.3rem/1.15 var(--serif);text-wrap:balance}.cover .orn{font:1.4rem var(--sigla);opacity:.8}
+.ochre{background:var(--ochre)}.verdigris{background:var(--verdigris)}.lapis{background:var(--lapis)}.gall{background:var(--gall)}
+.shelf{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(9.5rem,11rem);gap:1.25rem;overflow-x:auto;padding:.25rem 0 1rem}
+.shelf figure{margin:0}.shelf figcaption{font:.8rem var(--sans);color:var(--ink-2);margin-top:.4rem}
+/* book page */
+.book{display:grid;gap:1.75rem;padding:2rem 0}.book .cover{max-width:15rem;width:62%}.book .cover .t{font-size:1.75rem}
+@media(min-width:900px){.book{grid-template-columns:17rem minmax(0,1fr) 17rem;gap:2.5rem;align-items:start}.book .cover{width:100%;max-width:none}}
+.book h1{font-size:clamp(1.8rem,3.4vw,2.6rem);margin:.2rem 0 .6rem}
+.spec-t{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font:.875rem var(--sans);margin:1rem 0;padding:1rem 0;border-block:1px solid var(--rule)}.spec-t dt{color:var(--ink-2)}.spec-t dd{margin:0}
+.act{display:flex;gap:.6rem;flex-wrap:wrap}.btn{font:600 .95rem var(--sans);padding:.65rem 1.1rem;border-radius:8px;text-decoration:none;border:1.5px solid var(--ink)}
+.btn.p{background:var(--ink);color:var(--paper)}.btn.s{color:var(--ink)}
+.box{border:1px solid var(--rule);border-radius:8px;padding:1rem}.box h2{font-size:1rem;margin:0 0 .5rem;font-family:var(--sans)}
+.learn{padding-left:1.1rem;margin:0}.learn li{margin:.3rem 0}
+.read{display:grid;gap:2rem;border-top:1px solid var(--rule);padding:2rem 0 3rem}@media(min-width:1000px){.read{grid-template-columns:15rem minmax(0,44rem);gap:3.5rem}.read nav{position:sticky;top:1rem;align-self:start}}
+.read nav .toc{font:.875rem/1.5 var(--sans);padding-left:1.1rem}
+/* witness profile */
+.prof{display:grid;gap:1.75rem;padding:2rem 0 3rem}.prof .tile{pointer-events:none}.prof .spec{height:13rem}.prof .spec .sg{font-size:5.5rem}
+@media(min-width:900px){.prof{grid-template-columns:19rem minmax(0,42rem) minmax(0,1fr);gap:2.5rem}.prof>aside{position:sticky;top:1rem;align-self:start}}
+.crumbs{font:.85rem var(--sans);color:var(--ink-2);padding-top:1.25rem}
+.foot{border-top:1px solid var(--rule);padding:1.5rem max(16px,3vw);font:.85rem var(--sans);color:var(--ink-2)}
+
+.mods{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(15rem,1fr);gap:1rem;overflow-x:auto;padding-bottom:.5rem}
+.mod{display:grid;gap:.4rem;align-content:start;border:1px solid var(--rule);border-radius:8px;padding:1rem;color:var(--ink);text-decoration:none;background:var(--paper);position:relative}
+.mod:hover{border-color:var(--ink-2)}.mod .v{font:600 1.35rem/1.1 var(--serif)}.mod .gk{font-size:1.05rem;color:var(--ink-2)}
+.mod .ln{display:flex;justify-content:space-between;font:.8rem var(--sans);color:var(--ink-2);margin-top:.25rem}
+.mod .done{position:absolute;top:.8rem;right:.8rem;font:600 .7rem var(--sans);color:var(--verdigris);border:1px solid currentColor;border-radius:999px;padding:.05rem .45rem}
+.lessons{list-style:none;padding:0;margin:0;counter-reset:l}
+.lessons li{counter-increment:l;display:grid;grid-template-columns:2.5rem 1fr auto;gap:.75rem;padding:1rem 0;border-top:1px solid var(--rule);align-items:start}
+.lessons li::before{content:counter(l,decimal-leading-zero);font:600 1.3rem/1 var(--serif);color:var(--rubric)}
+.lessons h3{margin:0 0 .2rem;font-size:1.1rem}.lessons p{margin:0;color:var(--ink-2);font-size:.95rem}
+.lessons .uses{font:.8rem var(--sans);margin-top:.35rem}.lessons .st{font:.8rem var(--sans);white-space:nowrap;color:var(--ink-2)}
+.lessons li.d .st,.mod .done{color:var(--verdigris)}
+@media(prefers-color-scheme:dark){.lessons li.d .st,.mod .done{color:#7fc7b5}}
+.prog{height:6px;background:var(--bar-none);border-radius:3px;overflow:hidden;margin:.75rem 0 .25rem;max-width:28rem}.prog i{display:block;height:100%;width:33%;background:var(--ink)}
+.task{border:1.5px solid var(--ink);border-radius:10px;padding:1.25rem;margin:1.5rem 0}
+.opts{display:grid;gap:.5rem;margin:1rem 0}.opts label{display:flex;gap:.6rem;align-items:baseline;border:1px solid var(--rule);border-radius:8px;padding:.7rem .9rem;cursor:pointer}
+.opts input{accent-color:var(--rubric)}.opts label:has(input:checked){border-color:var(--ink);background:var(--paper-2)}
+details.ans{border-top:1px solid var(--rule);margin-top:1rem;padding-top:.75rem}details.ans summary{font:600 .95rem var(--sans);cursor:pointer}
+.steps2{display:flex;gap:.35rem;margin:.5rem 0 0;max-width:20rem}.steps2 i{flex:1;height:4px;border-radius:2px;background:var(--bar-none)}.steps2 i.on{background:var(--rubric)}
+.cstrip{display:grid;gap:1.5rem;align-items:center}.cstrip .cover{width:10rem}
+@media(min-width:700px){.cstrip{grid-template-columns:11rem 1fr}.cstrip .cover{width:100%}}
+</style></head><body>
+<div class="uc">Under construction: content is being checked.</div>
+<header class="top"><a class="mark" href="home.html"><i>𝔓</i>Textual Criticism</a><nav><a href="course.html" aria-current=page>Learn</a><a href="witnesses.html">Witnesses</a><a href="guide.html">Guides</a><a href="guide.html">Background</a></nav></header><main class="wrap"><p class="crumbs"><a href="course.html">Learn</a> › Introduction to Textual Criticism</p>
+<section class="book"><a class="cover gall" href="course.html"><span class="k">Online course</span><span class="t">Introduction to Textual Criticism</span><span class="orn">𝔓</span></a>
+<div><p class="label">Online course · free · self-paced</p><h1>Introduction to Textual Criticism</h1>
+<p class="lead">For Bible translators and consultants who meet the UBS apparatus in their work. By the end you can read an entry, weigh the evidence, and explain your choice in a footnote.</p>
+<dl class="spec-t"><dt>Lessons</dt><dd>6, about 15 minutes each</dd><dt>Practice</dt><dd>5 micro modules on single verses</dd><dt>You need</dt><dd>No Greek; Greek words are always glossed</dd><dt>Account</dt><dd>None. Progress is saved on this device only</dd><dt>Last checked</dt><dd>20 November 2026</dd></dl>
+<div class="prog"><i></i></div><p class="small muted">2 of 6 lessons done</p>
+<div class="act"><a class="btn p" href="guide.html">Continue with lesson 3</a><a class="btn s" href="#practice">Try a micro module</a></div></div>
+<div class="box"><h2>You will be able to</h2><ul class="learn"><li>Find and read any UBS apparatus entry</li><li>Say what a siglum stands for and how old it is</li><li>Weigh external and internal evidence</li><li>Decide whether a variant needs a footnote</li><li>Explain your choice to a reviewer</li></ul></div></section>
+<section class="sec" id="lessons" style="padding-top:0"><header><h2>Lessons</h2><span class="small muted">Each lesson links to the guides and witnesses it uses</span></header><ol class="lessons"><li class="d"><div><h3><a href="guide.html">Why there are variants</a></h3><p>How copying by hand produced differences, and why that need not worry readers.</p><p class="uses">Uses: Materials · The NT text</p></div><span class="st">✓ Done</span></li><li class="d"><div><h3><a href="guide.html">Manuscripts and their names</a></h3><p>Papyri, majuscules, minuscules, versions, fathers; how to read a siglum.</p><p class="uses">Uses: Witness gallery · 𝔓⁶⁶ · B 03</p></div><span class="st">✓ Done</span></li><li class=""><div><h3><a href="guide.html">Reading the apparatus</a></h3><p>Every part of a UBS entry, worked through at John 1:18.</p><p class="uses">Uses: Reading the apparatus · module John 1:18</p></div><span class="st">15 min</span></li><li class=""><div><h3><a href="guide.html">Weighing the evidence</a></h3><p>External and internal evidence, and the rules of thumb.</p><p class="uses">Uses: Weighing the evidence · module James 2:20</p></div><span class="st">15 min</span></li><li class=""><div><h3><a href="guide.html">Which variants matter</a></h3><p>When a variant changes the translation, and when it does not.</p><p class="uses">Uses: Which variants matter · module Mark 16:9–20</p></div><span class="st">15 min</span></li><li class=""><div><h3><a href="guide.html">Your project's text policy</a></h3><p>Choosing a base text and writing footnotes your readers can use.</p><p class="uses">Uses: Base texts · Text policy</p></div><span class="st">15 min</span></li></ol></section>
+<section class="sec" id="practice"><header><h2>Micro modules</h2><span class="small muted">Each one stands alone</span></header><div class="mods"><a class="mod" href="module.html"><span class=done>Done</span><span class="label">Micro module</span><span class="v">James 2:20</span><span class="gk">ἀργή or νεκρά?</span><span class="small">Useless or dead: use the external and internal evidence to choose.</span><span class="ln"><span>8 min</span><span>Weighing evidence</span></span></a><a class="mod" href="module.html"><span class="label">Micro module</span><span class="v">John 1:18</span><span class="gk">θεός or υἱός?</span><span class="small">Read a full entry and name the earliest witness for each reading.</span><span class="ln"><span>10 min</span><span>Reading the apparatus</span></span></a><a class="mod" href="module.html"><span class="label">Micro module</span><span class="v">Mark 16:9–20</span><span class="gk">The longer ending</span><span class="small">What do B and א do here, and what should a footnote say?</span><span class="ln"><span>9 min</span><span>Which variants matter</span></span></a><a class="mod" href="module.html"><span class="label">Micro module</span><span class="v">Luke 23:34a</span><span class="gk">“Father, forgive them”</span><span class="small">Weigh an omission in early witnesses against its spread.</span><span class="ln"><span>7 min</span><span>Weighing evidence</span></span></a><a class="mod" href="module.html"><span class="label">Micro module</span><span class="v">1 John 5:7–8</span><span class="gk">The Johannine comma</span><span class="small">Why the Textus Receptus differs from UBS, and how to handle it.</span><span class="ln"><span>8 min</span><span>Base texts</span></span></a></div></section></main>
+<footer class="foot">An introduction for Bible translators and consultants. Sources are given on every page.</footer></body></html>

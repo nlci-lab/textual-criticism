@@ -95,3 +95,17 @@ JS: two small inline scripts (search, filters), no framework. In Astro the
 concordance index would be built at build time from witness `key_units`, guide
 headings and a verse-reference field, and shipped as one small JSON file.
 Gallery data in the mock-up is approximate.
+
+### 6 Catalogue: Learn section (online course and micro modules)
+
+- **Learn** is the first item in the menu.
+- `course.html`: the site's online course *Introduction to Textual Criticism*
+  as a book page (iron-gall cover, the course's own colour). Six numbered
+  lessons, each listing the guides, witnesses and modules it uses, so the course
+  reuses site content instead of copying it. Progress bar and "Continue" button;
+  progress would live in localStorage only (no accounts, no tracking).
+- `module.html`: a micro module (James 2:20) — one apparatus entry, one question
+  with answer options, "Check my answer" as a `<details>`, three steps, 5–10 min.
+  Each module stands alone and is also found by the concordance search.
+- Home gains a course strip (cover, progress, Continue) and a "Practise on one
+  verse" shelf of module cards.

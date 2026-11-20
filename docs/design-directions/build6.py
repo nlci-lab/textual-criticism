@@ -42,7 +42,7 @@ CSS = """
 :root{--ochre:#7a4f0e;--verdigris:#24594e;--lapis:#26406b;--gall:#2a2622;--on-pig:#fbf6ec;--chip:#e9e5de;--shadow:0 1px 0 var(--rule)}
 @media(prefers-color-scheme:dark){:root{--ochre:#8f6526;--verdigris:#2f6e60;--lapis:#3a5788;--gall:#3a3530;--on-pig:#fbf6ec;--chip:#2a2d31}}
 .top{display:flex;align-items:center;gap:1rem;padding:.7rem max(16px,3vw);border-bottom:1px solid var(--rule);font-family:var(--sans)}
-.top nav{display:flex;gap:1.1rem;margin-left:auto;font-size:.9rem}.top nav a{color:var(--ink);text-decoration:none}.top nav a[aria-current]{color:var(--rubric);box-shadow:inset 0 -2px var(--rubric)}
+.top{flex-wrap:wrap}.top nav{display:flex;gap:1.1rem;margin-left:auto;font-size:.9rem;overflow-x:auto}@media(max-width:520px){.top nav{margin-left:0;width:100%;gap:1.25rem}}.top nav a{color:var(--ink);text-decoration:none}.top nav a[aria-current]{color:var(--rubric);box-shadow:inset 0 -2px var(--rubric)}
 .mark{font:600 1.05rem var(--serif);color:var(--ink);text-decoration:none;display:flex;gap:.5rem;align-items:center}
 .mark i{font:normal 1.25rem var(--sigla);color:var(--rubric)}
 .wrap{max-width:84rem;margin:0 auto;padding:0 max(16px,3vw)}
@@ -172,7 +172,7 @@ if(inp.value)run();})();
 </script>"""
 
 def page(title, body, cur, extra=""):
-    nav = "".join(f'<a href="{h}"{" aria-current=page" if n==cur else ""}>{n}</a>' for n, h in [("Witnesses","witnesses.html"),("Guides","guide.html"),("Background","guide.html")])
+    nav = "".join(f'<a href="{h}"{" aria-current=page" if n==cur else ""}>{n}</a>' for n, h in [("Learn","course.html"),("Witnesses","witnesses.html"),("Guides","guide.html"),("Background","guide.html")])
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>{title} · Textual Criticism (Catalogue)</title><style>{TOKENS}{CSS}</style></head><body>
 <div class="uc">Under construction: content is being checked.</div>

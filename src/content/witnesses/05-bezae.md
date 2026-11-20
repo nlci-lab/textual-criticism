@@ -14,8 +14,8 @@ date:
   src: [intf]
 text_character:
   label: "The main Greek witness of the so-called \"Western\" text"
-  contested_note: "The name \"Western\" is misleading, and whether this is one text-type at all is debated. Its Acts is about one tenth longer than the text of B."
-  src: [me]
+  contested_note: "The name \"Western\" is misleading, and whether this is one text-type at all is debated. In Acts the Western text is nearly one-tenth longer than the Alexandrian."
+  src: [me, metzger-acts]
 key_units:
   - ref: "Luke 6:4–5"
     note: "Moves verse 5 to after verse 10 and puts in its place a saying of Jesus to a man working on the Sabbath: \"Man, if you know what you are doing, you are blessed; but if you do not know, you are accursed and a transgressor of the law.\" Luke then tells three Sabbath incidents, ending with the Son of Man as lord of the Sabbath."
@@ -24,8 +24,8 @@ key_units:
     note: "The only Greek manuscript with the shorter text of the Last Supper: it leaves out verses 19b–20, so the order is cup, then bread. The Old Latin manuscripts itᵃ, ᵈ, ᶠᶠ², ⁱ, ˡ agree. All other Greek manuscripts, from 𝔓⁷⁵ on, have cup, bread, cup. The committee was divided: a minority preferred the shorter text, but the majority followed the far stronger external evidence for the longer text and printed it, rated {B}."
     src: [metzger-tc-lk22]
   - ref: "Acts (throughout)"
-    note: "Its many additions in Acts are the main evidence for the longer form of that book."
-    src: [me]
+    note: "Acts circulated in two forms. D is the chief witness of the \"Western\" form, with the papyri 𝔓²⁹, 𝔓³⁸ and 𝔓⁴⁸, readings in the Harclean Syriac, the Old Latin h, and quotations in Cyprian and Augustine. That form is nearly one-tenth longer and often more vivid. No theory of how the two forms arose has won general agreement, so the UBS committee judged each passage on its own: it more often chose the shorter text, but accepted that some Western additions may be historically accurate. D also has readings of its own that other Western witnesses do not share."
+    src: [metzger-acts, omanson-acts]
 links:
   - { label: "INTF NT.VMR record (GA 05)", url: "https://ntvmr.uni-muenster.de/manuscript-workspace?docID=20005", kind: record, licence: "unconfirmed" }
   - { label: "Cambridge Digital Library: MS Nn.2.41 (full images)", url: "https://cudl.lib.cam.ac.uk/view/MS-NN-00002-00041/1", kind: images, licence: "unconfirmed" }
@@ -35,6 +35,8 @@ sources:
   - { id: ubs5-intro, cite: "UBS Greek New Testament, 5th ed., Introduction pp. 58*–63*, list of symbols, as given in Paratext 9 help.", checked: true }
   - { id: metzger-tc, cite: "Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed. (United Bible Societies, 1994), p. 117, note on Luke 6:4.", checked: true }
   - { id: metzger-tc-lk22, cite: "Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed. (United Bible Societies, 1994), pp. 148–50, note on Luke 22:17–20.", checked: true }
+  - { id: metzger-acts, cite: "Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed. (United Bible Societies, 1994), pp. 222–35, introduction to Acts.", checked: true }
+  - { id: omanson-acts, cite: "Roger L. Omanson, A Textual Guide to the Greek New Testament (Deutsche Bibelgesellschaft, 2006), pp. 214–16, introduction to Acts.", checked: true }
   - { id: omanson, cite: "Roger L. Omanson, A Textual Guide to the Greek New Testament (Deutsche Bibelgesellschaft, 2006), p. 117, note on Luke 6:4.", checked: true }
   - { id: me, cite: "Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005).", checked: false }
   - { id: parker, cite: "D. C. Parker, Codex Bezae: An Early Christian Manuscript and its Text (Cambridge University Press, 1992).", checked: false }

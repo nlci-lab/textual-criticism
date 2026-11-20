@@ -140,7 +140,7 @@ export function align(base: string[], wit: MsWord[]): Aligned {
 
 // ---- variation units -------------------------------------------------------------------------
 
-export interface Witness { id: string; siglum: string; siglumLang?: string; label: string; date: string; cntr: string; profile?: string }
+export interface Witness { id: string; siglum: string; siglumLang?: string; label: string; date: string; cntr: string; profile?: string; ga?: string; material?: string; holding?: string; ntvmr?: number; from?: number }
 export interface UnitDef { label: string; from: number; to: number; note?: string; glosses: Record<string, string> }
 export interface Row { w: Witness; hand: 'first' | 'corrected'; sigla: string; al: Aligned }
 export interface Reading { key: string; words: MsWord[]; gloss?: string; isBase: boolean; rows: Row[]; odd: number }

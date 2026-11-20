@@ -11,7 +11,9 @@ Restoration's manuscript transcriptions (github.com/Center-for-New-Testament-Res
 licensed CC BY-SA 4.0 by Alan Bunning.
 
 - `scripts/cntr-fetch.mjs` copies only the needed verse lines into `src/data/cntr/<verse>.json`,
-  pinned to one commit, so the build needs no network.
+  pinned to one commit, so the build needs no network. With `--all` it scans every class 1–3 file at
+  that commit and keeps each manuscript that has the verse, adding INTF NTVMR metadata (date, holding)
+  per witness; downloads are cached in the gitignored `.cache/` folder so reruns are fast.
 - `src/lib/collate.ts` reads CNTR's markup (first hand vs corrector, nomina sacra, damaged and
   missing letters), aligns each witness against the base text and groups readings; an editor's
   unit list and glosses (`src/data/collations/*.ts`) decide what is shown.

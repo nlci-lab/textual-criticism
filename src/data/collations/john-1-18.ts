@@ -15,16 +15,24 @@ export const base: [string, string][] = [
 ];
 export const english = 'No one has ever seen God; the only God, who is at the Father’s side, he has made him known.';
 
-/** Site witness id for a profile link; CNTR's w= id for its page viewer. */
-export const witnesses: Witness[] = [
-  { id: 'P66', siglum: '𝔓⁶⁶', label: 'Papyrus 66', date: 'c. 200', cntr: 'm10066', profile: 'p66' },
-  { id: 'P75', siglum: '𝔓⁷⁵', label: 'Papyrus 75', date: '3rd c.', cntr: 'm10075', profile: 'p75' },
-  { id: '01', siglum: 'א', siglumLang: 'he', label: 'Codex Sinaiticus', date: '4th c.', cntr: 'm20001', profile: 'sinaiticus' },
-  { id: '03', siglum: 'B', label: 'Codex Vaticanus', date: '4th c.', cntr: 'm20003', profile: 'vaticanus' },
-  { id: '02', siglum: 'A', label: 'Codex Alexandrinus', date: '5th c.', cntr: 'm20002', profile: 'alexandrinus' },
-  { id: '04', siglum: 'C', label: 'Codex Ephraemi', date: '5th c.', cntr: 'm20004' },
-  { id: '032', siglum: 'W', label: 'Codex Washingtonianus', date: '5th c.', cntr: 'm20032' },
-];
+/** Every CNTR witness that has the verse, from the JSON's meta; `profile` links to a site profile
+ *  where one exists (matched by `greek_ms.ga` in src/content/witnesses). */
+const profileByGa: Record<string, string> = {};
+for (const src of Object.values(import.meta.glob('../../content/witnesses/*.md', { query: '?raw', import: 'default', eager: true })) as string[]) {
+  const id = src.match(/^id:\s*["']?([^"'\s]+)/m)?.[1];
+  const ga = src.match(/^\s+ga:\s*["']?([^"'\s]+)/m)?.[1];
+  if (id && ga) profileByGa[ga] = id;
+}
+type Meta = { ga: string; siglum: string; siglumLang?: string; name?: string; date?: string; from?: number; to?: number; material?: string; holding?: string; ntvmr?: number; cntr: string };
+const metas = (data as unknown as { meta: Record<string, Meta> }).meta;
+const order = (ga: string) => [/^P\d/.test(ga) ? 0 : /^0\d/.test(ga) ? 1 : 2, Number(ga.replace(/^P/, ''))];
+export const witnesses: Witness[] = Object.entries(metas)
+  .sort(([, a], [, b]) => { const [x, y] = [order(a.ga), order(b.ga)]; return x[0] - y[0] || x[1] - y[1]; })
+  .map(([id, m]) => ({
+    id, ga: m.ga, siglum: m.siglum, siglumLang: m.siglumLang, label: m.name ?? `GA ${m.ga}`, date: m.date ?? '',
+    from: m.from, material: m.material, holding: m.holding, ntvmr: m.ntvmr, cntr: m.cntr,
+    ...(profileByGa[m.ga] ? { profile: profileByGa[m.ga] } : {}),
+  }));
 
 /** Variation units, by base word index (0-based). Glosses are keyed by the reading's plain Greek. */
 export const units: UnitDef[] = [

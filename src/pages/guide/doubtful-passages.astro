@@ -1,0 +1,158 @@
+---
+// Doubtful passages, grouped by type, with where Metzger & Ehrman discuss each and where this site covers it.
+// Page references were checked against the library PDF (printed page = PDF page − 19), 21 Nov 2026.
+import Context from '../../layouts/Context.astro';
+import { url } from '../../lib/url';
+const g = (id: string) => url(`glossary/#${id}`);
+const ex = (id: string) => url(`guide/examples/${id}/`);
+type Row = { ref: string; what: string; me?: string; site?: { label: string; href: string }[] };
+const S = {
+  j753: { label: 'Worked example', href: ex('john-7-53') },
+  j118: { label: 'Worked example', href: ex('john-1-18') },
+  jas: { label: 'Worked example', href: ex('james-2-20') },
+  rom: { label: 'Worked example', href: ex('romans-16-7') },
+  base: { label: 'Two Greek texts', href: url('guide/base-texts/') },
+  which: { label: 'Which variants matter', href: url('guide/which-variants-matter/') },
+  app: { label: 'Reading the apparatus', href: url('guide/apparatus/') },
+  B: { label: 'Codex Vaticanus', href: url('w/vaticanus/') },
+  aleph: { label: 'Codex Sinaiticus', href: url('w/sinaiticus/') },
+  byz: { label: 'Byz', href: url('w/byz/') },
+};
+const groups: { id: string; title: string; intro: string; rows: Row[] }[] = [
+  { id: 'long-passages', title: 'Long passages', intro: 'A whole story or ending that some manuscripts have and others do not.', rows: [
+    { ref: 'Mark 16:9–20', what: 'The longer ending of Mark. The oldest Greek copies end at 16:8.', me: '120, 322–27', site: [S.aleph, S.B, S.byz] },
+    { ref: 'John 7:53–8:11', what: 'The woman caught in adultery. Absent from the earliest copies; placed elsewhere in some.', me: '87, 162, 319–21', site: [S.j753] },
+  ] },
+  { id: 'whole-verses', title: 'Whole verses that most modern Bibles footnote', intro: 'These verses are in the Textus Receptus and the KJV. Most modern Bibles keep the verse number and put the words in a footnote; the NIV (1984) does this for all sixteen.', rows: [
+    { ref: 'Matthew 17:21', what: '“This kind goes out only by prayer and fasting.”' },
+    { ref: 'Matthew 18:11', what: '“The Son of Man came to save the lost.”' },
+    { ref: 'Matthew 23:14', what: 'Woe to those who devour widows’ houses.' },
+    { ref: 'Mark 7:16', what: '“If anyone has ears to hear, let him hear.”' },
+    { ref: 'Mark 9:44', what: '“Where their worm does not die …”' },
+    { ref: 'Mark 9:46', what: 'The same saying, repeated.' },
+    { ref: 'Mark 11:26', what: '“If you do not forgive, neither will your Father.”' },
+    { ref: 'Mark 15:28', what: '“He was counted with the lawless” (Isaiah 53:12).' },
+    { ref: 'Luke 17:36', what: '“Two men in the field: one taken, the other left.”' },
+    { ref: 'Luke 23:17', what: 'Pilate had to release one prisoner at the feast.' },
+    { ref: 'John 5:4', what: 'An angel stirring the water of the pool (with 5:3b).' },
+    { ref: 'Acts 8:37', what: 'The Ethiopian’s confession of faith.', me: '74, 162', site: [S.base] },
+    { ref: 'Acts 15:34', what: 'Silas decided to stay in Antioch.', me: '162' },
+    { ref: 'Acts 24:7', what: 'Lysias took Paul away by force (with 24:6b–8a).' },
+    { ref: 'Acts 28:29', what: 'The Jews left, arguing among themselves.' },
+    { ref: 'Romans 16:24', what: 'A repeated grace blessing.' },
+  ] },
+  { id: 'shorter', title: 'Shorter additions or omissions', intro: 'A phrase or a sentence, often one that readers know well.', rows: [
+    { ref: '1 John 5:7–8', what: 'The “Johannine comma”: Father, Word and Spirit in heaven.', me: '88, 146, 162, 182, 219', site: [S.base] },
+    { ref: 'Luke 22:43–44', what: 'The angel, and the sweat like drops of blood.', me: '284' },
+    { ref: 'Luke 23:34', what: '“Father, forgive them …”', me: '288', site: [S.B] },
+    { ref: 'Luke 22:19–20', what: 'Longer or shorter words at the Last Supper (the cup after supper).', me: '180, 285' },
+    { ref: 'Matthew 6:13', what: 'The doxology at the end of the Lord’s Prayer.', me: '114, 162', site: [S.base] },
+    { ref: 'Luke 11:2–4', what: 'The Lord’s Prayer filled out to match Matthew.', me: '262' },
+    { ref: 'Mark 1:1', what: '“Son of God” present or absent.', me: '80, 284, 298, 310' },
+    { ref: 'Matthew 24:36', what: '“nor the Son”: no one knows the hour.', me: '267' },
+    { ref: 'Matthew 27:49', what: 'The spear thrust, added from John 19:34.', me: '180' },
+    { ref: 'Colossians 1:14', what: '“through his blood”, added from Ephesians 1:7.', me: '258' },
+  ] },
+  { id: 'who-jesus-is', title: 'Wording about who Jesus is', intro: 'Places where the readings say something different about Jesus. Weigh them like any other variant.', rows: [
+    { ref: 'John 1:18', what: '“only God” or “only Son”.', me: '284', site: [S.j118, S.app] },
+    { ref: '1 Timothy 3:16', what: '“God was manifested” or “who was manifested”.', site: [S.base] },
+    { ref: 'Hebrews 2:9', what: '“by the grace of God” or “apart from God”.', me: '200' },
+    { ref: 'Luke 3:22', what: '“with you I am well pleased” or “today I have begotten you”.', me: '128, 284–85' },
+    { ref: 'Mark 1:41', what: 'Jesus “moved with compassion” or “angry”.' },
+    { ref: 'Acts 20:28', what: '“church of God” or “church of the Lord”.', me: '229, 265, 331' },
+    { ref: 'John 1:34', what: '“Son of God” or “Chosen One of God”.', me: '284' },
+    { ref: 'Luke 2:33', what: '“his father” or “Joseph” (also 2:43).', me: '285' },
+    { ref: 'Matthew 1:16', what: 'How Joseph’s relation to Mary is worded.', me: '284' },
+    { ref: '1 John 4:3', what: '“does not confess Jesus” or “looses Jesus”.', me: '285' },
+  ] },
+  { id: 'harmonizations', title: 'Harmonizations and “corrections”', intro: 'A scribe made a verse match another, or fixed what looked like an error.', rows: [
+    { ref: 'Mark 1:2', what: '“in Isaiah the prophet” changed to “in the prophets” (the quotation is partly from Malachi).', me: '264' },
+    { ref: 'James 2:20', what: '“useless” or “dead”, matching verses 17 and 26.', site: [S.jas] },
+    { ref: 'Matthew 27:49', what: 'The spear thrust (see “Shorter additions or omissions”).', me: '180' },
+    { ref: 'Luke 11:2–4', what: 'The Lord’s Prayer made to match Matthew (see “Shorter additions or omissions”).', me: '262' },
+  ] },
+  { id: 'names-numbers', title: 'Names, numbers and accents', intro: 'One name, one number, or one accent.', rows: [
+    { ref: 'Romans 16:7', what: 'Junia (a woman) or Junias (a man): an accent.', site: [S.rom, S.which] },
+    { ref: 'Matthew 27:16–17', what: '“Jesus Barabbas” or “Barabbas”.', me: '201' },
+    { ref: 'Luke 10:1', what: 'Seventy or seventy-two sent out (also 10:17).', me: '40, 229, 340' },
+    { ref: 'Revelation 13:18', what: '666 or 616.', me: '61' },
+  ] },
+  { id: 'placement', title: 'Where a passage stands', intro: 'The words are the same; their place in the book differs.', rows: [
+    { ref: '1 Corinthians 14:34–35', what: 'Some witnesses place these verses after verse 40.', me: '259, 289' },
+    { ref: 'Romans 16:25–27', what: 'The closing doxology appears in different places.', me: '55' },
+    { ref: 'John 7:53–8:11', what: 'Also found after John 7:36, 7:44 or at the end of John, or after Luke 21:38.', me: '319–21', site: [S.j753] },
+  ] },
+  { id: 'small-word', title: 'A small word that changes the meaning', intro: 'One letter or one word, and the sense moves.', rows: [
+    { ref: 'Romans 5:1', what: '“we have peace” or “let us have peace”.', me: '255' },
+    { ref: '1 Thessalonians 2:7', what: '“gentle” or “infants” (one letter).', me: '256, 328–30' },
+    { ref: 'Luke 2:14', what: '“peace, goodwill to people” or “peace to people of goodwill”.', me: '327–28' },
+    { ref: 'John 1:19', what: 'Where “to him” stands, or whether it is there.', site: [S.which] },
+  ] },
+];
+const sources = [
+  { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005). Page numbers in the tables were checked against the book on 21 Nov 2026.', checked: true },
+  { cite: 'The sixteen whole verses: the NIV English versification as used in Paratext projects, whose custom versification file lists them as verses that “in NIV84 … are in footnotes”.', checked: true },
+];
+---
+<Context title="Doubtful passages in the New Testament" label="Guide" lastChecked="2026-11-21" sources={sources}
+  description="The New Testament passages whose wording or presence is most often questioned, grouped by type, with where to read more.">
+  <p class="lead">Some passages are well known but uncertain: a story, a verse or a phrase that some manuscripts have and others do not. This page lists the ones a translator meets most often, grouped by the kind of problem.</p>
+  <p>For each passage you will find what is at stake, the pages where Metzger and Ehrman’s <em>The Text of the New Testament</em> (4th ed., 2005) discusses it, and where this site covers it. To decide what to print, follow your project’s <a href={url('guide/text-policy/')}>text policy</a> and the steps in the <a href={url('guide/examples/')}>worked examples</a>.</p>
+
+  <h2>How Bibles show them</h2>
+  <ul class="how">
+    <li><strong>Long passages.</strong> The UBS text prints Mark 16:9–20 and John 7:53–8:11 inside <a href={g('double-brackets')}>⟦ ⟧</a>: added later, but very old and important. Most Bibles keep them in place with a heading or a note.</li>
+    <li><strong>Whole verses.</strong> Most modern Bibles keep the verse number and move the words to a footnote, so verse numbers still match older Bibles.</li>
+    <li><strong>Shorter wording.</strong> Shown in the apparatus and often in a footnote that names the other reading.</li>
+  </ul>
+  <p class="small muted">For translation teams in Paratext: a project that uses NIV-style versification already lists the sixteen whole verses below in its versification file. Check how your regional-language Bible handles each one, and take any difference to your Review Committee.</p>
+
+  {groups.map((gr) => (
+    <section class="grp">
+      <h2 id={gr.id}>{gr.title}</h2>
+      <p>{gr.intro}</p>
+      <div class="tw">
+        <table class="dp">
+          <thead><tr><th scope="col">Passage</th><th scope="col">What is at stake</th><th scope="col">Metzger &amp; Ehrman</th><th scope="col">On this site</th></tr></thead>
+          <tbody>
+            {gr.rows.map((r) => (
+              <tr>
+                <th scope="row" data-h="Passage">{r.ref}</th>
+                <td data-h="At stake">{r.what}</td>
+                <td data-h="Metzger & Ehrman">{r.me ? `${/[–,]/.test(r.me) ? 'pp.' : 'p.'} ${r.me}` : <span class="muted">—</span>}</td>
+                <td data-h="On this site">{r.site?.length ? r.site.map((s, i) => <>{i > 0 && ', '}<a href={s.href}>{s.label}</a></>) : <span class="muted">—</span>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ))}
+
+  <h2>What to do with them</h2>
+  <ol>
+    <li>Read the apparatus entry and the rating. See <a href={url('guide/apparatus/')}>how to read an entry</a>.</li>
+    <li>Ask whether it matters for your readers. See <a href={url('guide/which-variants-matter/')}>which variants matter</a>.</li>
+    <li>Weigh the evidence in the six steps of the <a href={url('guide/examples/')}>worked examples</a>.</li>
+    <li>Check your <a href={url('guide/text-policy/')}>text policy</a>: where your regional-language Bible differs from the UBS text, your Review Committee decides.</li>
+  </ol>
+</Context>
+
+<style>
+  .how { padding-left: 1.2rem; }
+  .how li { margin-bottom: .4rem; }
+  .grp { margin-top: 1.5rem; }
+  .tw { overflow-x: auto; }
+  .dp { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  .dp th, .dp td { text-align: left; vertical-align: top; padding: .5rem .6rem .5rem 0; border-top: 1px solid var(--rule); }
+  .dp thead th { font: 600 .72rem var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); border-top: 0; }
+  .dp tbody th { font: 600 .9rem var(--sans); white-space: nowrap; }
+  .dp td:nth-child(3) { white-space: nowrap; font-family: var(--sans); font-size: .85rem; }
+  .dp td:nth-child(4) { font-family: var(--sans); font-size: .85rem; }
+  @media (max-width: 40rem) {
+    .dp thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .dp tr { display: grid; gap: .2rem; padding: .6rem 0; border-top: 1px solid var(--rule); }
+    .dp th, .dp td { border: 0; padding: 0; white-space: normal; }
+    .dp td[data-h]::before { content: attr(data-h) ": "; font: 600 .78rem var(--sans); color: var(--ink-2); }
+  }
+</style>

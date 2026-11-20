@@ -38,6 +38,13 @@ export const GUIDES: GuideMeta[] = [
     practice: ['guide/examples/romans-16-7/', 'guide/examples/john-7-53/'],
   },
   {
+    path: 'guide/doubtful-passages/', cover: 'Doubtful passages', section: 'guide', level: 'Going further',
+    summary: 'The New Testament passages most often questioned, grouped by type, with where to read more.',
+    learn: ['The eight kinds of doubtful passage', 'How Bibles mark long passages and whole verses', 'Where Metzger and Ehrman discuss each one', 'Which ones this site works through'],
+    before: 'guide/which-variants-matter/', related: ['guide/examples/john-7-53/', 'guide/base-texts/', 'guide/text-policy/'],
+    verses: ['Mark 16:9–20', 'John 7:53–8:11', '1 John 5:7–8', 'Luke 22:43–44', 'Luke 23:34', 'Matthew 6:13', 'Acts 8:37'],
+  },
+  {
     path: 'guide/weighing-evidence/', cover: 'Weighing the evidence', section: 'guide', level: 'Going further',
     summary: 'From reading an entry to judging between readings: external and internal evidence.',
     learn: ['The questions editors ask about witnesses', 'Why counting manuscripts misleads', 'Scribal habits and the author’s style', 'Rules of thumb, and their limits', 'How the CBGM changes the picture'],

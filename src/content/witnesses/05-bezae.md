@@ -10,12 +10,12 @@ date:
   label: "5th century"
   from: 400
   to: 499
-  basis: "INTF dates it to century V. Some scholars place it around 400, others in the 5th or 6th century."
-  src: [intf]
+  basis: "INTF dates it to century V. Metzger and Ehrman date it to the 5th century. Parker dates it to about 400 and thinks it was possibly copied in Berytus (modern Beirut)."
+  src: [intf, me-p70, pk-p288]
 text_character:
   label: "The main Greek witness of the so-called \"Western\" text"
   contested_note: "The name \"Western\" is misleading, and whether this is one text-type at all is debated. In Acts the Western text is nearly one-tenth longer than the Alexandrian."
-  src: [me, metzger-acts]
+  src: [me-p73, metzger-acts]
 key_units:
   - ref: "Luke 6:4–5"
     note: "Moves verse 5 to after verse 10 and puts in its place a saying of Jesus to a man working on the Sabbath: \"Man, if you know what you are doing, you are blessed; but if you do not know, you are accursed and a transgressor of the law.\" Luke then tells three Sabbath incidents, ending with the Son of Man as lord of the Sabbath."
@@ -39,12 +39,12 @@ sources:
   - { id: omanson-acts, cite: "Roger L. Omanson, A Textual Guide to the Greek New Testament (Deutsche Bibelgesellschaft, 2006), pp. 214–16, introduction to Acts.", checked: true }
   - { id: omanson, cite: "Roger L. Omanson, A Textual Guide to the Greek New Testament (Deutsche Bibelgesellschaft, 2006), p. 117, note on Luke 6:4.", checked: true }
   - { id: me, cite: "Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005).", checked: false }
-  - { id: parker, cite: "D. C. Parker, Codex Bezae: An Early Christian Manuscript and its Text (Cambridge University Press, 1992).", checked: false }
+  - { id: me-p70, cite: "Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005), p. 70.", checked: true }
+  - { id: me-p73, cite: "Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005), p. 73.", checked: true }
+  - { id: pk-p288, cite: "D. C. Parker, An Introduction to the New Testament Manuscripts and Their Texts (Cambridge University Press, 2008), p. 288.", checked: true }
 unverified:
-  - { claim: "The Gospels are in the order Matthew, John, Luke, Mark.", from: "memory of Metzger & Ehrman" }
-  - { claim: "Theodore Beza gave it to Cambridge University in 1581.", from: "memory of Metzger & Ehrman" }
   - { claim: "Its Latin side is cited separately in UBS as the Old Latin manuscript itᵈ.", from: "the unsourced sigla list; check against UBS5 Introduction" }
-  - { claim: "Parker dates it to about 400 and places it in Berytus (Beirut).", from: "memory of Parker 1992" }
+  - { claim: "Some scholars date it to the 6th century.", from: "earlier wording of this profile; not found in Metzger & Ehrman or Parker" }
   - { claim: "Aland category IV.", from: "memory of Aland & Aland; check" }
 ubs5_list_checked: false
 last_checked: "2026-11-19"
@@ -53,7 +53,7 @@ greek_ms:
   ntvmr_doc_id: 20005
   category: majuscule
   material: { value: parchment, src: [me] }
-  format: { value: codex, src: [me] }
+  format: { value: codex, src: [me-p70] }
   leaves: { value: "415", src: [intf] }
   content_letters: { value: "ea † (Gospels, Acts; with gaps). Greek and Latin on facing pages.", src: [intf] }
   contents:
@@ -77,7 +77,7 @@ page_image:
   licence: { holder: "Cambridge University Library", name: "CC BY-NC 3.0", url: "https://creativecommons.org/licenses/by-nc/3.0/" }
 ---
 
-Codex Bezae has Greek on the left-hand page and Latin on the right, line by line. It is named after Theodore Beza, the Reformer, who owned it before it went to Cambridge.
+Codex Bezae has Greek on the left-hand page and Latin on the right, line by line. It is named after Theodore Beza, the Reformer, who owned it and gave it to Cambridge University in 1581. The Gospels are in the "Western" order: Matthew, John, Luke, Mark (Metzger and Ehrman, p. 70).
 
 When D stands alone against all the other early Greek manuscripts, the UBS committee rarely follows it. But D is often joined by Old Latin and Syriac witnesses, which suggests that its kind of text was spread widely by the second century.
 

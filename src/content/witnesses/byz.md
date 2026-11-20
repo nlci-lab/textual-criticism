@@ -14,13 +14,14 @@ key_units:
     src: [me]
   - ref: "Mark 16:9–20"
     note: "Byzantine manuscripts mostly include the longer ending."
-    src: [me]
+    src: [me-p323]
 links:
   - { label: "INTF NT.VMR (search the Liste)", url: "https://ntvmr.uni-muenster.de/liste", kind: record, licence: "unconfirmed" }
 sources:
   - { id: ubs5-intro, cite: "UBS Greek New Testament, 5th ed., Introduction pp. 58*–63*, list of symbols, as given in Paratext 9 help: \"Byz: the reading of the majority of the Byzantine witnesses\"; \"Byzpt: a part of the Byzantine manuscript tradition\"; [ ] after Byz enclose certain Byzantine witnesses (cf. p. 10*).", checked: true }
   - { id: ubs5-jn118, cite: "UBS Greek New Testament, 5th ed., apparatus at John 1:18, as shown in Paratext 9 (seen 19 Nov 2026).", checked: true }
   - { id: me, cite: "Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005).", checked: false }
+  - { id: me-p323, cite: "Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005), p. 323.", checked: true }
 unverified:
   - { claim: "Which Byzantine manuscripts UBS5 uses to decide the Byz reading, and which majuscules it lists in brackets after Byz in each part of the NT.", from: "UBS5 Introduction p. 10*; not available yet" }
 ubs5_list_checked: false

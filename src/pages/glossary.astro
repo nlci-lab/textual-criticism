@@ -2,10 +2,10 @@
 import Base from '../layouts/Base.astro';
 import { GLOSSARY } from '../data/glossary';
 ---
-<Base title="Apparatus glossary" nav="glossary/">
+<Base title="Glossary" nav="glossary/">
   <div class="prose">
     <h1 class="page-h1">Glossary</h1>
-    <p class="muted">The symbols and short words used in the UBS apparatus, in plain English. More entries will be added as profiles are written.</p>
+    <p class="muted">Terms used on this site, in plain English: the symbols and short words of the UBS apparatus, and words for manuscripts and how they were made. Each entry gives its source. More entries will be added as profiles are written.</p>
     <dl class="gloss">
       {GLOSSARY.map((t) => (
         <div id={t.id}>

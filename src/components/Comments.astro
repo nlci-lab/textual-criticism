@@ -12,7 +12,8 @@ const discussions = `https://github.com/${REPO}/discussions/categories/page-comm
   <h2 id="cm-h">Comments</h2>
   <p class="small muted">Public comments and reactions, kept in the site's <a href={discussions}>GitHub Discussions</a>. You need a GitHub account to take part. For a private note to the site team, use the box above.</p>
   <button type="button" class="cm-load">Show comments</button>
-  <div class="cm-thread"></div>
+  <p class="cm-status visually-hidden" role="status" aria-live="polite"></p>
+  <div class="cm-thread" tabindex="-1" aria-label="Comments thread"></div>
 </section>
 
 <script define:vars={{ REPO, REPO_ID, CATEGORY, CATEGORY_ID }}>
@@ -21,30 +22,70 @@ const discussions = `https://github.com/${REPO}/discussions/categories/page-comm
     if (!box) return;
     var btn = box.querySelector('.cm-load');
     var thread = box.querySelector('.cm-thread');
+    var status = box.querySelector('.cm-status');
+    var script = null, ready = false, moveFocus = false;
     function theme() {
       var t = document.documentElement.dataset.theme;
       if (t === 'dark' || t === 'light') return t;
       return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    btn.addEventListener('click', function () {
-      btn.hidden = true;
-      var s = document.createElement('script');
-      s.src = 'https://giscus.app/client.js';
-      s.async = true;
-      s.crossOrigin = 'anonymous';
+    function syncTheme() {
+      if (script && !ready) script.setAttribute('data-theme', theme());
+      var f = box.querySelector('iframe.giscus-frame');
+      if (f && f.contentWindow) f.contentWindow.postMessage({ giscus: { setConfig: { theme: theme() } } }, 'https://giscus.app');
+    }
+    function load(fromSignIn) {
+      if (script) return;
+      // Remember whether the reader was on the button: disabling it below drops focus.
+      moveFocus = document.activeElement === btn;
+      btn.disabled = true;
+      btn.textContent = 'Loading comments…';
+      status.textContent = 'Loading comments…';
+      script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+      script.async = true;
+      script.crossOrigin = 'anonymous';
       var attrs = {
         'data-repo': REPO, 'data-repo-id': REPO_ID, 'data-category': CATEGORY, 'data-category-id': CATEGORY_ID,
         'data-mapping': 'pathname', 'data-strict': '1', 'data-reactions-enabled': '1', 'data-emit-metadata': '0',
-        'data-input-position': 'top', 'data-theme': theme(), 'data-lang': 'en', 'data-loading': 'lazy',
+        'data-input-position': 'top', 'data-theme': theme(), 'data-lang': 'en', 'data-loading': fromSignIn ? 'eager' : 'lazy',
       };
-      for (var k in attrs) s.setAttribute(k, attrs[k]);
-      thread.appendChild(s);
+      for (var k in attrs) script.setAttribute(k, attrs[k]);
+      // If the script can't be fetched (dropped connection, blocked host), offer a retry.
+      script.addEventListener('error', function () {
+        script.remove(); script = null;
+        btn.disabled = false; btn.hidden = false; btn.textContent = 'Try again';
+        status.textContent = 'Could not load comments. Check your connection and try again.';
+      });
+      thread.appendChild(script);
+    }
+    // giscus posts messages from its frame; the first one means it is ready.
+    addEventListener('message', function (e) {
+      if (e.origin !== 'https://giscus.app' || !e.data || !e.data.giscus) return;
+      if (!ready) {
+        ready = true;
+        syncTheme();
+        status.textContent = 'Comments loaded.';
+        btn.hidden = true;
+        if (moveFocus) thread.focus();   // keep keyboard users in place
+      }
     });
-    // Follow the site's light/dark switch once the comments are loaded.
-    new MutationObserver(function () {
-      var f = box.querySelector('iframe.giscus-frame');
-      if (f && f.contentWindow) f.contentWindow.postMessage({ giscus: { setConfig: { theme: theme() } } }, 'https://giscus.app');
-    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    btn.addEventListener('click', function () { load(false); });
+    // Returning from GitHub sign-in: giscus puts a reusable session in ?giscus=…
+    // Move it out of the address bar at once (where it could be shared or leak in a referrer),
+    // store it where giscus's client looks for it, and reopen the comments without another click.
+    var params = new URLSearchParams(location.search);
+    var session = params.get('giscus');
+    if (session) {
+      try { localStorage.setItem('giscus-session', JSON.stringify(session)); } catch (e) {}
+      params.delete('giscus');
+      var q = params.toString();
+      history.replaceState(history.state, '', location.pathname + (q ? '?' + q : '') + location.hash);
+      load(true);
+    }
+    // Follow the site's theme switch and, when no site theme is set, the system setting.
+    new MutationObserver(syncTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
   })();
 </script>
 
@@ -54,5 +95,7 @@ const discussions = `https://github.com/${REPO}/discussions/categories/page-comm
   .cm p { margin: 0 0 .75rem; }
   .cm-load { font: 600 .95rem var(--sans); padding: .5rem 1.1rem; border-radius: 8px; border: 1.5px solid var(--ink); background: var(--paper); color: var(--ink); cursor: pointer; min-height: 2.5rem; }
   .cm-load[hidden] { display: none; }
+  .cm-load:disabled { opacity: .7; cursor: progress; }
+  .cm-thread:focus { outline: none; }
   .cm-thread:empty { display: none; }
 </style>

@@ -1,13 +1,11 @@
 ---
-import Base from '../../layouts/Base.astro';
+import Context from '../../layouts/Context.astro';
 import { url } from '../../lib/url';
 const w = (id: string) => url(`w/${id}/`);
 const g = (id: string) => url(`glossary/#${id}`);
 ---
-<Base title="Reading a UBS apparatus entry" nav="guide/apparatus/" description="A worked example from John 1:18, explained piece by piece.">
-  <article class="prose guide">
-    <p class="label">Guide</p>
-    <h1>How to read a UBS apparatus entry</h1>
+<Context title="How to read a UBS apparatus entry" label="Guide" notice={false}
+  description="A worked example from John 1:18, explained piece by piece.">
     <p class="lead">An apparatus entry lists the different readings at one place in the text, and the witnesses for each. Here is the entry for John 1:18 as Paratext shows it, taken apart.</p>
 
     <h2>The verse</h2>
@@ -54,10 +52,8 @@ const g = (id: string) => url(`glossary/#${id}`);
       <p>The rating is the committee's judgement, not a measure of the evidence. {'{A}'} means the committee was certain; {'{D}'} means it had great difficulty deciding. The letters do not count manuscripts, and two {'{B}'} ratings in different books were not made on a common scale.</p>
       <p>Scholars have criticised the system. Between the 3rd and 4th editions many ratings were raised, for example from {'{C}'} to {'{B}'}, without new evidence. Kent D. Clarke (<i>Textual Optimism</i>, 1997) argued that the ratings became more confident than the evidence allows. Treat the letter as one opinion, and read the reasons in Metzger's <i>Textual Commentary</i> or Omanson's <i>A Textual Guide to the Greek New Testament</i>, as this page does for John 1:18.</p>
     </section>
-  </article>
-</Base>
+</Context>
 <style>
-  .guide { margin-top: 1.5rem; }
   .lead { font-size: var(--step-1); line-height: 1.45; }
   .entry { background: var(--paper-2); border-radius: 6px; padding: 0.75rem 1rem; overflow-x: auto; font-family: var(--sigla); line-height: 1.9; }
   .entry p { margin: 0 0 0.35rem; }

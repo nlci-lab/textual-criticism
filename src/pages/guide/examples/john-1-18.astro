@@ -4,10 +4,13 @@
 import Context from '../../../layouts/Context.astro';
 import { url } from '../../../lib/url';
 import ExampleStyles from '../../../components/ExampleStyles.astro';
+import Collation from '../../../components/Collation.astro';
+import * as J118 from '../../../data/collations/john-1-18';
 const w = (id: string) => url(`w/${id}/`);
 const g = (id: string) => url(`glossary/#${id}`);
 const ap = url('guide/apparatus/');
 const sources = [
+  { cite: 'Manuscript transcriptions: Alan Bunning, Center for New Testament Restoration, transcriptions (GitHub, commit 4e743a4), CC BY-SA 4.0. The comparison built from them is CC BY-SA 4.0.', checked: true },
   { cite: 'UBS Greek New Testament, 5th ed., apparatus at John 1:18, as shown in Paratext 9 (seen 19 Nov 2026).', checked: true },
   { cite: 'Bruce M. Metzger, A Textual Commentary on the Greek New Testament, 2nd ed. (United Bible Societies, 1994), pp. 169–70, on John 1:18 (as summarized on this site’s apparatus guide).', checked: true },
   { cite: 'Roger L. Omanson, A Textual Guide to the Greek New Testament (Deutsche Bibelgesellschaft, 2006), p. 165, on John 1:18 (as summarized on this site’s apparatus guide).', checked: true },
@@ -74,6 +77,7 @@ const sources = [
         <p class="wits">A Vulgate manuscript, Pseudo-Vigilius</p>
       </li>
     </ul>
+    <Collation verse={J118.verse} data={J118.data_} base={J118.base} english={J118.english} witnesses={J118.witnesses} units={J118.units} phrases={J118.phrases} glosses={J118.glosses} />
     <p>The lists here are shortened. To read every siglum and mark, see <a href={ap}>how to read this entry</a>.</p>
   </section>
 

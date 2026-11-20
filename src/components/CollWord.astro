@@ -1,0 +1,14 @@
+---
+// One manuscript word: sacred-name overline, damaged letters dotted, lost letters greyed.
+import type { MsWord } from '../lib/collate';
+interface Props { w: MsWord }
+const { w } = Astro.props;
+// CNTR writes every sigma as σ; show a final one as ς, as printed Greek does.
+const gl = w.glyphs.map((g, i) => (i === w.glyphs.length - 1 && g.c === 'σ' ? { ...g, c: 'ς' } : g));
+---
+<span class:list={['cw', { ns: w.ns }]} title={w.ns ? `Shortened sacred name: ${w.norm}` : undefined}>{gl.map((g) => g.dmg ? <span class="dmg">{g.c}</span> : g.miss ? <span class="miss">{g.c}</span> : g.c)}</span>
+<style>
+  .ns { text-decoration: overline; text-decoration-thickness: 1px; }
+  .dmg { text-decoration: underline dotted; }
+  .miss { color: var(--ink-2); }
+</style>

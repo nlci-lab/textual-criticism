@@ -1,0 +1,217 @@
+---
+// Manuscript comparison for one verse, from CNTR transcriptions (CC BY-SA 4.0).
+// Two views of the same alignment, switched by a toggle:
+//   "By reading": each variation unit as a card, witnesses grouped under their reading (default).
+//   "Word by word": every witness word under the base word, in short phrases that wrap.
+// Without JavaScript both views show, one after the other.
+import Word from './CollWord.astro';
+import { rows as buildRows, readings, siglum, type UnitDef, type Witness, type MsWord, type Kind, type Row } from '../lib/collate';
+import { url } from '../lib/url';
+interface Props {
+  verse: { ref: string; id: string };
+  data: { witnesses: Record<string, string | null>; source: string; credit: string; licence: string };
+  base: [string, string][];
+  english: string;
+  witnesses: Witness[];
+  units: UnitDef[];
+  phrases: [number, number][];
+  glosses?: Record<string, string>;
+}
+const { verse, data, base, english, witnesses, units, phrases, glosses = {} } = Astro.props;
+const baseWords = base.map(([g]) => g);
+const rs = buildRows(baseWords, witnesses, data.witnesses);
+// Show a corrected row only where the corrector changed something.
+const shown = rs.filter((r) => {
+  if (r.hand === 'first') return true;
+  const f = rs.find((x) => x.w.id === r.w.id && x.hand === 'first')!;
+  return JSON.stringify(r.al.slots.map((s) => s.word?.ortho)) !== JSON.stringify(f.al.slots.map((s) => s.word?.ortho))
+    || JSON.stringify([...r.al.adds]) !== JSON.stringify([...f.al.adds]);
+});
+const label = (r: Row) => r.w.siglum + (shown.some((x) => x.w.id === r.w.id && x.hand !== r.hand) ? (r.hand === 'first' ? '*' : 'ᶜ') : '');
+const page = (w: Witness) => `https://greekcntr.org/manuscripts/?w=${w.cntr}&v=${verse.id}`;
+const unitAt = (k: number) => units.findIndex((u) => u.from <= u.to && k >= u.from && k <= u.to);
+const cls: Record<Kind, string> = { same: '', spelling: 'sp', different: 'sub', missing: 'om', added: 'add', order: 'tr' };
+const glossOf = (w: MsWord) => glosses[w.norm];
+// The base verse in runs: consecutive words of the same unit share one highlight.
+const runs: { u: number; words: string[] }[] = [];
+baseWords.forEach((g, k) => { const u = unitAt(k); const last = runs[runs.length - 1]; if (last && last.u === u) last.words.push(g); else runs.push({ u, words: [g] }); });
+
+/** Columns of one phrase: words added before it, then each base word with words added after it inside the phrase. */
+function columns([s, e]: [number, number]) {
+  const cols: ({ t: 'base'; k: number } | { t: 'add'; k: number })[] = [];
+  const hasAdd = (k: number) => shown.some((r) => (r.al.adds.get(k) ?? []).length);
+  if (hasAdd(s - 1)) cols.push({ t: 'add', k: s - 1 });
+  for (let k = s; k <= e; k++) {
+    cols.push({ t: 'base', k });
+    if ((k < e || k === base.length - 1) && hasAdd(k)) cols.push({ t: 'add', k });
+  }
+  return cols;
+}
+---
+<section class="coll" data-coll aria-labelledby={`coll-${verse.id}`}>
+  <div class="coll-head">
+    <h3 id={`coll-${verse.id}`}>See it in the manuscripts</h3>
+    <div class="coll-toggle" role="group" aria-label="View" hidden>
+      <button type="button" data-view="reading" aria-pressed="true">By reading</button>
+      <button type="button" data-view="grid" aria-pressed="false">Word by word</button>
+    </div>
+  </div>
+  <p class="coll-key small">
+    <span><i class="sw sub"></i>different word</span><span><i class="sw add"></i>added</span><span><i class="sw tr"></i>changed order</span>
+    <span>— missing</span><span><span class="sp">greyed</span> spelling only</span><span><span class="g ns">θσ</span> sacred name, shortened</span>
+    <span><span class="g dmg">ο</span> damaged</span><span><span class="g miss">υ</span> lost, restored</span>
+  </p>
+
+  <!-- By reading -->
+  <div class="coll-view" data-v="reading">
+    <p class="coll-base g">{runs.map((run, i) => <>{run.u >= 0 ? <mark>{run.words.join(' ')}</mark> : run.words.join(' ')}{i < runs.length - 1 ? ' ' : '.'}</>)}</p>
+    <p class="coll-eng">{english}</p>
+    <div class="units">
+      {units.map((u, n) => {
+        const rds = readings(baseWords, rs.filter((r) => shown.includes(r)), u);
+        return (
+          <article class="unit">
+            <h4><span class="un">{n + 1}</span> <span class="g">{u.label}</span>{u.note && <span class="muted"> · {u.note}</span>}</h4>
+            <div class="rds">
+              {rds.map((rd) => (
+                <div class="rd">
+                  <p class="form g">{rd.words.length ? rd.words.map((w, i) => <><Word w={w} />{i < rd.words.length - 1 ? ' ' : ''}</>) : <span class="om">{u.from > u.to ? 'nothing added' : '— omits'}</span>}</p>
+                  <p class="eng">{rd.gloss ? (rd.words.length ? `“${rd.gloss}”` : rd.gloss) : ''}{rd.isBase && <span class="ubs">UBS text</span>}</p>
+                  <ul class="wits">
+                    {rd.rows.map((r) => (
+                      <li>
+                        {r.w.profile ? <a href={url(`w/${r.w.profile}/`)} class="sg" lang={r.w.siglumLang} dir={r.w.siglumLang ? 'ltr' : undefined}>{siglum(r, rs, u)}</a>
+                          : <span class="sg" lang={r.w.siglumLang} dir={r.w.siglumLang ? 'ltr' : undefined}>{siglum(r, rs, u)}</span>}
+                        <span class="dt">{r.w.date}</span>
+                        <a class="pg" href={page(r.w)} target="_blank" rel="noopener" aria-label={`${r.w.label} at John ${verse.ref.split(' ')[1]}, page at CNTR (opens in a new tab)`}>page ↗</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Word by word -->
+  <div class="coll-view" data-v="grid">
+    {phrases.map((ph, pi) => {
+      const cols = columns(ph);
+      const cellFor = (r: Row, c: (typeof cols)[number]) => {
+        if (c.t === 'add') {
+          const a = r.al.adds.get(c.k) ?? [];
+          return <div class="cell g" role="cell">{a.map((x, i) => <><span class={cls[x.kind]}><Word w={x.word} /></span>{i < a.length - 1 ? ' ' : ''}</>)}{a.some((x) => glossOf(x.word)) && <span class="gl"> {a.map((x) => glossOf(x.word)).filter(Boolean).join(' ')}</span>}</div>;
+        }
+        const s = r.al.slots[c.k];
+        return s.word
+          ? <div class="cell g" role="cell"><span class={cls[s.kind]}><Word w={s.word} /></span>{s.kind === 'different' && glossOf(s.word) && <span class="gl"> {glossOf(s.word)}</span>}</div>
+          : <div class="cell" role="cell"><span class="om" title={s.kind === 'order' ? 'moved: see the added column' : 'missing'}>{s.kind === 'order' ? '↔' : '—'}</span></div>;
+      };
+      return (
+        <div class="blk" role="table" aria-label={`Phrase ${pi + 1} of ${phrases.length}`} style={`--cols:${cols.length}`}>
+          <div class="row" role="row">
+            <div class="cell head lab" role="columnheader"><span class="small muted">Phrase {pi + 1}</span><span class="gl">English</span></div>
+            {cols.map((c) => <div class:list={['cell head', { var: c.t === 'add' || unitAt(c.k) >= 0 }]} role="columnheader">
+              {c.t === 'base' ? <><span class="g hb">{base[c.k][0]}</span><span class="gl">{base[c.k][1]}</span></> : <><span class="g hb">+</span><span class="gl">added</span></>}
+            </div>)}
+          </div>
+          {shown.map((r) => (
+            <div class="row" role="row">
+              <div class="cell lab" role="rowheader"><span class="sg" lang={r.w.siglumLang} dir={r.w.siglumLang ? 'ltr' : undefined}>{label(r)}</span></div>
+              {cols.map((c) => cellFor(r, c))}
+            </div>
+          ))}
+        </div>
+      );
+    })}
+  </div>
+
+  <p class="coll-credit small muted">Manuscript text: transcriptions by Alan Bunning, <a href={data.source}>Center for New Testament Restoration</a>, {data.licence}. Lined up and glossed by this site; this comparison is also {data.licence}. "page ↗" opens each manuscript's page at CNTR. The Byzantine text is not in CNTR's transcriptions, so it is not shown here.</p>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-coll]').forEach((root) => {
+    const bar = root.querySelector<HTMLElement>('.coll-toggle')!;
+    const btns = [...bar.querySelectorAll<HTMLButtonElement>('button')];
+    const views = [...root.querySelectorAll<HTMLElement>('.coll-view')];
+    bar.hidden = false;
+    root.classList.add('js');
+    function set(v: string) {
+      btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === v)));
+      views.forEach((el) => (el.hidden = el.dataset.v !== v));
+      try { localStorage.setItem('coll-view', v); } catch {}
+    }
+    btns.forEach((b) => b.addEventListener('click', () => set(b.dataset.view!)));
+    let start = 'reading';
+    try { start = localStorage.getItem('coll-view') === 'grid' ? 'grid' : 'reading'; } catch {}
+    const q = new URLSearchParams(location.search).get('view');   // ?view=grid links straight to the word-by-word view
+    if (q === 'grid' || q === 'reading') start = q;
+    set(start);
+  });
+</script>
+
+<style>
+  .coll { margin: 1.5rem 0; padding: 1rem 1.1rem 1.1rem; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper); }
+  .coll-head { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; justify-content: space-between; }
+  .coll-head h3 { margin: 0; font-size: 1.15rem; }
+  .coll-toggle { display: inline-flex; border: 1px solid var(--ink); border-radius: 999px; overflow: hidden; font: 600 .85rem var(--sans); }
+  .coll-toggle[hidden] { display: none; }
+  .coll-toggle button { border: 0; background: var(--paper); color: var(--ink); padding: .4rem .9rem; cursor: pointer; font: inherit; min-height: 2.25rem; }
+  .coll-toggle button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .coll-key { display: flex; flex-wrap: wrap; gap: .3rem .9rem; margin: .6rem 0 1rem; font-family: var(--sans); color: var(--ink-2); }
+  .coll-key span { display: inline-flex; gap: .3rem; align-items: center; }
+  .sw { display: inline-block; width: 1rem; height: .85rem; border-radius: 3px; }
+  .coll:not(.js) .coll-view + .coll-view { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed var(--rule); }
+  .g { font-family: var(--serif); }
+  .ns { text-decoration: overline; text-decoration-thickness: 1px; }
+  .dmg { text-decoration: underline dotted; }
+  .miss { color: var(--ink-2); }
+  .sp { color: var(--ink-2); }
+  .sub { background: var(--coll-sub); border-radius: 3px; box-shadow: inset 0 -2px 0 var(--ochre); padding: 0 .1em; }
+  .add { background: var(--coll-add); border-radius: 3px; box-shadow: inset 0 -2px 0 var(--lapis); padding: 0 .1em; }
+  .tr { box-shadow: inset 0 -2px 0 var(--verdigris); border-radius: 3px; padding: 0 .1em; }
+  .om { color: var(--ink-2); font: .85rem var(--sans); }
+  .gl { font: italic .75rem/1.2 var(--sans); color: var(--ink-2); }
+  .sg { font-family: var(--sigla); color: var(--rubric); }
+  /* by reading */
+  .coll-base { font-size: 1.25rem; line-height: 1.75; margin: 0; }
+  .coll-base mark { background: var(--coll-sub); color: inherit; border-radius: 3px; padding: 0 .12em; box-shadow: inset 0 -2px 0 var(--ochre); }
+  .coll-eng { font: italic .85rem var(--sans); color: var(--ink-2); margin: .2rem 0 1rem; }
+  .units { display: grid; gap: .9rem; }
+  .unit { border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .unit h4 { margin: 0; padding: .5rem .9rem; background: var(--paper-2); font: 600 .9rem var(--sans); }
+  .unit h4 .g { font: 1.05rem var(--serif); }
+  .un { display: inline-grid; place-items: center; width: 1.4rem; height: 1.4rem; border-radius: 50%; border: 1.5px solid var(--rubric); color: var(--rubric); font-size: .75rem; margin-right: .2rem; }
+  .rds { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 1px; background: var(--rule); }
+  .rd { padding: .7rem .9rem; background: var(--paper); }
+  .form { font-size: 1.25rem; margin: 0; }
+  .eng { font: .85rem var(--sans); color: var(--ink-2); margin: .1rem 0 .5rem; }
+  .ubs { margin-left: .4rem; padding: 0 .45rem; border: 1px solid var(--rubric); color: var(--rubric); border-radius: 999px; font: 600 .7rem/1.5 var(--sans); }
+  .wits { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .35rem; }
+  .wits li { display: inline-flex; gap: .4rem; align-items: baseline; padding: .15rem .6rem; border: 1px solid var(--rule); border-radius: 999px; font: .8rem var(--sans); }
+  .wits .sg { font-size: 1rem; text-decoration: none; }
+  .dt { color: var(--ink-2); }
+  .pg { font-weight: 600; white-space: nowrap; }
+  /* word by word */
+  /* Phrases flow side by side and wrap to the next line, like text. */
+  .coll-view[data-v="grid"]:not([hidden]) { display: flex; flex-wrap: wrap; gap: .9rem; align-items: flex-start; }
+  .blk { display: grid; max-width: 100%; grid-template-columns: 4.25rem repeat(var(--cols), max-content); overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; }
+  .row { display: contents; }
+  .cell { padding: .3rem .55rem; border-bottom: 1px solid var(--rule); white-space: nowrap; line-height: 1.55; }
+  .row:last-child .cell { border-bottom: 0; }
+  .cell.head { display: flex; flex-direction: column; justify-content: flex-end; border-bottom: 2px solid var(--ink); }
+  .cell.head.var { background: var(--coll-sub); }
+  .cell.lab { position: sticky; left: 0; z-index: 1; background: var(--paper-2); border-right: 1px solid var(--rule); }
+  .cell.lab .sg { font-size: 1.05rem; }
+  .hb { font-weight: 600; }
+  .cell.g { font-size: 1.05rem; }
+  .coll-credit { margin: .75rem 0 0; }
+</style>
+<style is:global>
+  :root { --coll-sub: #f6e3c6; --coll-add: #e3ecf6; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --coll-sub: #4a3a20; --coll-add: #22344a; } }
+  :root[data-theme="dark"] { --coll-sub: #4a3a20; --coll-add: #22344a; }
+</style>

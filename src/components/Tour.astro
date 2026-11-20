@@ -1,0 +1,174 @@
+---
+// Home-page tour: questions textual criticism answers, each paired with the part of the site that answers it.
+// With JavaScript the cards share one place and fade from one to the next (slowly, and only on wide screens
+// and when motion is allowed); hover, focus or typing in the search stops it, and a pause button is always there.
+// Without JavaScript the cards are a plain row that scrolls sideways.
+import WitnessTile from './WitnessTile.astro';
+import { allWitnesses } from '../lib/witnesses';
+import { url } from '../lib/url';
+const p66 = (await allWitnesses()).find((w) => w.id === 'p66');
+---
+<section class="tour" id="tour" aria-label="What this site answers">
+  <ul class="tour-cards">
+    <li class="tcard">
+      <div class="tvis vis-brackets" aria-hidden="true"><span class="br">⟦</span><span class="ref">John 7:53–8:11</span><span class="br">⟧</span></div>
+      <h2 class="tq">Why do Bibles differ in some verses?</h2>
+      <p class="ta">Every New Testament book comes to us in hand-made copies, and the copies differ. Printed Bibles mark the places where it matters.</p>
+      <a class="tl" href={url('guide/examples/john-7-53/')}>Work through John 7:53–8:11 →</a>
+    </li>
+    <li class="tcard">
+      <div class="tvis vis-tile" aria-hidden="true">{p66 && <WitnessTile w={p66} link={false} />}</div>
+      <h2 class="tq">What does 𝔓⁶⁶ in the apparatus mean?</h2>
+      <p class="ta">Each siglum is a manuscript or a group of them. Every profile gives its date, contents and where it is kept.</p>
+      <a class="tl" href={url('witnesses/')}>Browse the witnesses →</a>
+    </li>
+    <li class="tcard">
+      <div class="tvis vis-checks" aria-hidden="true">
+        <span>How old?</span><span>From where?</span><span>How careful?</span><span>How widespread?</span><span>Independent?</span><span>How many?</span>
+      </div>
+      <h2 class="tq">Which reading should we translate?</h2>
+      <p class="ta">Editors ask six questions about the witnesses, then look at the wording itself. Number comes last.</p>
+      <a class="tl" href={url('guide/weighing-evidence/')}>Weighing the evidence →</a>
+    </li>
+    <li class="tcard">
+      <div class="tvis vis-ratings" aria-hidden="true"><span>{'{A}'}</span><span>{'{B}'}</span><span>{'{C}'}</span><span>{'{D}'}</span></div>
+      <h2 class="tq">Does this variant matter for my readers?</h2>
+      <p class="ta">Most variants leave the meaning alone. The rating and the kind of change tell you when to stop and study, and when to add a footnote.</p>
+      <a class="tl" href={url('guide/which-variants-matter/')}>Which variants matter →</a>
+    </li>
+    <li class="tcard">
+      <div class="tvis vis-entry" aria-hidden="true">
+        <p><b>1.18</b> <i>①</i>{'{B}'} <span lang="grc">μονογενὴς θεός</span> 𝔓⁶⁶ <span lang="he" dir="ltr">א</span>* B C* L …</p>
+        <p><b>//</b> <span lang="grc">ὁ μονογενὴς υἱός</span> A C³ Wˢᵘᵖᵖ Θ Ψ Byz …</p>
+      </div>
+      <h2 class="tq">How do I read an apparatus entry?</h2>
+      <p class="ta">John 1:18, taken apart piece by piece: the rating, the readings, the witnesses and their marks, as Paratext shows them.</p>
+      <a class="tl" href={url('guide/apparatus/')}>Read an entry →</a>
+    </li>
+    <li class="tcard">
+      <div class="tvis vis-search" aria-hidden="true">
+        <span class="sq">John 1:18</span>
+        <span class="sr"><b>𝔓⁶⁶</b> reads μονογενὴς θεός</span>
+        <span class="sr"><b>B</b> reads μονογενὴς θεός</span>
+        <span class="sr"><b>Byz</b> reads ὁ μονογενὴς υἱός</span>
+      </div>
+      <h2 class="tq">Where is my verse discussed?</h2>
+      <p class="ta">Type a verse, a siglum or a term in the search above. You get every place this site talks about it.</p>
+      <button class="tl tl-btn" type="button" data-fill="John 1:18">Try “John 1:18” →</button>
+    </li>
+  </ul>
+  <div class="tour-ctl" hidden>
+    <button type="button" class="tbtn" data-prev aria-label="Previous card">‹</button>
+    <ol class="tdots">{Array.from({ length: 6 }, (_, i) => <li><button type="button" data-go={i} aria-label={`Card ${i + 1} of 6`}></button></li>)}</ol>
+    <button type="button" class="tbtn" data-next aria-label="Next card">›</button>
+    <button type="button" class="tbtn tpause" data-pause aria-pressed="false">Pause</button>
+  </div>
+</section>
+
+<script>
+  const root = document.getElementById('tour');
+  if (root) {
+    const cards = [...root.querySelectorAll<HTMLElement>('.tcard')];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-go]')];
+    const pauseBtn = root.querySelector<HTMLButtonElement>('[data-pause]')!;
+    const calm = matchMedia('(prefers-reduced-motion: reduce)');
+    const wide = matchMedia('(min-width: 1000px)');
+    let i = 0, timer = 0, stopped = false;
+
+    root.classList.add('fading');
+    root.querySelector<HTMLElement>('.tour-ctl')!.hidden = false;
+
+    function show(n: number) {
+      i = (n + cards.length) % cards.length;
+      cards.forEach((c, k) => { const on = k === i; c.classList.toggle('on', on); c.toggleAttribute('inert', !on); c.setAttribute('aria-hidden', String(!on)); });
+      dots.forEach((d, k) => d.setAttribute('aria-current', k === i ? 'true' : 'false'));
+    }
+    // stopped: the reader chose to stop it (stays until they press Play). held: the pointer is over the cards.
+    let held = false;
+    const eligible = () => !calm.matches && wide.matches;   // no automatic change on phones or with reduced motion
+    function schedule() {
+      clearInterval(timer);
+      pauseBtn.hidden = !eligible();
+      if (eligible() && !stopped && !held) timer = window.setInterval(() => show(i + 1), 8000);
+    }
+    function label() { pauseBtn.textContent = stopped ? 'Play' : 'Pause'; pauseBtn.setAttribute('aria-pressed', String(stopped)); }
+    function stop() { stopped = true; label(); schedule(); }
+    function play() { stopped = false; label(); schedule(); }
+
+    root.querySelector('[data-prev]')!.addEventListener('click', () => { stop(); show(i - 1); });
+    root.querySelector('[data-next]')!.addEventListener('click', () => { stop(); show(i + 1); });
+    dots.forEach((d) => d.addEventListener('click', () => { stop(); show(+d.dataset.go!); }));
+    pauseBtn.addEventListener('click', () => (stopped ? play() : stop()));
+    root.addEventListener('pointerenter', () => { held = true; schedule(); });
+    root.addEventListener('pointerleave', () => { held = false; schedule(); });
+    // Focus inside the tour stops it, except focus on the Pause/Play button, whose click decides for itself.
+    root.addEventListener('focusin', (e) => { if (!(e.target as HTMLElement).closest('[data-pause]')) stop(); });
+    // Every edit in the search stops it, not just the first.
+    document.getElementById('q')?.addEventListener('input', () => { if (!stopped) stop(); });
+    // "Try it" fills the home search.
+    root.querySelector<HTMLButtonElement>('[data-fill]')?.addEventListener('click', (e) => {
+      const q = document.getElementById('q') as HTMLInputElement | null;
+      if (!q) return;
+      q.value = (e.currentTarget as HTMLButtonElement).dataset.fill!;
+      q.dispatchEvent(new Event('input', { bubbles: true }));
+      q.focus();
+    });
+    // Screen size or motion settings change whether it may run, never the reader's choice.
+    calm.addEventListener('change', schedule);
+    wide.addEventListener('change', schedule);
+    show(0);
+    requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('ready')));
+    label();
+    schedule();
+  }
+</script>
+
+<style>
+  .tour { position: relative; }
+  .tour-cards { list-style: none; margin: 0; padding: 0 0 0.5rem; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(16rem, 85%); gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .tcard { scroll-snap-align: start; display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem 1.1rem 1.1rem; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper); }
+  /* Faded mode: every card in one grid cell; only the current one is visible. */
+  .tour.fading .tour-cards { display: grid; grid-auto-flow: row; grid-auto-columns: auto; overflow: visible; }
+  .tour.fading .tcard { grid-area: 1 / 1; opacity: 0; visibility: hidden; }
+  .tour.fading .tcard.on { opacity: 1; visibility: visible; }
+  /* Transitions start only after the first card is shown, so the page does not flash all cards on load. */
+  .tour.fading.ready .tcard { transition: opacity 0.7s ease, visibility 0s linear 0.7s; }
+  .tour.fading.ready .tcard.on { transition: opacity 0.7s ease, visibility 0s; }
+  @media (prefers-reduced-motion: reduce) { .tour.fading.ready .tcard, .tour.fading.ready .tcard.on { transition: none; } }
+
+  .tvis { height: 9.5rem; border-radius: 8px; background: var(--paper-2); display: grid; place-items: center; overflow: hidden; margin-bottom: 0.25rem; }
+  .tq { font-size: 1.2rem; margin: 0.25rem 0 0; line-height: 1.25; }
+  .ta { margin: 0; color: var(--ink-2); font-size: 0.97rem; line-height: 1.5; }
+  .tl { margin-top: auto; padding-top: 0.25rem; font: 600 0.9rem var(--sans); color: var(--rubric); text-decoration: none; align-self: flex-start; }
+  .tl:hover { text-decoration: underline; }
+  .tl-btn { background: none; border: 0; cursor: pointer; padding-left: 0; }
+
+  .vis-brackets { display: flex; gap: 0.4rem; align-items: center; justify-content: center; font-family: var(--serif); }
+  .vis-brackets .br { font-size: 4.5rem; line-height: 1; color: var(--rubric); }
+  .vis-brackets .ref { font-size: 1.15rem; }
+  .vis-tile { background: none; place-items: stretch; }
+  .vis-tile :global(.tile) { height: 100%; flex-direction: row; }
+  .vis-tile :global(.tile-spec) { height: 100%; width: 55%; border-bottom: 0; border-right: 1px solid var(--rule); }
+  .vis-tile :global(.tile-meta) { align-content: center; }
+  .vis-checks { display: flex; flex-wrap: wrap; gap: 0.35rem; padding: 1rem; align-content: center; justify-content: center; }
+  .vis-checks span { font: 0.8rem var(--sans); padding: 0.25rem 0.6rem; border-radius: 999px; border: 1px solid var(--rule); background: var(--paper); }
+  .vis-checks span:last-child { border-style: dashed; color: var(--ink-2); }
+  .vis-ratings { display: flex; gap: 0.6rem; justify-content: center; align-items: center; }
+  .vis-ratings span { width: 3rem; height: 3rem; border-radius: 50%; display: grid; place-items: center; font: 700 1rem var(--sans); border: 2px solid var(--rubric); color: var(--rubric); background: var(--paper); }
+  .vis-entry { place-items: center start; padding: 0.75rem 1rem; font-size: 0.95rem; line-height: 1.6; }
+  .vis-entry p { margin: 0; }
+  .vis-entry i { font-style: normal; color: var(--rubric); }
+  .vis-search { display: grid; gap: 0.3rem; place-items: stretch; align-content: center; padding: 0.75rem 1rem; font-size: 0.85rem; }
+  .vis-search .sq { font-family: var(--sigla); border: 1.5px solid var(--ink); border-radius: 8px; padding: 0.3rem 0.6rem; background: var(--paper); }
+  .vis-search .sr { border-top: 1px solid var(--rule); padding-top: 0.25rem; }
+  .vis-search b { color: var(--rubric); font-family: var(--sigla); font-weight: 400; margin-right: 0.3rem; }
+
+  .tour-ctl { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.75rem; font-family: var(--sans); }
+  .tour-ctl[hidden] { display: none; }
+  .tbtn { min-width: 2.25rem; min-height: 2.25rem; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 999px; cursor: pointer; font-size: 1rem; }
+  .tpause { margin-left: auto; padding: 0 0.8rem; font-size: 0.8rem; }
+  .tdots { display: flex; gap: 0.15rem; list-style: none; margin: 0; padding: 0; }
+  .tdots button { width: 1.75rem; height: 1.75rem; border: 0; background: none; cursor: pointer; position: relative; }
+  .tdots button::after { content: ""; position: absolute; inset: 0; margin: auto; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--bar-none); }
+  .tdots button[aria-current="true"]::after { background: var(--rubric); }
+</style>

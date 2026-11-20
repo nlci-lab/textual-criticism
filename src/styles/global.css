@@ -156,3 +156,6 @@ img { max-width: 100%; }
 .construction { background: var(--warn-bg); color: var(--warn-ink); font: 0.8125rem/1.45 var(--sans); border-bottom: 1px solid var(--rule); }
 .construction .wrap { padding-block: 0.45rem; }
 .construction strong { font-weight: 700; }
+
+/* Screen-reader-only text (e.g. "opens in a new tab" on external links). */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

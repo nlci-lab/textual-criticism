@@ -19,6 +19,9 @@ const links = [
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta name="color-scheme" content="light dark" />
+  <!-- Under construction: keep search engines out. Remove at launch. (A robots.txt would not work:
+       on GitHub Pages it must sit at the domain root, and blocking crawling would hide this tag.) -->
+  <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- display=optional: no font swap flash; slow connections keep the system serif. -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew&text=%D7%90&display=optional" />

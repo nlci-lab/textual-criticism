@@ -6,11 +6,13 @@ interface Props {
   title: string; description: string; label: string;
   sources: { cite: string; checked: boolean }[];
   checked?: boolean; lastChecked: string;
+  /** Wide pages (e.g. with image plates) drop the reading-column limit; text blocks keep it. */
+  wide?: boolean;
 }
-const { title, description, label, sources, checked = false, lastChecked } = Astro.props;
+const { title, description, label, sources, checked = false, lastChecked, wide = false } = Astro.props;
 ---
 <Base title={title} description={description} nav="background/">
-  <article class="prose ctx">
+  <article class:list={["ctx", wide ? "wide" : "prose"]}>
     <p class="label">{label}</p>
     <h1>{title}</h1>
     {!checked && (
@@ -28,6 +30,7 @@ const { title, description, label, sources, checked = false, lastChecked } = Ast
 </Base>
 <style>
   .ctx { margin-top: 1.5rem; }
+  :global(.ctx.wide > :is(p, h1, h2, dl, ol, ul, section)) { max-width: var(--measure); }
   .notice { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-2); border-left: 3px solid var(--rule); padding-left: 0.6rem; }
   .ctx :global(.lead) { font-size: var(--step-1); line-height: 1.45; }
   .ctx :global(dl.terms dt) { font-weight: 600; margin-top: 0.75rem; }

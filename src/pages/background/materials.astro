@@ -1,6 +1,8 @@
 ---
+// Materials and making, laid out like a museum case: a centuries chart, specimen plates with
+// museum-style labels, side-by-side comparisons, and typeset specimens of the scripts.
+// Every fact on the page is the same as in the text version; the chart only plots dates stated below.
 import Context from '../../layouts/Context.astro';
-import Figure from '../../components/Figure.astro';
 import { url } from '../../lib/url';
 const w = (id: string) => url(`w/${id}/`);
 const sources = [
@@ -8,84 +10,250 @@ const sources = [
   { cite: 'D. C. Parker, An Introduction to the New Testament Manuscripts and their Texts (Cambridge University Press, 2008).', checked: false },
   { cite: 'Larry W. Hurtado, The Earliest Christian Artifacts: Manuscripts and Christian Origins (Eerdmans, 2006).', checked: false },
 ];
+
+const PD_US = { text: 'Public domain in the United States', href: 'https://scholar.google.com/scholar_case?case=5068002142390131270', law: 'Bridgeman v. Corel, 1999' };
+const COMMONS = 'https://commons.wikimedia.org/wiki/File:';
+
+// --- Centuries chart: only the ranges stated in the text on this page (approximate). ---
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI'];
+const W = 640, L = 92, R = 12, rowH = 26;
+const x = (c: number) => L + ((c - 1) / 16) * (W - L - R);          // c = century number, start of century
+const rows = [
+  { group: 'Surface', name: 'Papyrus', from: 2, to: 5, note: 'mostly' },
+  { group: 'Surface', name: 'Parchment', from: 4, to: 17, note: '' },
+  { group: 'Surface', name: 'Paper', from: 13, to: 17, note: 'some' },
+  { group: 'Script', name: 'Majuscule', from: 2, to: 10, note: '' },
+  { group: 'Script', name: 'Minuscule', from: 9, to: 17, note: '' },
+];
+const top = 8, chartH = top + rows.length * rowH + 14 + 24;
+const rowY = (i: number) => top + i * rowH + (i >= 3 ? 14 : 0);
 ---
-<Context title="Materials and making" label="Background" lastChecked="2026-11-20" sources={sources}
+<Context title="Materials and making" label="Background" lastChecked="2026-11-20" sources={sources} wide
   description="Papyrus and parchment, scrolls and books, scripts, nomina sacra, and the mistakes copyists made.">
   <p class="lead">What a manuscript is made of, and how it was written, often tells us its date and explains its mistakes.</p>
 
-  <h2>Writing surfaces</h2>
-  <dl class="terms">
-    <dt>Papyrus</dt><dd>Made from the papyrus reed. Thin strips were laid in two layers, one across the other, pressed and dried. It lasts only in a dry climate, which is why almost all our papyri come from Egypt. The New Testament papyri (𝔓) are the oldest group, mostly 2nd to 4th century.</dd>
-    <dt>Parchment</dt><dd>Animal skin (sheep, goat or calf), scraped and dried under tension. Very fine parchment is called <em>vellum</em>. It is strong and could be reused. From the 4th century it replaced papyrus for important books: <a href={w('sinaiticus')}>א</a> and <a href={w('vaticanus')}>B</a> are parchment.</dd>
-    <dt>Palimpsest</dt><dd>A parchment that was scraped and written over. The older text can still be read, now often with ultraviolet or multispectral imaging. Codex C (04) is a Greek Bible written over in the 12th century with works of Ephrem the Syrian.</dd>
-    <dt>Paper</dt><dd>Used for some later minuscules, from about the 13th century.</dd>
-  </dl>
-  <div class="figs">
-    <Figure file="img/ms/m10052-001r.webp" width={900} height={1296} licence="cntr" credit="CNTR" creditUrl="https://greekcntr.org/manuscripts/?w=m10052&v=43018031"
-      alt="A small, ragged papyrus fragment with a few lines of Greek capitals.">
-      <strong>Papyrus.</strong> <a href={w('p52')}>𝔓⁵²</a>, a fragment of John 18, mid-2nd century.
-    </Figure>
-    <Figure file="img/ms/m20005-179v.webp" width={900} height={1102} licence="cul-by-nc" credit="CNTR" creditUrl="https://greekcntr.org/manuscripts/?w=m20005&v=42006004"
-      alt="A parchment page with a single column of Greek capital letters.">
-      <strong>Parchment.</strong> A Greek page of <a href={w('bezae')}>Codex Bezae (D)</a>, Luke 5:38–6:9.
-    </Figure>
-    <Figure file="img/ms/palimpsest-codex-c.webp" width={508} height={621} licence="commons-pd" credit="Wikimedia Commons" creditUrl={`https://commons.wikimedia.org/wiki/File:Codex_Ephraemi_Rescriptus_fol_138r.jpg`}
-      alt="A parchment page where faint older Greek writing shows beneath a later text.">
-      <strong>Palimpsest.</strong> Codex C (04), folio 138r: the faint Greek Bible text lies under the later writing.
-    </Figure>
-  </div>
-  <p class="small muted">No paper example yet: we have not found a public-domain photo of a New Testament manuscript whose material a source confirms as paper.</p>
-  <p>Ink was either carbon ink (soot and gum) or <em>iron-gall</em> ink, which turns brown with age and can eat through the page.</p>
+  <figure class="centuries">
+    <figcaption class="label">Across the centuries (approximate, from the text on this page)</figcaption>
+    <div class="scroll-x">
+      <svg viewBox={`0 0 ${W} ${chartH}`} role="img"
+        aria-label="Chart: papyrus mostly 2nd to 4th century; parchment from the 4th century; paper for some manuscripts from about the 13th; majuscule script until about the 9th century; minuscule from the 9th.">
+        {ROMAN.map((r, i) => <line class="grid" x1={x(i + 1)} x2={x(i + 1)} y1={top - 4} y2={chartH - 22} />)}
+        <line class="grid" x1={x(17)} x2={x(17)} y1={top - 4} y2={chartH - 22} />
+        {rows.map((r, i) => (
+          <g>
+            <text class="row-label" x={L - 10} y={rowY(i) + 15} text-anchor="end">{r.name}</text>
+            <rect class:list={['bar', r.group === 'Script' ? 'script' : 'surface', r.note && 'soft']}
+              x={x(r.from)} y={rowY(i) + 5} width={x(r.to) - x(r.from)} height="14" rx="2" />
+            {r.note && <text class="bar-note" x={x(r.from) + 6} y={rowY(i) + 16}>{r.note}</text>}
+          </g>
+        ))}
+        <line class="sep" x1={8} x2={W - R} y1={rowY(3) - 6} y2={rowY(3) - 6} />
+        {ROMAN.map((r, i) => <text class="tick" x={(x(i + 1) + x(i + 2)) / 2} y={chartH - 6} text-anchor="middle">{r}</text>)}
+      </svg>
+    </div>
+  </figure>
 
-  <h2>Scroll and codex</h2>
+  <h2 id="surfaces">Writing surfaces</h2>
+  <div class="plates">
+    <article class="plate">
+      <a class="plate-img" href="https://greekcntr.org/manuscripts/?w=m10052&v=43018031" target="_blank" rel="noopener">
+        <img src={url('img/ms/m10052-001r.webp')} width="900" height="1296" loading="lazy" decoding="async"
+          alt="A small, ragged papyrus fragment with a few lines of Greek capitals." />
+      </a>
+      <div class="plate-label">
+        <h3>Papyrus</h3>
+        <p>Made from the papyrus reed. Thin strips were laid in two layers, one across the other, pressed and dried. It lasts only in a dry climate, which is why almost all our papyri come from Egypt. The New Testament papyri (𝔓) are the oldest group, mostly 2nd to 4th century.</p>
+        <p class="specimen">Shown: <a href={w('p52')}>𝔓⁵²</a>, a fragment of John 18, mid-2nd century.</p>
+        <p class="credit">Image: <a href="https://greekcntr.org/manuscripts/?w=m10052&v=43018031" target="_blank" rel="noopener">CNTR ↗</a>. {PD_US.text} (<a href={PD_US.href} target="_blank" rel="noopener">{PD_US.law}</a>); use may be restricted elsewhere.</p>
+      </div>
+    </article>
+
+    <article class="plate">
+      <a class="plate-img" href="https://greekcntr.org/manuscripts/?w=m20005&v=42006004" target="_blank" rel="noopener">
+        <img src={url('img/ms/m20005-179v.webp')} width="900" height="1102" loading="lazy" decoding="async"
+          alt="A parchment page with a single column of Greek capital letters." />
+      </a>
+      <div class="plate-label">
+        <h3>Parchment</h3>
+        <p>Animal skin (sheep, goat or calf), scraped and dried under tension. Very fine parchment is called <em>vellum</em>. It is strong and could be reused. From the 4th century it replaced papyrus for important books: <a href={w('sinaiticus')}><span lang="he" dir="ltr">א</span></a> and <a href={w('vaticanus')}>B</a> are parchment.</p>
+        <p class="specimen">Shown: a Greek page of <a href={w('bezae')}>Codex Bezae (D)</a>, Luke 5:38–6:9.</p>
+        <p class="credit">Image: <a href="https://greekcntr.org/manuscripts/?w=m20005&v=42006004" target="_blank" rel="noopener">CNTR ↗</a>. Photo © Cambridge University Library, licensed under <a href="https://creativecommons.org/licenses/by-nc/3.0/" target="_blank" rel="noopener">CC BY-NC 3.0</a>; shown here for non-commercial teaching.</p>
+      </div>
+    </article>
+
+    <article class="plate">
+      <a class="plate-img" href={`${COMMONS}Codex_Ephraemi_Rescriptus_fol_138r.jpg`} target="_blank" rel="noopener">
+        <img src={url('img/ms/palimpsest-codex-c.webp')} width="508" height="621" loading="lazy" decoding="async"
+          alt="A parchment page where faint older Greek writing shows beneath a later text." />
+      </a>
+      <div class="plate-label">
+        <h3>Palimpsest</h3>
+        <p>A parchment that was scraped and written over. The older text can still be read, now often with ultraviolet or multispectral imaging. Codex C (04) is a Greek Bible written over in the 12th century with works of Ephrem the Syrian.</p>
+        <p class="specimen">Shown: Codex C (04), folio 138r. The faint Greek Bible text lies under the later writing.</p>
+        <p class="credit">Image: <a href={`${COMMONS}Codex_Ephraemi_Rescriptus_fol_138r.jpg`} target="_blank" rel="noopener">Wikimedia Commons ↗</a>. Marked public domain.</p>
+      </div>
+    </article>
+
+    <article class="plate">
+      <div class="plate-img empty" aria-hidden="true"><span>No photo yet</span></div>
+      <div class="plate-label">
+        <h3>Paper</h3>
+        <p>Used for some later minuscules, from about the 13th century.</p>
+        <p class="specimen">We have not found a public-domain photo of a New Testament manuscript whose material a source confirms as paper.</p>
+      </div>
+    </article>
+  </div>
+
+  <aside class="ink" aria-label="Ink">
+    <div class="swatches" aria-hidden="true"><span class="sw carbon"></span><span class="sw gall"></span></div>
+    <p>Ink was either <strong>carbon ink</strong> (soot and gum) or <strong><em>iron-gall</em> ink</strong>, which turns brown with age and can eat through the page.</p>
+  </aside>
+
+  <h2 id="book">Scroll and codex</h2>
   <p>Jewish and Greek books were usually <em>scrolls</em> (rolls). Early Christians preferred the <em>codex</em>: sheets folded and sewn into a book, like ours. Almost all New Testament manuscripts are codices. A codex can hold all four Gospels in one volume, and it is easier to find a passage in it.</p>
-
-  <div class="figs">
-    <Figure file="img/ms/scroll-1qisa.webp" width={640} height={728} licence="commons-pd" credit="Wikimedia Commons" creditUrl={`https://commons.wikimedia.org/wiki/File:Great_Isaiah_Scroll_Ch53.jpg`}
-      alt="Columns of Hebrew writing on a long strip of leather, part of a scroll.">
-      <strong>Scroll.</strong> The Great Isaiah Scroll from Qumran (1QIsaᵃ), Isaiah 53.
-    </Figure>
-    <Figure file="img/ms/m10046-001r.webp" width={900} height={1765} licence="cntr" credit="CNTR" creditUrl="https://greekcntr.org/manuscripts/?w=m10046&v=45005017"
-      alt="A tall papyrus leaf from a book, covered in Greek writing.">
-      <strong>Codex.</strong> A leaf of <a href={w('p46')}>𝔓⁴⁶</a>, a papyrus book of Paul's letters (Romans 5:17–6:4).
-    </Figure>
+  <div class="diptych">
+    <figure>
+      <a href={`${COMMONS}Great_Isaiah_Scroll_Ch53.jpg`} target="_blank" rel="noopener">
+        <img src={url('img/ms/scroll-1qisa.webp')} width="640" height="728" loading="lazy" decoding="async"
+          alt="Columns of Hebrew writing on a long strip of leather, part of a scroll." />
+      </a>
+      <figcaption><span class="tagline">Scroll</span> The Great Isaiah Scroll from Qumran (1QIsaᵃ), Isaiah 53. <span class="credit">Image: <a href={`${COMMONS}Great_Isaiah_Scroll_Ch53.jpg`} target="_blank" rel="noopener">Wikimedia Commons ↗</a>, marked public domain.</span></figcaption>
+    </figure>
+    <figure>
+      <a href="https://greekcntr.org/manuscripts/?w=m10046&v=45005017" target="_blank" rel="noopener">
+        <img src={url('img/ms/m10046-001r.webp')} width="900" height="1765" loading="lazy" decoding="async"
+          alt="A tall papyrus leaf from a book, covered in Greek writing." />
+      </a>
+      <figcaption><span class="tagline">Codex</span> A leaf of <a href={w('p46')}>𝔓⁴⁶</a>, a papyrus book of Paul's letters (Romans 5:17–6:4). <span class="credit">Image: <a href="https://greekcntr.org/manuscripts/?w=m10046&v=45005017" target="_blank" rel="noopener">CNTR ↗</a>. {PD_US.text} (<a href={PD_US.href} target="_blank" rel="noopener">{PD_US.law}</a>).</span></figcaption>
+    </figure>
   </div>
 
-  <h2>Scripts</h2>
-  <dl class="terms">
-    <dt>Majuscule</dt><dd>Separate capital letters, usually with no spaces between words and little punctuation (<em>scriptio continua</em>). Used until about the 9th century. Older books call these manuscripts "uncials".</dd>
-    <dt>Minuscule</dt><dd>Smaller joined-up letters, faster to write. From the 9th century it replaced majuscule, so most of our manuscripts (the minuscules) are from the 9th century or later.</dd>
-  </dl>
-  <div class="figs">
-    <Figure file="img/ms/m10066-001v.webp" width={900} height={1017} licence="cntr" credit="CNTR" creditUrl="https://greekcntr.org/manuscripts/?w=m10066&v=43001018"
-      alt="A papyrus page in separate Greek capital letters with no spaces between words.">
-      <strong>Majuscule.</strong> <a href={w('p66')}>𝔓⁶⁶</a>, John 1:14–21, with no spaces between words.
-    </Figure>
-    <Figure file="img/ms/minuscule-444.webp" width={900} height={1135} licence="commons-pd" credit="Wikimedia Commons" creditUrl={`https://commons.wikimedia.org/wiki/File:Minuscule_444_(Gregory-Aland)_folio_44.jpg`}
-      alt="A page of small joined-up Greek handwriting with a decorated heading.">
-      <strong>Minuscule.</strong> Minuscule 444, folio 44, the beginning of Mark.
-    </Figure>
+  <h2 id="scripts">Scripts</h2>
+  <div class="diptych">
+    <figure>
+      <a href="https://greekcntr.org/manuscripts/?w=m10066&v=43001018" target="_blank" rel="noopener">
+        <img src={url('img/ms/m10066-001v.webp')} width="900" height="1017" loading="lazy" decoding="async"
+          alt="A papyrus page in separate Greek capital letters with no spaces between words." />
+      </a>
+      <figcaption><span class="tagline">Majuscule</span> Separate capital letters, usually with no spaces between words and little punctuation (<em>scriptio continua</em>). Used until about the 9th century. Older books call these manuscripts "uncials". <span class="credit">Shown: <a href={w('p66')}>𝔓⁶⁶</a>, John 1:14–21. Image: <a href="https://greekcntr.org/manuscripts/?w=m10066&v=43001018" target="_blank" rel="noopener">CNTR ↗</a>. {PD_US.text} (<a href={PD_US.href} target="_blank" rel="noopener">{PD_US.law}</a>).</span></figcaption>
+    </figure>
+    <figure>
+      <a href={`${COMMONS}Minuscule_444_(Gregory-Aland)_folio_44.jpg`} target="_blank" rel="noopener">
+        <img src={url('img/ms/minuscule-444.webp')} width="900" height="1135" loading="lazy" decoding="async"
+          alt="A page of small joined-up Greek handwriting with a decorated heading." />
+      </a>
+      <figcaption><span class="tagline">Minuscule</span> Smaller joined-up letters, faster to write. From the 9th century it replaced majuscule, so most of our manuscripts (the minuscules) are from the 9th century or later. <span class="credit">Shown: minuscule 444, folio 44, the beginning of Mark. Image: <a href={`${COMMONS}Minuscule_444_(Gregory-Aland)_folio_44.jpg`} target="_blank" rel="noopener">Wikimedia Commons ↗</a>, marked public domain.</span></figcaption>
+    </figure>
+  </div>
+
+  <div class="continua" aria-label="John 1:1 written without spaces, then with spaces">
+    <p class="as-written" lang="grc">ΕΝΑΡΧΗΗΝΟΛΟΓΟΣ</p>
+    <p class="as-read" lang="grc">ἐν ἀρχῇ ἦν ὁ λόγος</p>
+    <p class="small muted">John 1:1, as a majuscule copyist wrote it, and as printed today.</p>
   </div>
   <p>With no spaces, a copyist sometimes had to decide where a word ended, and copyists did not always agree. Accents and breathings were mostly added later.</p>
 
-  <h2>Nomina sacra</h2>
-  <p>Christian scribes wrote some holy names in short form with a line above: ΘΣ for θεός (God), ΚΣ for κύριος (Lord), ΙΣ for Ἰησοῦς, ΧΣ for Χριστός. These short forms look alike, which explains some variants. At <a href={url('guide/apparatus/')}>John 1:18</a>, "God" (ΘΣ) and "Son" (ΥΣ) differ by one letter.</p>
+  <h2 id="nomina-sacra">Nomina sacra</h2>
+  <p>Christian scribes wrote some holy names in short form with a line above. These short forms look alike, which explains some variants.</p>
+  <ul class="ns" role="list">
+    <li><span class="ns-form" lang="grc">ΘΣ</span><span class="ns-full" lang="grc">θεός</span><span class="ns-gloss">God</span></li>
+    <li><span class="ns-form" lang="grc">ΚΣ</span><span class="ns-full" lang="grc">κύριος</span><span class="ns-gloss">Lord</span></li>
+    <li><span class="ns-form" lang="grc">ΙΣ</span><span class="ns-full" lang="grc">Ἰησοῦς</span><span class="ns-gloss">Jesus</span></li>
+    <li><span class="ns-form" lang="grc">ΧΣ</span><span class="ns-full" lang="grc">Χριστός</span><span class="ns-gloss">Christ</span></li>
+  </ul>
+  <p class="ns-pair">At <a href={url('guide/apparatus/')}>John 1:18</a>, "God" (<span class="ns-inline" lang="grc">ΘΣ</span>) and "Son" (<span class="ns-inline" lang="grc">ΥΣ</span>) differ by one letter.</p>
 
-  <h2>How copyists changed the text</h2>
-  <dl class="terms">
-    <dt>Skipping (haplography, homoeoteleuton)</dt><dd>The eye jumps from one word to the same or a similar ending further on, and the words between are lost.</dd>
-    <dt>Repeating (dittography)</dt><dd>A letter or word is written twice.</dd>
-    <dt>Hearing and spelling</dt><dd>Some vowels sounded the same, so ἡμεῖς (we) and ὑμεῖς (you) are often confused.</dd>
-    <dt>Harmonising</dt><dd>A scribe makes a Gospel passage match the more familiar wording in another Gospel.</dd>
-    <dt>Improving</dt><dd>A scribe smooths the grammar, clarifies a hard phrase, or adds a word that seems missing.</dd>
-    <dt>Theological changes</dt><dd>A scribe changes the wording to protect or sharpen a belief, often about Christ. Scholars disagree about how many variants arose this way. A debated example is <a href={url('guide/apparatus/')}>John 1:18</a>.</dd>
-  </dl>
-  <p>From these habits come two rules of thumb a translator will meet: the <em>harder</em> reading is often older, and the <em>shorter</em> reading is often older. Both have exceptions, because copyists also left words out by accident.</p>
+  <h2 id="changes">How copyists changed the text</h2>
+  <ul class="habits" role="list">
+    <li><h3>Skipping</h3><p class="term">haplography, homoeoteleuton</p><p>The eye jumps from one word to the same or a similar ending further on, and the words between are lost.</p></li>
+    <li><h3>Repeating</h3><p class="term">dittography</p><p>A letter or word is written twice.</p></li>
+    <li><h3>Hearing and spelling</h3><p>Some vowels sounded the same, so <span lang="grc">ἡμεῖς</span> (we) and <span lang="grc">ὑμεῖς</span> (you) are often confused.</p></li>
+    <li><h3>Harmonising</h3><p>A scribe makes a Gospel passage match the more familiar wording in another Gospel.</p></li>
+    <li><h3>Improving</h3><p>A scribe smooths the grammar, clarifies a hard phrase, or adds a word that seems missing.</p></li>
+    <li><h3>Theological changes</h3><p>A scribe changes the wording to protect or sharpen a belief, often about Christ. Scholars disagree about how many variants arose this way. A debated example is <a href={url('guide/apparatus/')}>John 1:18</a>.</p></li>
+  </ul>
+  <p>From these habits come two rules of thumb a translator will meet:</p>
+  <div class="rules">
+    <p>The <em>harder</em> reading is often older.</p>
+    <p>The <em>shorter</em> reading is often older.</p>
+  </div>
+  <p>Both have exceptions, because copyists also left words out by accident.</p>
 
-  <h2>Correctors</h2>
+  <h2 id="correctors">Correctors</h2>
   <p>Many manuscripts were corrected: by the first scribe, by a checker in the same workshop, or by readers centuries later. The apparatus marks the first hand with <a href={url('glossary/#star')}>*</a> and later correctors with <a href={url('glossary/#correctors')}>¹ ² ᶜ</a>. See the correctors section of <a href={w('sinaiticus')}>Sinaiticus</a>.</p>
 </Context>
+
 <style>
-  .figs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: 0 1.25rem; align-items: start; }
-  .figs :global(.fig) { max-width: none; }
+  /* Ink swatches are fixed colours by intent: they show the inks, not the theme. */
+  :root { --ink-carbon: #1c1b1a; --ink-gall: #7a4a26; }
+
+  .centuries { margin: 1.5rem 0 0.5rem; max-width: 48rem; }
+  .centuries figcaption { margin-bottom: 0.4rem; }
+  .scroll-x { overflow-x: auto; }
+  .centuries svg { display: block; width: 100%; min-width: 30rem; height: auto; font-family: var(--sans); }
+  .grid { stroke: var(--rule); stroke-width: 1; }
+  .sep { stroke: var(--ink-2); stroke-width: 0.75; stroke-dasharray: 2 3; }
+  .row-label { fill: var(--ink); font-size: 11px; font-weight: 600; }
+  .tick { fill: var(--ink-2); font-size: 9.5px; }
+  .bar.surface { fill: var(--bar-full); }
+  .bar.script { fill: var(--rubric); }
+  .bar.soft { opacity: 0.55; }
+  .bar-note { fill: var(--paper); font-size: 9px; font-style: italic; }
+
+  .plates {
+    display: grid; gap: 1.25rem; margin: 1rem 0 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  }
+  .plate { display: flex; flex-direction: column; background: var(--paper-2); border-radius: 6px; overflow: hidden; min-width: 0; }
+  .plate-img { display: block; aspect-ratio: 4 / 3; background: var(--paper); }
+  .plate-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+  .plate-img.empty { display: grid; place-items: center; background: repeating-linear-gradient(45deg, var(--paper-2), var(--paper-2) 8px, var(--paper) 8px, var(--paper) 16px); border-bottom: 1px solid var(--rule); }
+  .plate-img.empty span { font: 600 0.8125rem var(--sans); color: var(--ink-2); background: var(--paper-2); padding: 0.25rem 0.6rem; border-radius: 3px; }
+  .plate-label { padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .plate-label h3 { margin: 0; font-size: var(--step-1); }
+  .plate-label p { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+  .plate-label .specimen { font-family: var(--sans); font-size: var(--step--1); border-top: 1px solid var(--rule); padding-top: 0.5rem; }
+  .credit { font-family: var(--sans); font-size: 0.75rem; color: var(--ink-2); line-height: 1.45; }
+  .plate-label .credit { margin-top: auto; }
+
+  .ink { display: flex; gap: 0.9rem; align-items: center; margin: 1.5rem 0; max-width: var(--measure); }
+  .ink p { margin: 0; }
+  .swatches { display: flex; flex: none; }
+  .sw { width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--rule); }
+  .sw + .sw { margin-left: -0.6rem; }
+  .sw.carbon { background: var(--ink-carbon); }
+  .sw.gall { background: var(--ink-gall); }
+
+  .diptych {
+    display: grid; gap: 1.25rem; margin: 1rem 0 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    max-width: 48rem;
+  }
+  .diptych figure { margin: 0; min-width: 0; }
+  .diptych img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 25%; border-radius: 6px; background: var(--paper-2); }
+  .diptych figcaption { margin-top: 0.6rem; font-size: 0.9375rem; line-height: 1.5; }
+  .diptych .credit { display: block; margin-top: 0.35rem; }
+  .tagline { display: block; font: 600 0.75rem/1.3 var(--sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--rubric); margin-bottom: 0.2rem; }
+
+  .continua { max-width: var(--measure); margin: 0.5rem 0 1rem; padding: 1rem 1.1rem; background: var(--paper-2); border-radius: 6px; }
+  .continua p { margin: 0; }
+  .as-written { font-family: var(--serif); font-size: clamp(1.35rem, 6vw, 2rem); letter-spacing: 0.08em; line-height: 1.2; overflow-wrap: anywhere; }
+  .as-read { font-family: var(--serif); font-size: var(--step-1); color: var(--ink-2); margin: 0.35rem 0 0.6rem !important; }
+
+  .ns { list-style: none; padding: 0; margin: 0.75rem 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); max-width: var(--measure); }
+  .ns li { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; padding: 0.9rem 0.5rem 0.75rem; border: 1px solid var(--rule); border-radius: 6px; }
+  .ns-form, .ns-inline { font-family: var(--serif); text-decoration: overline; text-decoration-thickness: 2px; text-underline-offset: 0; }
+  .ns-form { font-size: 2rem; letter-spacing: 0.08em; color: var(--rubric); line-height: 1.3; }
+  .ns-full { font-family: var(--serif); font-size: 1.05rem; }
+  .ns-gloss { font: 0.8125rem var(--sans); color: var(--ink-2); }
+  .ns-inline { color: var(--rubric); letter-spacing: 0.05em; }
+
+  .habits { list-style: none; padding: 0; margin: 0.75rem 0 1rem; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .habits li { padding: 0.8rem 0.95rem; border-top: 3px solid var(--rubric); background: var(--paper-2); border-radius: 0 0 6px 6px; }
+  .habits h3 { margin: 0; font-size: 1rem; }
+  .habits p { margin: 0.3rem 0 0; font-size: 0.9375rem; line-height: 1.5; }
+  .habits .term { font: italic 0.8125rem var(--sans); color: var(--ink-2); margin-top: 0.1rem; }
+
+  .rules { display: grid; gap: 0.5rem; margin: 0.5rem 0; max-width: var(--measure); }
+  .rules p { margin: 0; font-size: var(--step-1); padding-left: 0.9rem; border-left: 3px solid var(--rubric); }
 </style>

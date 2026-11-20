@@ -61,5 +61,22 @@ const links = [
       b.addEventListener('click', function () { var t = cur() === 'dark' ? 'light' : 'dark'; root.dataset.theme = t; try { localStorage.setItem('theme', t); } catch (e) {} label(); });
     })();
   </script>
+  <script is:inline>
+    // Mirrors src/integrations/external-links.mjs (which rewrites built HTML) so `astro dev` matches.
+    (function () {
+      document.querySelectorAll('a[href]').forEach(function (a) {
+        if (a.dataset.extDone || !/^https?:$/i.test(a.protocol) || a.origin === location.origin) return;
+        a.dataset.extDone = '1';
+        if (!a.getAttribute('target')) a.target = '_blank';
+        var rel = (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
+        if (rel.indexOf('noopener') < 0) { rel.push('noopener'); a.setAttribute('rel', rel.join(' ')); }
+        var lab = a.getAttribute('aria-label');
+        if (lab !== null) { if (!/new tab/i.test(lab)) a.setAttribute('aria-label', lab + ' (opens in a new tab)'); }
+        else if (!/new tab/i.test(a.textContent)) {
+          var s = document.createElement('span'); s.className = 'visually-hidden'; s.textContent = ' (opens in a new tab)'; a.appendChild(s);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

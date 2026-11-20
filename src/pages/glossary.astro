@@ -1,27 +1,90 @@
 ---
-import Base from '../layouts/Base.astro';
-import { GLOSSARY } from '../data/glossary';
+// Glossary as a guide: the signs and words of the UBS apparatus, grouped, with a find box.
+// Entry ids stay the same (glossary/#rating etc.), so links from other pages and the search keep working.
+import Context from '../layouts/Context.astro';
+import { GLOSSARY, type Term } from '../data/glossary';
+const GROUPS: { id: string; title: string; intro: string; ids: string[] }[] = [
+  { id: 'ratings-and-separators', title: 'Ratings and separators', intro: 'How an apparatus entry is laid out.', ids: ['rating', 'double-slash', 'diamond', 'double-brackets'] },
+  { id: 'marks-after-a-witness', title: 'Marks after a witness', intro: 'Small marks written after a siglum. The witness is the same; the mark says which hand, how sure, or how often.', ids: ['star', 'correctors', 'vid', 'supp', 'mg-txt', 'parens', 'fraction', 'pt', 'gr-lat'] },
+  { id: 'groups-and-codes', title: 'Groups of witnesses and codes', intro: 'Signs that stand for many manuscripts, and codes for what a manuscript contains.', ids: ['byz', 'byz-brackets', 'lect', 'eapcr', 'aland-category'] },
+  { id: 'words-and-ideas', title: 'Words and ideas', intro: 'Terms used across this site.', ids: ['variant', 'external-evidence', 'internal-evidence', 'tr', 'cbgm', 'vellum'] },
+];
+const byId = new Map(GLOSSARY.map((t) => [t.id, t]));
+const grouped = new Set(GROUPS.flatMap((g) => g.ids));
+const others = GLOSSARY.filter((t) => !grouped.has(t.id));   // entries added later still show
+const groups = others.length ? [...GROUPS, { id: 'more', title: 'More terms', intro: '', ids: others.map((t) => t.id) }] : GROUPS;
+// Everything outside 'Words and ideas' is an apparatus sign: shown in the sigla style and in the jump row.
+const words = new Set(GROUPS.find((g) => g.id === 'words-and-ideas')!.ids);
+const isSign = (t: Term) => !words.has(t.id);
 ---
-<Base title="Glossary" nav="glossary/">
-  <div class="prose">
-    <h1 class="page-h1">Glossary</h1>
-    <p class="muted">Terms used on this site, in plain English: the symbols and short words of the UBS apparatus, and words for manuscripts and how they were made. Each entry gives its source. More entries will be added as profiles are written.</p>
-    <dl class="gloss">
-      {GLOSSARY.map((t) => (
-        <div id={t.id}>
-          <dt><span class="siglum">{t.term}</span></dt>
-          <dd>{t.plain} <span class="small muted">Source: {t.source}.</span>{!t.checked && <span class="tag">not yet checked</span>}</dd>
-        </div>
-      ))}
-    </dl>
+<Context title="Glossary" label="Guide" notice={false}
+  description="The signs and short words of the UBS apparatus, and the terms used on this site, in plain English.">
+  <p class="lead">The signs and short words of the UBS apparatus, and the terms used on this site, in plain English. Each entry gives its source.</p>
+
+  <div class="g-find" hidden>
+    <label class="visually-hidden" for="g-q">Find a term</label>
+    <input id="g-q" type="search" placeholder="Find a sign or word: vid, *, Byz, CBGM…" autocomplete="off" />
+    <p class="g-count small muted" aria-live="polite"></p>
   </div>
-</Base>
+  <p class="g-jump small" aria-label="Signs on this page">
+    {GLOSSARY.filter(isSign).map((t) => <a href={`#${t.id}`} class="g-chip">{t.term}</a>)}
+  </p>
+
+  {groups.map((g) => (
+    <section class="g-grp">
+      <h2 id={g.id}>{g.title}</h2>
+      {g.intro && <p class="muted">{g.intro}</p>}
+      <dl class="gloss">
+        {g.ids.map((id) => byId.get(id)).filter(Boolean).map((t) => (
+          <div id={t!.id} class="g-item" data-text={`${t!.term} ${t!.plain}`.toLowerCase()}>
+            <dt><span class:list={['g-term', { sign: isSign(t!) }]}>{t!.term}</span></dt>
+            <dd>
+              <p>{t!.plain}</p>
+              <p class="g-src small muted">Source: {t!.source}.{!t!.checked && <span class="tag">not yet checked</span>}</p>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  ))}
+</Context>
+
+<script>
+  const box = document.querySelector<HTMLElement>('.g-find');
+  if (box) {
+    box.hidden = false;
+    const q = box.querySelector('input')!;
+    const count = box.querySelector<HTMLElement>('.g-count')!;
+    const items = [...document.querySelectorAll<HTMLElement>('.g-item')];
+    const groups = [...document.querySelectorAll<HTMLElement>('.g-grp')];
+    q.addEventListener('input', () => {
+      const t = q.value.trim().toLowerCase();
+      let n = 0;
+      items.forEach((el) => { const ok = !t || (el.dataset.text ?? '').includes(t); el.hidden = !ok; if (ok) n++; });
+      groups.forEach((g) => { g.hidden = !g.querySelector('.g-item:not([hidden])'); });
+      count.textContent = t ? `${n} of ${items.length} entries` : '';
+    });
+  }
+</script>
+
 <style>
-  .page-h1 { margin-top: 1.5rem; }
-  .gloss { margin: 1.5rem 0 0; }
-  .gloss div { display: grid; grid-template-columns: minmax(5.5rem, auto) 1fr; gap: 1rem; padding: 0.75rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 1rem; }
-  .gloss div:target { background: var(--paper-2); }
-  .gloss dt .siglum { font-size: 1.1rem; white-space: normal; }
-  .gloss dd { margin: 0; }
-  @media (max-width: 26rem) { .gloss div { grid-template-columns: 1fr; gap: 0.25rem; } }
+  .g-find { margin: 1rem 0 .5rem; }
+  .g-find[hidden] { display: none; }
+  .g-find input { width: 100%; max-width: 30rem; font: 1rem var(--sigla); padding: .6rem .8rem; color: var(--ink); background: var(--paper); border: 1.5px solid var(--ink-2); border-radius: 8px; }
+  .g-find input:focus { border-color: var(--rubric); outline: none; }
+  .g-count { margin: .3rem 0 0; min-height: 1.2em; }
+  .g-jump { display: flex; flex-wrap: wrap; gap: .35rem; margin: .75rem 0 1rem; }
+  .g-chip { font: 1rem var(--sigla); padding: .15rem .6rem; border: 1px solid var(--rule); border-radius: 999px; text-decoration: none; color: var(--rubric); background: var(--paper); }
+  .g-chip:hover { border-color: var(--rubric); }
+  .g-grp[hidden], .g-item[hidden] { display: none; }
+  .gloss { margin: .5rem 0 0; }
+  .g-item { display: grid; grid-template-columns: minmax(6.5rem, 9rem) 1fr; gap: 1rem; padding: .8rem .5rem; border-top: 1px solid var(--rule); scroll-margin-top: 1rem; border-radius: 6px; }
+  .g-item:target { background: var(--paper-2); box-shadow: inset 3px 0 0 var(--rubric); }
+  .g-item dt { margin: 0; }
+  .g-term { font: 600 .95rem var(--sans); }
+  .g-term.sign { font: 1.35rem/1.2 var(--sigla); color: var(--rubric); }
+  .g-item dd { margin: 0; }
+  .g-item dd p { margin: 0; }
+  .g-src { margin-top: .3rem !important; }
+  @media (max-width: 30rem) { .g-item { grid-template-columns: 1fr; gap: .25rem; } }
 </style>

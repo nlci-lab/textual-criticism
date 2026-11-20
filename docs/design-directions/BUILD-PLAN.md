@@ -126,7 +126,7 @@ Each step is shippable on its own; the owner approves each push.
 
 ## Owner's answers (20 Nov 2026)
 
-1. MDX: explained; decision pending (default stays: keep `.astro` + data file).
+1. Guides stay as `.astro` files; metadata goes in `src/data/guides.ts`. No MDX.
 2. Tiles use the site's own photo crop where one exists; texture otherwise.
 3. Course lessons reuse the existing guides. Review of fit:
 

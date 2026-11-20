@@ -26,7 +26,7 @@
   .case .reading.printed { border-color: var(--rubric); box-shadow: inset 0 3px 0 var(--rubric); }
   .case .reading .form { font-family: var(--serif); font-size: var(--step-2); line-height: 1.2; margin: 0; }
   .case .reading .meaning { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-2); margin: 0; }
-  .case .reading .tag {
+  .case .reading > .tag {
     align-self: flex-start; font-family: var(--sans); font-size: var(--step--1);
     padding: .1rem .5rem; border-radius: 999px; border: 1px solid var(--rubric); color: var(--rubric);
   }
@@ -58,6 +58,48 @@
   }
   .case .translator h2 { margin-top: 0; font-size: var(--step-1); color: inherit; }
   .case .translator a { color: inherit; }
+  /* Step-by-step case: the same order the guides teach (find, list, external, internal, weigh, decide). */
+  .case .route { list-style: none; counter-reset: rt; display: flex; flex-wrap: wrap; gap: .35rem .5rem; padding: 0; margin: 1rem 0 1.5rem; font: .8125rem/1.3 var(--sans); }
+  .case .route li { counter-increment: rt; display: flex; align-items: center; gap: .35rem; }
+  .case .route li::before { content: counter(rt); display: grid; place-items: center; width: 1.4rem; height: 1.4rem; border-radius: 50%; border: 1.5px solid var(--rubric); color: var(--rubric); font-weight: 700; font-size: .75rem; }
+  .case .route li:not(:last-child)::after { content: "→"; color: var(--ink-2); margin-left: .15rem; }
+  .case .route a { color: var(--ink); text-decoration: none; }
+  .case .route a:hover { color: var(--rubric); text-decoration: underline; }
+
+  .case .step { position: relative; margin: 2.25rem 0 0; padding: 0 0 0 1.25rem; border-left: 2px solid var(--rule); }
+  .case .step > h2 { margin-top: 0; }
+  .case .step .n { display: block; font: 600 .72rem var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--rubric); margin-bottom: .2rem; }
+  .case .step .ask { font: 600 .95rem/1.45 var(--sans); padding: .55rem .8rem; background: var(--paper-2); border-radius: 8px; margin: .5rem 0 1rem; }
+  .case .step .ask::before { content: "Ask: "; color: var(--rubric); }
+  .case .sofar { margin: 1rem 0 0; padding: .75rem .9rem; border: 1.5px solid var(--ink); border-radius: 8px; }
+  .case .sofar::before { content: "So far"; display: block; font: 600 .72rem var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin-bottom: .25rem; }
+
+  /* Lean markers: always words, never colour alone. */
+  .case .lean { display: inline-block; font: 600 .75rem/1.4 var(--sans); padding: .1rem .5rem; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+  .case .lean.a { color: var(--lapis); }
+  .case .lean.b { color: var(--ochre); }
+  .case .lean.even { color: var(--ink-2); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .case .lean.a { color: #9db4e0; } :root:not([data-theme="light"]) .case .lean.b { color: #e0b46e; } }
+  :root[data-theme="dark"] .case .lean.a { color: #9db4e0; }
+  :root[data-theme="dark"] .case .lean.b { color: #e0b46e; }
+
+  .case .qtable { width: 100%; border-collapse: collapse; font-size: .95rem; margin: .5rem 0; }
+  .case .qtable th, .case .qtable td { text-align: left; vertical-align: top; padding: .55rem .6rem .55rem 0; border-top: 1px solid var(--rule); }
+  .case .qtable thead th { font: 600 .72rem var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); border-top: 0; }
+  .case .qtable tbody th { font: 600 .9rem var(--sans); white-space: nowrap; }
+  @media (max-width: 40rem) {
+    .case .qtable thead { display: none; }
+    .case .qtable tr { display: grid; gap: .25rem; padding: .6rem 0; border-top: 1px solid var(--rule); }
+    .case .qtable th, .case .qtable td { border: 0; padding: 0; }
+    .case .qtable td[data-h]::before { content: attr(data-h) ": "; font: 600 .78rem var(--sans); color: var(--ink-2); }
+  }
+  .case .caution { margin: 1rem 0; padding: .75rem .9rem; border-left: 3px solid var(--warn-ink); background: var(--warn-bg); color: var(--warn-ink); border-radius: 0 8px 8px 0; font-size: .95rem; }
+  .case .caution strong { display: block; font-family: var(--sans); }
+  .case .scale { display: grid; gap: .5rem; margin: 1rem 0; padding: 0; list-style: none; }
+  .case .scale li { display: grid; grid-template-columns: minmax(8rem, 12rem) auto 1fr; gap: .75rem; align-items: baseline; padding: .55rem 0; border-top: 1px solid var(--rule); }
+  .case .scale b { font-family: var(--sans); font-size: .9rem; }
+  @media (max-width: 40rem) { .case .scale li { grid-template-columns: 1fr; gap: .2rem; } }
+
   .case .translator ul { margin-bottom: 0; padding-left: 1.1rem; }
   .case .translator p:last-child { margin-bottom: 0; }
 

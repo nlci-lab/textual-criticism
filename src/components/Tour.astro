@@ -83,25 +83,28 @@ const p66 = (await allWitnesses()).find((w) => w.id === 'p66');
       cards.forEach((c, k) => { const on = k === i; c.classList.toggle('on', on); c.toggleAttribute('inert', !on); c.setAttribute('aria-hidden', String(!on)); });
       dots.forEach((d, k) => d.setAttribute('aria-current', k === i ? 'true' : 'false'));
     }
-    function stop() { stopped = true; clearInterval(timer); pauseBtn.textContent = 'Play'; pauseBtn.setAttribute('aria-pressed', 'true'); }
-    function start() {
+    // stopped: the reader chose to stop it (stays until they press Play). held: the pointer is over the cards.
+    let held = false;
+    const eligible = () => !calm.matches && wide.matches;   // no automatic change on phones or with reduced motion
+    function schedule() {
       clearInterval(timer);
-      if (calm.matches || !wide.matches) { pauseBtn.hidden = true; return; }   // no automatic change on phones or with reduced motion
-      pauseBtn.hidden = false;
-      stopped = false; pauseBtn.textContent = 'Pause'; pauseBtn.setAttribute('aria-pressed', 'false');
-      timer = window.setInterval(() => show(i + 1), 8000);
+      pauseBtn.hidden = !eligible();
+      if (eligible() && !stopped && !held) timer = window.setInterval(() => show(i + 1), 8000);
     }
+    function label() { pauseBtn.textContent = stopped ? 'Play' : 'Pause'; pauseBtn.setAttribute('aria-pressed', String(stopped)); }
+    function stop() { stopped = true; label(); schedule(); }
+    function play() { stopped = false; label(); schedule(); }
 
     root.querySelector('[data-prev]')!.addEventListener('click', () => { stop(); show(i - 1); });
     root.querySelector('[data-next]')!.addEventListener('click', () => { stop(); show(i + 1); });
     dots.forEach((d) => d.addEventListener('click', () => { stop(); show(+d.dataset.go!); }));
-    pauseBtn.addEventListener('click', () => (stopped ? start() : stop()));
-    // Hovering or focusing the cards holds the current one; typing in the search stops the tour for good.
-    let held = false;
-    root.addEventListener('pointerenter', () => { if (!stopped) { held = true; clearInterval(timer); } });
-    root.addEventListener('pointerleave', () => { if (held && !stopped) { held = false; start(); } });
-    root.addEventListener('focusin', () => { if (!stopped) stop(); });
-    document.getElementById('q')?.addEventListener('input', stop, { once: true });
+    pauseBtn.addEventListener('click', () => (stopped ? play() : stop()));
+    root.addEventListener('pointerenter', () => { held = true; schedule(); });
+    root.addEventListener('pointerleave', () => { held = false; schedule(); });
+    // Focus inside the tour stops it, except focus on the Pause/Play button, whose click decides for itself.
+    root.addEventListener('focusin', (e) => { if (!(e.target as HTMLElement).closest('[data-pause]')) stop(); });
+    // Every edit in the search stops it, not just the first.
+    document.getElementById('q')?.addEventListener('input', () => { if (!stopped) stop(); });
     // "Try it" fills the home search.
     root.querySelector<HTMLButtonElement>('[data-fill]')?.addEventListener('click', (e) => {
       const q = document.getElementById('q') as HTMLInputElement | null;
@@ -110,11 +113,13 @@ const p66 = (await allWitnesses()).find((w) => w.id === 'p66');
       q.dispatchEvent(new Event('input', { bubbles: true }));
       q.focus();
     });
-    calm.addEventListener('change', start);
-    wide.addEventListener('change', start);
+    // Screen size or motion settings change whether it may run, never the reader's choice.
+    calm.addEventListener('change', schedule);
+    wide.addEventListener('change', schedule);
     show(0);
     requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('ready')));
-    start();
+    label();
+    schedule();
   }
 </script>
 

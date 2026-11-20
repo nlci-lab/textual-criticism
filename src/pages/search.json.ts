@@ -46,10 +46,13 @@ export const GET: APIRoute = async () => {
     }
     out.push({ k: 'p', title: g.cover, kicker: KICKER[g.section], ctx: g.summary, href: g.path,
       text: [g.cover, g.summary, ...g.learn, ...(g.verses ?? [])].join(' ').toLowerCase() });
+    for (const sec of g.sections ?? [])
+      out.push({ k: 'p', title: sec.title, kicker: g.cover, ctx: `Section in “${g.cover}”`, href: `${g.path}#${sec.id}`, text: `${sec.title} ${g.cover}`.toLowerCase() });
     const src = SRC[`./${g.path.replace(/\/$/, '')}.astro`] ?? SRC[`./${g.path}index.astro`] ?? '';
     for (const m of src.matchAll(/<h([234])([^>]*)>([\s\S]*?)<\/h\1>/g)) {
       const text = plain(m[3].replace(/<span class="tag"[\s\S]*?<\/span>/g, ''));
-      if (!text || /^not yet verified$/i.test(text)) continue;
+      // Headings built from data ({…} in the source) can't be read here; pages list those in guides.ts `sections`.
+      if (!text || /^not yet verified$/i.test(text) || /[{}]/.test(m[3])) continue;
       const id = /\bid="([^"]+)"/.exec(m[2])?.[1] ?? (m[1] === '2' ? slug(text) : '');
       out.push({ k: 'p', title: text, kicker: g.cover, ctx: `Section in “${g.cover}”`, href: g.path + (id ? `#${id}` : ''), text: `${text} ${g.cover}`.toLowerCase() });
     }

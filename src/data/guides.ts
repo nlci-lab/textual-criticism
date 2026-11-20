@@ -17,7 +17,10 @@ export interface GuideMeta {
   question?: string;       // worked examples: the question the example answers
   skill?: string;          // worked examples: what it teaches, in a few words
   practice?: string[];     // guides: worked examples that put this guide into practice
+  sections?: { id: string; title: string }[];   // section headings built from data, for the search index
 }
+
+import { SECTIONS as DOUBTFUL_SECTIONS } from './doubtful-sections';
 
 export const PIGMENT: Record<Section, 'lapis' | 'verdigris' | 'ochre'> = { guide: 'lapis', example: 'verdigris', background: 'ochre' };
 export const KICKER: Record<Section, string> = { guide: 'Guide', example: 'Worked example', background: 'Background' };
@@ -43,6 +46,7 @@ export const GUIDES: GuideMeta[] = [
     learn: ['The eight kinds of doubtful passage', 'How Bibles mark long passages and whole verses', 'Where Metzger and Ehrman discuss each one', 'Which ones this site works through'],
     before: 'guide/which-variants-matter/', related: ['guide/examples/john-7-53/', 'guide/base-texts/', 'guide/text-policy/'],
     verses: ['Mark 16:9–20', 'John 7:53–8:11', '1 John 5:7–8', 'Luke 22:43–44', 'Luke 23:34', 'Matthew 6:13', 'Acts 8:37'],
+    sections: DOUBTFUL_SECTIONS,
   },
   {
     path: 'guide/weighing-evidence/', cover: 'Weighing the evidence', section: 'guide', level: 'Going further',

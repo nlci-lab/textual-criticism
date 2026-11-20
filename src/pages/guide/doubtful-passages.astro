@@ -3,6 +3,8 @@
 // Page references were checked against the library PDF (printed page = PDF page − 19), 21 Nov 2026.
 import Context from '../../layouts/Context.astro';
 import { url } from '../../lib/url';
+import { SECTIONS } from '../../data/doubtful-sections';
+const T = (id: string) => SECTIONS.find((x) => x.id === id)!.title;
 const g = (id: string) => url(`glossary/#${id}`);
 const ex = (id: string) => url(`guide/examples/${id}/`);
 type Row = { ref: string; what: string; me?: string; site?: { label: string; href: string }[] };
@@ -19,11 +21,11 @@ const S = {
   byz: { label: 'Byz', href: url('w/byz/') },
 };
 const groups: { id: string; title: string; intro: string; rows: Row[] }[] = [
-  { id: 'long-passages', title: 'Long passages', intro: 'A whole story or ending that some manuscripts have and others do not.', rows: [
+  { id: 'long-passages', title: T('long-passages'), intro: 'A whole story or ending that some manuscripts have and others do not.', rows: [
     { ref: 'Mark 16:9–20', what: 'The longer ending of Mark. The oldest Greek copies end at 16:8.', me: '120, 322–27', site: [S.aleph, S.B, S.byz] },
     { ref: 'John 7:53–8:11', what: 'The woman caught in adultery. Absent from the earliest copies; placed elsewhere in some.', me: '87, 162, 319–21', site: [S.j753] },
   ] },
-  { id: 'whole-verses', title: 'Whole verses that most modern Bibles footnote', intro: 'These verses are in the Textus Receptus and the KJV. Most modern Bibles keep the verse number and put the words in a footnote; the NIV (1984) does this for all sixteen.', rows: [
+  { id: 'whole-verses', title: T('whole-verses'), intro: 'These verses are in the Textus Receptus and the KJV. Most modern Bibles keep the verse number and put the words in a footnote; the NIV (1984) does this for all sixteen.', rows: [
     { ref: 'Matthew 17:21', what: '“This kind goes out only by prayer and fasting.”' },
     { ref: 'Matthew 18:11', what: '“The Son of Man came to save the lost.”' },
     { ref: 'Matthew 23:14', what: 'Woe to those who devour widows’ houses.' },
@@ -41,7 +43,7 @@ const groups: { id: string; title: string; intro: string; rows: Row[] }[] = [
     { ref: 'Acts 28:29', what: 'The Jews left, arguing among themselves.' },
     { ref: 'Romans 16:24', what: 'A repeated grace blessing.' },
   ] },
-  { id: 'shorter', title: 'Shorter additions or omissions', intro: 'A phrase or a sentence, often one that readers know well.', rows: [
+  { id: 'shorter', title: T('shorter'), intro: 'A phrase or a sentence, often one that readers know well.', rows: [
     { ref: '1 John 5:7–8', what: 'The “Johannine comma”: Father, Word and Spirit in heaven.', me: '88, 146, 162, 182, 219', site: [S.base] },
     { ref: 'Luke 22:43–44', what: 'The angel, and the sweat like drops of blood.', me: '284' },
     { ref: 'Luke 23:34', what: '“Father, forgive them …”', me: '288', site: [S.B] },
@@ -53,7 +55,7 @@ const groups: { id: string; title: string; intro: string; rows: Row[] }[] = [
     { ref: 'Matthew 27:49', what: 'The spear thrust, added from John 19:34.', me: '180' },
     { ref: 'Colossians 1:14', what: '“through his blood”, added from Ephesians 1:7.', me: '258' },
   ] },
-  { id: 'who-jesus-is', title: 'Wording about who Jesus is', intro: 'Places where the readings say something different about Jesus. Weigh them like any other variant.', rows: [
+  { id: 'who-jesus-is', title: T('who-jesus-is'), intro: 'Places where the readings say something different about Jesus. Weigh them like any other variant.', rows: [
     { ref: 'John 1:18', what: '“only God” or “only Son”.', me: '284', site: [S.j118, S.app] },
     { ref: '1 Timothy 3:16', what: '“God was manifested” or “who was manifested”.', site: [S.base] },
     { ref: 'Hebrews 2:9', what: '“by the grace of God” or “apart from God”.', me: '200' },
@@ -65,24 +67,24 @@ const groups: { id: string; title: string; intro: string; rows: Row[] }[] = [
     { ref: 'Matthew 1:16', what: 'How Joseph’s relation to Mary is worded.', me: '284' },
     { ref: '1 John 4:3', what: '“does not confess Jesus” or “looses Jesus”.', me: '285' },
   ] },
-  { id: 'harmonizations', title: 'Harmonizations and “corrections”', intro: 'A scribe made a verse match another, or fixed what looked like an error.', rows: [
+  { id: 'harmonizations', title: T('harmonizations'), intro: 'A scribe made a verse match another, or fixed what looked like an error.', rows: [
     { ref: 'Mark 1:2', what: '“in Isaiah the prophet” changed to “in the prophets” (the quotation is partly from Malachi).', me: '264' },
     { ref: 'James 2:20', what: '“useless” or “dead”, matching verses 17 and 26.', site: [S.jas] },
     { ref: 'Matthew 27:49', what: 'The spear thrust (see “Shorter additions or omissions”).', me: '180' },
     { ref: 'Luke 11:2–4', what: 'The Lord’s Prayer made to match Matthew (see “Shorter additions or omissions”).', me: '262' },
   ] },
-  { id: 'names-numbers', title: 'Names, numbers and accents', intro: 'One name, one number, or one accent.', rows: [
+  { id: 'names-numbers', title: T('names-numbers'), intro: 'One name, one number, or one accent.', rows: [
     { ref: 'Romans 16:7', what: 'Junia (a woman) or Junias (a man): an accent.', site: [S.rom, S.which] },
     { ref: 'Matthew 27:16–17', what: '“Jesus Barabbas” or “Barabbas”.', me: '201' },
     { ref: 'Luke 10:1', what: 'Seventy or seventy-two sent out (also 10:17).', me: '40, 229, 340' },
     { ref: 'Revelation 13:18', what: '666 or 616.', me: '61' },
   ] },
-  { id: 'placement', title: 'Where a passage stands', intro: 'The words are the same; their place in the book differs.', rows: [
+  { id: 'placement', title: T('placement'), intro: 'The words are the same; their place in the book differs.', rows: [
     { ref: '1 Corinthians 14:34–35', what: 'Some witnesses place these verses after verse 40.', me: '259, 289' },
     { ref: 'Romans 16:25–27', what: 'The closing doxology appears in different places.', me: '55' },
     { ref: 'John 7:53–8:11', what: 'Also found after John 7:36, 7:44 or at the end of John, or after Luke 21:38.', me: '319–21', site: [S.j753] },
   ] },
-  { id: 'small-word', title: 'A small word that changes the meaning', intro: 'One letter or one word, and the sense moves.', rows: [
+  { id: 'small-word', title: T('small-word'), intro: 'One letter or one word, and the sense moves.', rows: [
     { ref: 'Romans 5:1', what: '“we have peace” or “let us have peace”.', me: '255' },
     { ref: '1 Thessalonians 2:7', what: '“gentle” or “infants” (one letter).', me: '256, 328–30' },
     { ref: 'Luke 2:14', what: '“peace, goodwill to people” or “peace to people of goodwill”.', me: '327–28' },

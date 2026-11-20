@@ -1,0 +1,51 @@
+---
+import Context from '../../layouts/Context.astro';
+const sources = [
+  { cite: 'Emanuel Tov, Textual Criticism of the Hebrew Bible, 3rd ed. (Fortress, 2012).', checked: false },
+  { cite: 'Ernst Würthwein, revised by Alexander Achilles Fischer, The Text of the Old Testament, 3rd ed. (Eerdmans, 2014).', checked: false },
+  { cite: 'Biblia Hebraica Stuttgartensia, introduction and list of sigla (Deutsche Bibelgesellschaft).', checked: false },
+];
+---
+<Context title="How we got the Old Testament text" label="Background" lastChecked="2026-11-20" sources={sources}
+  description="The Masoretic Text, the Dead Sea Scrolls, the Septuagint, and how BHS and BHQ cite them.">
+  <p class="lead">This site is mainly about the New Testament. This page gives only the outline a translator needs to read the Hebrew Bible's apparatus.</p>
+
+  <h2>The Masoretic Text (MT)</h2>
+  <p>The Hebrew text printed in our Bibles is the <em>Masoretic Text</em>. The consonants were fixed by the early centuries AD. Between about the 6th and 10th centuries, Jewish scholars called <em>Masoretes</em> added vowel signs, accents and notes in the margins (the <em>Masorah</em>) to protect the text and its reading.</p>
+  <p>Two complete or nearly complete manuscripts from the school of Tiberias matter most:</p>
+  <dl class="terms">
+    <dt>Aleppo Codex (about 930)</dt><dd>The most respected Masoretic manuscript, but much of it was lost in 1947.</dd>
+    <dt>Leningrad Codex (1008/1009)</dt><dd>Kept in St Petersburg. The oldest complete Hebrew Bible, and the base text of BHS and BHQ.</dd>
+  </dl>
+
+  <h2>The Dead Sea Scrolls</h2>
+  <p>Found from 1947 near Qumran and elsewhere by the Dead Sea. They include parts of every book of the Hebrew Bible except Esther, about a thousand years older than the Leningrad Codex. Many agree closely with the MT; others agree with the Septuagint or the Samaritan Pentateuch, or have readings of their own.</p>
+
+  <h2>Other witnesses</h2>
+  <dl class="terms">
+    <dt>Septuagint (LXX)</dt><dd>The Greek translation, begun with the Pentateuch in the 3rd century BC. Where it differs from the MT it may show a different Hebrew text behind it, or simply the translator's choices.</dd>
+    <dt>Samaritan Pentateuch</dt><dd>The five books of Moses as kept by the Samaritans, in a form of the old Hebrew script.</dd>
+    <dt>Targums, Peshitta, Vulgate</dt><dd>Aramaic, Syriac and Latin translations. They mostly support the MT.</dd>
+  </dl>
+
+  <h2>How BHS and BHQ cite them</h2>
+  <p><em>Biblia Hebraica Stuttgartensia</em> (BHS) prints the Leningrad Codex with an apparatus at the foot of the page. <em>Biblia Hebraica Quinta</em> (BHQ), coming out book by book, replaces it, with a fuller apparatus and a commentary on each case. Common sigla:</p>
+  <div class="scroll">
+    <table class="plain">
+      <thead><tr><th>Siglum</th><th>Means</th></tr></thead>
+      <tbody>
+        <tr><td>𝔐 / M</td><td>Masoretic Text</td></tr>
+        <tr><td>𝔊 / G</td><td>Septuagint (Greek)</td></tr>
+        <tr><td>𝔔 / Q</td><td>Qumran (Dead Sea Scrolls), e.g. 1QIsaᵃ</td></tr>
+        <tr><td>𝔖 / S</td><td>Syriac (Peshitta)</td></tr>
+        <tr><td>𝔗 / T</td><td>Targum (Aramaic)</td></tr>
+        <tr><td>𝔙 / V</td><td>Vulgate (Latin)</td></tr>
+        <tr><td>𝔐ˢᵐʳ / Smr</td><td>Samaritan Pentateuch</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted">BHS uses the Gothic (Fraktur) letters; BHQ uses plain letters. Check the introduction of the edition you use.</p>
+
+  <h2>What this means for your work</h2>
+  <p>Old Testament translators usually follow the MT and use the other witnesses where the MT is hard or seems damaged. When the apparatus says "G", ask whether the Greek translator had a different Hebrew text or was translating freely. BHQ's commentary and the UBS <em>Handbook</em> series help with that judgement.</p>
+</Context>

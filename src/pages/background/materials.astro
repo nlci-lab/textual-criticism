@@ -1,0 +1,49 @@
+---
+import Context from '../../layouts/Context.astro';
+import { url } from '../../lib/url';
+const w = (id: string) => url(`w/${id}/`);
+const sources = [
+  { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005).', checked: false },
+  { cite: 'D. C. Parker, An Introduction to the New Testament Manuscripts and their Texts (Cambridge University Press, 2008).', checked: false },
+  { cite: 'Larry W. Hurtado, The Earliest Christian Artifacts: Manuscripts and Christian Origins (Eerdmans, 2006).', checked: false },
+];
+---
+<Context title="Materials and making" label="Background" lastChecked="2026-11-20" sources={sources}
+  description="Papyrus and parchment, scrolls and books, scripts, nomina sacra, and the mistakes copyists made.">
+  <p class="lead">What a manuscript is made of, and how it was written, often tells us its date and explains its mistakes.</p>
+
+  <h2>Writing surfaces</h2>
+  <dl class="terms">
+    <dt>Papyrus</dt><dd>Made from the papyrus reed of Egypt. Thin strips were laid in two layers, one across the other, pressed and dried. It lasts well only in a dry climate, so almost all our papyri come from Egypt. The New Testament papyri (𝔓) are the oldest group, mostly 2nd to 4th century.</dd>
+    <dt>Parchment</dt><dd>Animal skin (sheep, goat or calf), scraped and dried under tension. Very fine parchment is called <em>vellum</em>. It is strong and could be reused. From the 4th century it replaced papyrus for important books: <a href={w('sinaiticus')}>א</a> and <a href={w('vaticanus')}>B</a> are parchment.</dd>
+    <dt>Palimpsest</dt><dd>A parchment that was scraped and written over. The older text can still be read, now often with ultraviolet or multispectral imaging. Codex C (04) is a Greek Bible written over in the 12th century with works of Ephrem the Syrian.</dd>
+    <dt>Paper</dt><dd>Used for some later minuscules, from about the 13th century.</dd>
+  </dl>
+  <p>Ink was either carbon ink (soot and gum) or <em>iron-gall</em> ink, which turns brown with age and can eat through the page.</p>
+
+  <h2>Scroll and codex</h2>
+  <p>Jewish and Greek books were usually <em>scrolls</em> (rolls). Christians, very early, preferred the <em>codex</em>: sheets folded and sewn into a book, like ours. Almost all New Testament manuscripts are codices. A codex can hold all four Gospels in one volume, and it is easier to find a passage in it.</p>
+
+  <h2>Scripts</h2>
+  <dl class="terms">
+    <dt>Majuscule</dt><dd>Separate capital letters, usually with no spaces between words and little punctuation (<em>scriptio continua</em>). Used until about the 9th century. Older books call these manuscripts "uncials".</dd>
+    <dt>Minuscule</dt><dd>Smaller joined-up letters, faster to write. From the 9th century it replaced majuscule, so most of our manuscripts (the minuscules) are from the 9th century or later.</dd>
+  </dl>
+  <p>Because there were no spaces, a copyist sometimes had to decide where a word ended, and copyists did not always agree. Accents and breathings were mostly added later.</p>
+
+  <h2>Nomina sacra</h2>
+  <p>Christian scribes wrote some holy names in short form with a line above: ΘΣ for θεός (God), ΚΣ for κύριος (Lord), ΙΣ for Ἰησοῦς, ΧΣ for Χριστός. These short forms look alike, which explains some variants. At <a href={url('guide/apparatus/')}>John 1:18</a>, "God" (ΘΣ) and "Son" (ΥΣ) differ by one letter.</p>
+
+  <h2>How copyists made mistakes</h2>
+  <dl class="terms">
+    <dt>Skipping (haplography, homoeoteleuton)</dt><dd>The eye jumps from one word to the same or a similar ending further on, and the words between are lost.</dd>
+    <dt>Repeating (dittography)</dt><dd>A letter or word is written twice.</dd>
+    <dt>Hearing and spelling</dt><dd>Some vowels sounded the same, so ἡμεῖς (we) and ὑμεῖς (you) are often confused.</dd>
+    <dt>Harmonising</dt><dd>A scribe makes a Gospel passage match the more familiar wording in another Gospel.</dd>
+    <dt>Improving</dt><dd>A scribe smooths the grammar, clarifies a hard phrase, or adds a word that seems missing.</dd>
+  </dl>
+  <p>From these habits come two rules of thumb a translator will meet: the <em>harder</em> reading is often older, and the <em>shorter</em> reading is often older. Both have exceptions, because copyists also left words out by accident.</p>
+
+  <h2>Correctors</h2>
+  <p>Many manuscripts were corrected, by the first scribe, by a checker in the same workshop, or by readers centuries later. The apparatus marks the first hand with <a href={url('glossary/#star')}>*</a> and later correctors with <a href={url('glossary/#correctors')}>¹ ² ᶜ</a>. See the correctors section of <a href={w('sinaiticus')}>Sinaiticus</a>.</p>
+</Context>

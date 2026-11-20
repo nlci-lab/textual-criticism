@@ -12,7 +12,7 @@
 ## Next content
 
 1. Remaining Greek witnesses (papyri, majuscules, minuscules, lectionaries), using `scripts/` to pull INTF Liste data.
-2. Context pages: NT text history, OT text history (lean), materials and making.
+2. ~~Context pages~~ drafted 20 Nov 2026 (NT text, OT text, materials); check against their listed sources and run `cod` over them.
 3. Versions, then fathers.
 4. Full glossary of apparatus symbols.
 

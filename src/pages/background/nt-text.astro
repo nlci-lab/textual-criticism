@@ -1,0 +1,53 @@
+---
+import Context from '../../layouts/Context.astro';
+import { url } from '../../lib/url';
+const w = (id: string) => url(`w/${id}/`);
+const sources = [
+  { cite: 'Bruce M. Metzger and Bart D. Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005).', checked: false },
+  { cite: 'Kurt Aland and Barbara Aland, The Text of the New Testament, 2nd ed. (Eerdmans, 1989).', checked: false },
+  { cite: 'D. C. Parker, An Introduction to the New Testament Manuscripts and their Texts (Cambridge University Press, 2008).', checked: false },
+  { cite: 'Tommy Wasserman and Peter J. Gurry, A New Approach to Textual Criticism: An Introduction to the Coherence-Based Genealogical Method (SBL Press, 2017).', checked: false },
+];
+---
+<Context title="How we got the New Testament text" label="Background" lastChecked="2026-11-20" sources={sources}
+  description="From lost originals to the UBS and ECM editions, told from a text critic's point of view.">
+  <p class="lead">We do not have the first copies of any New Testament book. We have thousands of later hand-made copies, and they differ. Textual criticism compares them to work out the earliest wording we can reach.</p>
+
+  <h2>1. Writing and copying</h2>
+  <p>The New Testament books were written in Greek in the first century. Each was copied by hand, then the copies were copied. Every copyist made some mistakes, and some made deliberate changes, for example to make a hard sentence clearer or to make one Gospel match another.</p>
+  <p>The original documents (the <em>autographs</em>) are lost. The oldest copies we have are papyrus fragments from Egypt, from the second and third centuries. <a href={w('p66')}>𝔓⁶⁶</a> and <a href={w('p45')}>𝔓⁴⁵</a> are examples.</p>
+  <p>Greek manuscripts are only one kind of evidence. The text was also translated early into Latin, Syriac and Coptic (the <em>versions</em>), and church writers quoted it in their own works (the <em>fathers</em>). The UBS apparatus cites all three.</p>
+
+  <h2>2. How many manuscripts?</h2>
+  <p>The Institute for New Testament Textual Research (INTF) in Münster gives each Greek manuscript a number in four lists: papyri (𝔓¹, 𝔓²…), majuscules (01, 02…), minuscules (1, 2…) and lectionaries (ℓ 1, ℓ 2…). Together they hold more than 5,000 manuscripts. Most are late and most contain only part of the New Testament.</p>
+  <p>Numbers do not decide a reading. A reading found in two early manuscripts can be older than one found in five hundred late ones, because the late ones may all go back to one ancestor.</p>
+
+  <h2>3. Grouping the manuscripts: "text-types"</h2>
+  <p>In the 18th and 19th centuries scholars noticed that manuscripts fall into groups that share readings. The usual names are:</p>
+  <dl class="terms">
+    <dt>"Alexandrian"</dt><dd>Often short and careful. <a href={w('vaticanus')}>B</a>, <a href={w('sinaiticus')}>א</a>, 𝔓⁷⁵, and in John <a href={w('p66')}>𝔓⁶⁶</a>.</dd>
+    <dt>"Western"</dt><dd>Free, often longer, especially in Acts. <a href={w('bezae')}>D (05)</a>, the Old Latin, some Syriac.</dd>
+    <dt>"Caesarean"</dt><dd>Proposed for Θ, ƒ¹ and ƒ¹³ in Mark. Most scholars now doubt that it existed as a text-type.</dd>
+    <dt>"Byzantine"</dt><dd>The text of most later manuscripts. Cited in UBS as <a href={w('byz')}>Byz</a>.</dd>
+  </dl>
+  <p><strong>These labels are contested.</strong> The names suggest places, but the groups are not tied to those places. "Western" readings were also known in the East. Many manuscripts mix the groups. Newer methods (section 5) do not use text-types at all. Some scholars, a minority, defend the Byzantine text as closest to the original ("Byzantine priority"). The UBS committee does not hold that view.</p>
+
+  <h2>4. Printed editions</h2>
+  <ol class="timeline">
+    <li><span class="yr">1516</span>Erasmus prints the first published Greek New Testament, from a few late manuscripts.</li>
+    <li><span class="yr">1550</span>Robert Stephanus prints an edition with variant readings in the margin. His 1551 edition adds the verse numbers we still use.</li>
+    <li><span class="yr">1633</span>An Elzevir edition calls its text the one "received by all". From this comes the name <em>Textus Receptus</em> (TR). It is close to the Byzantine text and lies behind the King James Version.</li>
+    <li><span class="yr">1869–72</span>Tischendorf's 8th edition, with a large apparatus including Sinaiticus.</li>
+    <li><span class="yr">1881</span>Westcott and Hort publish a text based mainly on B and א. Most modern editions grow from their method.</li>
+    <li><span class="yr">1898</span>Eberhard Nestle's first edition. It becomes the Nestle–Aland (NA) series.</li>
+    <li><span class="yr">1966</span>The first UBS Greek New Testament, made for Bible translators. Its apparatus covers fewer places than NA but gives more evidence for each, with the {'{A}–{D}'} ratings.</li>
+    <li><span class="yr">2012–14</span>NA28 and UBS5 share one text. In the Catholic letters it follows the new Editio Critica Maior.</li>
+  </ol>
+
+  <h2>5. The newest method: ECM and CBGM</h2>
+  <p>The <em>Editio Critica Maior</em> (ECM) is a very large edition from INTF, published book by book. It uses the <em>Coherence-Based Genealogical Method</em> (CBGM): a computer compares the full text of every manuscript studied, and the editors use the results to judge which reading probably gave rise to which.</p>
+  <p>For translators the main effect is small changes in the printed text where the ECM is finished, and a new mark, <a href={url('glossary/#diamond')}>♦</a>, where the editors found two readings equally strong. CBGM also explains why the old text-type labels are used less today.</p>
+
+  <h2>What this means for your work</h2>
+  <p>When the apparatus lists witnesses, look first at <em>which</em> witnesses and how early they are, not how many. Then ask which reading best explains how the others arose. The <a href={url('guide/apparatus/')}>worked example at John 1:18</a> shows this step by step.</p>
+</Context>

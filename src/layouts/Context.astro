@@ -1,0 +1,43 @@
+---
+// Context pages: one reading column, a "not yet checked" notice until the page is checked
+// against its listed sources (ADR 0004), and the sources at the end.
+import Base from './Base.astro';
+interface Props {
+  title: string; description: string; label: string;
+  sources: { cite: string; checked: boolean }[];
+  checked?: boolean; lastChecked: string;
+}
+const { title, description, label, sources, checked = false, lastChecked } = Astro.props;
+---
+<Base title={title} description={description} nav="background/">
+  <article class="prose ctx">
+    <p class="label">{label}</p>
+    <h1>{title}</h1>
+    {!checked && (
+      <p class="notice">
+        <span class="tag">not yet checked</span> Written from the handbooks listed at the end, but not yet checked line by line against them. Use it as a guide, not as a source.
+      </p>
+    )}
+    <slot />
+    <section class="sources">
+      <h2>Sources</h2>
+      <ol>{sources.map((s) => <li>{s.cite}{!s.checked && <span class="tag">not yet checked</span>}</li>)}</ol>
+      <p class="small muted">Last revised {lastChecked}.</p>
+    </section>
+  </article>
+</Base>
+<style>
+  .ctx { margin-top: 1.5rem; }
+  .notice { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-2); border-left: 3px solid var(--rule); padding-left: 0.6rem; }
+  .ctx :global(.lead) { font-size: var(--step-1); line-height: 1.45; }
+  .ctx :global(dl.terms dt) { font-weight: 600; margin-top: 0.75rem; }
+  .ctx :global(dl.terms dd) { margin: 0.15rem 0 0; }
+  .ctx :global(.timeline) { list-style: none; padding: 0; border-left: 2px solid var(--rule); }
+  .ctx :global(.timeline li) { position: relative; padding: 0 0 0.9rem 1rem; }
+  .ctx :global(.timeline li::before) { content: ""; position: absolute; left: -6px; top: 0.55em; width: 10px; height: 10px; border-radius: 50%; background: var(--paper); border: 2px solid var(--rubric); }
+  .ctx :global(.timeline .yr) { font-variant-numeric: lining-nums tabular-nums; font-weight: 600; margin-right: 0.4rem; }
+  .ctx :global(table.plain) { border-collapse: collapse; width: 100%; font-size: var(--step--1); }
+  .ctx :global(table.plain th), .ctx :global(table.plain td) { text-align: left; vertical-align: top; padding: 0.4rem 0.6rem 0.4rem 0; border-top: 1px solid var(--rule); }
+  .ctx :global(.scroll) { overflow-x: auto; }
+  .sources ol { font-size: var(--step--1); padding-left: 1.4rem; }
+</style>

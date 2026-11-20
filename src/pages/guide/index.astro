@@ -4,12 +4,12 @@ import Cover from '../../components/Cover.astro';
 import { GUIDES, PIGMENT, KICKER } from '../../data/guides';
 import { url } from '../../lib/url';
 // Order follows src/data/guides.ts.
-const pages = GUIDES.filter((g) => g.section !== 'background');
+const pages = GUIDES.filter((g) => g.section === 'guide');
 ---
 <Base title="Guides" nav="guide/">
   <div class="ix-head">
     <h1>Guides</h1>
-    <p class="muted">Practical help for translators and consultants, with worked examples. These cover the UBS Greek New Testament; guides for the Hebrew Bible (BHS and BHQ) are being added.</p>
+    <p class="muted">Practical help for translators and consultants. To see the method used on real verses, go to the <a href={url('guide/examples/')}>worked examples</a>. These cover the UBS Greek New Testament; guides for the Hebrew Bible (BHS and BHQ) are being added.</p>
   </div>
   <ul class="ix">
     {pages.map((g) => (

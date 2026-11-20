@@ -6,6 +6,7 @@ import CntrViewer from '../../components/CntrViewer.astro';
 import Cite from '../../components/Cite.astro';
 import PageImage from '../../components/PageImage.astro';
 import WitnessTile from '../../components/WitnessTile.astro';
+import { examplesFor } from '../../data/guides';
 import { url } from '../../lib/url';
 import { heSigla, ltrHe } from '../../lib/he';
 
@@ -88,7 +89,7 @@ const sl = w.siglum_lang;
       <section>
         <h2>Where it matters</h2>
         <ul class="units">
-          {w.key_units.map((u) => <li><strong>{u.ref}</strong> <Fragment set:html={heSigla(u.note)} /><Cite {...cites(u.src)} /></li>)}
+          {w.key_units.map((u) => <li><strong>{u.ref}</strong> <Fragment set:html={heSigla(u.note)} /><Cite {...cites(u.src)} />{examplesFor(u.ref).map((ex) => <> <a class="ex-link" href={url(ex.path)}>Worked through step by step →</a></>)}</li>)}
         </ul>
       </section>
     )}
@@ -146,6 +147,7 @@ const sl = w.siglum_lang;
   .correctors dd { margin: 0; }
   .units { padding-left: 1.1rem; }
   .units li { margin-bottom: 0.6rem; }
+  .ex-link { font: 600 0.85rem var(--sans); white-space: nowrap; }
   .links { padding-left: 1.1rem; font-family: var(--sans); font-size: 0.9375rem; }
   .links li { margin-bottom: 0.4rem; }
   .unchecked-box { border: 1px dashed var(--rule); border-radius: 6px; padding: 0 1rem 0.25rem; margin-top: 2rem; }

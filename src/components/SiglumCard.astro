@@ -1,0 +1,49 @@
+---
+// A witness siglum as a control. Hover, focus or a tap shows a small details card; a click
+// (or Enter) opens the manuscript's page at CNTR in the collation's page dialog.
+// Without JS it is a plain link to the CNTR page in a new tab. Behaviour lives in Collation.astro.
+import type { Witness } from '../lib/collate';
+import { url } from '../lib/url';
+interface Props { w: Witness; text: string; verseId: string; verseRef: string }
+const { w, text, verseId, verseRef } = Astro.props;
+const x = w as Witness & { ga?: string; material?: string; holding?: string; ntvmr?: string | number };
+const page = `https://greekcntr.org/manuscripts/?w=${encodeURIComponent(w.cntr)}&v=${encodeURIComponent(verseId)}`;
+const ntvmr = x.ntvmr == null || x.ntvmr === '' ? undefined
+  : String(x.ntvmr).startsWith('http') ? String(x.ntvmr) : `https://ntvmr.uni-muenster.de/manuscript-workspace?docID=${encodeURIComponent(String(x.ntvmr))}`;
+const id = `sgc-${w.id}-${Math.random().toString(36).slice(2, 8)}`;
+const lang = w.siglumLang, dir = w.siglumLang ? 'ltr' : undefined;
+const facts = [
+  x.ga && ['GA', x.ga], w.date && ['Date', w.date], x.material && ['Material', x.material], x.holding && ['Held at', x.holding],
+].filter(Boolean) as [string, string][];
+---
+<span class="sgw" data-sgw>
+  <a class="sg sg-btn" href={page} target="_blank" rel="noopener" data-page={page} data-title={`${w.label} · ${verseRef}`}
+    aria-describedby={id} aria-label={`${text}: ${w.label}, page at CNTR (opens in a new tab)`}><span lang={lang} dir={dir}>{text}</span></a>
+  <span class="sg-card" id={id} hidden>
+    <strong class="sg-name">{w.label}</strong>
+    {facts.map(([k, v]) => <span class="sg-fact"><span class="sg-k">{k}</span> {v}</span>)}
+    <span class="sg-links">
+      {w.profile && <a href={url(`w/${w.profile}/`)}>Profile →</a>}
+      <a href={page} target="_blank" rel="noopener" data-page={page} data-title={`${w.label} · ${verseRef}`} class="sg-pagelink">Page at CNTR ↗<span class="vh"> (opens in a new tab)</span></a>
+      {ntvmr && <a href={ntvmr} target="_blank" rel="noopener">Images at NTVMR ↗<span class="vh"> (opens in a new tab)</span></a>}
+    </span>
+  </span>
+</span>
+<style>
+  .sgw { display: inline; }
+  .sg-btn { font-family: var(--sigla); color: var(--rubric); text-decoration: underline dotted 1px; text-underline-offset: .2em; border-radius: 4px; padding: 0 .1em; cursor: pointer; }
+  .sg-btn:hover, .sgw.on .sg-btn { background: var(--paper-2); text-decoration-style: solid; }
+  .sg-btn:focus-visible { outline: 2px solid var(--rubric); outline-offset: 2px; }
+  .sg-card {
+    position: fixed; z-index: 50; width: max-content; max-width: min(18rem, calc(100vw - 16px));
+    display: grid; gap: .15rem; padding: .55rem .7rem; border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink); box-shadow: 0 6px 20px rgb(0 0 0 / .18);
+    font: .8rem/1.4 var(--sans); white-space: normal; text-align: left;
+  }
+  .sg-card[hidden] { display: none; }
+  .sg-name { font-weight: 600; font-size: .85rem; }
+  .sg-k { color: var(--ink-2); }
+  .sg-links { display: flex; flex-wrap: wrap; gap: .1rem .9rem; margin-top: .25rem; font-weight: 600; }
+  .sg-links a { padding: .15rem 0; }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>

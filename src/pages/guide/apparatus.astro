@@ -26,7 +26,7 @@ const g = (id: string) => url(`glossary/#${id}`);
 
     <h2>Piece by piece</h2>
     <ol class="notes">
-      <li><strong>The rating, <a href={g('rating')}>{'{B}'}</a>.</strong> The committee's letter for how sure it was of the reading printed in the text. It comes first, before the readings.</li>
+      <li><strong>The rating, <a href={g('rating')}>{'{B}'}</a>.</strong> The committee's letter for how sure it was of the reading printed in the text. It comes first, before the readings. It is an opinion, not a measure of the evidence: see <a href="#ratings">what the ratings do and do not tell you</a>.</li>
       <li><strong>The first reading is the one printed in the text.</strong> Then come its witnesses, always in the same order: Greek manuscripts (papyri, then majuscules, then minuscules), then ancient versions, then church fathers. Here: <a href={w('p66')}>𝔓⁶⁶</a>, the first hand of <a href={w('sinaiticus')}><span lang="he">א</span>*</a>, <a href={w('vaticanus')}>B</a>, the first hand of C, and L. Then the Peshitta Syriac and the margin of the Harclean Syriac, and the second Georgian revision.</li>
       <li><strong>Church fathers carry small marks.</strong> Origen<sup>gr 2/4</sup>: Origen, in his works that survive in Greek (<a href={g('gr-lat')}>gr</a>), quotes the verse four times; two of those quotations support this reading (<a href={g('fraction')}>2/4</a>).</li>
       <li><strong><a href={g('double-slash')}>//</a> starts the next reading.</strong> The second reading adds the article ὁ. Its witnesses include <span lang="he">א</span>‎², a later <a href={g('correctors')}>corrector</a> of Sinaiticus. So Sinaiticus appears twice in one entry: what the first scribe wrote, and what a corrector changed it to.</li>
@@ -35,8 +35,13 @@ const g = (id: string) => url(`glossary/#${id}`);
     </ol>
 
     <h2>What a translator does with this</h2>
-    <p>Do not count witnesses. The third reading has the most manuscripts by far, but most of them are Byzantine copies made centuries later. The first reading has fewer witnesses, but they are early: 𝔓⁶⁶ was copied around 200.</p>
-    <p>Read the readings as a story of change. It is easier to explain how "the only God" became "the only Son", a familiar phrase (John 3:16, 18), than the other way round. Then check how your reference translations handle it. Many English translations print "God" or "the only God" and give "Son" in a footnote; REB and BJ do the opposite.</p>
+    <p>Do not count witnesses. The third reading has the most manuscripts by far, but most of them are Byzantine copies made centuries later. Look at how early the witnesses are and how widely spread: the first reading has early Greek witnesses (𝔓⁶⁶ was copied around 200), while the third reading is spread across Greek, Latin and Syriac and early fathers.</p>
+    <p>Read the readings as a story of change, and ask which reading best explains how the others arose. Scholars answer that question differently here:</p>
+    <ul>
+      <li><strong>For "God" (the UBS text).</strong> It is the harder reading, and it is in the earliest papyri. A scribe who knew "the only Son" from John 3:16, 18 could easily have changed "God" to "Son".</li>
+      <li><strong>For "Son".</strong> It is found in every region and language, and in 2nd- and 3rd-century fathers, while "God" is found almost only in Egyptian ("Alexandrian") witnesses. "Son" fits how John writes elsewhere. And a scribe defending Christ's full deity had a reason to change "Son" to "God". Bart Ehrman argues this view (<i>The Orthodox Corruption of Scripture</i>, ch. 2).</li>
+    </ul>
+    <p>This is why the committee rated the unit <a href="#ratings">{'{B}'}</a>, not {'{A}'}: it chose "God" but did not think the question closed. Then check how your reference translations handle it. Many English translations print "God" or "the only God" and give "Son" in a footnote; REB and BJ do the opposite.</p>
 
     <section class="unchecked-box" aria-labelledby="ratings">
       <h2 id="ratings">What the ratings do and do not tell you <span class="tag">not yet checked</span></h2>

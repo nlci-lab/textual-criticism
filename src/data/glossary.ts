@@ -4,7 +4,7 @@ export interface Term { id: string; term: string; plain: string; source: string;
 const UBS = 'UBS5 Introduction pp. 58*–63*, via Paratext 9 help';
 
 export const GLOSSARY: Term[] = [
-  { id: 'rating', term: '{A} {B} {C} {D}', plain: 'The committee\'s letter for how sure it was about the reading printed in the text. {A} = sure; {D} = very unsure. See "How to read a UBS apparatus entry" for what the letters do and do not tell you.', source: UBS, checked: true },
+  { id: 'rating', term: '{A} {B} {C} {D}', plain: 'The committee\'s letter for how sure it was about the reading printed in the text. {A} = sure; {D} = very unsure. It is a committee opinion, not a measure of the evidence. See "How to read a UBS apparatus entry" for what the letters do and do not tell you.', source: UBS, checked: true },
   { id: 'double-slash', term: '//', plain: 'Separates one reading from the next in an apparatus entry.', source: 'UBS5 apparatus at John 1:18, as shown in Paratext', checked: true },
   { id: 'star', term: '*', plain: 'The first scribe\'s reading, before anyone corrected it. א* = what the first scribe of Sinaiticus wrote.', source: UBS, checked: true },
   { id: 'correctors', term: '¹ ² ³ ᶜ', plain: 'Later correctors of a manuscript, numbered in time order. ᶜ is the latest corrector (or the only one). א² = the second corrector of Sinaiticus.', source: UBS, checked: true },

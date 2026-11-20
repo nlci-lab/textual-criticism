@@ -17,8 +17,8 @@ text_character:
   contested_note: "The name \"Western\" is misleading, and whether this is one text-type at all is debated. Its Acts is about one tenth longer than the text of B."
   src: [me]
 key_units:
-  - ref: "Luke 6:5"
-    note: "Adds a saying of Jesus to a man working on the Sabbath, found in no other Greek manuscript."
+  - ref: "Luke 6:4/5"
+    note: "Adds a saying of Jesus to a man working on the Sabbath, found in no other Greek manuscript, and moves 6:5 to after 6:10."
     src: [me]
   - ref: "Luke 22:19b–20"
     note: "Leaves out the second cup and the words over it."
@@ -67,6 +67,6 @@ greek_ms:
 
 Codex Bezae has Greek on the left-hand page and Latin on the right, line by line. It is named after Theodore Beza, the Reformer, who owned it before it went to Cambridge.
 
-When D stands alone against all the other early Greek manuscripts, the UBS committee rarely follows it. But D is often joined by Old Latin and Syriac witnesses, which shows that its kind of text was spread widely by the second century.
+When D stands alone against all the other early Greek manuscripts, the UBS committee rarely follows it. But D is often joined by Old Latin and Syriac witnesses, which suggests that its kind of text was spread widely by the second century.
 
 Note the siglum: in the Gospels and Acts, D means this manuscript (05). In Paul's letters, D means a different manuscript, Codex Claromontanus (06).

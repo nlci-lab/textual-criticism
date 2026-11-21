@@ -64,6 +64,13 @@ const isSign = (t: Term) => !words.has(t.id);
       groups.forEach((g) => { g.hidden = !g.querySelector('.g-item:not([hidden])'); });
       count.textContent = t ? `${n} of ${items.length} entries` : '';
     });
+    // A jump link to a hidden entry first clears the filter, so the target is visible.
+    document.addEventListener('click', (e) => {
+      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
+      if (!a || !q.value) return;
+      const el = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+      if (el?.closest('[hidden]')) { q.value = ''; q.dispatchEvent(new Event('input')); }
+    }, true);
   }
 </script>
 

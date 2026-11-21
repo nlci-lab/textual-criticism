@@ -29,10 +29,10 @@ const policy = '<a href="' + url('guide/text-policy/') + '">text policy</a>';
   <MMStep n={2} title="List the readings">
     <p>Here is how the manuscripts in the CNTR transcriptions, and five printed editions, read the verse. Look at the first card.</p>
     <Collation verse={M.verse} data={M.data_} base={M.base} english={M.english} witnesses={M.witnesses} units={M.units} phrases={M.phrases} glosses={M.glosses} />
-    <MMQuestion q="How many different readings are there for the prophet’s name?" options={[
-      { text: 'Two: “in Isaiah the prophet” and “in the prophets”.', correct: true, why: 'Right. Codex Bezae (D) writes “in Isaiah the prophet” without “the” before Isaiah, but the meaning is the same, so it belongs with the first reading.' },
-      { text: 'Three, because D has no “the”.', why: 'Not really: leaving out the article does not change what is said. Count readings by meaning, not by spelling or small words.' },
-      { text: 'One: all the witnesses agree.', why: 'No: the first card shows two groups of witnesses.' },
+    <MMQuestion q="The card shows three Greek forms for the prophet’s name. How many different readings are there in meaning?" options={[
+      { text: 'Two: “in Isaiah the prophet” and “in the prophets”.', correct: true, why: 'Right. Codex Bezae (D) writes “in Isaiah the prophet” without “the” before Isaiah, but the meaning is the same, so it belongs with the first reading. Three forms, two readings.' },
+      { text: 'Three, because D has no “the”.', why: 'Not really: the card shows three forms, but leaving out the article does not change what is said. Count readings by meaning, not by spelling or small words.' },
+      { text: 'One: all the witnesses agree.', why: 'No: the witnesses do not all agree; some name Isaiah and others say “the prophets”.' },
     ]} />
   </MMStep>
 

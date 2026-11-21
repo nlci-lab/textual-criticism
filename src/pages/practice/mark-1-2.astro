@@ -1,4 +1,5 @@
 ---
+// Micro module in the site's six steps: find, list, external, internal, weigh, decide.
 import MicroModule from '../../components/MicroModule.astro';
 import MMStep from '../../components/MMStep.astro';
 import MMQuestion from '../../components/MMQuestion.astro';
@@ -9,12 +10,13 @@ const sources = [
   'Bruce M. Metzger and Bart D. Ehrman, <i>The Text of the New Testament</i>, 4th ed. (Oxford University Press, 2005), p. 264.',
   'Manuscript and edition texts: Alan Bunning, Center for New Testament Restoration, transcriptions, CC BY-SA 4.0.',
 ];
+const policy = '<a href="' + url('guide/text-policy/') + '">text policy</a>';
 ---
-<MicroModule title="Mark 1:2: “in Isaiah” or “in the prophets”?" passage="Mark 1:2" minutes={7} sources={sources}
-  description="A short guided problem: a scribe 'corrects' an apparent error in Mark 1:2."
-  lead="Mark begins with a quotation and names the prophet it comes from. Some manuscripts name Isaiah; others say only “the prophets”. Work out which came first, one step at a time.">
+<MicroModule title="Mark 1:2: “in Isaiah” or “in the prophets”?" passage="Mark 1:2" minutes={10} sources={sources}
+  description="A short guided problem in six steps: a scribe 'corrects' an apparent error in Mark 1:2."
+  lead="Mark begins with a quotation and names the prophet it comes from. Some manuscripts name Isaiah; others say only “the prophets”. Work out which came first, in the six steps of the worked examples.">
 
-  <MMStep n={1} title="Notice the problem">
+  <MMStep n={1} title="Find the problem">
     <p class="g">Καθὼς γέγραπται ἐν τῷ Ἠσαΐᾳ τῷ προφήτῃ· Ἰδοὺ ἀποστέλλω τὸν ἄγγελόν μου πρὸ προσώπου σου …</p>
     <p>“As it is written in Isaiah the prophet: ‘Look, I am sending my messenger ahead of you …’” The words that follow in verses 2–3 join two passages: Malachi 3:1 (“I am sending my messenger”) and Isaiah 40:3 (“a voice of one crying in the wilderness”).</p>
     <MMQuestion q="What might trouble a careful scribe about the words “in Isaiah the prophet”?" options={[
@@ -24,16 +26,25 @@ const sources = [
     ]} />
   </MMStep>
 
-  <MMStep n={2} title="Look at the witnesses">
-    <p>Here is how the manuscripts in the CNTR transcriptions, and five printed editions, read the verse.</p>
+  <MMStep n={2} title="List the readings">
+    <p>Here is how the manuscripts in the CNTR transcriptions, and five printed editions, read the verse. Look at the first card.</p>
     <Collation verse={M.verse} data={M.data_} base={M.base} english={M.english} witnesses={M.witnesses} units={M.units} phrases={M.phrases} glosses={M.glosses} />
-    <MMQuestion q="Which reading do the two oldest manuscripts here, Codex Sinaiticus (א) and Codex Vaticanus (B), both from the 4th century, have?" options={[
-      { text: '“in Isaiah the prophet”', correct: true, why: 'Right. So does Codex Bezae (D), without the article. Westcott–Hort and SR print it too.' },
+    <MMQuestion q="The card shows three Greek forms for the prophet’s name. How many different readings are there in meaning?" options={[
+      { text: 'Two: “in Isaiah the prophet” and “in the prophets”.', correct: true, why: 'Right. Codex Bezae (D) writes “in Isaiah the prophet” without “the” before Isaiah, but the meaning is the same, so it belongs with the first reading. Three forms, two readings.' },
+      { text: 'Three, because D has no “the”.', why: 'Not really: the card shows three forms, but leaving out the article does not change what is said. Count readings by meaning, not by spelling or small words.' },
+      { text: 'One: all the witnesses agree.', why: 'No: the witnesses do not all agree; some name Isaiah and others say “the prophets”.' },
+    ]} />
+  </MMStep>
+
+  <MMStep n={3} title="External evidence">
+    <p>Now ask the questions about the witnesses: how old they are, where they come from, and how many.</p>
+    <MMQuestion q="Which reading do the oldest manuscripts here have, Codex Sinaiticus (א) and Codex Vaticanus (B), both from the 4th century?" options={[
+      { text: '“in Isaiah the prophet”', correct: true, why: 'Right. So does Codex Bezae (D, about 400). “In the prophets” is found in A and W (5th century), in the Byzantine text and in the Textus Receptus: later, though more numerous.' },
       { text: '“in the prophets”', why: 'No: that is the reading of A and W (5th century), the Byzantine text and the Textus Receptus.' },
     ]} />
   </MMStep>
 
-  <MMStep n={3} title="Which reading explains the other?">
+  <MMStep n={4} title="Internal evidence">
     <p>Ask what a copyist was likely to do. A scribe who knew the quotation starts with Malachi might think “Isaiah” was a mistake.</p>
     <MMQuestion q="Which change is a scribe more likely to have made?" options={[
       { text: '“in Isaiah the prophet” → “in the prophets”, to avoid naming the wrong prophet.', correct: true, why: 'Right. Metzger and Ehrman: later scribes, sensing a difficulty, replaced “in Isaiah the prophet” with the general statement “in the prophets” (p. 264). This is the “harder reading” rule at work.' },
@@ -41,10 +52,19 @@ const sources = [
     ]} />
   </MMStep>
 
-  <MMStep n={4} title="Decide for your translation" last>
+  <MMStep n={5} title="Weigh it up">
+    <p>Put the external and internal evidence together.</p>
+    <MMQuestion q="Which reading most likely came first?" options={[
+      { text: '“in Isaiah the prophet”: the oldest witnesses have it, and it explains why scribes changed it.', correct: true, why: 'Right. Both kinds of evidence point the same way, which is why the UBS text prints this reading.' },
+      { text: '“in the prophets”: more manuscripts have it.', why: 'No: number comes last. Many later copies can all go back to one changed ancestor.' },
+      { text: 'We cannot tell.', why: 'Here we can: the age of the witnesses and the scribes’ motive agree.' },
+    ]} />
+  </MMStep>
+
+  <MMStep n={6} title="Decide for your translation" last>
     <p>The UBS text prints “in Isaiah the prophet”. Bibles that follow the Textus Receptus, such as the KJV, have “in the prophets”.</p>
     <MMQuestion q="Your regional-language Bible has “in the prophets”. What is the best next step?" options={[
-      { text: 'Take the difference to your Review Committee, recommending the UBS text (“in Isaiah the prophet”) with a footnote.', correct: true, why: 'Right. Your <a href="' + url('guide/text-policy/') + '">text policy</a> asks for the UBS text, and for the Review Committee to decide where the regional-language Bible differs. Our recommendation is the UBS reading with a footnote such as: “Some manuscripts read ‘in the prophets’.” The committee makes the decision.' },
+      { text: 'Take the difference to your Review Committee, recommending the UBS text (“in Isaiah the prophet”) with a footnote.', correct: true, why: 'Right. Your ' + policy + ' asks for the UBS text, and for the Review Committee to decide where the regional-language Bible differs. Our recommendation is the UBS reading with a footnote such as: “Some manuscripts read ‘in the prophets’.” The committee makes the decision.' },
       { text: 'Print “in the prophets” because it is more accurate.', why: 'No: that is exactly the “correction” the scribes made. We translate the earliest text we can reach, not the one we think is more precise.' },
       { text: 'Leave out the name and say “as it is written”.', why: 'No: that reading is not in the manuscripts. Never change the text to remove a difficulty.' },
     ]} />

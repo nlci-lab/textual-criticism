@@ -102,6 +102,12 @@ export const GUIDES: GuideMeta[] = [
     before: 'guide/base-texts/', related: ['guide/base-texts/', 'guide/which-variants-matter/'],
   },
   {
+    path: 'glossary/', cover: 'Glossary', section: 'guide', level: 'Start here',
+    summary: 'The signs and short words of the UBS apparatus, and the terms used on this site, in plain English.',
+    learn: ['What the {A}–{D} ratings and // mean', 'Marks after a siglum: *, ¹ ², vid, supp', 'Byz, Lect and the content codes', 'Key terms: variant, external and internal evidence, TR, CBGM'],
+    related: ['guide/apparatus/', 'guide/paratext/', 'witnesses/'],
+  },
+  {
     path: 'guide/paratext/', cover: 'The apparatus in Paratext', section: 'guide', level: 'Start here',
     summary: 'Setting up the Source Language Text window beside your translation and decoding the sigla.',
     learn: ['Opening and installing the texts', 'Arranging the windows', 'Reading the apparatus marks', 'Decoding the sigla'],

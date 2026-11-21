@@ -1,33 +1,16 @@
 ---
-import Base from '../../layouts/Base.astro';
+// The micro modules are listed on the Learn page; this address forwards there.
 import { url } from '../../lib/url';
-const modules = [
-  { href: 'practice/mark-1-2/', ref: 'Mark 1:2', q: '“in Isaiah” or “in the prophets”?', skill: 'A scribe “corrects” an apparent error', min: 7 },
-  { href: 'practice/1-john-5-7/', ref: '1 John 5:7–8', q: 'The “Johannine comma”', skill: 'How a sentence entered the Textus Receptus', min: 8 },
-];
+const to = url('learn/#modules');
 ---
-<Base title="Practice" description="Micro modules: short guided problems on single passages." nav="guide/examples/">
-  <div class="px">
-    <p class="label">Practice · samples</p>
-    <h1>Micro modules</h1>
-    <p class="muted">Short guided problems on one passage each. You answer a question at every step and see why. Each takes under ten minutes.</p>
-    <ul class="mods">
-      {modules.map((m) => (
-        <li><a class="mod" href={url(m.href)}>
-          <span class="ref">{m.ref}</span><span class="q">{m.q}</span><span class="sk">{m.skill}</span><span class="mn">About {m.min} minutes · 4 steps</span>
-        </a></li>
-      ))}
-    </ul>
-    <p class="small muted">For the full method, see the <a href={url('guide/examples/')}>worked examples</a>.</p>
-  </div>
-</Base>
-<style>
-  .px { max-width: 52rem; margin: 1.75rem 0 3rem; }
-  .mods { list-style: none; padding: 0; margin: 1.25rem 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
-  .mod { display: flex; flex-direction: column; gap: .35rem; height: 100%; padding: 1rem 1.1rem; border: 1px solid var(--rule); border-left: 4px solid var(--rubric); border-radius: 10px; color: var(--ink); text-decoration: none; background: var(--paper); }
-  .mod:hover { border-color: var(--ink-2); border-left-color: var(--rubric); }
-  .ref { font: 600 .78rem var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--rubric); }
-  .q { font: 600 1.2rem/1.3 var(--serif); }
-  .sk { font: .85rem var(--sans); color: var(--ink-2); }
-  .mn { margin-top: auto; font: 600 .8rem var(--sans); color: var(--ink-2); }
-</style>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta http-equiv="refresh" content={`0; url=${to}`} />
+  <link rel="canonical" href={to} />
+  <title>Micro modules</title>
+</head>
+<body><p>The micro modules are now on the <a href={to}>Learn</a> page.</p></body>
+</html>
